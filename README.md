@@ -1,5 +1,11 @@
 # Galago Full Tilt Atomic Design Library
 
+## Website & Discord
+
+[fulltiltandboogie.com](https://www.fulltiltandboogie.com/)
+
+[discord](https://discord.gg/tBwhBHGyGP)
+
 ## Installation
 
 Install the package using Yarn:
