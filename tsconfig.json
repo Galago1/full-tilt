@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "isolatedModules": true,
+    "lib": ["dom", "ES2016", "esnext"],
+    "baseUrl": ".",
+    "target": "es6",
+    "module": "esnext",
+    "jsx": "react-jsx",
+    "declaration": true,
+    "declarationDir": "dist",
+    "sourceMap": true,
+    "outDir": "dist",
+    "strict": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "types": ["jest", "node", "react", "react-dom", "@testing-library/jest-dom"]
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}
