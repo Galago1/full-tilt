@@ -8,6 +8,18 @@ Install the package using Yarn:
 yarn add @galago/full-tilt
 ```
 
+## Requirements
+
+### TODO: figure out how to make these optional
+
+```bash
+Environment Variables
+Make sure to export the following environment variables:
+
+STRIPE_API_KEY=your_stripe_api_key_here
+MUI_X_DATA_GRID_PREMIUM_KEY=your_mui_x_data_grid_premium_key_here
+```
+
 # Development Environment
 
 ## Requirements
