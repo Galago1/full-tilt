@@ -1,6 +1,6 @@
 {
   "name": "@galago/full-tilt",
-  "version": "0.0.1",
+  "version": "0.0.5",
   "description": "The full-tilt react design system",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -109,6 +109,7 @@
     "@mui/x-data-grid-pro": "^5.17.26",
     "@mui/x-date-pickers": "^6.2.0",
     "@mui/x-date-pickers-pro": "^6.12.1",
+    "@mui/x-charts": "7.12.0",
     "@stripe/react-stripe-js": "^1.16.1",
     "@stripe/stripe-js": "^1.46.0",
     "formik": "^2.4.5",
@@ -127,7 +128,6 @@
   "dependencies": {
     "@fontsource-variable/inter": "^5.0.18",
     "@fontsource/inter": "^5.0.18",
-    "@mui/x-charts": "^7.11.1",
     "@rollup/plugin-commonjs": "^24.0.0",
     "@rollup/plugin-node-resolve": "^15.0.1",
     "express": "^4.18.3",

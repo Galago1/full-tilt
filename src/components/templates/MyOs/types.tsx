@@ -1,4 +1,6 @@
+import { FormikHelpers } from 'formik';
 import { MouseEventHandler } from 'react';
+import { InlineFormikProps } from 'src/components/organisms/Scorecard/ScorecardInlineEditCell';
 
 export interface TeamMember {
   imageUrl: string;
@@ -21,9 +23,16 @@ export interface Survey {
   contributed: number;
 }
 
-export interface Todo {
-  status: 'todo' | 'completed';
+export interface Scorecard {
+  id: string;
   title: string;
+  goal: string;
+  value: number;
+  onSave: (
+    values: InlineFormikProps,
+    form: FormikHelpers<InlineFormikProps>,
+    onCloseEditor: () => void
+  ) => void;
 }
 
 export interface Okr {

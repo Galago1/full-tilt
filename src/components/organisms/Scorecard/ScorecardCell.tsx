@@ -1,9 +1,9 @@
 import { Grid, useTheme } from '@mui/material';
 import { FormikHelpers } from 'formik';
+import TextInput from 'src/components/molecules/Inputs/TextInput/TextInput';
 import ScorecardInlineEditCell, {
   InlineFormikProps
 } from './ScorecardInlineEditCell';
-import TextInput from 'src/components/molecules/Inputs/TextInput/TextInput';
 import { RowDataObject } from './useScorecard';
 
 interface ScorecardCellProps {
@@ -34,7 +34,6 @@ const ScorecardCell = ({
   allowEmptyText
 }: ScorecardCellProps) => {
   const theme = useTheme();
-
   const backgroundColor =
     type === 'title' ? theme.palette.grey[50] : bgcolor || 'white';
 

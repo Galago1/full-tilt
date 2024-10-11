@@ -1,7 +1,15 @@
-import { Avatar, Grid, IconButton, Typography, useTheme } from '@mui/material';
+import {
+  Avatar,
+  Grid,
+  GridProps,
+  IconButton,
+  Typography,
+  useTheme
+} from '@mui/material';
 import { filter } from 'lodash';
 import { useState } from 'react';
 import { Button, Divider } from 'src/components/atoms';
+import { ButtonProps } from 'src/components/atoms/Button/Button';
 import AvatarAndText from 'src/components/molecules/AvatarAndText/AvatarAndText';
 import { Drawer } from 'src/components/organisms';
 import {
@@ -44,6 +52,10 @@ export interface UserProfileCardProps {
   onClose: () => void;
   phoneIconClick?: () => void;
   emailIconClick?: () => void;
+  slots: {
+    fullProfileButtonProps?: ButtonProps;
+    bannerGridProps?: GridProps;
+  };
 }
 
 const UserProfileCard = ({
@@ -51,8 +63,10 @@ const UserProfileCard = ({
   isOpen,
   onClose,
   phoneIconClick,
-  emailIconClick
+  emailIconClick,
+  slots
 }: UserProfileCardProps) => {
+  const { fullProfileButtonProps, bannerGridProps } = slots || {};
   const theme = useTheme();
   const [isTruncated, setIsTruncated] = useState(true);
 
@@ -112,8 +126,10 @@ const UserProfileCard = ({
             position: 'relative',
             backgroundColor: 'greyiron.900',
             width: '100%',
-            height: 120
+            height: 120,
+            ...bannerGridProps?.sx
           }}
+          {...bannerGridProps}
         >
           <Avatar
             alt="Bill Gates"
@@ -164,6 +180,7 @@ const UserProfileCard = ({
                 <PhoneIcon />
               </IconButton>
             )}
+            {fullProfileButtonProps && <Button {...fullProfileButtonProps} />}
           </Grid>
           <Grid container flexDirection={'column'} sx={{ mt: 2 }}>
             <Typography

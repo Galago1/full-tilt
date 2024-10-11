@@ -10,17 +10,16 @@ import {
   PendingSurveysCard,
   PendingSurveysCardProps
 } from './PendingSurveysCard';
-import { TodosCard, TodosCardProps } from './TodosCard';
+import { ScorecardsCard, ScorecardsCardProps } from './ScorecardsCard';
 import {
-  Story,
   Feedback,
   Idea,
   Issue,
   Meeting,
   Okr,
   Standup,
-  Survey,
-  Todo
+  Story,
+  Survey
 } from './types';
 
 export interface MyOsProps {
@@ -28,7 +27,6 @@ export interface MyOsProps {
   teamStandup: Standup;
   today: string | null;
   survey: Survey;
-  todos: Todo[];
   digest: Story[];
   okrs: Okr[];
   meetings: Meeting[];
@@ -36,15 +34,15 @@ export interface MyOsProps {
   feedback: Feedback[];
   ideas: Idea[];
   slots?: {
-    dailyStandupCardProps: DailyStandupCardProps;
-    pendingSurveysCard: PendingSurveysCardProps;
-    latestDigestCardProps: LatestDigestCardProps;
-    okrsCardProps: OkrsCardProps;
-    todosCardProps: TodosCardProps;
-    meetingsCardProps: MeetingsCardProps;
-    issuesCardProps: IssuesCardProps;
-    feedbackCardProps: FeedbackCardProps;
-    ideasCardProps: IdeasCardProps;
+    dailyStandupCardProps?: DailyStandupCardProps;
+    pendingSurveysCard?: PendingSurveysCardProps;
+    latestDigestCardProps?: LatestDigestCardProps;
+    okrsCardProps?: OkrsCardProps;
+    scorecardsCardProps?: ScorecardsCardProps;
+    meetingsCardProps?: MeetingsCardProps;
+    issuesCardProps?: IssuesCardProps;
+    feedbackCardProps?: FeedbackCardProps;
+    ideasCardProps?: IdeasCardProps;
   };
 }
 
@@ -53,7 +51,6 @@ export const MyOs = ({
   teamStandup,
   today,
   survey,
-  todos,
   digest,
   okrs,
   meetings,
@@ -67,7 +64,7 @@ export const MyOs = ({
     pendingSurveysCard,
     latestDigestCardProps,
     okrsCardProps,
-    todosCardProps,
+    scorecardsCardProps,
     meetingsCardProps,
     issuesCardProps,
     feedbackCardProps,
@@ -96,7 +93,7 @@ export const MyOs = ({
           </Grid>
         </Grid>
         <Grid item xs={12} md={12} lg={3} maxHeight={596}>
-          <TodosCard {...todosCardProps!} todos={todos} />
+          <ScorecardsCard {...scorecardsCardProps!} />
         </Grid>
       </Grid>
       <Grid item xs={12}>

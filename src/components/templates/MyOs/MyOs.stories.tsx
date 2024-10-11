@@ -1,6 +1,14 @@
 import { ComponentMeta, Story } from '@storybook/react';
 import { ZapIcon } from 'src/components/particles/theme/overrides/CustomIcons';
 import { MyOs, MyOsProps } from './MyOs';
+import { InlineFormikProps } from 'src/components/organisms/Scorecard/ScorecardInlineEditCell';
+import { FormikHelpers } from 'formik';
+
+const onSave = (
+  values: InlineFormikProps,
+  form: FormikHelpers<InlineFormikProps>,
+  onCloseEditor: () => void
+) => {};
 
 export default {
   title: 'Templates/MyOs',
@@ -60,40 +68,70 @@ Default.args = {
     contributed: 8,
     id: '1'
   },
-  todos: [
-    { status: 'todo', title: 'Design wireframes for Wave' },
-    { status: 'todo', title: 'Create a style guide for the new project' },
-    { status: 'todo', title: 'Develop high-fidelity mockups for the homepage' },
-    {
-      status: 'todo',
-      title: 'Conduct a usability test on the current prototype'
-    },
-    { status: 'completed', title: 'Design icons for the app’s feature set' },
-    {
-      status: 'completed',
-      title: 'Update the design system with new color palettes and typography'
-    },
-    {
-      status: 'completed',
-      title: 'Review and revise the design based on stakeholder feedback'
-    },
-    {
-      status: 'completed',
-      title: 'Design wireframes for Wave'
-    },
-    {
-      status: 'completed',
-      title: 'Create a style guide for the new project'
-    },
-    {
-      status: 'completed',
-      title: 'Develop high-fidelity mockups for the homepage'
-    },
-    {
-      status: 'completed',
-      title: 'Conduct a usability test on the current prototype'
+  slots: {
+    scorecardsCardProps: {
+      scorecardsContentProps: [
+        {
+          title: 'Daily',
+          onNextClick: () => console.log('next'),
+          onPrevClick: () => console.log('prev'),
+          currentDate: 'Jul 16',
+          scorecards: [
+            {
+              id: '1',
+              title: 'Design wireframes for Wave',
+              goal: '> 1',
+              value: 50,
+              onSave
+            },
+            {
+              id: '2',
+              title: 'Create a style guide for the new project',
+              goal: '= 100',
+              value: 70,
+              onSave
+            },
+            {
+              id: '3',
+              title: 'Develop high-fidelity mockups for the homepage',
+              goal: '> 10',
+              value: 99,
+              onSave
+            },
+            {
+              id: '4',
+              title: 'Conduct a usability test on the current prototype',
+              goal: '= 100',
+              value: 20,
+              onSave
+            }
+          ]
+        },
+        {
+          title: 'Weekly',
+          onNextClick: () => console.log('next'),
+          onPrevClick: () => console.log('prev'),
+          currentDate: 'Jul 16',
+          scorecards: [
+            {
+              id: '5',
+              title: 'Design wireframes for Wave',
+              goal: '= 100',
+              value: 50,
+              onSave
+            },
+            {
+              id: '6',
+              title: 'Create a style guide for the new project',
+              goal: '< 100',
+              value: 70,
+              onSave
+            }
+          ]
+        }
+      ]
     }
-  ],
+  },
   digest: [
     // {
     //   date: '04/04/24',
