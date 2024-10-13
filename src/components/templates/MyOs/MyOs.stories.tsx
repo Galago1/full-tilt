@@ -1,14 +1,78 @@
 import { ComponentMeta, Story } from '@storybook/react';
-import { ZapIcon } from 'src/components/particles/theme/overrides/CustomIcons';
-import { MyOs, MyOsProps } from './MyOs';
-import { InlineFormikProps } from 'src/components/organisms/Scorecard/ScorecardInlineEditCell';
 import { FormikHelpers } from 'formik';
+import { ButtonGroupProps } from 'src/components/molecules/ButtonGroup/ButtonGroup';
+import { InlineFormikProps } from 'src/components/organisms/Scorecard/ScorecardInlineEditCell';
+import {
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  ZapIcon
+} from 'src/components/particles/theme/overrides/CustomIcons';
+import { MyOs, MyOsProps } from './MyOs';
+import {
+  getColorByValue,
+  GoalCondition
+} from 'src/components/organisms/Scorecard/helpers';
 
 const onSave = (
   values: InlineFormikProps,
   form: FormikHelpers<InlineFormikProps>,
   onCloseEditor: () => void
 ) => {};
+
+const buttonGroupProps: ButtonGroupProps = {
+  sx: { '&': { display: 'flex' } },
+  buttons: [
+    {
+      label: <ChevronLeftIcon sx={{ width: 20, height: 20 }} />,
+      variant: 'outlined',
+      color: 'secondary',
+      size: 'small',
+      sx: {
+        '&': {
+          minWidth: 'auto',
+          borderRight: 'unset',
+          p: 1,
+          py: 1.5
+        }
+      },
+      onClick: () => console.log('clicked')
+    },
+    {
+      label: 'Jul 16',
+      variant: 'outlined',
+      color: 'secondary',
+      size: 'small',
+      fullWidth: true,
+      sx: {
+        '&': {
+          minWidth: 'auto',
+          borderRight: 'unset',
+          borderLeft: 'unset',
+          p: 1,
+          py: 1.5
+        },
+        flex: 1
+      },
+      disabled: true
+      // itemprops: { flex: 1 }
+    },
+    {
+      label: <ChevronRightIcon sx={{ width: 20, height: 20 }} />,
+      variant: 'outlined',
+      color: 'secondary',
+      size: 'small',
+      sx: {
+        '&': {
+          minWidth: 'auto',
+          borderLeft: 'unset',
+          p: 1,
+          py: 1.5
+        }
+      },
+      onClick: () => console.log('clicked')
+    }
+  ]
+};
 
 export default {
   title: 'Templates/MyOs',
@@ -73,59 +137,101 @@ Default.args = {
       scorecardsContentProps: [
         {
           title: 'Daily',
-          onNextClick: () => console.log('next'),
-          onPrevClick: () => console.log('prev'),
-          currentDate: 'Jul 16',
           scorecards: [
             {
               id: '1',
               title: 'Design wireframes for Wave',
               goal: '> 1',
-              value: 50,
-              onSave
+              value: 0,
+              onSave,
+              slots: { buttonGroupProps },
+              backgroundColor: getColorByValue(
+                GoalCondition.GREATER_THAN,
+                '1',
+                0
+              ),
+              date: 'Jul 13',
+              measurableMetricId: '1'
             },
             {
               id: '2',
               title: 'Create a style guide for the new project',
               goal: '= 100',
               value: 70,
-              onSave
+              onSave,
+              slots: { buttonGroupProps },
+              backgroundColor: getColorByValue(
+                GoalCondition.EQUAL_TO,
+                '100',
+                70
+              ),
+              date: 'Jul 13',
+              measurableMetricId: '1'
             },
             {
               id: '3',
               title: 'Develop high-fidelity mockups for the homepage',
               goal: '> 10',
               value: 99,
-              onSave
+              onSave,
+              slots: { buttonGroupProps },
+              backgroundColor: getColorByValue(
+                GoalCondition.GREATER_THAN,
+                '10',
+                99
+              ),
+              date: 'Jul 13',
+              measurableMetricId: '1'
             },
             {
               id: '4',
               title: 'Conduct a usability test on the current prototype',
               goal: '= 100',
               value: 20,
-              onSave
+              onSave,
+              slots: { buttonGroupProps },
+              backgroundColor: getColorByValue(
+                GoalCondition.EQUAL_TO,
+                '100',
+                20
+              ),
+              date: 'Jul 13',
+              measurableMetricId: '1'
             }
           ]
         },
         {
           title: 'Weekly',
-          onNextClick: () => console.log('next'),
-          onPrevClick: () => console.log('prev'),
-          currentDate: 'Jul 16',
           scorecards: [
             {
               id: '5',
               title: 'Design wireframes for Wave',
               goal: '= 100',
               value: 50,
-              onSave
+              onSave,
+              slots: { buttonGroupProps },
+              backgroundColor: getColorByValue(
+                GoalCondition.EQUAL_TO,
+                '100',
+                50
+              ),
+              date: 'Jul 13',
+              measurableMetricId: '1'
             },
             {
               id: '6',
               title: 'Create a style guide for the new project',
               goal: '< 100',
               value: 70,
-              onSave
+              onSave,
+              slots: { buttonGroupProps },
+              backgroundColor: getColorByValue(
+                GoalCondition.LESS_THAN,
+                '100',
+                70
+              ),
+              date: 'Jul 13',
+              measurableMetricId: '1'
             }
           ]
         }

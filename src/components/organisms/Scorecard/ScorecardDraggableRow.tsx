@@ -222,8 +222,6 @@ const ScorecardDraggableRow = ({
           content={data}
           type="data"
           width={columnWidths.data}
-          // bgcolor={getColorByValue!(data.value as string | number)}
-
           bgcolor={getColorByValue!(
             row?.goalCondition!,
             last(row!.goal.split(' ')) as string,

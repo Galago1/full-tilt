@@ -6,10 +6,13 @@ import {
   GridProps,
   useTheme
 } from '@mui/material';
+import { FormikHelpers } from 'formik';
 import { isEmpty } from 'lodash';
 import { useState } from 'react';
 import AvatarAndText from 'src/components/molecules/AvatarAndText/AvatarAndText';
-import ButtonList from 'src/components/molecules/ButtonList/ButtonList';
+import ButtonGroup, {
+  ButtonGroupProps
+} from 'src/components/molecules/ButtonGroup/ButtonGroup';
 import EmptyState from 'src/components/molecules/EmptyState/EmptyState';
 import NumberInputBase from 'src/components/molecules/Inputs/NumberInputBase/NumberInputBase';
 import LoadingIndicator from 'src/components/molecules/LoadingIndicator/LoadingIndicator';
@@ -18,36 +21,40 @@ import ScorecardInlineEditCell, {
 } from 'src/components/organisms/Scorecard/ScorecardInlineEditCell';
 import {
   ChevronDownIcon,
-  ChevronLeftIcon,
   ChevronRightIcon,
   ChevronUpIcon,
   ListIcon
 } from 'src/components/particles/theme/overrides/CustomIcons';
 import { responsiveSpacing } from 'src/components/particles/theme/spacing';
 import { Scorecard } from './types';
-import { FormikHelpers } from 'formik';
 
 interface ScoreCardItemProps {
-  currentDate: string;
   title: string;
   goal: string;
+  measurableMetricId: string;
   value: number;
-  onPrevClick: (title: string) => void;
-  onNextClick: (title: string) => void;
+  date: string;
   onSave: (
     values: InlineFormikProps,
     form: FormikHelpers<InlineFormikProps>,
     onCloseEditor: () => void
   ) => void;
+  backgroundColor: string;
+  slots: {
+    buttonGroupProps: ButtonGroupProps;
+  };
 }
 const ScoreCardItemList = ({
   title,
   goal,
+  measurableMetricId,
   value,
-  currentDate,
-  onPrevClick,
-  onNextClick
+  date,
+  onSave,
+  backgroundColor,
+  slots
 }: ScoreCardItemProps) => {
+  const { buttonGroupProps } = slots || {};
   const theme = useTheme();
   return (
     <Grid container flexDirection={'column'} gap={0.5}>
@@ -75,72 +82,23 @@ const ScoreCardItemList = ({
             }
           }}
         >
-          <Chip label={goal} color="secondary" />
+          <Chip label={goal} color="default" />
         </AvatarAndText>
       </Grid>
       <Grid item width={'100%'}>
         <Grid container gap={1} flexWrap={'nowrap'} alignItems={'center'}>
           <Grid item xs={10}>
-            <ButtonList
-              buttonSpacing={0}
-              buttons={[
-                {
-                  label: <ChevronLeftIcon sx={{ width: 20, height: 20 }} />,
-                  variant: 'outlined',
-                  color: 'secondary',
-                  size: 'small',
-                  sx: {
-                    '&': {
-                      minWidth: 'auto',
-                      borderRight: 'unset',
-                      p: 1,
-                      py: 1.5
-                    }
-                  },
-                  onClick: () => onPrevClick(title)
-                },
-                {
-                  // label: 'Jul 16',
-                  label: currentDate,
-                  variant: 'outlined',
-                  color: 'secondary',
-                  size: 'small',
-                  fullWidth: true,
-                  sx: {
-                    '&': {
-                      minWidth: 'auto',
-                      borderRight: 'unset',
-                      borderLeft: 'unset',
-                      p: 1,
-                      py: 1.5
-                    }
-                  },
-                  disabled: true,
-                  itemprops: { flex: 1 }
-                },
-                {
-                  label: <ChevronRightIcon sx={{ width: 20, height: 20 }} />,
-                  variant: 'outlined',
-                  color: 'secondary',
-                  size: 'small',
-                  sx: {
-                    '&': {
-                      minWidth: 'auto',
-                      borderLeft: 'unset',
-                      p: 1,
-                      py: 1.5
-                    }
-                  },
-                  onClick: () => onNextClick(title)
-                }
-              ]}
-            />
+            <ButtonGroup {...buttonGroupProps} />
           </Grid>
           <Grid item xs={2}>
             <ScorecardInlineEditCell
               type={'data'}
-              initialValue={{ value: value }}
-              onSave={() => {}}
+              initialValue={{
+                id: measurableMetricId || '',
+                value,
+                date
+              }}
+              onSave={onSave}
               component={NumberInputBase}
               closeOnSave={true}
               canEdit={true}
@@ -157,7 +115,7 @@ const ScoreCardItemList = ({
                 height: 46,
                 px: 0,
                 textAlign: 'center',
-                backgroundColor: theme.palette.grey[50],
+                backgroundColor,
                 borderRadius: theme.spacing(0.5),
                 display: 'flex',
                 alignItems: 'center',
@@ -176,17 +134,11 @@ interface ScorecardsContentProps {
   isFirst?: boolean;
   title: string;
   scorecards: Scorecard[];
-  currentDate: string;
-  onPrevClick: (title: string) => void;
-  onNextClick: (title: string) => void;
 }
 const ScorecardsContent = ({
   isFirst,
   title,
-  scorecards = [],
-  currentDate,
-  onPrevClick,
-  onNextClick
+  scorecards = []
 }: ScorecardsContentProps) => {
   const [expanded, setExpanded] = useState(true);
   return (
@@ -202,6 +154,7 @@ const ScorecardsContent = ({
         sx={{
           px: responsiveSpacing
         }}
+        width={'100%'}
       >
         <Grid container flexDirection={'column'} gap={1}>
           <Grid item width={'100%'}>
@@ -212,7 +165,11 @@ const ScorecardsContent = ({
               childrenGridProps={{ onClick: () => setExpanded(!expanded) }}
             >
               <Grid container alignItems={'center'}>
-                <Chip label={scorecards.length} color="secondary" />
+                <Chip
+                  label={scorecards.length}
+                  color="primary"
+                  variant={'outlined'}
+                />
                 {expanded ? <ChevronUpIcon /> : <ChevronDownIcon />}
               </Grid>
             </AvatarAndText>
@@ -222,6 +179,8 @@ const ScorecardsContent = ({
             sx={{
               width: '100%',
               '& .MuiCollapse-wrapperInner': {
+                display: 'flex',
+                flexDirection: 'column',
                 gap: 2
               }
             }}
@@ -236,10 +195,11 @@ const ScorecardsContent = ({
                   title={scorecard.title}
                   goal={scorecard.goal}
                   value={scorecard.value}
-                  currentDate={currentDate}
-                  onPrevClick={onPrevClick}
-                  onNextClick={onNextClick}
                   onSave={scorecard.onSave}
+                  slots={scorecard.slots}
+                  measurableMetricId={scorecard.measurableMetricId}
+                  date={scorecard.date}
+                  backgroundColor={scorecard.backgroundColor}
                 />
               </Grid>
             ))}

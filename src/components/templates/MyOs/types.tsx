@@ -1,5 +1,6 @@
 import { FormikHelpers } from 'formik';
 import { MouseEventHandler } from 'react';
+import { ButtonGroupProps } from 'src/components/molecules/ButtonGroup/ButtonGroup';
 import { InlineFormikProps } from 'src/components/organisms/Scorecard/ScorecardInlineEditCell';
 
 export interface TeamMember {
@@ -28,11 +29,17 @@ export interface Scorecard {
   title: string;
   goal: string;
   value: number;
+  date: string;
+  measurableMetricId: string;
+  backgroundColor: string;
   onSave: (
     values: InlineFormikProps,
     form: FormikHelpers<InlineFormikProps>,
     onCloseEditor: () => void
   ) => void;
+  slots: {
+    buttonGroupProps: ButtonGroupProps;
+  };
 }
 
 export interface Okr {

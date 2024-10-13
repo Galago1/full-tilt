@@ -10,6 +10,7 @@ import DataGrid, { DataGridProps } from '../DataGrid/DataGrid';
 import Table from '../Table';
 import KanbanColumn from './KanbanColumn';
 import { responsiveSpacing } from 'src/components/particles/theme/spacing';
+import { IndividualKanbanColumn } from './types';
 
 export enum KanbanListType {
   KANBAN = 'kanban',
@@ -19,7 +20,7 @@ export enum KanbanListType {
 
 interface DndContentProps {
   view: KanbanListType;
-  filteredColumns: any[];
+  filteredColumns: IndividualKanbanColumn[];
   filteredCards: any[];
   rowValues: string[];
   tableHeadCells: readonly HeadCell<{
@@ -107,6 +108,7 @@ const DndContent = ({
               index={index}
               handleEditCard={handleEditCard}
               disableMoveColumn={disableMoveColumn}
+              {...column.kanbanColumnProps}
             />
           </Grid>
         ))}

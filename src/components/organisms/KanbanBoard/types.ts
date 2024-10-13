@@ -1,5 +1,6 @@
 import { GridProps } from '@mui/material';
 import { AvatarAndTextProps } from 'src/components/molecules/AvatarAndText/AvatarAndText';
+import { KanbanColumnProps } from './KanbanColumn';
 
 export interface KanbanColumnCard {
   id?: string;
@@ -31,4 +32,5 @@ export interface IndividualKanbanColumn {
   headerAvatarAndTextProps?: AvatarAndTextProps;
   headerEndComp?: React.ReactNode;
   showDot?: boolean;
+  kanbanColumnProps?: KanbanColumnProps;
 }

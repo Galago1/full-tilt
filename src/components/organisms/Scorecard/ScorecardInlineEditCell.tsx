@@ -80,7 +80,7 @@ const ScorecardInlineEditCellContent = ({
       </Formik>
     );
 
-  if (initialValue?.value || allowEmptyText)
+  if (initialValue?.value || initialValue?.value === 0 || allowEmptyText)
     return (
       <Typography
         variant={type === 'title' ? 'textSmMedium' : 'textSmRegular'}
@@ -143,7 +143,7 @@ const ScorecardInlineEditCell = ({
   );
 
   const sx =
-    initialValue?.value || allowEmptyText
+    initialValue?.value || initialValue?.value === 0 || allowEmptyText
       ? { pl: isEditing ? 0 : 2 }
       : { justifyContent: 'center' };
 

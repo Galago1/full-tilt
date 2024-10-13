@@ -1,4 +1,4 @@
-import { Grid, useTheme } from '@mui/material';
+import { Grid, SxProps, useTheme } from '@mui/material';
 import { useRef, useState } from 'react';
 import {
   DragSourceMonitor,
@@ -12,6 +12,7 @@ import KanbanColumnHeader, {
 } from './KanbanColumnHeader';
 import { IndividualKanbanColumn } from './types';
 import { responsiveSpacing } from 'src/components/particles/theme/spacing';
+import { Theme } from '@emotion/react';
 
 export interface KanbanColumnProps {
   column: IndividualKanbanColumn;
@@ -27,6 +28,7 @@ export interface KanbanColumnProps {
   disableMoveColumn: boolean;
   slots?: {
     kanbanColumnHeaderProps: KanbanColumnHeaderProps;
+    columnCardsGridSx?: SxProps<Theme>;
   };
 }
 
@@ -39,7 +41,7 @@ const KanbanColumn = ({
   handleEditCard,
   slots
 }: KanbanColumnProps) => {
-  const { kanbanColumnHeaderProps } = slots || {};
+  const { kanbanColumnHeaderProps, columnCardsGridSx } = slots || {};
   const theme = useTheme();
   const ref = useRef<HTMLDivElement | null>(null);
   const [isOverEmpty, setIsOverEmpty] = useState(false); // Track if hovering over empty column
@@ -127,7 +129,8 @@ const KanbanColumn = ({
           minHeight: 0,
           height: 740,
           pb: 2,
-          minWidth: 240
+          minWidth: 240,
+          ...columnCardsGridSx
         }}
       >
         {column.cards.map((card, idx) => (
