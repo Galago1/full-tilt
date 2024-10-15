@@ -3,15 +3,23 @@ import Avatar from 'src/components/atoms/Avatar/Avatar';
 import { Formik, Field } from 'formik';
 import type { SelectInputBaseProps, SelectOption } from './SelectInputBase';
 import SelectInputBase from './SelectInputBase';
+import { Box } from '@mui/material';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
   title: 'Atoms/Input Base/Select Input Base',
-  component: SelectInputBase
+  component: SelectInputBase,
   // // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   // argTypes: {
   //   // styles: { backgroundColor: { control: 'color' } }
   // }
+  decorators: [
+    (Story) => (
+      <Box sx={{ width: '100%', maxWidth: '500px' }}>
+        <Story />
+      </Box>
+    )
+  ]
 } as ComponentMeta<typeof SelectInputBase>;
 
 const basicOptions: SelectOption[] = [
@@ -114,5 +122,18 @@ DisableSpecific.args = {
       menuItem: { disabled: true }
     }
   ],
+  label: 'Custom'
+};
+
+export const WithSubvalue = Template.bind({});
+WithSubvalue.args = {
+  options: [
+    ...basicOptions,
+    {
+      value: 2,
+      label: { value: 'Disabled Label', subvalue: 'Subvalue' }
+    }
+  ],
+  fullWidth: true,
   label: 'Custom'
 };

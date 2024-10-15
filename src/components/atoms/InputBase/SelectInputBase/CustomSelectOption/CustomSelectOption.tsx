@@ -32,6 +32,10 @@ export interface CustomSelectOptionProps {
    * Grid item props
    */
   gridItemProps?: GridProps;
+  /**
+   * hde the subvalue form the display
+   */
+  hideSubvalue?: boolean;
 }
 
 /**
@@ -45,6 +49,7 @@ export const CustomSelectOption = ({
   gridItemProps,
   overrideDisplayValue,
   allowOverrideDisplayValue,
+  hideSubvalue,
   ...props
 }: CustomSelectOptionProps) => {
   return (
@@ -84,7 +89,7 @@ export const CustomSelectOption = ({
         >
           {allowOverrideDisplayValue ? overrideDisplayValue ?? value : value}
         </Typography>
-        {subvalue && (
+        {subvalue && !hideSubvalue && (
           <Typography
             variant="textMdRegular"
             sx={{

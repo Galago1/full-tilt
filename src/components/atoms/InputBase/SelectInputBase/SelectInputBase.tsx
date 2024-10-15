@@ -75,11 +75,12 @@ export const SelectInputBase = ({
       } as CustomSelectOptionProps
     };
     return (
-      <Grid sx={{ minWidth: '100%' }} {...boxProps}>
+      <Grid sx={{ minWidth: '100%', pr: 2 }} {...boxProps}>
         <CustomSelectOption
           allowOverrideDisplayValue={true}
           {...option.label}
           checked={false}
+          hideSubvalue={true}
         />
       </Grid>
     );
@@ -95,6 +96,9 @@ export const SelectInputBase = ({
           '& .MuiSelect-select': {
             padding: 0,
             ...styles(props.value)
+          },
+          '& .MuiSelect-icon': {
+            right: 7
           },
           '& .MuiSelect-iconOpen': {
             transform: 'rotate(180deg)'
