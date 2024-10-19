@@ -7,6 +7,14 @@ import CalendarHeader, { CalendarHeaderProps } from './CalendarHeader';
 import { useCalendar } from './hooks';
 import { CalendarView, Meeting } from './types';
 
+interface Slots {
+  calendarHeaderProps?: CalendarHeaderProps;
+  calendarContentProps?: CalendarContentProps;
+  headerGridItemProps?: GridProps;
+  dividerGridItemProps?: GridProps;
+  contentGridItemProps?: GridProps;
+}
+
 export interface CalendarProps extends GridProps {
   /**
    * The loading state of the component
@@ -67,13 +75,7 @@ export interface CalendarProps extends GridProps {
   /**
    * The slots for the component
    */
-  slots?: {
-    calendarHeaderProps?: CalendarHeaderProps;
-    calendarContentProps?: CalendarContentProps;
-    headerGridItemProps?: GridProps;
-    dividerGridItemProps?: GridProps;
-    contentGridItemProps?: GridProps;
-  };
+  slots?: Slots;
 }
 
 const Calendar = ({
@@ -91,14 +93,6 @@ const Calendar = ({
   ...props
 }: CalendarProps) => {
   const {
-    calendarHeaderProps,
-    calendarContentProps,
-    headerGridItemProps,
-    dividerGridItemProps,
-    contentGridItemProps
-  } = slots || {};
-  const theme = useTheme();
-  const {
     currentYear,
     currentMonth,
     calendarMeetings,
@@ -106,6 +100,12 @@ const Calendar = ({
     view,
     currentWeekStart,
     weeks,
+    theme,
+    calendarHeaderProps,
+    calendarContentProps,
+    headerGridItemProps,
+    dividerGridItemProps,
+    contentGridItemProps,
     setView,
     handleDayViewDateChange,
     onDropMeeting,
@@ -121,6 +121,7 @@ const Calendar = ({
     meetings,
     isLoading!,
     initialView!,
+    slots,
     onDropMeetingExternal!,
     onUpdateYear,
     onUpdateMonth,

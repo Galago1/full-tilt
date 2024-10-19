@@ -16,6 +16,7 @@ import useDeepCompareEffect from 'src/hooks/useDeepCompareEffect';
 import { DateFormat } from 'src/types/dateFns';
 import { MeetingDragObject } from './MeetingChip';
 import { CalendarDay, CalendarView, CalendarWeek, Meeting } from './types';
+import { CalendarProps } from './Calendar';
 
 export const useCalendarHeaderActions = (
   setView: (view: CalendarView) => void,
@@ -385,6 +386,7 @@ export const useCalendar = (
   meetings: Meeting[],
   isLoading: boolean = true,
   initialView: CalendarView,
+  slots?: CalendarProps['slots'],
   onDropMeetingExternal?: (
     meetingId: string | number,
     newDay: string,
@@ -395,6 +397,14 @@ export const useCalendar = (
   onUpdateWeek?: (weekStart: Date) => void,
   onUpdateDate?: (date: Date) => void
 ) => {
+  const {
+    calendarHeaderProps,
+    calendarContentProps,
+    headerGridItemProps,
+    dividerGridItemProps,
+    contentGridItemProps
+  } = slots || {};
+  const theme = useTheme();
   const [currentYear, setCurrentYear] = useState(initialYear);
   const [currentMonth, setCurrentMonth] = useState(initialMonth);
   const [calendarMeetings, setCalendarMeetings] = useState<Meeting[]>(meetings);
@@ -514,6 +524,13 @@ export const useCalendar = (
     view,
     currentWeekStart,
     weeks,
+
+    calendarHeaderProps,
+    calendarContentProps,
+    headerGridItemProps,
+    dividerGridItemProps,
+    contentGridItemProps,
+    theme,
     setView,
     handleDayViewDateChange,
     onDropMeeting: onDropMeetingExternal ?? onDropMeeting,

@@ -48,7 +48,7 @@ const CalendarHeader = ({
       gap={responsiveSpacing}
       flexWrap={{ xs: 'wrap', sm: 'wrap', md: 'nowrap' }}
     >
-      <Grid item xs={12} sm={12} md={'auto'} flex={{ xs: 0, sm: 0, md: 1 }}>
+      <Grid item flex={1}>
         <CalendarHeaderPrevNext
           view={view!}
           selectedDate={selectedDate!}
@@ -63,7 +63,7 @@ const CalendarHeader = ({
           goToNextMonth={goToNextMonth!}
         />
       </Grid>
-      <Grid item xs={12} sm={12} md={'auto'}>
+      <Grid item>
         <CalendarHeaderActions
           {...calendarHeaderActionsProps!}
           initialView={initialView}

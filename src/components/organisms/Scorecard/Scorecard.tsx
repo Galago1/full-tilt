@@ -158,8 +158,6 @@ const Scorecard = ({
                     showCheckbox={showCheckbox}
                   />
                 ))}
-                <Grid width={34} mr={1} />
-                {/* <ScorecardHeadCell content={''} /> */}
               </Grid>
             )}
 
