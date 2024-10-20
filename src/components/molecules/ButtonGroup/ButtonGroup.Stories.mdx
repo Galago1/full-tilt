@@ -1,0 +1,53 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
+import ButtonGroup from './ButtonGroup';
+import * as ButtonGroupStories from './ButtonGroup.stories';
+import { ThemeProvider } from 'src/components/particles';
+import { CheckCircleIcon } from 'src/components/particles/theme/overrides/CustomIcons';
+
+<Meta title="Molecules/ButtonGroup/Docs" component={ButtonGroup} />
+
+# ButtonGroup
+
+The `ButtonGroup` component is a wrapper for multiple buttons, providing additional styling and functionality.
+
+<ArgsTable of={ButtonGroup} />
+
+<Canvas>
+    <Story of={ButtonGroupStories.Default} name="Default" />
+</Canvas>
+
+
+## Imports
+
+```js
+import ButtonGroup from 'src/components/molecules/ButtonGroup/ButtonGroup';
+import { CheckCircleIcon } from 'src/components/particles/theme/overrides/CustomIcons';
+import { ThemeProvider } from 'src/components/particles';
+```
+
+### Default
+
+<Canvas>
+    <Story of={ButtonGroupStories.Default} name="Default" />
+</Canvas>
+
+### Start Icon
+
+<Canvas>
+    <Story of={ButtonGroupStories.StartIcon} name="StartIcon" />
+</Canvas>
+
+### End Icon
+
+<Canvas>
+    <Story of={ButtonGroupStories.EndIcon} name="EndIcon" />
+</Canvas>
+
+### Icon Only
+
+<Canvas>
+    <Story of={ButtonGroupStories.IconOnly} name="IconOnly" />
+</Canvas>
+
+## Accessibility
+To ensure assistive technologies like screen readers can identify and announce button groups correctly, assign the appropriate role attribute and an explicit label. Use role="group" for button groups or role="toolbar" for button toolbars. Then, use aria-label or aria-labelledby to provide a label.
