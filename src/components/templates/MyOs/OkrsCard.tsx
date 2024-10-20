@@ -190,6 +190,7 @@ export const OkrsCard = ({
           <AvatarAndText
             gap={1}
             leftIcon={<TriangleIcon />}
+            leftIconItemSx={{ display: 'flex' }}
             title={`My OKRs`}
             titleTypography={{ variant: 'textLgSemibold' }}
           />

@@ -179,6 +179,7 @@ export const LatestDigestCard = ({
           <AvatarAndText
             gap={1}
             leftIcon={<ZapIcon />}
+            leftIconItemSx={{ display: 'flex' }}
             title={`Latest Digest`}
             titleTypography={{ variant: 'textLgSemibold' }}
           />

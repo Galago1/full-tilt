@@ -119,6 +119,7 @@ export const IdeasCard = ({
           <AvatarAndText
             gap={1}
             leftIcon={<Lightbulb05Icon />}
+            leftIconItemSx={{ display: 'flex' }}
             title={`My Ideas`}
             titleTypography={{ variant: 'textLgSemibold' }}
           />

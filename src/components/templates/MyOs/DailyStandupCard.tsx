@@ -280,6 +280,7 @@ export const DailyStandupCard = ({
           <AvatarAndText
             gap={1}
             leftIcon={<CalendarMinus01Icon />}
+            leftIconItemSx={{ display: 'flex' }}
             title={`Daily Stand Up`}
             titleTypography={{ variant: 'textLgSemibold' }}
           />

@@ -1,4 +1,4 @@
-import { Divider, Grid, GridProps, useTheme } from '@mui/material';
+import { Divider, Grid, GridProps } from '@mui/material';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { responsiveSpacing } from 'src/components/particles/theme/spacing';

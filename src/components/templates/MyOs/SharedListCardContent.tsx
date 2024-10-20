@@ -29,7 +29,13 @@ const SharedListCardContent = ({
   const { chipProps } = slots || {};
   return (
     <>
-      <Grid item display="flex" alignItems="center" width={'100%'} {...props}>
+      <Grid
+        item
+        display="flex"
+        alignItems="flex-start"
+        width={'100%'}
+        {...props}
+      >
         <Grid container alignItems="center" gap={0.5}>
           <AvatarAndText
             title={

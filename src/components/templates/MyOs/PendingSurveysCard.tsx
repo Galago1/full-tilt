@@ -127,6 +127,7 @@ export const PendingSurveysCard = ({
           <AvatarAndText
             gap={1}
             leftIcon={<MessageQuestionCircleIcon />}
+            leftIconItemSx={{ display: 'flex' }}
             title={`Pending Surveys`}
             titleTypography={{ variant: 'textLgSemibold' }}
           />

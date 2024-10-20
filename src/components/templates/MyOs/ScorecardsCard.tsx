@@ -23,7 +23,8 @@ import {
   ChevronDownIcon,
   ChevronRightIcon,
   ChevronUpIcon,
-  ListIcon
+  ListIcon,
+  Target05Icon
 } from 'src/components/particles/theme/overrides/CustomIcons';
 import { responsiveSpacing } from 'src/components/particles/theme/spacing';
 import { Scorecard } from './types';
@@ -288,7 +289,7 @@ export const ScorecardsCard = ({
           spacing={0}
           gap={1}
           alignItems={'center'}
-          leftIcon={<ListIcon />}
+          leftIcon={<Target05Icon />}
           leftIconGridProps={{ display: 'flex' }}
           title={'My Scorecards'}
           textGridItemProps={{ flex: 1 }}

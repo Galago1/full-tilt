@@ -465,22 +465,6 @@ Default.args = {
         'Take time to review the wireframes before the next review meeting',
       priority: 'Medium',
       icon: <ZapIcon />
-    },
-    {
-      id: '2',
-      status: 'To Do',
-      title:
-        'Take time to review the wireframes before the next review meeting',
-      priority: 'Low',
-      icon: <ZapIcon />
-    },
-    {
-      id: '3',
-      status: 'Blocked',
-      title:
-        'Take time to review the wireframes before the next review meeting',
-      priority: 'High',
-      icon: <ZapIcon />
     }
   ]
 };

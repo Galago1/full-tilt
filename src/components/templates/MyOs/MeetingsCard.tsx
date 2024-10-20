@@ -219,6 +219,7 @@ export const MeetingsCard = ({
           <AvatarAndText
             gap={1}
             leftIcon={<CalendarIcon />}
+            leftIconItemSx={{ display: 'flex' }}
             title={`My Meetings`}
             titleTypography={{ variant: 'textLgSemibold' }}
           />

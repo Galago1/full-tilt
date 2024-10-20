@@ -5,6 +5,7 @@ import EmptyState from 'src/components/molecules/EmptyState/EmptyState';
 import LoadingIndicator from 'src/components/molecules/LoadingIndicator/LoadingIndicator';
 import Card, { CardProps } from 'src/components/organisms/Card/Card';
 import {
+  InfoCircleIcon,
   MessageQuestionCircleIcon,
   ZapIcon
 } from 'src/components/particles/theme/overrides/CustomIcons';
@@ -118,7 +119,8 @@ export const IssuesCard = ({
         <Grid item display="flex" alignItems="center">
           <AvatarAndText
             gap={1}
-            leftIcon={<MessageQuestionCircleIcon />}
+            leftIcon={<InfoCircleIcon />}
+            leftIconItemSx={{ display: 'flex' }}
             title={`My Issues`}
             titleTypography={{ variant: 'textLgSemibold' }}
           />
