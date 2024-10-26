@@ -1,7 +1,7 @@
 import { Grid, IconButton, Theme, Typography } from '@mui/material';
 import { isEmpty } from 'lodash';
 import { Divider, FeaturedIcon } from 'src/components/atoms';
-import { ButtonProps } from 'src/components/atoms/Button/Button';
+import Button, { ButtonProps } from 'src/components/atoms/Button/Button';
 import EmptyState from 'src/components/molecules/EmptyState/EmptyState';
 import {
   InfoCircleIcon,
@@ -12,6 +12,7 @@ import StandUpMemberDetailCardContentHeader from './StandUpMemberDetailCardConte
 import { TeamMember } from './StandUpUserList';
 
 interface StandUpMemberDetailCardContentProps {
+  isMember: boolean;
   member: TeamMember;
   onBack: () => void;
   onNext: () => void;
@@ -23,9 +24,11 @@ interface StandUpMemberDetailCardContentProps {
   theme: Theme;
   showEditButton: boolean;
   editButtonProps: ButtonProps;
+  memberButtonProps: ButtonProps;
   children?: React.ReactNode;
 }
 const StandUpMemberDetailCardContent = ({
+  isMember,
   member,
   onBack,
   onNext,
@@ -37,6 +40,7 @@ const StandUpMemberDetailCardContent = ({
   theme,
   showEditButton,
   editButtonProps,
+  memberButtonProps,
   children
 }: StandUpMemberDetailCardContentProps) => {
   if (!member)
@@ -93,19 +97,31 @@ const StandUpMemberDetailCardContent = ({
         >
           <Grid item>
             <EmptyState
+              featuredIconProps={{
+                children: <InfoCircleIcon />
+              }}
+              featuredIconItemProps={{
+                display: 'flex',
+                justifyContent: 'center'
+              }}
               avatarAndTextProps={{
                 title: 'Stand Up Not Completed',
-                subtitle: `${member.name} did not complete the stand up for this day.`,
+                subtitle: `${
+                  isMember ? 'You' : member.name
+                } did not complete the stand up for this day.`,
                 alignItems: 'center',
                 textContainerGridItemProps: {
                   alignItems: 'center'
-                }
+                },
+                children:
+                  isMember && memberButtonProps ? (
+                    <Button {...memberButtonProps} />
+                  ) : null
               }}
             />
           </Grid>
         </Grid>
       )}
-      {/* {!isEmpty(member.standUpCompletedAt) && !isEmpty(member.standUpContent) && ( */}
       {children ? <>{children}</> : null}
       {tipVisible && (
         <Grid

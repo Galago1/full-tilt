@@ -42,7 +42,22 @@ offlineTimeStamp.setMinutes(offlineTimeStamp.getMinutes() - 16);
 const teamMembers: TeamMember[] = [
   {
     id: 'asdcad',
-    name: 'Phoenix Bakasdcasdcasder',
+    name: 'Phoenix Baker First',
+    imageUrl: image,
+    status: 'Active',
+    team: 'Product',
+    teamId: 'asdc',
+    standUpCompletedAt: null,
+    standUpContent: [
+      'Increase team health and trust.',
+      'Update our company Vision.',
+      'Resolve all material issues.'
+    ],
+    lastSeen: activeTimestamp.toISOString()
+  },
+  {
+    id: 'asdcad',
+    name: 'Phoenix Baker',
     imageUrl: image,
     status: 'Active',
     team: 'Product',
@@ -85,6 +100,7 @@ export const Default = Template.bind({});
 Default.args = {
   teamsOptions: teamsOptions,
   teamMembers: teamMembers,
+  currentMember: teamMembers[0],
   slots: {
     editButtonProps: {
       label: <Edit05Icon />,
@@ -103,6 +119,7 @@ Controlled.args = {
   teamsOptions: teamsOptions,
   showTeamSelect: false,
   hideShowEditButton: true,
+  currentMember: teamMembers[0],
   slots: {
     standUpMemberDetailContent: (
       <>

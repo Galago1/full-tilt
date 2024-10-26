@@ -17,6 +17,10 @@ export interface EmptyStateProps extends GridProps {
    */
   featuredIconProps?: FeaturedIconProps;
   /**
+   * Featured Icon Item Props
+   */
+  featuredIconItemProps?: GridProps;
+  /**
    * Avatar And Text Props
    */
   avatarAndTextProps?: AvatarAndTextProps;
@@ -47,6 +51,7 @@ export interface EmptyStateProps extends GridProps {
  */
 const EmptyState = ({
   featuredIconProps,
+  featuredIconItemProps,
   avatarAndTextProps,
   avatarAndTextItemProps,
   buttonListProps,
@@ -59,7 +64,7 @@ const EmptyState = ({
   return (
     <Grid container spacing={0} flexDirection={'column'} {...props}>
       {featuredIconProps && (
-        <Grid item>
+        <Grid item {...featuredIconItemProps}>
           <FeaturedIcon
             size={isDesktop || isLarge ? 'xl' : 'lg'}
             {...featuredIconProps}

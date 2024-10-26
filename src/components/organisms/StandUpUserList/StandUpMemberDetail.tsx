@@ -20,6 +20,8 @@ interface StandUpMemberDetailProps {
   showEditButton: boolean;
   editButtonProps: ButtonProps;
   standUpMemberDetailContent?: React.ReactNode;
+  currentMember: TeamMember;
+  memberButtonProps: ButtonProps;
 }
 
 const StandUpMemberDetail = ({
@@ -34,7 +36,9 @@ const StandUpMemberDetail = ({
   theme,
   showEditButton,
   editButtonProps,
-  standUpMemberDetailContent
+  memberButtonProps,
+  standUpMemberDetailContent,
+  currentMember
 }: StandUpMemberDetailProps) => {
   return (
     <Card
@@ -49,6 +53,7 @@ const StandUpMemberDetail = ({
       }}
     >
       <StandUpMemberDetailCardContent
+        isMember={currentMember.id === member.id}
         member={member}
         onBack={onBack}
         onNext={onNext}
@@ -60,8 +65,9 @@ const StandUpMemberDetail = ({
         theme={theme}
         showEditButton={showEditButton}
         editButtonProps={editButtonProps}
+        memberButtonProps={memberButtonProps}
       >
-        {standUpMemberDetailContent}
+        {member.standUpCompletedAt ? standUpMemberDetailContent : <></>}
       </StandUpMemberDetailCardContent>
     </Card>
   );
