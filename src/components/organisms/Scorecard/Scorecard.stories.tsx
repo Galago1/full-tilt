@@ -2,6 +2,16 @@ import { Meta, Story } from '@storybook/react';
 import Scorecard, { ScorecardProps } from './Scorecard';
 import { GoalCondition, scorecardDropdown } from './helpers';
 
+const onSave = async (
+  values: any,
+  form: any,
+  onClose: () => void,
+  row: any
+) => {
+  console.log('onSave', values, form, onClose, row);
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+};
+
 export default {
   title: 'Atoms/Scorecard',
   component: Scorecard
@@ -11,6 +21,7 @@ const Template: Story<ScorecardProps> = (args) => <Scorecard {...args} />;
 
 export const Daily = Template.bind({});
 Daily.args = {
+  onSave,
   onClickEdit: (event, row) => console.log('Edit clicked', event, row),
   slots: {
     scoreCardDraggableRowProps: {
@@ -74,6 +85,7 @@ Daily.args = {
 
 export const DailyEmpty = Template.bind({});
 DailyEmpty.args = {
+  onSave,
   onClickEdit: (event, row) => console.log('Edit clicked', event, row),
   slots: {
     scoreCardDraggableRowProps: {
@@ -98,6 +110,7 @@ DailyEmpty.args = {
 
 export const Weekly = Template.bind({});
 Weekly.args = {
+  onSave,
   type: 'weekly',
   data: [
     {
@@ -153,6 +166,7 @@ Weekly.args = {
 
 export const Monthly = Template.bind({});
 Monthly.args = {
+  onSave,
   type: 'monthly',
   data: [
     {
@@ -208,6 +222,7 @@ Monthly.args = {
 
 export const Quarterly = Template.bind({});
 Quarterly.args = {
+  onSave,
   type: 'quarterly',
   data: [
     {
@@ -257,6 +272,7 @@ Quarterly.args = {
 
 export const Yearly = Template.bind({});
 Yearly.args = {
+  onSave,
   type: 'yearly',
   data: [
     {

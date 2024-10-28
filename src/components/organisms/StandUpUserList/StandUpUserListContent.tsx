@@ -19,6 +19,7 @@ const getStatusBadgeColor = (standUpCompletedAt: string | null): string => {
 };
 
 interface StandUpUserListContentProps {
+  selectedIndex: number | null;
   filteredMembers: TeamMember[];
   setSelectedIndex: (index: number) => void;
   theme: Theme;
@@ -26,6 +27,7 @@ interface StandUpUserListContentProps {
 }
 
 const StandUpUserListContent = ({
+  selectedIndex,
   filteredMembers,
   setSelectedIndex,
   theme,
@@ -49,15 +51,17 @@ const StandUpUserListContent = ({
             .join('')
         };
 
+        const isSelected = selectedIndex === index;
+
         return (
           <Fragment key={member.id}>
             <ListItem
               onClick={() => setSelectedIndex(index)}
               sx={{
-                paddingTop: index === 0 ? 0 : 2,
-                paddingBottom: 2,
+                py: 1,
                 px: 0,
-                cursor: 'pointer'
+                cursor: 'pointer',
+                backgroundColor: isSelected ? 'grey.100' : 'transparent'
               }}
             >
               <Grid container alignItems="center" wrap="nowrap" gap={1}>

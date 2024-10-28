@@ -29,12 +29,13 @@ interface RowsOrEmptyStateProps {
     trend: number
   ) => string;
   showCheckbox: boolean;
+  showDotsIcon: boolean;
   onSave: (
     values: InlineFormikProps,
     form: FormikHelpers<InlineFormikProps>,
     onCloseEditor: () => void,
     row: RowData
-  ) => void;
+  ) => Promise<void>;
   closeOnSave: boolean;
   canEdit: boolean;
   onClickEdit?: (event: any, row: RowData) => void;
@@ -52,6 +53,7 @@ const RowsOrEmptyState = ({
   isTrendWithinGoal,
   getColorByValue,
   showCheckbox,
+  showDotsIcon,
   onSave,
   closeOnSave,
   canEdit,
@@ -75,6 +77,7 @@ const RowsOrEmptyState = ({
           isTrendWithinGoal={isTrendWithinGoal}
           getColorByValue={getColorByValue}
           showCheckbox={showCheckbox}
+          showDotsIcon={showDotsIcon}
           onSave={onSave}
           closeOnSave={closeOnSave}
           canEdit={canEdit}

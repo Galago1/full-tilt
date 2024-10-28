@@ -10,11 +10,14 @@ import { Field, Form, Formik, FormikHelpers } from 'formik';
 import { useCallback, useState } from 'react';
 import { PlusIcon } from 'src/components/particles/theme/overrides/CustomIcons';
 import { RowDataObject } from './useScorecard';
+import LoadingOverlay from 'src/components/molecules/LoadingOverlay/LoadingOverlay';
 
 interface ScorecardInlineEditCellContentProps {
   type: 'title' | 'data';
   isEditing: boolean;
   initialValue: RowDataObject;
+  isLoading: boolean;
+  isSuccess: boolean;
   handleSubmit: (
     values: InlineFormikProps,
     form: FormikHelpers<InlineFormikProps>
@@ -27,6 +30,8 @@ const ScorecardInlineEditCellContent = ({
   type,
   isEditing,
   initialValue,
+  isLoading,
+  isSuccess,
   handleSubmit,
   component,
   allowEmptyText,
@@ -35,57 +40,65 @@ const ScorecardInlineEditCellContent = ({
   const theme = useTheme();
   if (isEditing)
     return (
-      <Formik initialValues={initialValue} onSubmit={handleSubmit}>
-        {({
-          values,
-          handleChange,
-          handleBlur,
-          touched,
-          errors,
-          submitForm,
-          isSubmitting
-        }) => (
-          <Form style={{ display: 'flex', flex: 1 }}>
-            <Field
-              component={component}
-              id="value"
-              name="value"
-              value={values.value}
-              onChange={handleChange}
-              onBlur={(e: FocusEvent) => {
-                handleBlur(e);
-                submitForm();
+      <>
+        <Formik initialValues={initialValue} onSubmit={handleSubmit}>
+          {({
+            values,
+            handleChange,
+            handleBlur,
+            touched,
+            errors,
+            submitForm,
+            isSubmitting
+          }) => (
+            <Form
+              style={{
+                flex: 1
               }}
-              error={touched.value && Boolean(errors.value)}
-              helperText={touched.value && errors.value}
-              autoFocus
-              onKeyPress={(event: KeyboardEvent) => {
-                if (event.key === 'Enter') {
-                  handleBlur(event);
+            >
+              <Field
+                component={component}
+                labelSx={{ display: isLoading || isSuccess ? 'none' : 'flex' }}
+                id="value"
+                name="value"
+                value={values.value}
+                onChange={handleChange}
+                onBlur={(e: FocusEvent) => {
+                  handleBlur(e);
                   submitForm();
-                }
-              }}
-              disabled={isSubmitting}
-              sx={{
-                display: 'flex',
-                flex: 1,
-                '& .MuiOutlinedInput-notchedOutline': {
-                  borderRadius: theme.borderRadius.xs
-                },
-                ...fieldSx
-              }}
-            />
-          </Form>
-        )}
-      </Formik>
+                }}
+                error={touched.value && Boolean(errors.value)}
+                helperText={touched.value && errors.value}
+                autoFocus
+                onKeyPress={(event: KeyboardEvent) => {
+                  if (event.key === 'Enter') {
+                    handleBlur(event);
+                    submitForm();
+                  }
+                }}
+                disabled={isSubmitting}
+                sx={{
+                  display: isLoading || isSuccess ? 'none' : 'flex',
+                  flex: 1,
+                  opacity: isLoading || isSuccess ? 0.5 : 1,
+                  transition: 'opacity 200ms ease-in-out',
+
+                  '& .MuiOutlinedInput-notchedOutline': {
+                    borderRadius: theme.borderRadius.xs
+                  },
+                  ...fieldSx
+                }}
+              />
+              <LoadingOverlay isLoading={isLoading} isSuccess={isSuccess} />
+            </Form>
+          )}
+        </Formik>
+      </>
     );
 
   if (initialValue?.value || initialValue?.value === 0 || allowEmptyText)
     return (
-      <Typography
-        variant={type === 'title' ? 'textSmMedium' : 'textSmRegular'}
-        noWrap
-      >
+      <Typography variant={'textMdRegular'} noWrap>
         {initialValue.value ?? '\u00A0'}
       </Typography>
     );
@@ -105,7 +118,7 @@ interface ScorecardInlineEditCellProps extends Omit<GridProps, 'component'> {
     values: InlineFormikProps,
     form: FormikHelpers<InlineFormikProps>,
     onCloseEditor: () => void
-  ) => void;
+  ) => Promise<void>;
   component: any;
   closeOnSave: boolean;
   canEdit: boolean;
@@ -125,6 +138,8 @@ const ScorecardInlineEditCell = ({
   ...props
 }: ScorecardInlineEditCellProps) => {
   const [isEditing, setIsEditing] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const handleDoubleClick = useCallback(() => {
     setIsEditing(canEdit);
@@ -135,11 +150,28 @@ const ScorecardInlineEditCell = ({
   };
 
   const handleSubmit = useCallback(
-    (values: InlineFormikProps, form: FormikHelpers<InlineFormikProps>) => {
-      onSave(values, form, onCloseEditor);
-      if (closeOnSave) onCloseEditor();
+    async (
+      values: InlineFormikProps,
+      form: FormikHelpers<InlineFormikProps>
+    ) => {
+      setIsLoading(true);
+      setIsSuccess(false);
+      try {
+        await onSave(values, form, onCloseEditor);
+        setIsLoading(false);
+        setIsSuccess(true);
+        setTimeout(() => {
+          setIsSuccess(false);
+          if (closeOnSave) {
+            onCloseEditor();
+          }
+        }, 300); // Show checkmark for 300ms
+      } catch (error) {
+        setIsLoading(false);
+        setIsSuccess(false);
+      }
     },
-    [onSave]
+    [onSave, closeOnSave]
   );
 
   const sx =
@@ -149,13 +181,20 @@ const ScorecardInlineEditCell = ({
 
   return (
     <Grid
-      onDoubleClick={handleDoubleClick}
-      sx={{ display: 'flex', flex: 1, ...sx }}
+      onClick={handleDoubleClick}
+      sx={{
+        display: 'flex',
+        cursor: 'pointer',
+        flex: 1,
+        ...sx
+      }}
       {...props}
     >
       <ScorecardInlineEditCellContent
         type={type!}
         isEditing={isEditing}
+        isLoading={isLoading}
+        isSuccess={isSuccess}
         initialValue={initialValue}
         handleSubmit={handleSubmit}
         component={component}

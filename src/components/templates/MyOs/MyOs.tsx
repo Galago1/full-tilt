@@ -18,7 +18,7 @@ import {
   Meeting,
   Okr,
   Standup,
-  Story,
+  Digest,
   Survey
 } from './types';
 
@@ -27,7 +27,7 @@ export interface MyOsProps {
   teamStandup: Standup;
   today: string | null;
   survey: Survey;
-  digest: Story[];
+  digest: Digest[];
   okrs: Okr[];
   meetings: Meeting[];
   issues: Issue[];

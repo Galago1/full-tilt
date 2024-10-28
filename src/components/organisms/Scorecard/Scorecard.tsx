@@ -31,6 +31,10 @@ export interface ScorecardProps extends Omit<CardProps, 'slots'> {
    */
   showCheckbox: boolean;
   /**
+   * Show dots icon in the scorecard
+   */
+  showDotsIcon: boolean;
+  /**
    * Function to save the scorecard
    */
   onSave: (
@@ -38,7 +42,7 @@ export interface ScorecardProps extends Omit<CardProps, 'slots'> {
     form: FormikHelpers<InlineFormikProps>,
     onClose: () => void,
     row: RowData
-  ) => void;
+  ) => Promise<void>;
   /**
    * Close the scorecard after saving
    */
@@ -79,6 +83,7 @@ const Scorecard = ({
   data,
   type,
   showCheckbox,
+  showDotsIcon,
   onSave,
   closeOnSave,
   canEdit,
@@ -173,6 +178,7 @@ const Scorecard = ({
               isTrendWithinGoal={isTrendWithinGoal}
               getColorByValue={getColorByValue}
               showCheckbox={showCheckbox}
+              showDotsIcon={showDotsIcon}
               onSave={onSave}
               closeOnSave={closeOnSave}
               canEdit={canEdit}

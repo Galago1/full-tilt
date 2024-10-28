@@ -32,25 +32,22 @@ const ScorecardHeadCell = ({
       overflow="hidden"
       mr={1}
     >
-      {content === 'Owner' ? (
-        <>
+      <>
+        {content === 'Owner' && (
           <Grid width={theme.spacing(3)} height={theme.spacing(3)} />
-          {showCheckbox && (
-            <Checkbox
-              checked={allChecked}
-              onChange={handleAllCheckboxChange}
-              sx={{ p: 0.25, mr: 0.5 }}
-            />
-          )}
-          <Typography variant="textSmMedium" noWrap>
-            {content}
-          </Typography>
-        </>
-      ) : (
+        )}
+
+        {content === 'Owner' && showCheckbox && (
+          <Checkbox
+            checked={allChecked}
+            onChange={handleAllCheckboxChange}
+            sx={{ p: 0.25, mr: 0.5 }}
+          />
+        )}
         <Typography variant="textSmMedium" noWrap>
           {content}
         </Typography>
-      )}
+      </>
     </Grid>
   );
 };

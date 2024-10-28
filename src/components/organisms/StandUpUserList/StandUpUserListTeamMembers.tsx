@@ -19,6 +19,7 @@ const currentTimestamp = new Date();
 currentTimestamp.setMinutes(currentTimestamp.getMinutes() - 6);
 
 export interface StandUpUserListTeamMembersProps {
+  selectedIndex: number | null;
   teamsOptions: SelectOption[];
   showTeamSelect: boolean;
   handleTeamChange: (event: SelectChangeEvent<string>) => void;
@@ -27,6 +28,7 @@ export interface StandUpUserListTeamMembersProps {
   countCompletedStandUps: (teamMembers: TeamMember[]) => number;
   filteredMembers: TeamMember[];
   setOpen: (value: React.SetStateAction<boolean>) => void;
+  open: boolean;
   handleDateChange: (date: Date | null) => void;
   selectedTeam: string;
   setSelectedIndex: React.Dispatch<React.SetStateAction<number>>;
@@ -34,6 +36,7 @@ export interface StandUpUserListTeamMembersProps {
 }
 
 const StandUpUserListTeamMembers = ({
+  selectedIndex,
   teamsOptions,
   showTeamSelect = true,
   handleTeamChange,
@@ -42,6 +45,7 @@ const StandUpUserListTeamMembers = ({
   countCompletedStandUps,
   filteredMembers,
   setOpen,
+  open,
   handleDateChange,
   selectedTeam,
   setSelectedIndex,
@@ -161,6 +165,7 @@ const StandUpUserListTeamMembers = ({
         )}
         <Grid item xs={12}>
           <StandUpUserListContent
+            selectedIndex={selectedIndex}
             filteredMembers={filteredMembers}
             setSelectedIndex={setSelectedIndex}
             theme={theme}

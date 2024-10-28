@@ -10,6 +10,7 @@ import { isEmpty } from 'lodash';
 import { MouseEventHandler } from 'react';
 import Avatar from 'src/components/atoms/Avatar/Avatar';
 import Button from 'src/components/atoms/Button/Button';
+import Tooltip from 'src/components/atoms/Tooltip/Tooltip';
 import AvatarAndText from 'src/components/molecules/AvatarAndText/AvatarAndText';
 import EmptyState from 'src/components/molecules/EmptyState/EmptyState';
 import LoadingIndicator from 'src/components/molecules/LoadingIndicator/LoadingIndicator';
@@ -32,6 +33,13 @@ interface TeamStandup {
   members: Member[];
 }
 
+interface DayOfWeekAction {
+  [key: string]: {
+    title: string;
+    onClick: MouseEventHandler<HTMLDivElement>;
+  };
+}
+
 interface ContentProps {
   teamStandup: TeamStandup;
   loading: boolean;
@@ -41,6 +49,7 @@ interface ContentProps {
   daysStreak?: number;
   today?: string;
   standups?: { [key: string]: boolean };
+  dayOfWeekActions?: DayOfWeekAction;
 }
 const Content = ({
   teamStandup,
@@ -50,7 +59,8 @@ const Content = ({
   daysStreak,
   today,
   standups,
-  loading
+  loading,
+  dayOfWeekActions
 }: ContentProps) => {
   const theme = useTheme();
   if (!standups || loading || (!loading && isEmpty(standups)))
@@ -81,32 +91,36 @@ const Content = ({
               {daysOfWeek.map((day, index) => {
                 const isAfterToday = isPastToday(index);
                 return (
-                  <Grid
-                    item
-                    key={day}
-                    display={'flex'}
-                    alignItems={'center'}
-                    sx={{
-                      border: `1px solid ${theme.palette.grey[300]}`,
-                      borderRadius: theme.spacing(99 / 8),
-                      padding: `${theme.spacing(0.5)} ${theme.spacing(1)}`,
-                      backgroundColor:
-                        day === today ? theme.palette.greyiron[900] : 'white'
-                    }}
-                  >
-                    <DetermineIcon
-                      standups={standups!}
-                      day={day}
-                      today={today!}
-                      isAfterToday={isAfterToday}
-                    />
-                    <Typography
-                      color={day === today ? 'white' : 'text-secondary'}
-                      variant="textSmSemibold"
+                  <Tooltip title={dayOfWeekActions?.[day]?.title ?? ''}>
+                    <Grid
+                      item
+                      key={day}
+                      display={'flex'}
+                      alignItems={'center'}
+                      sx={{
+                        border: theme.border.userProfile,
+                        borderRadius: theme.spacing(99 / 8),
+                        padding: `${theme.spacing(0.5)} ${theme.spacing(1)}`,
+                        backgroundColor:
+                          day === today ? theme.palette.greyiron[900] : 'white',
+                        cursor: isAfterToday ? 'auto' : 'pointer'
+                      }}
+                      onClick={dayOfWeekActions?.[day]?.onClick}
                     >
-                      {day}
-                    </Typography>
-                  </Grid>
+                      <DetermineIcon
+                        standups={standups!}
+                        day={day}
+                        today={today!}
+                        isAfterToday={isAfterToday}
+                      />
+                      <Typography
+                        color={day === today ? 'white' : 'text-secondary'}
+                        variant="textSmSemibold"
+                      >
+                        {day}
+                      </Typography>
+                    </Grid>
+                  </Tooltip>
                 );
               })}
             </Grid>
@@ -231,6 +245,7 @@ export interface DailyStandupCardProps extends Omit<CardProps, 'slots'> {
   daysStreak?: number;
   cardSlots?: CardProps['slots'];
   loading?: boolean;
+  dayOfWeekActions?: DayOfWeekAction;
 }
 
 export const DailyStandupCard = ({
@@ -240,6 +255,7 @@ export const DailyStandupCard = ({
   daysStreak,
   loading,
   onClick,
+  dayOfWeekActions,
   ...props
 }: DailyStandupCardProps) => {
   const theme = useTheme();
@@ -294,6 +310,7 @@ export const DailyStandupCard = ({
           daysStreak={daysStreak}
           today={today!}
           standups={standups}
+          dayOfWeekActions={dayOfWeekActions}
         />
       </Grid>
     </Card>

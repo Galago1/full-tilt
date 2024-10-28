@@ -23,7 +23,6 @@ import {
   ChevronDownIcon,
   ChevronRightIcon,
   ChevronUpIcon,
-  ListIcon,
   Target05Icon
 } from 'src/components/particles/theme/overrides/CustomIcons';
 import { responsiveSpacing } from 'src/components/particles/theme/spacing';
@@ -39,7 +38,7 @@ interface ScoreCardItemProps {
     values: InlineFormikProps,
     form: FormikHelpers<InlineFormikProps>,
     onCloseEditor: () => void
-  ) => void;
+  ) => Promise<void>;
   backgroundColor: string;
   slots: {
     buttonGroupProps: ButtonGroupProps;
@@ -161,6 +160,7 @@ const ScorecardsContent = ({
           <Grid item width={'100%'}>
             <AvatarAndText
               title={title}
+              subtitle={isEmpty(scorecards) ? 'No Measurable' : ''}
               alignItems={'center'}
               textGridItemProps={{ flex: 1 }}
               childrenGridProps={{ onClick: () => setExpanded(!expanded) }}

@@ -150,6 +150,7 @@ const StandUpUserList = forwardRef(
       <Grid container spacing={2} sx={{ height: '100%', paddingBottom: 2 }}>
         <Grid item xs={12} sm={12} md={12} lg={3} sx={{ height: '100%' }}>
           <StandUpUserListTeamMembers
+            selectedIndex={selectedIndex}
             teamsOptions={teamsOptions}
             showTeamSelect={showTeamSelect}
             handleTeamChange={handleTeamChange}
@@ -158,6 +159,7 @@ const StandUpUserList = forwardRef(
             countCompletedStandUps={countCompletedStandUps}
             filteredMembers={filteredMembers}
             setOpen={setOpen}
+            open={open}
             handleDateChange={handleDateChange}
             selectedTeam={selectedTeam}
             setSelectedIndex={setSelectedIndex}

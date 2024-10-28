@@ -8,6 +8,7 @@ import EmptyState from 'src/components/molecules/EmptyState/EmptyState';
 import LoadingIndicator from 'src/components/molecules/LoadingIndicator/LoadingIndicator';
 import {
   AlertTriangleIcon,
+  CalendarIcon,
   ChevronRightIcon,
   MessageQuestionCircleIcon
 } from 'src/components/particles/theme/overrides/CustomIcons';
@@ -33,6 +34,40 @@ const Content = ({ survey, loading }: ContentProps) => {
         >
           {loading && <LoadingIndicator />}
         </EmptyState>
+      </Grid>
+    );
+  if (survey.completed)
+    return (
+      <Grid item flex={1} display={'flex'} justifyContent={'center'}>
+        <EmptyState
+          alignItems={'center'}
+          justifyContent={'center'}
+          featuredIconProps={{ children: <CalendarIcon /> }}
+          avatarAndTextProps={{
+            alignItems: 'center',
+            justifyContent: 'center',
+            title: survey.nextSurveyTitle,
+            subtitle: survey.nextSurveySubtitle,
+            textGridItemProps: {
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center'
+            },
+            textTitleGridItemProps: {
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center'
+            },
+            textSubtitleGridItemProps: {
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }
+          }}
+        />
       </Grid>
     );
   return (
@@ -122,6 +157,7 @@ export const PendingSurveysCard = ({
         p={responsiveSpacing}
         flexDirection={'column'}
         height={'100%'}
+        gap={survey?.completed ? 2 : 0}
       >
         <Grid item display={'flex'} alignItems={'center'}>
           <AvatarAndText

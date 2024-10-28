@@ -22,6 +22,9 @@ export interface Survey {
   dueValue: number;
   contributors: number;
   contributed: number;
+  completed: boolean;
+  nextSurveyTitle: string;
+  nextSurveySubtitle: string;
 }
 
 export interface Scorecard {
@@ -36,7 +39,7 @@ export interface Scorecard {
     values: InlineFormikProps,
     form: FormikHelpers<InlineFormikProps>,
     onCloseEditor: () => void
-  ) => void;
+  ) => Promise<void>;
   slots: {
     buttonGroupProps: ButtonGroupProps;
   };
@@ -85,7 +88,7 @@ export interface Idea {
   icon: JSX.Element;
 }
 
-export interface Story {
+export interface Digest {
   id: string;
   date: string;
   title: string;

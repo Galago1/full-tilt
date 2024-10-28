@@ -53,7 +53,7 @@ const StandUpMemberDetail = ({
       }}
     >
       <StandUpMemberDetailCardContent
-        isMember={currentMember.id === member.id}
+        isMember={currentMember && member && currentMember.id === member.id}
         member={member}
         onBack={onBack}
         onNext={onNext}
@@ -67,7 +67,11 @@ const StandUpMemberDetail = ({
         editButtonProps={editButtonProps}
         memberButtonProps={memberButtonProps}
       >
-        {member.standUpCompletedAt ? standUpMemberDetailContent : <></>}
+        {member && member.standUpCompletedAt ? (
+          standUpMemberDetailContent
+        ) : (
+          <></>
+        )}
       </StandUpMemberDetailCardContent>
     </Card>
   );

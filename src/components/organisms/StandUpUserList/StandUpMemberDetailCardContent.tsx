@@ -105,6 +105,8 @@ const StandUpMemberDetailCardContent = ({
                 justifyContent: 'center'
               }}
               avatarAndTextProps={{
+                gap: 1.5,
+                flexDirection: 'column',
                 title: 'Stand Up Not Completed',
                 subtitle: `${
                   isMember ? 'You' : member.name

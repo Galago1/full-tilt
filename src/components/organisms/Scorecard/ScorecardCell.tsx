@@ -15,7 +15,7 @@ interface ScorecardCellProps {
     values: InlineFormikProps,
     form: FormikHelpers<InlineFormikProps>,
     onCloseEditor: () => void
-  ) => void;
+  ) => Promise<void>;
   closeOnSave: boolean;
   canEdit: boolean;
   allowEmptyText?: boolean;

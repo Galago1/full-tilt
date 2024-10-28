@@ -42,12 +42,13 @@ export interface ScorecardDraggableRowProps {
     trend: number
   ) => string;
   showCheckbox?: boolean;
+  showDotsIcon?: boolean;
   onSave?: (
     values: InlineFormikProps,
     form: FormikHelpers<InlineFormikProps>,
     onCloseEditor: () => void,
     row: RowData
-  ) => void;
+  ) => Promise<void>;
 
   closeOnSave?: boolean;
   canEdit?: boolean;
@@ -71,6 +72,7 @@ const ScorecardDraggableRow = ({
   onClickEdit,
   onClickDelete,
   showCheckbox,
+  showDotsIcon = true,
   onSave,
   closeOnSave,
   canEdit,
@@ -161,13 +163,15 @@ const ScorecardDraggableRow = ({
         mr={1}
         height={theme.spacing(5)}
       >
-        <DotsGrid06Icon
-          sx={{
-            width: theme.spacing(3),
-            height: theme.spacing(3),
-            cursor: 'pointer'
-          }}
-        />
+        {showDotsIcon && (
+          <DotsGrid06Icon
+            sx={{
+              width: theme.spacing(3),
+              height: theme.spacing(3),
+              cursor: 'pointer'
+            }}
+          />
+        )}
         {showCheckbox && (
           <Checkbox
             checked={checked}
@@ -182,7 +186,7 @@ const ScorecardDraggableRow = ({
         content={{ value: row!.title }}
         type="data"
         width={columnWidths.title}
-        onSave={(a, b, c) => onSave!(a, b, c, row!)}
+        onSave={async (a, b, c) => await onSave!(a, b, c, row!)}
         closeOnSave={closeOnSave!}
         canEdit={false}
         allowEmptyText={true}
@@ -191,7 +195,7 @@ const ScorecardDraggableRow = ({
         content={{ value: row!.goal }}
         type="data"
         width={columnWidths.goal}
-        onSave={(a, b, c) => onSave!(a, b, c, row!)}
+        onSave={async (a, b, c) => await onSave!(a, b, c, row!)}
         component={NumberInputBase}
         closeOnSave={closeOnSave!}
         canEdit={false} // TBD, need to figure out the data being saved
@@ -210,7 +214,7 @@ const ScorecardDraggableRow = ({
             ? 'success.100'
             : 'error.100'
         }
-        onSave={(a, b, c) => onSave!(a, b, c, row!)}
+        onSave={async (a, b, c) => await onSave!(a, b, c, row!)}
         component={NumberInputBase}
         closeOnSave={closeOnSave!}
         canEdit={false}
@@ -227,13 +231,13 @@ const ScorecardDraggableRow = ({
             last(row!.goal.split(' ')) as string,
             data.value as number
           )}
-          onSave={(a, b, c) => onSave!(a, b, c, row!)}
+          onSave={async (a, b, c) => await onSave!(a, b, c, row!)}
           component={NumberInputBase}
           closeOnSave={closeOnSave!}
           canEdit={canEdit!}
         />
       ))}
-      {showEndIcon && !dropdownProps && (
+      {showEndIcon && !finalDropdownProps && (
         <IconButton
           sx={{
             border: theme.border.userProfile,

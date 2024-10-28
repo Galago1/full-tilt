@@ -130,9 +130,15 @@ Default.args = {
     dueValue: 3,
     contributors: 15,
     contributed: 8,
+    completed: true,
+    nextSurveyTitle: 'Team Bonding',
+    nextSurveySubtitle: 'Next Survey at 9:00AM 08/13',
     id: '1'
   },
   slots: {
+    latestDigestCardProps: {
+      firstDigestSubtitle: 'First Digest at 9:00AM 08/13'
+    },
     scorecardsCardProps: {
       scorecardsContentProps: [
         {
@@ -234,6 +240,10 @@ Default.args = {
               measurableMetricId: '1'
             }
           ]
+        },
+        {
+          title: 'Monthly',
+          scorecards: []
         }
       ]
     }

@@ -10,18 +10,54 @@ import Card, { CardProps } from 'src/components/organisms/Card/Card';
 import {
   ArrowUpRightIcon,
   BookOpenIcon,
+  CalendarIcon,
   Headphones01Icon,
   ZapIcon
 } from 'src/components/particles/theme/overrides/CustomIcons';
 import { responsiveSpacing } from 'src/components/particles/theme/spacing';
-import { Story } from './types';
+import { Digest } from './types';
 
 interface ContentProps {
-  digest: Story[];
+  digest: Digest[];
+  firstDigestSubtitle: string;
   loading: boolean;
 }
-const Content = ({ digest, loading }: ContentProps) => {
-  if (!digest || loading || (!loading && isEmpty(digest)))
+const Content = ({ digest, firstDigestSubtitle, loading }: ContentProps) => {
+  if (!digest || loading || (!loading && isEmpty(digest))) {
+    if (!loading && isEmpty(digest))
+      return (
+        <Grid item flex={1} display={'flex'} justifyContent={'center'}>
+          <EmptyState
+            alignItems={'center'}
+            justifyContent={'center'}
+            featuredIconProps={{ children: <CalendarIcon /> }}
+            avatarAndTextProps={{
+              alignItems: 'center',
+              justifyContent: 'center',
+              title: 'First Digest',
+              subtitle: firstDigestSubtitle,
+              textGridItemProps: {
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center'
+              },
+              textTitleGridItemProps: {
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center'
+              },
+              textSubtitleGridItemProps: {
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }
+            }}
+          />
+        </Grid>
+      );
     return (
       <Grid
         item
@@ -47,6 +83,7 @@ const Content = ({ digest, loading }: ContentProps) => {
         </EmptyState>
       </Grid>
     );
+  }
 
   return (
     <Grid
@@ -123,13 +160,15 @@ const Content = ({ digest, loading }: ContentProps) => {
 };
 
 export interface LatestDigestCardProps extends Omit<CardProps, 'slots'> {
-  digest?: Story[];
-  cardSlots: CardProps['slots'];
+  digest?: Digest[];
+  firstDigestSubtitle: string;
+  cardSlots?: CardProps['slots'];
   loading?: boolean;
 }
 
 export const LatestDigestCard = ({
   digest = [],
+  firstDigestSubtitle,
   cardSlots,
   onClick,
   loading,
@@ -184,7 +223,11 @@ export const LatestDigestCard = ({
             titleTypography={{ variant: 'textLgSemibold' }}
           />
         </Grid>
-        <Content digest={digest} loading={loading!} />
+        <Content
+          digest={digest}
+          firstDigestSubtitle={firstDigestSubtitle}
+          loading={loading!}
+        />
       </Grid>
     </Card>
   );

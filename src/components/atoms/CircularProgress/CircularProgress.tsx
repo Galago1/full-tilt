@@ -3,6 +3,7 @@ import {
   CircularProgress as MuiCircularProgress,
   CircularProgressProps as MuiCircularProgressProps
 } from '@mui/material';
+import { forwardRef } from 'react';
 import type { ColorSchema } from 'src/components/particles/theme/palette';
 
 export interface CircularProgressProps extends MuiCircularProgressProps {
@@ -43,7 +44,9 @@ export interface CircularProgressProps extends MuiCircularProgressProps {
  * Primary UI component for user interaction
  */
 
-const CircularProgress = ({ ...props }: CircularProgressProps) => {
-  return <MuiCircularProgress {...props} />;
-};
+const CircularProgress = forwardRef(
+  ({ ...props }: CircularProgressProps, ref) => {
+    return <MuiCircularProgress {...props} ref={ref} />;
+  }
+);
 export default CircularProgress;

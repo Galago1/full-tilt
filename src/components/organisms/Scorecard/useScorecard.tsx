@@ -75,9 +75,22 @@ export const useScorecard = (
       case 'weekly':
         const weeklyDates = [];
         for (let i = 0; i < 6; i++) {
-          const start = startOfWeek(subWeeks(today, i));
-          const end = endOfWeek(subWeeks(today, i));
-          weeklyDates.push(`${format(start, 'MMM d')}-${format(end, 'd')}`);
+          const start = startOfWeek(subWeeks(today, i), { weekStartsOn: 1 }); // Monday
+          const end = endOfWeek(subWeeks(today, i), { weekStartsOn: 1 }); // Sunday
+          const startMonth = format(start, 'MMM');
+          const endMonth = format(end, 'MMM');
+
+          // If start and end are in the same month
+          if (startMonth === endMonth) {
+            weeklyDates.push(
+              `${startMonth} ${format(start, 'd')}-${format(end, 'd')}`
+            );
+          } else {
+            // If start and end are in different months
+            weeklyDates.push(
+              `${format(start, 'MM/dd')}-${format(end, 'MM/dd')}`
+            );
+          }
         }
         return weeklyDates;
       case 'monthly':

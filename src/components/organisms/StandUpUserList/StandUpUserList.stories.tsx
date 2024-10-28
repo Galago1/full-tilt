@@ -120,6 +120,7 @@ Controlled.args = {
   showTeamSelect: false,
   hideShowEditButton: true,
   currentMember: teamMembers[0],
+  memberButtonProps: { label: 'Complete Stand Up' },
   slots: {
     standUpMemberDetailContent: (
       <>

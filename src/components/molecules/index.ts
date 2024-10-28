@@ -7,6 +7,7 @@ export { default as ChipList } from './ChipList';
 export { default as CircularProgressIndicator } from './CircularProgressIndicator';
 export { default as Dropdown } from './Dropdown';
 export { default as DropdownCard } from './Dropdown/DropdownCard';
+export { default as LoadingOverlay } from './LoadingOverlay/LoadingOverlay';
 
 export { default as EmptyState } from './EmptyState';
 export { default as FilterList } from './FilterList';
