@@ -1,10 +1,11 @@
 import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
 import ButtonGroup from './ButtonGroup';
 
-[//]: # (import * as ButtonGroupStories from './ButtonGroup.stories';)
+[//]: # "import * as ButtonGroupStories from './ButtonGroup.stories';"
+
 import { ThemeProvider } from 'src/components/particles';
 import { CheckCircleIcon } from 'src/components/particles/theme/overrides/CustomIcons';
-import {Default} from "./ButtonGroup.stories"
+import { Default } from './ButtonGroup.stories';
 
 <Meta title="Molecules/ButtonGroup/Docs" component={ButtonGroup} />
 
@@ -12,73 +13,75 @@ import {Default} from "./ButtonGroup.stories"
 
 Segmented button groups display a set of discrete buttons in a row as a single element. They’re useful for grouping actions or options together in a way that’s easy to scan.
 
-
 ## Imports
 
-```js
-import ButtonGroup from 'src/components/molecules/ButtonGroup/ButtonGroup';
-import { CheckCircleIcon } from 'src/components/particles/theme/overrides/CustomIcons';
-import { ThemeProvider } from 'src/components/particles';
+```jsx
+import ButtonGroup from '@galago/full-tilt/src/components/molecules/ButtonGroup/ButtonGroup';
+import { CheckCircleIcon } from '@galago/full-tilt/src/components/particles/theme/overrides/CustomIcons';
+import { ThemeProvider } from '@galago/full-tilt/src/components/particles';
 ```
 
 ### Guidance
 
 #### When to use the segmented button group
+
 - **Related controls**: Use segmented buttons to switch between different views.
 
 #### When to consider something else
+
 - **No clear relationship**: Consider alternative placements and structures for unrelated controls to improve usability.
 - **More than three buttons**: Be cautious of how a long list of buttons might appear on small screens. An alternative control type might be more suitable.
 
 #### Usability guidance
+
 - **Avoid ambiguity of current state**: Ensure current states are clearly communicated and understood.
 
 #### Accessibility guidance
+
 - **Convey relationship**: If not using a list element, give the parent element `role="group"` to convey to screen readers that actions are part of a group. If part of a toolbar, use `role="toolbar"`.
 - **Use `aria-label`**: Provide a useful name for the buttons. Some contexts may require additional context for screen readers.
 - **Use the `<button type="button">` element**: Avoid using `<a>` as it’s a link, and `<span>` as screen readers won’t recognize it as a button.
 
 #### Using the segmented button group
+
 - **Follow button component guidelines**: Buttons inside a button group should adhere to the same guidelines as the button component.
 - **Avoid mixing sizes**: Do not mix differently-sized buttons (e.g., default and big buttons) in the same group.
 - **Use short, descriptive labels**: Ensure button labels are short and descriptive.
 - **State distinction**: Use default buttons for the current state and outline buttons for non-current states. Custom styles may be needed to distinguish states for some button variants.
 
-
-
 <Canvas>
-<Story name="Default" >
+  <Story name="Default">
     <ButtonGroup
-        buttons ={[
-            {label: 'Button One', color: 'secondary'},
-            {label: 'Button Two', color: 'secondary'},
-            {label: 'Button Three', color: 'secondary'}
-        ]} />
-    < /Story >
+      buttons={[
+        { label: 'Button One', color: 'secondary' },
+        { label: 'Button Two', color: 'secondary' },
+        { label: 'Button Three', color: 'secondary' }
+      ]}
+    />
+  </Story>
 </Canvas>
 
 <Canvas>
-    <Story name="StartIcon">
-        <ButtonGroup
-            buttons= {
-            [{label: 'Button One', startIcon: <CheckCircleIcon/>},
-            {label: 'Button Two',  startIcon: <CheckCircleIcon />},
-            {label: 'Button Three', startIcon: <CheckCircleIcon />}
-            ]}
-        />
-    </Story>
+  <Story name="StartIcon">
+    <ButtonGroup
+      buttons={[
+        { label: 'Button Two', startIcon: <CheckCircleIcon /> },
+        { label: 'Button Three', startIcon: <CheckCircleIcon /> }
+      ]}
+    />
+  </Story>
 </Canvas>
 
 <Canvas>
-    <Story name="EndIcon">
-        <ButtonGroup
-            buttons= {
-            [{label: 'Button One', endIcon: <CheckCircleIcon/>},
-            {label: 'Button Two',  endIcon: <CheckCircleIcon />},
-            {label: 'Button Three', endIcon: <CheckCircleIcon />}
-            ]}
-        />
-    </Story>
+  <Story name="EndIcon">
+    <ButtonGroup
+      buttons={[
+        { label: 'Button One', endIcon: <CheckCircleIcon /> },
+        { label: 'Button Two', endIcon: <CheckCircleIcon /> },
+        { label: 'Button Three', endIcon: <CheckCircleIcon />, ariaLabel: '' }
+      ]}
+    />
+  </Story>
 </Canvas>
 
 <ArgsTable of={ButtonGroup} />
