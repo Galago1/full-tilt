@@ -13,7 +13,6 @@ import { RowDataObject } from './useScorecard';
 import LoadingOverlay from 'src/components/molecules/LoadingOverlay/LoadingOverlay';
 
 interface ScorecardInlineEditCellContentProps {
-  type: 'title' | 'data';
   isEditing: boolean;
   initialValue: RowDataObject;
   isLoading: boolean;
@@ -25,9 +24,10 @@ interface ScorecardInlineEditCellContentProps {
   component: any;
   allowEmptyText: boolean;
   fieldSx: SxProps<Theme>;
+  suffix?: string;
+  prefix?: string;
 }
 const ScorecardInlineEditCellContent = ({
-  type,
   isEditing,
   initialValue,
   isLoading,
@@ -35,7 +35,9 @@ const ScorecardInlineEditCellContent = ({
   handleSubmit,
   component,
   allowEmptyText,
-  fieldSx
+  fieldSx,
+  suffix,
+  prefix
 }: ScorecardInlineEditCellContentProps) => {
   const theme = useTheme();
   if (isEditing)
@@ -99,7 +101,9 @@ const ScorecardInlineEditCellContent = ({
   if (initialValue?.value || initialValue?.value === 0 || allowEmptyText)
     return (
       <Typography variant={'textMdRegular'} noWrap>
+        {prefix}
         {initialValue.value ?? '\u00A0'}
+        {suffix}
       </Typography>
     );
   return (
@@ -112,7 +116,6 @@ const ScorecardInlineEditCellContent = ({
 export interface InlineFormikProps extends RowDataObject {}
 
 interface ScorecardInlineEditCellProps extends Omit<GridProps, 'component'> {
-  type?: 'title' | 'data';
   initialValue: RowDataObject;
   onSave: (
     values: InlineFormikProps,
@@ -124,10 +127,12 @@ interface ScorecardInlineEditCellProps extends Omit<GridProps, 'component'> {
   canEdit: boolean;
   allowEmptyText: boolean;
   fieldSx?: SxProps<Theme>;
+  disabled?: boolean;
+  suffix?: string;
+  prefix?: string;
 }
 
 const ScorecardInlineEditCell = ({
-  type,
   initialValue,
   onSave,
   component,
@@ -135,6 +140,9 @@ const ScorecardInlineEditCell = ({
   canEdit = true,
   allowEmptyText = false,
   fieldSx,
+  disabled = false,
+  suffix,
+  prefix,
   ...props
 }: ScorecardInlineEditCellProps) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -184,14 +192,13 @@ const ScorecardInlineEditCell = ({
       onClick={handleDoubleClick}
       sx={{
         display: 'flex',
-        cursor: 'pointer',
+        cursor: disabled ? 'default' : 'pointer',
         flex: 1,
         ...sx
       }}
       {...props}
     >
       <ScorecardInlineEditCellContent
-        type={type!}
         isEditing={isEditing}
         isLoading={isLoading}
         isSuccess={isSuccess}
@@ -200,6 +207,8 @@ const ScorecardInlineEditCell = ({
         component={component}
         allowEmptyText={allowEmptyText}
         fieldSx={fieldSx!}
+        suffix={suffix}
+        prefix={prefix}
       />
     </Grid>
   );

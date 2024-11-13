@@ -34,12 +34,13 @@ import {
   TeamHeaderCell
 } from './helpers';
 import { useOverviewCard } from './useOverviewCard';
+import { Quarter } from 'src/types/other';
 
 export interface OverviewCardProps extends Omit<CardProps, 'slots'> {
   /**
    * Data for the survey overview card
    */
-  data: Record<string, SurveyData>;
+  data: Record<Quarter, SurveyData>;
   /**
    * Whether to show the vertical and horizontal switches
    */
@@ -47,13 +48,13 @@ export interface OverviewCardProps extends Omit<CardProps, 'slots'> {
   /**
    * The currently selected quarter
    */
-  selectedQuarter: 'Q1' | 'Q2' | 'Q3' | 'Q4';
+  selectedQuarter: Quarter;
   /**
    * Function to call when the quarter is changed
    * @param quarter
    * @returns
    */
-  onQuarterChange: (quarter: 'Q1' | 'Q2' | 'Q3' | 'Q4') => void;
+  onQuarterChange: (quarter: Quarter) => void;
   /**
    * Props for the middle button
    */
@@ -218,6 +219,7 @@ const OverviewCard = ({
                     key={teamName}
                     index={index}
                     moveRow={disableDragging ? undefined : moveRow}
+                    dragEnabled={!disableDragging}
                   >
                     <TeamDataCell>
                       <CellBox
@@ -243,8 +245,7 @@ const OverviewCard = ({
                           }}
                         >
                           <Typography variant="textSmRegular">
-                            {currentData[teamName][category] === '0' ||
-                            !currentData[teamName][category]
+                            {!currentData[teamName][category]
                               ? 'NA'
                               : currentData[teamName][category]}
                           </Typography>

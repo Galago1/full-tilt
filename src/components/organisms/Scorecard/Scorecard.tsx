@@ -76,6 +76,10 @@ export interface ScorecardProps extends Omit<CardProps, 'slots'> {
    * Slots for the card
    */
   cardSlots?: CardProps['slots'];
+  /**
+   * Show end icon
+   */
+  showEndIcon?: boolean;
 }
 
 const Scorecard = ({
@@ -88,6 +92,7 @@ const Scorecard = ({
   closeOnSave,
   canEdit,
   cardSlots,
+  showEndIcon,
   slots,
   onClickEdit,
   onClickDelete,
@@ -99,14 +104,13 @@ const Scorecard = ({
     checked,
     handleAllCheckboxChange,
     handleCheckboxChange,
-    isTrendWithinGoal,
     getTitleByType,
     columnWidths,
     theme,
     rows,
     dates,
     moveRow
-  } = useScorecard(data, type, isLoading!);
+  } = useScorecard(data, type, isLoading!, showEndIcon!);
 
   return (
     <DndProvider backend={HTML5Backend}>
@@ -163,6 +167,27 @@ const Scorecard = ({
                     showCheckbox={showCheckbox}
                   />
                 ))}
+                {showEndIcon && (
+                  <Grid
+                    width={columnWidths.endIcon}
+                    minWidth={theme.spacing(5.5)}
+                    border={1}
+                    borderColor="grey.200"
+                    p={1}
+                    bgcolor={theme.palette.grey[50]}
+                    borderRadius={theme.spacing(0.5)}
+                    height={theme.spacing(5)}
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="flex-start"
+                    overflow="hidden"
+                    mr={1}
+                  >
+                    <Typography variant="textSmMedium" noWrap>
+                      View
+                    </Typography>
+                  </Grid>
+                )}
               </Grid>
             )}
 
@@ -175,7 +200,6 @@ const Scorecard = ({
               columnWidths={columnWidths}
               checked={checked}
               handleCheckboxChange={handleCheckboxChange}
-              isTrendWithinGoal={isTrendWithinGoal}
               getColorByValue={getColorByValue}
               showCheckbox={showCheckbox}
               showDotsIcon={showDotsIcon}

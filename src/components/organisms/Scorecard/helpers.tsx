@@ -77,41 +77,6 @@ export enum GoalCondition {
   BETWEEN = '-'
 }
 
-export const isTrendWithinGoal = (
-  goalCondition: GoalCondition,
-  goalValue: string,
-  trend: number
-) => {
-  const parseGoalValue = (value: string) => parseFloat(value.trim());
-
-  switch (goalCondition) {
-    case GoalCondition.GREATER_THAN:
-      return trend > parseGoalValue(goalValue);
-
-    case GoalCondition.GREATER_THAN_OR_EQUAL_TO:
-      return trend >= parseGoalValue(goalValue);
-
-    case GoalCondition.LESS_THAN:
-      return trend < parseGoalValue(goalValue);
-
-    case GoalCondition.LESS_THAN_OR_EQUAL_TO:
-      return trend <= parseGoalValue(goalValue);
-
-    case GoalCondition.EQUAL_TO:
-      return trend === parseGoalValue(goalValue);
-
-    case GoalCondition.NOT_EQUAL_TO:
-      return trend !== parseGoalValue(goalValue);
-
-    case GoalCondition.BETWEEN:
-      const [minGoal, maxGoal] = goalValue.split('-').map(parseGoalValue);
-      return trend >= minGoal && trend <= maxGoal;
-
-    default:
-      return false;
-  }
-};
-
 export const getColorByValue = (
   goalCondition: GoalCondition,
   goalValue: string,
@@ -123,32 +88,32 @@ export const getColorByValue = (
   switch (goalCondition) {
     case GoalCondition.GREATER_THAN:
       const minGoal = parseGoalValue(goalValue);
-      if (value >= minGoal) return 'success.100';
-      if (value >= minGoal / 2) return 'lightyellow';
+      if (value > minGoal) return 'success.100';
+      if (value >= minGoal * 0.8) return 'lightyellow';
       return 'error.100';
 
     case GoalCondition.GREATER_THAN_OR_EQUAL_TO:
       const minGoalOrEqual = parseGoalValue(goalValue);
       if (value >= minGoalOrEqual) return 'success.100';
-      if (value >= minGoalOrEqual / 2) return 'lightyellow';
+      if (value >= minGoalOrEqual * 0.8) return 'lightyellow';
       return 'error.100';
 
     case GoalCondition.LESS_THAN:
       const maxGoal = parseGoalValue(goalValue);
       if (value < maxGoal) return 'success.100';
-      if (value >= maxGoal / 2) return 'lightyellow';
+      if (value <= maxGoal * 1.2) return 'lightyellow'; // 120% for less than
       return 'error.100';
 
     case GoalCondition.LESS_THAN_OR_EQUAL_TO:
       const maxGoalOrEqual = parseGoalValue(goalValue);
       if (value <= maxGoalOrEqual) return 'success.100';
-      if (value >= maxGoalOrEqual / 2) return 'lightyellow';
+      if (value <= maxGoalOrEqual * 1.2) return 'lightyellow'; // 120% for less than
       return 'error.100';
 
     case GoalCondition.EQUAL_TO:
       const exactGoal = parseGoalValue(goalValue);
       if (value === exactGoal) return 'success.100';
-      if (Math.abs(value - exactGoal) <= exactGoal / 2) return 'lightyellow';
+      if (Math.abs(value - exactGoal) <= exactGoal * 0.2) return 'lightyellow'; // within 20%
       return 'error.100';
 
     case GoalCondition.NOT_EQUAL_TO:
@@ -159,7 +124,7 @@ export const getColorByValue = (
     case GoalCondition.BETWEEN:
       const [min, max] = goalValue.split('-').map(parseGoalValue);
       if (value >= min && value <= max) return 'success.100';
-      if (value >= min / 2 && value <= max / 2) return 'lightyellow';
+      if (value >= min * 0.8 && value <= max * 1.2) return 'lightyellow';
       return 'error.100';
 
     default:

@@ -28,7 +28,7 @@ const ButtonField = (props: any = { InputProps: { ref: null } }) => {
       onClick={() => setOpen?.((prev: boolean) => !prev)}
       label={<CalendarIcon />}
       sx={{
-        '&': { minWidth: 'auto' }
+        '&': { minWidth: 'auto', p: 10 / 8 }
       }}
     />
   );

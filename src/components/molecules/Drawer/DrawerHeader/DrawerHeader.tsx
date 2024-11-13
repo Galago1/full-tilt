@@ -3,6 +3,7 @@ import {
   BoxProps,
   DividerProps,
   Grid,
+  GridProps,
   SxProps,
   Theme
 } from '@mui/material';
@@ -52,6 +53,7 @@ export interface DrawerHeaderProps extends BoxProps {
   showFeaturedIcon?: boolean;
   slots?: {
     closeButtonProps?: CloseButtonProps;
+    closeButtonGridProps?: GridProps;
     /**
      * The container styles
      */
@@ -85,6 +87,7 @@ const DrawerHeader = ({
 }: DrawerHeaderProps) => {
   const {
     closeButtonProps,
+    closeButtonGridProps,
     avatarAndTextProps,
     dividerProps,
     featuredIconProps,
@@ -111,7 +114,7 @@ const DrawerHeader = ({
                   <TitleWithDefaults {...avatarAndTextProps} />
                 )}
               </Grid>
-              <Grid item>
+              <Grid item {...closeButtonGridProps}>
                 {showClose && (
                   <CloseButton onHide={onHide} {...closeButtonProps} />
                 )}

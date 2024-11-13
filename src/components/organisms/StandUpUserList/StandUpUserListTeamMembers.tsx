@@ -32,7 +32,10 @@ export interface StandUpUserListTeamMembersProps {
   handleDateChange: (date: Date | null) => void;
   selectedTeam: string;
   setSelectedIndex: React.Dispatch<React.SetStateAction<number>>;
-  formatStandUpTime: (standUpCompletedAt: string | null) => string;
+  formatStandUpTime: (
+    standUpCompletedAt: string | null,
+    hideIncomplete?: boolean
+  ) => string;
 }
 
 const StandUpUserListTeamMembers = ({

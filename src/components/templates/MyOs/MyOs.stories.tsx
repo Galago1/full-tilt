@@ -13,7 +13,7 @@ import {
   GoalCondition
 } from 'src/components/organisms/Scorecard/helpers';
 
-const onSave = (
+const onSave: any = (
   values: InlineFormikProps,
   form: FormikHelpers<InlineFormikProps>,
   onCloseEditor: () => void

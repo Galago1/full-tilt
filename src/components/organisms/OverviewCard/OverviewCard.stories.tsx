@@ -1,6 +1,7 @@
 import { Meta, Story } from '@storybook/react';
 import { useState } from 'react';
 import OverviewCard, { OverviewCardProps } from './OverviewCard';
+import { Quarter } from 'src/types/other';
 
 export default {
   title: 'Organisms/OverviewCard',
@@ -8,10 +9,9 @@ export default {
 } as Meta;
 
 const Template: Story<OverviewCardProps> = (args) => {
-  const [selectedQuarter, setSelectedQuarter] =
-    useState<'Q1' | 'Q2' | 'Q3' | 'Q4'>('Q1');
+  const [selectedQuarter, setSelectedQuarter] = useState<Quarter>('Q1');
 
-  const handleQuarterChange = (quarter: 'Q1' | 'Q2' | 'Q3' | 'Q4') => {
+  const handleQuarterChange = (quarter: Quarter) => {
     setSelectedQuarter(quarter);
   };
 
@@ -51,7 +51,7 @@ Default.args = {
         'Company Culture': '44'
       },
       'Product Team': {
-        'Productivity & Focus': '52',
+        'Productivity & Focus': '',
         'Company Collaboration': '78',
         'Project Management': '64',
         'Employee Engagement': '90',
@@ -181,7 +181,7 @@ Default.args = {
     },
     Q3: {
       'All Teams': {
-        'Productivity & Focus': '80',
+        'Productivity & Focus': '',
         'Company Collaboration': '69',
         'Project Management': '37',
         'Employee Engagement': '94',
@@ -195,7 +195,7 @@ Default.args = {
         'Company Culture': '49'
       },
       'Product Team': {
-        'Productivity & Focus': '54',
+        'Productivity & Focus': '',
         'Company Collaboration': '79',
         'Project Management': '66',
         'Employee Engagement': '92',

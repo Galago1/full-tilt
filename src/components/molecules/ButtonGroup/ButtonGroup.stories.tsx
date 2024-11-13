@@ -35,15 +35,18 @@ StartIcon.args = {
   buttons: [
     {
       label: 'Button One',
-      startIcon: <CheckCircleIcon />
+      startIcon: <CheckCircleIcon />,
+      tooltip: 'First button tooltip'
     },
     {
       label: 'Button Two',
-      startIcon: <CheckCircleIcon />
+      startIcon: <CheckCircleIcon />,
+      tooltip: 'Second button tooltip'
     },
     {
       label: 'Button Three',
-      startIcon: <CheckCircleIcon />
+      startIcon: <CheckCircleIcon />,
+      tooltip: 'Third button tooltip'
     }
   ]
 };

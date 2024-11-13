@@ -1,7 +1,7 @@
 import { Typography } from '@mui/material';
 import Link from 'src/components/atoms/Link/Link';
 import { HomeOutlineIcon } from 'src/components/particles/theme/overrides/CustomIcons';
-import type { Breadcrumb } from '../Breadcrumbs';
+import { Breadcrumb } from './Breadcrumbs';
 
 const homeLink = (breadcrumb: Breadcrumb, large: boolean) => {
   const href = breadcrumb.href ? { href: breadcrumb.href } : {};
@@ -60,7 +60,7 @@ const endText = (breadcrumb: Breadcrumb, large: boolean) => {
 /**
  * Primary UI component for user interaction
  */
-export const BreadcrumbList = (breadcrumbs: Breadcrumb[], large: boolean) => {
+export const breadcrumbList = (breadcrumbs: Breadcrumb[], large: boolean) => {
   return breadcrumbs.map((breadcrumb, index) => {
     if (index === 0 && !breadcrumb.label) {
       return homeLink(breadcrumb, large);

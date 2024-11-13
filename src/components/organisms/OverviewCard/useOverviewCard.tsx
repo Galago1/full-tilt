@@ -1,6 +1,7 @@
 import { TableContainerProps, useTheme } from '@mui/material';
 import { first, isEmpty } from 'lodash';
 import { useCallback, useEffect, useState } from 'react';
+import { Quarter } from 'src/types/other';
 
 type Category =
   | 'Productivity & Focus'
@@ -21,8 +22,8 @@ type SurveyData = Record<string, TeamData>;
 
 interface UseOverviewCardProps {
   data: Record<string, SurveyData>;
-  selectedQuarter: 'Q1' | 'Q2' | 'Q3' | 'Q4';
-  onQuarterChange: (quarter: 'Q1' | 'Q2' | 'Q3' | 'Q4') => void;
+  selectedQuarter: Quarter;
+  onQuarterChange: (quarter: Quarter) => void;
   slots: {
     tableContainerProps: TableContainerProps;
   };
@@ -84,7 +85,7 @@ export const useOverviewCard = ({
     });
   }, []);
 
-  const quarters: ('Q1' | 'Q2' | 'Q3' | 'Q4')[] = ['Q1', 'Q2', 'Q3', 'Q4'];
+  const quarters: Quarter[] = ['Q1', 'Q2', 'Q3', 'Q4'];
   const currentQuarterIndex = quarters.indexOf(selectedQuarter);
 
   const handleQuarterChange = (direction: 'left' | 'right') => {

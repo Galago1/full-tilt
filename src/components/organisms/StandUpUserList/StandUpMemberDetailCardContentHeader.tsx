@@ -15,7 +15,10 @@ interface StandUpMemberDetailCardContentHeaderProps {
   onNext: () => void;
   canGoBack: boolean;
   canGoNext: boolean;
-  formatStandUpTime: (standUpCompletedAt: string | null) => string;
+  formatStandUpTime: (
+    standUpCompletedAt: string | null,
+    hideIncomplete?: boolean
+  ) => string;
   theme: Theme;
   showEditButton: boolean;
   editButtonProps: ButtonProps;

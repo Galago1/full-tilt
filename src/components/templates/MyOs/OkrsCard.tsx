@@ -43,7 +43,7 @@ const Content = ({ okrs, loading }: ContentProps) => {
           alignItems={'center'}
           justifyContent={'center'}
           avatarAndTextProps={
-            loading ? undefined : { title: 'No okrs', subtitle: '' }
+            loading ? undefined : { title: 'No Okrs', subtitle: '' }
           }
         >
           {loading && <LoadingIndicator />}

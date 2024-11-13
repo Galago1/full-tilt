@@ -33,7 +33,7 @@ const Content = ({
           alignItems={'center'}
           justifyContent={'center'}
           avatarAndTextProps={
-            loading ? undefined : { title: 'No feedback', subtitle: '' }
+            loading ? undefined : { title: 'No Feedback', subtitle: '' }
           }
         >
           {loading && <LoadingIndicator />}

@@ -1,4 +1,5 @@
 import {
+  alpha,
   AvatarGroup,
   Grid,
   SxProps,
@@ -24,7 +25,8 @@ import Card, { CardProps } from 'src/components/organisms/Card/Card';
 import {
   ArrowRightIcon2,
   CalendarIcon,
-  Expand01Icon
+  Expand01Icon,
+  MessageQuestionCircleIcon
 } from 'src/components/particles/theme/overrides/CustomIcons';
 import { responsiveSpacing } from 'src/components/particles/theme/spacing';
 import { useMeetingsCard } from './hooks';
@@ -45,13 +47,39 @@ const Content = ({
   const theme = useTheme();
   if (!meetings || loading || (!loading && isEmpty(meetings)))
     return (
-      <Grid item>
+      <Grid
+        item
+        display={'flex'}
+        flex={1}
+        alignItems={'center'}
+        justifyContent={'center'}
+      >
         <EmptyState
           flex={1}
           alignItems={'center'}
           justifyContent={'center'}
           avatarAndTextProps={
-            loading ? undefined : { title: 'No meetings', subtitle: '' }
+            loading
+              ? undefined
+              : {
+                  title: 'No Meetings',
+                  subtitle: '',
+                  featuredIconProps: {
+                    size: 'md',
+                    children: <MessageQuestionCircleIcon />,
+                    sx: {
+                      color: theme.palette.common.white
+                    },
+                    style: {
+                      backgroundColor: alpha(theme.palette.common.white, 0.4)
+                    }
+                  },
+
+                  featuredIconItemSx: {
+                    zIndex: 2,
+                    color: `${theme.palette.common.white} !important`
+                  }
+                }
           }
         >
           {loading && <LoadingIndicator />}

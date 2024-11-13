@@ -103,7 +103,7 @@ const TableBodyContent = ({ tabData, selectedTab }: TableBodyContentProps) => {
           colSpan={4}
           sx={{ textAlign: 'center', borderBottom: 'unset', pb: 0 }}
         >
-          No meetings
+          No Meetings
         </TableCell>
       </TableRow>
     );

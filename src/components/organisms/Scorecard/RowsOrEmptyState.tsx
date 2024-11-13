@@ -18,11 +18,6 @@ interface RowsOrEmptyStateProps {
   columnWidths: any;
   checked: boolean[];
   handleCheckboxChange: (index: number) => void;
-  isTrendWithinGoal: (
-    goalCondition: GoalCondition,
-    goalValue: string,
-    trend: number
-  ) => boolean;
   getColorByValue: (
     goalCondition: GoalCondition,
     goalValue: string,
@@ -50,7 +45,6 @@ const RowsOrEmptyState = ({
   columnWidths,
   checked,
   handleCheckboxChange,
-  isTrendWithinGoal,
   getColorByValue,
   showCheckbox,
   showDotsIcon,
@@ -74,7 +68,6 @@ const RowsOrEmptyState = ({
           columnWidths={columnWidths}
           checked={checked[index]}
           handleCheckboxChange={handleCheckboxChange}
-          isTrendWithinGoal={isTrendWithinGoal}
           getColorByValue={getColorByValue}
           showCheckbox={showCheckbox}
           showDotsIcon={showDotsIcon}

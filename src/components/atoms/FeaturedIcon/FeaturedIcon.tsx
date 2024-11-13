@@ -1,5 +1,5 @@
 import type { SvgIconProps, Theme } from '@mui/material';
-import { styled } from '@mui/material';
+import { Grid, styled } from '@mui/material';
 import type { ColorSchema } from 'src/components/particles/theme/palette';
 import type { JSXElementConstructor, ReactElement } from 'react';
 import { cloneElement } from 'react';
@@ -151,17 +151,18 @@ const xxlStyles = (
   return sx;
 };
 
-const Div = styled('div', {
+const Div = styled(Grid, {
   shouldForwardProp: (prop) => prop !== 'primary'
-})<{ size: Size; color: ColorSchema; dual: number }>(
-  ({ theme, size, color, dual }) => ({
+})<{ size: Size; color: ColorSchema; dual: number; style?: any }>(
+  ({ theme, size, color, dual, style }) => ({
     ...xsStyles(size, theme, color, dual),
     ...smStyles(size, theme, color, dual),
     ...mdStyles(size, theme, color, dual),
     ...lgStyles(size, theme, color, dual),
     ...xlStyles(size, theme, color, dual),
     ...xxlStyles(size, theme, color, dual),
-    textAlign: 'center'
+    textAlign: 'center',
+    ...style
   })
 );
 
@@ -170,6 +171,7 @@ const FeaturedIcon = ({
   dual = false,
   color = 'primary',
   size = 'md',
+  style,
   ...props
 }: FeaturedIconProps) => {
   return (
@@ -178,6 +180,7 @@ const FeaturedIcon = ({
       color={color}
       // Change boolean to a number to avoid styled issue
       dual={+dual}
+      style={style}
     >
       {children && cloneElement(children, { ...props, color })}
     </Div>

@@ -23,6 +23,7 @@ import {
   TrendUp01Icon,
   Users03Icon
 } from 'src/components/particles/theme/overrides/CustomIcons';
+import { Quarter } from 'src/types/other';
 
 type Category =
   | 'Productivity & Focus'
@@ -129,13 +130,16 @@ export const TeamDataCell = styled(DataCell)({
   }
 });
 
-const DraggableTableRow = styled(TableRow)({
-  cursor: 'move'
-});
+const DraggableTableRow = styled(TableRow)<{ dragEnabled: boolean }>(
+  ({ dragEnabled }) => ({
+    cursor: dragEnabled ? 'move' : 'default'
+  })
+);
 
 export const getScoreColor = (score: Score, theme: Theme): string => {
   const numericScore = parseInt(score, 10);
   if (score === '00' || score === '0') return theme.palette.error[300];
+  if (score === 'NA' || !score) return theme.palette.grey[50];
   if (numericScore < 55) return theme.palette.error[100];
   if (numericScore < 60) return theme.palette.warning[100];
   if (numericScore < 70) return theme.palette.warning[300];
@@ -144,12 +148,14 @@ export const getScoreColor = (score: Score, theme: Theme): string => {
 };
 
 interface DraggableRowProps {
+  dragEnabled: boolean;
   index: number;
   moveRow?: (dragIndex: number, hoverIndex: number) => void;
   children: React.ReactNode;
 }
 
 export const DraggableRow = ({
+  dragEnabled = true,
   index,
   moveRow,
   children
@@ -182,7 +188,11 @@ export const DraggableRow = ({
   drag(drop(ref));
 
   return (
-    <DraggableTableRow ref={ref} style={{ opacity: isDragging ? 0.5 : 1 }}>
+    <DraggableTableRow
+      ref={ref}
+      style={{ opacity: isDragging ? 0.5 : 1 }}
+      dragEnabled={dragEnabled}
+    >
       {children}
     </DraggableTableRow>
   );
@@ -259,8 +269,8 @@ export const DraggableHeaderCell = ({
   );
 };
 
-export const getQuarterSpan = (quarter: 'Q1' | 'Q2' | 'Q3' | 'Q4'): string => {
-  const quarterSpans: Record<'Q1' | 'Q2' | 'Q3' | 'Q4', string> = {
+export const getQuarterSpan = (quarter: Quarter): string => {
+  const quarterSpans: Record<Quarter, string> = {
     Q1: 'Jan-Mar',
     Q2: 'Apr-Jun',
     Q3: 'Jul-Sep',

@@ -23,7 +23,10 @@ interface StandUpUserListContentProps {
   filteredMembers: TeamMember[];
   setSelectedIndex: (index: number) => void;
   theme: Theme;
-  formatStandUpTime: (standUpCompletedAt: string | null) => string;
+  formatStandUpTime: (
+    standUpCompletedAt: string | null,
+    hideIncomplete?: boolean
+  ) => string;
 }
 
 const StandUpUserListContent = ({
@@ -59,9 +62,9 @@ const StandUpUserListContent = ({
               onClick={() => setSelectedIndex(index)}
               sx={{
                 py: 1,
-                px: 0,
+                px: 0.5,
                 cursor: 'pointer',
-                backgroundColor: isSelected ? 'grey.100' : 'transparent'
+                backgroundColor: isSelected ? 'grey.50' : 'transparent'
               }}
             >
               <Grid container alignItems="center" wrap="nowrap" gap={1}>
@@ -99,7 +102,7 @@ const StandUpUserListContent = ({
                     }}
                   />
                 </Grid>
-                <Grid
+                {/* <Grid
                   item
                   sx={{
                     position: 'relative',
@@ -109,9 +112,9 @@ const StandUpUserListContent = ({
                   }}
                 >
                   <Typography variant="caption">
-                    {formatStandUpTime(member.standUpCompletedAt)}
+                    {formatStandUpTime(member.standUpCompletedAt, true)}
                   </Typography>
-                </Grid>
+                </Grid> */}
               </Grid>
             </ListItem>
             {index !== filteredMembers.length - 1 && <Divider />}

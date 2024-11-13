@@ -4,7 +4,12 @@ import {
   Card as MuiCard,
   CardProps as MuiCardProps
 } from '@mui/material';
-import { JSXElementConstructor, ReactElement } from 'react';
+import {
+  ForwardedRef,
+  forwardRef,
+  JSXElementConstructor,
+  ReactElement
+} from 'react';
 import CardActions from 'src/components/molecules/Card/CardActions';
 import { CardActionsProps } from 'src/components/molecules/Card/CardActions/CardActions';
 import CardContent, {
@@ -55,46 +60,53 @@ export interface CardProps extends MuiCardProps {
     hideHeaderBoxProps?: GridProps;
   };
 }
-const Card = ({
-  children,
-  showCardHeader = true,
-  showActions = true,
-  slots,
-  ...props
-}: CardProps) => {
-  const {
-    cardHeaderProps,
-    cardContentProps,
-    cardActionsProps,
-    hideActionsBoxProps,
-    hideHeaderBoxProps,
-    boxProps
-  } = slots || {};
+const Card = forwardRef(
+  (
+    {
+      children,
+      showCardHeader = true,
+      showActions = true,
+      slots,
+      ...props
+    }: CardProps,
+    ref
+  ) => {
+    const {
+      cardHeaderProps,
+      cardContentProps,
+      cardActionsProps,
+      hideActionsBoxProps,
+      hideHeaderBoxProps,
+      boxProps
+    } = slots || {};
 
-  const finalCardContentProps = {
-    ...cardContentProps,
-    children
-  };
-  return (
-    <MuiCard {...props}>
-      <Grid {...boxProps}>
-        {showCardHeader ? (
-          <CardHeader {...cardHeaderProps} />
-        ) : (
-          <Grid sx={{ pt: responsiveSpacing }} {...hideHeaderBoxProps} />
-        )}
-        <CardContent {...finalCardContentProps} />
+    const finalCardContentProps = {
+      ...cardContentProps,
+      children
+    };
+    return (
+      <MuiCard ref={ref as ForwardedRef<HTMLDivElement>} {...props}>
+        <Grid {...boxProps}>
+          {showCardHeader ? (
+            <CardHeader {...cardHeaderProps} />
+          ) : (
+            <Grid sx={{ pt: responsiveSpacing }} {...hideHeaderBoxProps} />
+          )}
+          <CardContent {...finalCardContentProps} />
 
-        {showActions ? (
-          <CardActions {...cardActionsProps} />
-        ) : (
-          <Grid
-            sx={{ pt: children ? responsiveSpacing : null }}
-            {...hideActionsBoxProps}
-          />
-        )}
-      </Grid>
-    </MuiCard>
-  );
-};
+          {showActions ? (
+            <CardActions {...cardActionsProps} />
+          ) : (
+            <Grid
+              sx={{ pt: children ? responsiveSpacing : null }}
+              {...hideActionsBoxProps}
+            />
+          )}
+        </Grid>
+      </MuiCard>
+    );
+  }
+);
+
+Card.displayName = 'Card';
 export default Card;

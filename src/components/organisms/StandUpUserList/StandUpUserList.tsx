@@ -124,14 +124,7 @@ const StandUpUserList = forwardRef(
           onEdit?.(member);
         }
       };
-    }, [
-      showEditFor,
-      onEdit,
-      filteredMembers,
-      selectedIndex,
-      editButtonProps,
-      selectedDate
-    ]);
+    }, [filteredMembers, selectedIndex, editButtonProps, selectedDate]);
 
     const selectedMemberId = (filteredMembers || [])[selectedIndex]?.id;
     const showEditButton = determineShowEdit(

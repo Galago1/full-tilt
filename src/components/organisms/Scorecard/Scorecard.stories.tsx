@@ -25,12 +25,15 @@ Daily.args = {
   onClickEdit: (event, row) => console.log('Edit clicked', event, row),
   slots: {
     scoreCardDraggableRowProps: {
-      slots: {
-        dropdownProps: scorecardDropdown()
-      }
+      onClickIcon: (event, row) => console.log('Icon clicked', event, row),
+      showEndIcon: true
+      // slots: {
+      //   dropdownProps: scorecardDropdown()
+      // }
     }
   },
   type: 'daily',
+  showEndIcon: true,
   data: [
     {
       owner: 'James P Sullivan',
@@ -38,11 +41,12 @@ Daily.args = {
       title: '1 point a day',
       goal: '> 1',
       trend: 1.122222,
+      suffix: '%',
       data: [
         { value: undefined },
-        { value: 0.8 },
-        { value: 1 },
-        { value: 0.4 },
+        { value: 0.8, suffix: '%' },
+        { value: 1, suffix: '%' },
+        { value: 0.4, suffix: '%' },
         { value: undefined },
         { value: undefined }
       ],
@@ -55,12 +59,12 @@ Daily.args = {
       goal: '1-2',
       trend: 1.5,
       data: [
-        { value: 0.6 },
+        { value: '0.60', prefix: '$' },
         { value: undefined },
-        { value: 0.8 },
-        { value: 0.9 },
+        { value: '0.80', prefix: '$' },
+        { value: '0.90', prefix: '$' },
         { value: undefined },
-        { value: 1 }
+        { value: '1.00', prefix: '$' }
       ],
       goalCondition: GoalCondition.BETWEEN
     },
@@ -89,6 +93,7 @@ DailyEmpty.args = {
   onClickEdit: (event, row) => console.log('Edit clicked', event, row),
   slots: {
     scoreCardDraggableRowProps: {
+      showEndIcon: true,
       slots: {
         dropdownProps: scorecardDropdown()
       }

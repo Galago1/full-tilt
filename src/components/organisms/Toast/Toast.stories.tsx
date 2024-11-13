@@ -13,16 +13,14 @@ export default {
   // }
 } as ComponentMeta<typeof Toast>;
 
-const Template: Story<ToastrProps> = (args) => {
-  // const { toast, hideToast } = useToast({ ...args });
-  // const { showToast } = useToast();
-  // showToast(args);
+const Template: Story<any> = (args) => {
+  const { init } = args;
   return (
     <ThemeProvider isDarkMode={false}>
       <ToastProvider
         init={{
           duration: undefined,
-          position: {
+          position: init?.position || {
             vertical: 'top',
             horizontal: 'center'
           },
@@ -37,6 +35,18 @@ const Template: Story<ToastrProps> = (args) => {
 
 export const Success = Template.bind({});
 Success.args = { text: 'Test Success', type: 'primary' };
+
+export const BottomLeft = Template.bind({});
+BottomLeft.args = {
+  text: 'Test Success',
+  type: 'primary',
+  init: {
+    position: {
+      vertical: 'bottom',
+      horizontal: 'left'
+    }
+  }
+};
 
 export const Error = Template.bind({});
 Error.args = { text: 'Test Error', type: 'error' };

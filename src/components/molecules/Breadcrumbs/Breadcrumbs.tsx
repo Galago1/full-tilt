@@ -1,6 +1,6 @@
 import type { SxProps, Theme } from '@mui/material';
 import { Breadcrumbs as MuiBreadcrumbs } from '@mui/material';
-import { BreadcrumbList } from './BreadcrumbList/BreadcrumbList';
+import { breadcrumbList } from './helpers';
 
 export interface Breadcrumb {
   label: string | JSX.Element;
@@ -43,7 +43,7 @@ const Breadcrumbs = ({
 }: BreadcrumbsProps) => {
   return (
     <MuiBreadcrumbs separator={separator} aria-label="breadcrumb" {...props}>
-      {BreadcrumbList(breadcrumbs, !!large)}
+      {breadcrumbList(breadcrumbs, !!large)}
     </MuiBreadcrumbs>
   );
 };

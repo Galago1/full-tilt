@@ -19,7 +19,8 @@ export const useMeetingTimeCard = (
   handlePlayPauseCb?: (isRunning: boolean) => void,
   handleClickCb?: (index: string) => void
 ) => {
-  const [currentId, setCurrentId] = useState(planItems[0].id);
+  const firstPlanItem = planItems[0];
+  const [currentId, setCurrentId] = useState(firstPlanItem?.id ?? '');
   const [elapsedTimes, setElapsedTimes] = useState<MeetingDurationItem>(
     initialElapsedTimes ?? mapPlanItemsToElapsedTimes(planItems)
   );

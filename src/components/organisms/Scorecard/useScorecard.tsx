@@ -11,12 +11,14 @@ import {
 } from 'date-fns';
 import { useMemo, useState } from 'react';
 import useDeepCompareEffect from 'src/hooks/useDeepCompareEffect';
-import { GoalCondition, isTrendWithinGoal } from './helpers';
+import { GoalCondition } from './helpers';
 
 export interface RowDataObject {
   id?: string;
   value: string | number | undefined;
   date?: string;
+  suffix?: string;
+  prefix?: string;
 }
 
 export interface RowData {
@@ -28,11 +30,14 @@ export interface RowData {
   trend: number;
   data: RowDataObject[];
   goalCondition: GoalCondition;
+  suffix?: string;
+  prefix?: string;
 }
 export const useScorecard = (
   data: RowData[],
   type: string,
-  isLoading: boolean
+  isLoading: boolean,
+  showEndIcon: boolean
 ) => {
   const [rows, setRows] = useState(data);
 
@@ -137,34 +142,27 @@ export const useScorecard = (
     }
   };
 
-  const columnWidths = useMemo(
-    () => ({
-      owner: `calc(20% - ${theme.spacing(1)})`,
-      title: `calc(20% - ${theme.spacing(1)})`,
-      goal: `calc(10% - ${theme.spacing(1)})`,
-      trend: `calc(10% - ${theme.spacing(1)})`,
-      data: `calc(${40 / getDatesByType(type).length}% - ${theme.spacing(1)})`
-    }),
-    [theme, type]
-  );
+  const columnWidths = useMemo(() => {
+    const dates = getDatesByType(type);
+    const dataColumnsCount = dates.length;
+    const spacing = theme.spacing(1);
+
+    // Calculate data percentage - reduce from 40% to 30% when endIcon is shown
+    const dataPercentage = showEndIcon ? 36 : 40;
+
+    return {
+      owner: `calc(20% - ${spacing})`, // 20%
+      title: `calc(20% - ${spacing})`, // 20%
+      goal: `calc(10% - ${spacing})`, // 10%
+      trend: `calc(10% - ${spacing})`, // 10%
+      // 40% without endIcon, 30% with endIcon
+      data: `calc(${dataPercentage / dataColumnsCount}% - ${spacing})`,
+      // Takes 10% when shown, but removes it from data percentage
+      endIcon: showEndIcon ? `calc(4% - ${spacing})` : '0'
+    };
+  }, [theme, type, showEndIcon]);
 
   const dates = getDatesByType(type);
-  // const [anchorEls, setAnchorEls] = useState<HTMLElement[]>(
-  //   new Array(rows.length).fill(null)
-  // );
-
-  // const handleRowMenuClick =
-  //   (index: number) => (event: React.MouseEvent<HTMLElement>) => {
-  //     const newAnchorEls = [...anchorEls];
-  //     newAnchorEls[index] = event.currentTarget;
-  //     setAnchorEls(newAnchorEls);
-  //   };
-
-  // const handleRowMenuClose = (index: number) => () => {
-  //   const newAnchorEls: any = [...anchorEls];
-  //   newAnchorEls[index] = null;
-  //   setAnchorEls(newAnchorEls);
-  // };
 
   const moveRow = (dragIndex: number, hoverIndex: number) => {
     const newRows = Array.from(rows);
@@ -178,15 +176,11 @@ export const useScorecard = (
     checked,
     handleAllCheckboxChange,
     handleCheckboxChange,
-    isTrendWithinGoal,
     getTitleByType,
     columnWidths,
     theme,
     dates,
     rows,
     moveRow
-    // handleRowMenuClick,
-    // handleRowMenuClose,
-    // anchorEls
   };
 };

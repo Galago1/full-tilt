@@ -61,8 +61,7 @@ export const CloseButton = ({
         item
         sx={{
           display: 'flex',
-          alignSelf: 'normal',
-          ...closeGridItemProp
+          alignSelf: 'normal'
         }}
       >
         <Button

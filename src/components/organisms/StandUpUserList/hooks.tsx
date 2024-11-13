@@ -76,9 +76,12 @@ export const useStandUpUserList = (
     return formatIso(dateString, DateFormat.MMMddyyyy);
   };
 
-  const formatStandUpTime = (standUpCompletedAt: string | null) => {
+  const formatStandUpTime = (
+    standUpCompletedAt: string | null,
+    hideIncomplete: boolean = false
+  ) => {
     if (!standUpCompletedAt) {
-      return 'Incomplete';
+      return hideIncomplete ? '' : 'Incomplete';
     }
     const date = parseISO(standUpCompletedAt);
     return formatDistanceToNow(date, { addSuffix: true }).replace('about ', '');

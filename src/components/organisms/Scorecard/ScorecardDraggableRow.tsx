@@ -6,6 +6,7 @@ import {
   useTheme
 } from '@mui/material';
 import { FormikHelpers } from 'formik';
+import { last, round } from 'lodash';
 import { useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import Dropdown, {
@@ -14,14 +15,14 @@ import Dropdown, {
 import NumberInputBase from 'src/components/molecules/Inputs/NumberInputBase/NumberInputBase';
 import {
   DotsGrid06Icon,
-  DotsVerticalIcon
+  LayoutRightIcon
 } from 'src/components/particles/theme/overrides/CustomIcons';
 import Avatar from '../../atoms/Avatar/Avatar';
 import { GoalCondition } from './helpers';
 import ScorecardCell from './ScorecardCell';
 import { InlineFormikProps } from './ScorecardInlineEditCell';
 import { RowData } from './useScorecard';
-import { round, last } from 'lodash';
+
 const ROW = 'row';
 
 export interface ScorecardDraggableRowProps {
@@ -31,11 +32,6 @@ export interface ScorecardDraggableRowProps {
   columnWidths?: any;
   checked?: boolean;
   handleCheckboxChange?: (index: number) => void;
-  isTrendWithinGoal?: (
-    goalCondition: GoalCondition,
-    goalValue: string,
-    trend: number
-  ) => boolean;
   getColorByValue?: (
     goalCondition: GoalCondition,
     goalValue: string,
@@ -52,6 +48,7 @@ export interface ScorecardDraggableRowProps {
 
   closeOnSave?: boolean;
   canEdit?: boolean;
+  onClickIcon?: (event: any, row: RowData) => void;
   onClickEdit?: (event: any, row: RowData) => void;
   onClickDelete?: (event: any, row: RowData) => void;
   slots?: {
@@ -67,10 +64,10 @@ const ScorecardDraggableRow = ({
   columnWidths,
   checked,
   handleCheckboxChange,
-  isTrendWithinGoal,
   getColorByValue,
   onClickEdit,
   onClickDelete,
+  onClickIcon,
   showCheckbox,
   showDotsIcon = true,
   onSave,
@@ -121,28 +118,6 @@ const ScorecardDraggableRow = ({
   drag(drop(ref));
 
   const opacity = isDragging ? 0.5 : 1;
-  const finalDropdownProps = dropdownProps
-    ? {
-        ...dropdownProps,
-        dropdownListItems: [
-          {
-            ...dropdownProps.dropdownListItems[0],
-
-            menuItemProps: {
-              ...dropdownProps.dropdownListItems[0].menuItemProps,
-              onClick: (event: any) => onClickEdit!(event, row!)
-            }
-          },
-          {
-            ...dropdownProps.dropdownListItems[1],
-            menuItemProps: {
-              ...dropdownProps.dropdownListItems[1].menuItemProps,
-              onClick: (event: any) => onClickDelete!(event, row!)
-            }
-          }
-        ]
-      }
-    : undefined;
 
   return (
     <Grid
@@ -190,6 +165,7 @@ const ScorecardDraggableRow = ({
         closeOnSave={closeOnSave!}
         canEdit={false}
         allowEmptyText={true}
+        disabled={true}
       />
       <ScorecardCell
         content={{ value: row!.goal }}
@@ -200,25 +176,25 @@ const ScorecardDraggableRow = ({
         closeOnSave={closeOnSave!}
         canEdit={false} // TBD, need to figure out the data being saved
         allowEmptyText={true}
+        disabled={true}
       />
       <ScorecardCell
-        content={{ value: round(row!.trend, 2) }}
+        content={{ value: row!.prefix ? row!.trend : round(row!.trend, 2) }}
         type="data"
         width={columnWidths.trend}
-        bgcolor={
-          isTrendWithinGoal!(
-            row?.goalCondition!,
-            last(row!.goal.split(' ')) as string,
-            row!.trend
-          )
-            ? 'success.100'
-            : 'error.100'
-        }
+        bgcolor={getColorByValue!(
+          row?.goalCondition!,
+          last(row!.goal.split(' ')) as string,
+          row!.trend
+        )}
         onSave={async (a, b, c) => await onSave!(a, b, c, row!)}
         component={NumberInputBase}
         closeOnSave={closeOnSave!}
         canEdit={false}
         allowEmptyText={true}
+        disabled={true}
+        suffix={row!.suffix}
+        prefix={row!.prefix}
       />
       {row!.data.map((data, dataIndex) => (
         <ScorecardCell
@@ -235,14 +211,16 @@ const ScorecardDraggableRow = ({
           component={NumberInputBase}
           closeOnSave={closeOnSave!}
           canEdit={canEdit!}
+          suffix={data!.suffix}
+          prefix={data!.prefix}
         />
       ))}
-      {showEndIcon && !finalDropdownProps && (
+      {showEndIcon && !dropdownProps && (
         <IconButton
           sx={{
             border: theme.border.userProfile,
             borderRadius: theme.spacing(0.5),
-            width: theme.spacing(5),
+            minWidth: theme.spacing(5.5),
             height: theme.spacing(5),
             display: 'flex',
             alignItems: 'center',
@@ -250,12 +228,13 @@ const ScorecardDraggableRow = ({
             mr: theme.spacing(0.5),
             borderColor: 'grey.200'
           }}
+          onClick={(e) => onClickIcon!(e, row!)}
         >
-          <DotsVerticalIcon sx={{ fontSize: theme.spacing(2.5) }} />
+          <LayoutRightIcon sx={{ fontSize: theme.spacing(2.5) }} />
         </IconButton>
       )}
-      {showEndIcon && finalDropdownProps && (
-        <Dropdown sx={{ width: theme.spacing(5) }} {...finalDropdownProps} />
+      {showEndIcon && dropdownProps && (
+        <Dropdown sx={{ width: theme.spacing(5) }} {...dropdownProps} />
       )}
     </Grid>
   );

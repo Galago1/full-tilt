@@ -32,7 +32,7 @@ const Content = ({
           alignItems={'center'}
           justifyContent={'center'}
           avatarAndTextProps={
-            loading ? undefined : { title: 'No ideas', subtitle: '' }
+            loading ? undefined : { title: 'No Ideas', subtitle: '' }
           }
         >
           {loading && <LoadingIndicator />}

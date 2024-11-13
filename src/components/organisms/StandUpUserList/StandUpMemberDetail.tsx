@@ -15,7 +15,10 @@ interface StandUpMemberDetailProps {
   canGoNext: boolean;
   tipVisible: boolean;
   handleClose: () => void;
-  formatStandUpTime: (standUpCompletedAt: string | null) => string;
+  formatStandUpTime: (
+    standUpCompletedAt: string | null,
+    hideIncomplete?: boolean
+  ) => string;
   theme: Theme;
   showEditButton: boolean;
   editButtonProps: ButtonProps;

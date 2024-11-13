@@ -19,7 +19,10 @@ interface ScorecardCellProps {
   closeOnSave: boolean;
   canEdit: boolean;
   allowEmptyText?: boolean;
+  disabled?: boolean;
   component?: any;
+  suffix?: string;
+  prefix?: string;
 }
 
 const ScorecardCell = ({
@@ -31,7 +34,10 @@ const ScorecardCell = ({
   component = TextInput,
   closeOnSave,
   canEdit,
-  allowEmptyText
+  allowEmptyText,
+  disabled = false,
+  suffix,
+  prefix
 }: ScorecardCellProps) => {
   const theme = useTheme();
   const backgroundColor =
@@ -63,6 +69,9 @@ const ScorecardCell = ({
         closeOnSave={closeOnSave}
         canEdit={canEdit}
         allowEmptyText={allowEmptyText!}
+        disabled={disabled}
+        suffix={suffix}
+        prefix={prefix}
       />
     </Grid>
   );

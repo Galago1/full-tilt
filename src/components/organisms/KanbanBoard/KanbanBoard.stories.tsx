@@ -5,6 +5,7 @@ import { useRef } from 'react';
 import Chip from 'src/components/atoms/Chip/Chip';
 import { AvatarAndText, SelectInput } from 'src/components/molecules';
 import { DropdownListItem } from 'src/components/molecules/Dropdown/DropdownList/DropdownList';
+import { PlusIcon } from 'src/components/particles/theme/overrides/CustomIcons';
 import { DataGridProps } from '../DataGrid/DataGrid';
 import KanbanBoard, { KanbanBoardProps } from './KanbanBoard';
 
@@ -63,7 +64,22 @@ const initialData: Partial<KanbanBoardProps> = {
   data: {
     title: 'To-Dos',
     columns: [
-      { id: '1', title: 'Soon', titleColor: 'grey.100', cards: [] },
+      {
+        id: '1',
+        title: 'Soon',
+        titleColor: 'grey.100',
+        cards: [],
+        kanbanColumnProps: {
+          slots: {
+            addCardButtonProps: {
+              variant: 'text',
+              startIcon: <PlusIcon />,
+              label: 'Add Card',
+              sx: { mt: 1 }
+            }
+          }
+        }
+      },
       {
         id: '2',
         title: 'In Progress',
@@ -142,7 +158,17 @@ const initialData: Partial<KanbanBoardProps> = {
             imageUrl:
               'https://m.media-amazon.com/images/M/MV5BMTQ5MzkzNTIyN15BMl5BanBnXkFtZTYwNzUzOTA2._V1_FMjpg_UX1000_.jpg'
           }
-        ]
+        ],
+        kanbanColumnProps: {
+          slots: {
+            addCardButtonProps: {
+              variant: 'text',
+              startIcon: <PlusIcon />,
+              label: 'Add Card',
+              sx: { mt: 1 }
+            }
+          }
+        }
       },
       {
         id: '3',
@@ -200,7 +226,17 @@ const initialData: Partial<KanbanBoardProps> = {
             imageUrl:
               'https://upload.wikimedia.org/wikipedia/commons/c/c3/The_Rock_2023.jpg'
           }
-        ]
+        ],
+        kanbanColumnProps: {
+          slots: {
+            addCardButtonProps: {
+              variant: 'text',
+              startIcon: <PlusIcon />,
+              label: 'Add Card',
+              sx: { mt: 1 }
+            }
+          }
+        }
       },
       {
         id: '4',
@@ -242,7 +278,17 @@ const initialData: Partial<KanbanBoardProps> = {
             imageUrl:
               'https://upload.wikmedia.org/wikipedia/commons/c/c3/The_Rock_2023.jpg'
           }
-        ]
+        ],
+        kanbanColumnProps: {
+          slots: {
+            addCardButtonProps: {
+              variant: 'text',
+              startIcon: <PlusIcon />,
+              label: 'Add Card',
+              sx: { mt: 1 }
+            }
+          }
+        }
       }
     ]
   },

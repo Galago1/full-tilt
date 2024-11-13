@@ -7,10 +7,14 @@ import { styled, useTheme } from '@mui/material/styles';
 import { useState } from 'react';
 import type { ButtonProps } from 'src/components/atoms/Button/Button';
 import Button from 'src/components/atoms/Button/Button';
+import Tooltip from 'src/components/atoms/Tooltip/Tooltip';
 
 export interface ButtonGroupProps extends Omit<MuiButtonGroupProps, 'onClick'> {
-  buttons: (ButtonProps & { selected?: boolean })[];
-  sx?: SxProps<Theme>;
+  buttons: (ButtonProps & {
+    selected?: boolean;
+    tooltip?: string;
+  })[];
+  sx?: SxProps;
   disabled?: boolean;
   onClick?: (index: number) => void;
   customVariant?: 'default' | 'roundedEdges';
@@ -48,18 +52,7 @@ const ButtonGroup = ({
   };
 
   return (
-    <MuiButtonGroup
-      sx={{
-        boxShadow: 'none',
-        border: theme.border.divider,
-        overflow: 'hidden',
-        ...sx
-      }}
-      disabled={disabled}
-      variant={'contained'}
-      color={'secondary'}
-      {...props}
-    >
+    <MuiButtonGroup sx={sx} disabled={disabled} {...props}>
       {buttons.map((button, index) => {
         const selectedStyles = useSelectedStyles
           ? {
@@ -68,23 +61,28 @@ const ButtonGroup = ({
             }
           : {};
 
-        const sx = {
+        const buttonSx = {
           ...(customVariant === 'roundedEdges' && {
             ...selectedStyles
           }),
           ...button.sx
         };
 
-        return (
+        const ButtonComponent = (
           <StyledButton
-            key={`button-group-index[${index}]`}
-            color="secondary"
-            variant="contained"
+            key={index}
             {...button}
-            selected={useSelectedStyles ? selectedIndex === index : false}
             onClick={() => handleButtonClick(index, button.onClick)}
-            sx={sx}
+            sx={buttonSx}
           />
+        );
+
+        return button.tooltip ? (
+          <Tooltip key={index} title={button.tooltip}>
+            {ButtonComponent}
+          </Tooltip>
+        ) : (
+          ButtonComponent
         );
       })}
     </MuiButtonGroup>
