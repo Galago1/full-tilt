@@ -36,6 +36,13 @@ import {
 import { useOverviewCard } from './useOverviewCard';
 import { Quarter } from 'src/types/other';
 
+const quarterLabel: Record<Quarter, string> = {
+  q1: 'Q1',
+  q2: 'Q2',
+  q3: 'Q3',
+  q4: 'Q4'
+};
+
 export interface OverviewCardProps extends Omit<CardProps, 'slots'> {
   /**
    * Data for the survey overview card
@@ -133,7 +140,9 @@ const OverviewCard = ({
                 },
                 {
                   startIcon: <CalendarIcon />,
-                  label: `${selectedQuarter} ${new Date().getFullYear()} (${getQuarterSpan(
+                  label: `${
+                    quarterLabel[selectedQuarter]
+                  } ${new Date().getFullYear()} (${getQuarterSpan(
                     selectedQuarter
                   )})`,
                   disabled: true,
@@ -175,7 +184,7 @@ const OverviewCard = ({
                         display={'flex'}
                         width={'100%'}
                         justifyContent={'space-between'}
-                        p={`${theme.spacing(3)} ${theme.spacing(1)}`}
+                        p={1}
                       >
                         <Typography variant="textSmMedium">Teams</Typography>
                         {showSwitches && (

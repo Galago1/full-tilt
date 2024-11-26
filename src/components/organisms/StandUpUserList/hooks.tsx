@@ -18,12 +18,13 @@ export const useStandUpUserList = (
   initialDate: string = today,
   setExternalDate: (date: string) => void,
   externalSelectedIndex: number,
-  setExternalSelectedIndex: React.Dispatch<React.SetStateAction<number>>
+  setExternalSelectedIndex: React.Dispatch<React.SetStateAction<number>>,
+  initialTeam: string = 'all'
 ) => {
   const [selectedIndexRoot, setSelectedIndexRoot] = useState(0);
   const selectedIndex = externalSelectedIndex ?? selectedIndexRoot;
   const setSelectedIndex = setExternalSelectedIndex ?? setSelectedIndexRoot;
-  const [selectedTeam, setSelectedTeam] = useState('all');
+  const [selectedTeam, setSelectedTeam] = useState(initialTeam);
   const [selectedDate, setSelectedDate] = useState(initialDate);
   const [open, setOpen] = useState(false);
 

@@ -1,18 +1,26 @@
-import { Grid, SxProps, Theme, Typography, useTheme } from '@mui/material';
+import {
+  capitalize,
+  Grid,
+  SxProps,
+  Theme,
+  Typography,
+  useTheme
+} from '@mui/material';
 import { isEmpty } from 'lodash';
 import { Fragment } from 'react/jsx-runtime';
 import Button from 'src/components/atoms/Button/Button';
 import Divider from 'src/components/atoms/Divider/Divider';
 import AvatarAndText from 'src/components/molecules/AvatarAndText/AvatarAndText';
+import BasicEmptyState from 'src/components/molecules/BasicEmptyState';
 import CircularProgressIndicator, {
   CircularProgressIndicatorSize
 } from 'src/components/molecules/CircularProgressIndicator/CircularProgressIndicator';
-import EmptyState from 'src/components/molecules/EmptyState/EmptyState';
 import LoadingIndicator from 'src/components/molecules/LoadingIndicator/LoadingIndicator';
 import Card, { CardProps } from 'src/components/organisms/Card/Card';
 import {
   ArrowUpRightIcon,
   CalendarIcon,
+  MessageQuestionCircleIcon,
   TriangleIcon,
   Users01Icon
 } from 'src/components/particles/theme/overrides/CustomIcons';
@@ -22,8 +30,17 @@ import { Okr } from './types';
 interface ContentProps {
   okrs: Okr[];
   loading: boolean;
+  okrName: string;
+  onClickEmptyState?: () => void;
+  emptyStateSubtitle?: any;
 }
-const Content = ({ okrs, loading }: ContentProps) => {
+const Content = ({
+  okrs,
+  okrName = 'OKRs',
+  onClickEmptyState,
+  loading,
+  emptyStateSubtitle
+}: ContentProps) => {
   const theme = useTheme();
   if (!okrs || loading || (!loading && isEmpty(okrs)))
     return (
@@ -38,16 +55,38 @@ const Content = ({ okrs, loading }: ContentProps) => {
           }
         }}
       >
-        <EmptyState
-          flex={1}
-          alignItems={'center'}
-          justifyContent={'center'}
-          avatarAndTextProps={
-            loading ? undefined : { title: 'No Okrs', subtitle: '' }
+        <BasicEmptyState
+          emptyStateHeight={'auto'}
+          sx={{
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+          slots={{
+            gridSx: {
+              flex: 1,
+              alignItems: 'center',
+              justifyContent: 'center',
+              display: 'flex'
+            }
+          }}
+          icon={loading ? null : <TriangleIcon />}
+          title={loading ? '' : `No ${okrName}`}
+          subtitle={loading ? '' : emptyStateSubtitle}
+          buttonProps={
+            !loading && onClickEmptyState
+              ? {
+                  onClick: onClickEmptyState,
+                  label: `Add ${okrName}`,
+                  variant: 'outlined',
+                  color: 'secondary',
+                  sx: { mt: 2 }
+                }
+              : undefined
           }
         >
           {loading && <LoadingIndicator />}
-        </EmptyState>
+        </BasicEmptyState>
       </Grid>
     );
 
@@ -77,7 +116,7 @@ const Content = ({ okrs, loading }: ContentProps) => {
     >
       {okrs.map((okr, index) => (
         <Fragment key={okr.id}>
-          <Grid item xs={12} onClick={okr.onClick}>
+          <Grid item xs={12} onClick={okr.onClick} sx={{ cursor: 'pointer' }}>
             <Grid container>
               <Grid item flex={1}>
                 <Grid
@@ -103,7 +142,7 @@ const Content = ({ okrs, loading }: ContentProps) => {
                     <Grid item display={'flex'} gap={1} mt={1.5}>
                       <CalendarIcon sx={{ color: theme.palette.grey[400] }} />
                       <Typography variant="textSmMedium">
-                        Quarter {okr.quarter}
+                        Quarter {capitalize(okr.quarter)}
                       </Typography>
                       <Users01Icon sx={{ color: theme.palette.grey[400] }} />
                       <Typography variant="textSmMedium">
@@ -118,7 +157,7 @@ const Content = ({ okrs, loading }: ContentProps) => {
                 <Button
                   variant="text"
                   color="secondary"
-                  onClick={okr.onClick}
+                  // onClick={okr.onClick}
                   sx={{ '&': { minWidth: 'auto' } }}
                   label={<ArrowUpRightIcon />}
                 />
@@ -136,12 +175,18 @@ export interface OkrsCardProps extends Omit<CardProps, 'slots'> {
   okrs?: Okr[];
   cardSlots: CardProps['slots'];
   loading?: boolean;
+  okrName: string;
+  onClickEmptyState?: () => void;
+  emptyStateSubtitle?: any;
 }
 
 export const OkrsCard = ({
   okrs = [],
   cardSlots,
   loading,
+  okrName,
+  onClickEmptyState,
+  emptyStateSubtitle,
   ...props
 }: OkrsCardProps) => {
   const theme = useTheme();
@@ -195,7 +240,13 @@ export const OkrsCard = ({
             titleTypography={{ variant: 'textLgSemibold' }}
           />
         </Grid>
-        <Content okrs={okrs} loading={loading!} />
+        <Content
+          okrs={okrs}
+          loading={loading!}
+          okrName={okrName}
+          onClickEmptyState={onClickEmptyState}
+          emptyStateSubtitle={emptyStateSubtitle}
+        />
       </Grid>
     </Card>
   );

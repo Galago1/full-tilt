@@ -4,7 +4,7 @@ import { Fragment } from 'react/jsx-runtime';
 import Button from 'src/components/atoms/Button/Button';
 import Divider from 'src/components/atoms/Divider';
 import AvatarAndText from 'src/components/molecules/AvatarAndText/AvatarAndText';
-import EmptyState from 'src/components/molecules/EmptyState/EmptyState';
+import BasicEmptyState from 'src/components/molecules/BasicEmptyState/BasicEmptyState';
 import LoadingIndicator from 'src/components/molecules/LoadingIndicator/LoadingIndicator';
 import Card, { CardProps } from 'src/components/organisms/Card/Card';
 import {
@@ -21,67 +21,71 @@ interface ContentProps {
   digest: Digest[];
   firstDigestSubtitle: string;
   loading: boolean;
+  onClickEmptyState?: () => void;
+  emptyStateSubtitle?: any;
 }
-const Content = ({ digest, firstDigestSubtitle, loading }: ContentProps) => {
+const Content = ({
+  digest,
+  firstDigestSubtitle,
+  loading,
+  onClickEmptyState,
+  emptyStateSubtitle
+}: ContentProps) => {
   if (!digest || loading || (!loading && isEmpty(digest))) {
     if (!loading && isEmpty(digest))
       return (
-        <Grid item flex={1} display={'flex'} justifyContent={'center'}>
-          <EmptyState
-            alignItems={'center'}
-            justifyContent={'center'}
-            featuredIconProps={{ children: <CalendarIcon /> }}
-            avatarAndTextProps={{
+        <BasicEmptyState
+          icon={loading ? null : <ZapIcon />}
+          title={loading ? '' : `First Digest`}
+          subtitle={loading ? '' : firstDigestSubtitle}
+          emptyStateHeight={'auto'}
+          slots={{
+            gridSx: {
+              flex: 1,
               alignItems: 'center',
               justifyContent: 'center',
-              title: 'First Digest',
-              subtitle: firstDigestSubtitle,
-              textGridItemProps: {
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center'
-              },
-              textTitleGridItemProps: {
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center'
-              },
-              textSubtitleGridItemProps: {
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }
-            }}
-          />
-        </Grid>
+              display: 'flex'
+            }
+          }}
+          buttonProps={
+            !loading && onClickEmptyState
+              ? {
+                  onClick: onClickEmptyState,
+                  label: 'Add Digest',
+                  variant: 'outlined',
+                  color: 'secondary',
+                  sx: { mt: 2 }
+                }
+              : undefined
+          }
+        />
       );
     return (
-      <Grid
-        item
-        container
-        sx={{
-          height: {
-            xs: '100%',
-            sm: 'calc(100% - 70.5px)',
-            minHeight: '140px'
+      <BasicEmptyState
+        icon={loading ? null : <CalendarIcon />}
+        title={loading ? '' : 'No Digests'}
+        slots={{
+          gridSx: {
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+            display: 'flex'
           }
         }}
+        buttonProps={
+          !loading && onClickEmptyState
+            ? {
+                onClick: onClickEmptyState,
+                label: 'Add Digest',
+                variant: 'outlined',
+                color: 'secondary',
+                sx: { mt: 2 }
+              }
+            : undefined
+        }
       >
-        <EmptyState
-          spacing={0}
-          flex={1}
-          alignItems={'center'}
-          justifyContent={'center'}
-          avatarAndTextProps={
-            loading ? undefined : { title: 'No Digests', subtitle: '' }
-          }
-        >
-          {loading && <LoadingIndicator />}
-        </EmptyState>
-      </Grid>
+        {loading && <LoadingIndicator />}
+      </BasicEmptyState>
     );
   }
 
@@ -164,6 +168,8 @@ export interface LatestDigestCardProps extends Omit<CardProps, 'slots'> {
   firstDigestSubtitle: string;
   cardSlots?: CardProps['slots'];
   loading?: boolean;
+  onClickEmptyState?: () => void;
+  emptyStateSubtitle?: any;
 }
 
 export const LatestDigestCard = ({
@@ -172,6 +178,8 @@ export const LatestDigestCard = ({
   cardSlots,
   onClick,
   loading,
+  onClickEmptyState,
+  emptyStateSubtitle,
   ...props
 }: LatestDigestCardProps) => {
   const theme = useTheme();
@@ -227,6 +235,8 @@ export const LatestDigestCard = ({
           digest={digest}
           firstDigestSubtitle={firstDigestSubtitle}
           loading={loading!}
+          onClickEmptyState={onClickEmptyState}
+          emptyStateSubtitle={emptyStateSubtitle}
         />
       </Grid>
     </Card>

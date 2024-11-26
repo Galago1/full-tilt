@@ -1,9 +1,14 @@
-import { FormControlLabel, SxProps, Theme } from '@mui/material';
+import {
+  FormControlLabel,
+  FormControlLabelProps,
+  SxProps,
+  Theme
+} from '@mui/material';
 import { FieldAttributes, FieldMetaProps, FormikProps } from 'formik';
 import type { TimePickerInputBaseProps } from 'src/components/atoms/InputBase/TimePickerInputBase/TimePickerInputBase';
 import TimePickerInputBase from 'src/components/atoms/InputBase/TimePickerInputBase/TimePickerInputBase';
-import HorizontalInput from '../HorizontalInput';
 import { Orientation } from 'src/types/other';
+import HorizontalInput from '../HorizontalInput';
 import { HorizontalInputProps } from '../HorizontalInput/HorizontalInput';
 
 export interface TimePickerInputProps extends TimePickerInputBaseProps {
@@ -18,6 +23,7 @@ export interface TimePickerInputProps extends TimePickerInputBaseProps {
   orient?: Orientation;
   slots?: {
     horizontalInput?: HorizontalInputProps;
+    labelProps?: FormControlLabelProps;
   };
 }
 
@@ -30,7 +36,7 @@ const TimePickerInput = ({
   labelSx,
   ...props
 }: TimePickerInputProps) => {
-  const { horizontalInput } = props.slots || {};
+  const { horizontalInput, labelProps } = props.slots || {};
   if (orient === 'horizontal')
     return (
       <HorizontalInput
@@ -50,6 +56,7 @@ const TimePickerInput = ({
       sx={{
         ...labelSx
       }}
+      {...labelProps}
     />
   );
 };

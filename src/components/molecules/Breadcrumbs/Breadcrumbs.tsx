@@ -1,11 +1,14 @@
-import type { SxProps, Theme } from '@mui/material';
+import type { SxProps, Theme, TypographyProps } from '@mui/material';
 import { Breadcrumbs as MuiBreadcrumbs } from '@mui/material';
 import { breadcrumbList } from './helpers';
+import { LinkProps } from 'src/components/atoms/Link/Link';
 
 export interface Breadcrumb {
   label: string | JSX.Element;
   href?: string;
   sx?: SxProps<Theme>;
+  typographyProps?: TypographyProps;
+  linkProps?: LinkProps;
   children?: JSX.Element | string;
   onClick?: () => void;
 }

@@ -108,7 +108,7 @@ const DndContent = ({
               index={index}
               handleEditCard={handleEditCard}
               disableMoveColumn={disableMoveColumn}
-              {...column.kanbanColumnProps}
+              {...column.kanbanColumnProps!}
             />
           </Grid>
         ))}

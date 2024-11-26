@@ -17,6 +17,7 @@ export { default as InlineInputChip } from './InlineInputChip';
 export { default as ItemWithContent } from './ItemWithContent';
 export { default as LinearProgressIndicator } from './LinearProgressIndicator';
 export { default as LoadingIndicator } from './LoadingIndicator';
+export { default as BasicEmptyState } from './BasicEmptyState';
 export { default as MediaCardWithContent } from './Cards/MediaCardWithContent';
 export { default as ParallaxHero } from './ParallaxHero';
 export { default as Pills } from './Pills';

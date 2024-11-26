@@ -20,6 +20,13 @@ const Template: Story<NumberInputBaseProps> = (args) => {
     <Formik
       initialValues={{ somename: args.value || '90' }}
       onSubmit={(v) => {}}
+      validate={(value) => {
+        const errors: any = {};
+        if (!value.somename) {
+          errors.somename = 'Required';
+        }
+        return errors;
+      }}
     >
       <Field {...args} name="somename" component={NumberInputBase} />
     </Formik>

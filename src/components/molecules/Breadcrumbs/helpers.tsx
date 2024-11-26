@@ -5,13 +5,14 @@ import { Breadcrumb } from './Breadcrumbs';
 
 const homeLink = (breadcrumb: Breadcrumb, large: boolean) => {
   const href = breadcrumb.href ? { href: breadcrumb.href } : {};
-  const crumb = {
+  const breadcrumbLink = {
     children: breadcrumb.children ? (
       <Typography
         variant={large ? 'textMdRegular' : 'textSmRegular'}
         fontWeight={'regular'}
         color="text.secondary"
         component={'span'}
+        {...breadcrumb.typographyProps}
       >
         {breadcrumb.children}
       </Typography>
@@ -27,31 +28,34 @@ const homeLink = (breadcrumb: Breadcrumb, large: boolean) => {
       display: 'flex',
       alignContent: 'center',
       cursor: 'pointer'
-    }
+    },
+    ...breadcrumb.linkProps
   } as const;
-  return <Link key={'home-crumb'} {...crumb} />;
+  return <Link key={'home-crumb'} {...breadcrumbLink} />;
 };
 
 const middleLink = (breadcrumb: Breadcrumb, large: boolean, index: number) => {
-  const crumb = {
+  const breadcrumbLink = {
     ...breadcrumb,
     children: breadcrumb.label,
     href: breadcrumb.href,
     color: 'text.secondary',
-    variant: large ? 'textMdRegular' : 'textSmRegular'
+    variant: large ? 'textMdRegular' : 'textSmRegular',
+    ...breadcrumb.linkProps
   } as const;
-  return <Link key={`middle-crumb-[${index}]`} {...crumb} />;
+  return <Link key={`middle-crumb-[${index}]`} {...breadcrumbLink} />;
 };
 
 const endText = (breadcrumb: Breadcrumb, large: boolean) => {
-  const crumb = {
+  const breadcrumbTypography = {
     color: 'text.secondary',
     variant: large ? 'textMdRegular' : 'textSmRegular',
     fontWeight: large ? 'medium' : 'regular',
-    sx: breadcrumb.sx
+    sx: breadcrumb.sx,
+    ...breadcrumb.typographyProps
   } as const;
   return (
-    <Typography key={'end-crumb'} {...crumb} component={'span'}>
+    <Typography key={'end-crumb'} {...breadcrumbTypography} component={'span'}>
       {breadcrumb.label}
     </Typography>
   );

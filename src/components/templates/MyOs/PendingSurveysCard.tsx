@@ -1,14 +1,13 @@
 import { Grid, GridProps, Typography, useTheme } from '@mui/material';
 import Button from 'src/components/atoms/Button/Button';
 import AvatarAndText from 'src/components/molecules/AvatarAndText/AvatarAndText';
+import BasicEmptyState from 'src/components/molecules/BasicEmptyState/BasicEmptyState';
 import CircularProgressIndicator, {
   CircularProgressIndicatorSize
 } from 'src/components/molecules/CircularProgressIndicator/CircularProgressIndicator';
-import EmptyState from 'src/components/molecules/EmptyState/EmptyState';
 import LoadingIndicator from 'src/components/molecules/LoadingIndicator/LoadingIndicator';
 import {
   AlertTriangleIcon,
-  CalendarIcon,
   ChevronRightIcon,
   MessageQuestionCircleIcon
 } from 'src/components/particles/theme/overrides/CustomIcons';
@@ -18,57 +17,86 @@ import { Survey } from './types';
 interface ContentProps {
   survey: Survey;
   loading: boolean;
+  onClickEmptyState?: () => void;
+  emptyStateSubtitle?: any;
+  onClickCompletedState?: () => void;
 }
-const Content = ({ survey, loading }: ContentProps) => {
+const Content = ({
+  survey,
+  loading,
+  onClickEmptyState,
+  emptyStateSubtitle,
+  onClickCompletedState
+}: ContentProps) => {
   const theme = useTheme();
   if (!survey)
     return (
-      <Grid item>
-        <EmptyState
-          flex={1}
-          alignItems={'center'}
-          justifyContent={'center'}
-          avatarAndTextProps={
-            loading ? undefined : { title: 'No pending surveys', subtitle: '' }
+      <BasicEmptyState
+        icon={loading ? null : <MessageQuestionCircleIcon />}
+        title={loading ? '' : 'No pending surveys'}
+        subtitle={loading ? '' : emptyStateSubtitle}
+        emptyStateHeight={'auto'}
+        sx={{
+          flex: 1,
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}
+        slots={{
+          gridSx: {
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+            display: 'flex'
           }
-        >
-          {loading && <LoadingIndicator />}
-        </EmptyState>
-      </Grid>
+        }}
+        buttonProps={
+          !loading && onClickEmptyState
+            ? {
+                onClick: onClickEmptyState,
+                label: 'Add Survey',
+                variant: 'outlined',
+                color: 'secondary',
+                sx: { mt: 2 }
+              }
+            : undefined
+        }
+      >
+        {loading && <LoadingIndicator />}
+      </BasicEmptyState>
     );
   if (survey.completed)
     return (
-      <Grid item flex={1} display={'flex'} justifyContent={'center'}>
-        <EmptyState
-          alignItems={'center'}
-          justifyContent={'center'}
-          featuredIconProps={{ children: <CalendarIcon /> }}
-          avatarAndTextProps={{
+      <BasicEmptyState
+        icon={loading ? null : <MessageQuestionCircleIcon />}
+        title={survey.nextSurveyTitle}
+        subtitle={survey.nextSurveySubtitle}
+        emptyStateHeight={'auto'}
+        sx={{
+          flex: 1,
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}
+        slots={{
+          gridSx: {
+            flex: 1,
             alignItems: 'center',
             justifyContent: 'center',
-            title: survey.nextSurveyTitle,
-            subtitle: survey.nextSurveySubtitle,
-            textGridItemProps: {
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center'
-            },
-            textTitleGridItemProps: {
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center'
-            },
-            textSubtitleGridItemProps: {
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }
-          }}
-        />
-      </Grid>
+            display: 'flex',
+            p: 1
+          }
+        }}
+        buttonProps={
+          onClickCompletedState
+            ? {
+                onClick: onClickCompletedState,
+                label: 'Add Survey',
+                variant: 'outlined',
+                color: 'secondary',
+                sx: { mt: 2 }
+              }
+            : undefined
+        }
+      />
     );
   return (
     <>
@@ -128,12 +156,18 @@ export interface PendingSurveysCardProps extends GridProps {
    * the loading state
    */
   loading?: boolean;
+  onClickEmptyState?: () => void;
+  onClickCompletedState?: () => void;
+  emptyStateSubtitle?: any;
 }
 
 export const PendingSurveysCard = ({
   survey,
   onClick,
   loading,
+  onClickEmptyState,
+  onClickCompletedState,
+  emptyStateSubtitle,
   ...props
 }: PendingSurveysCardProps) => {
   const theme = useTheme();
@@ -182,7 +216,13 @@ export const PendingSurveysCard = ({
             }
           />
         </Grid>
-        <Content survey={survey!} loading={loading!} />
+        <Content
+          survey={survey!}
+          loading={loading!}
+          onClickEmptyState={onClickEmptyState}
+          onClickCompletedState={onClickCompletedState}
+          emptyStateSubtitle={emptyStateSubtitle}
+        />
       </Grid>
     </Grid>
   );

@@ -1,6 +1,6 @@
 {
   "name": "@galago/full-tilt",
-  "version": "0.0.41",
+  "version": "0.0.58",
   "description": "The full-tilt react design system",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -138,5 +138,6 @@
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.34.1"
-  }
+  },
+  "packageManager": "yarn@1.22.19+sha512.ff4579ab459bb25aa7c0ff75b62acebe576f6084b36aa842971cf250a5d8c6cd3bc9420b22ce63c7f93a0857bc6ef29291db39c3e7a23aab5adfd5a4dd6c5d71"
 }

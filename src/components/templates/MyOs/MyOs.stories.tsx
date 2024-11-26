@@ -1,6 +1,10 @@
 import { ComponentMeta, Story } from '@storybook/react';
 import { FormikHelpers } from 'formik';
 import { ButtonGroupProps } from 'src/components/molecules/ButtonGroup/ButtonGroup';
+import {
+  getColorByValue,
+  GoalCondition
+} from 'src/components/organisms/Scorecard/helpers';
 import { InlineFormikProps } from 'src/components/organisms/Scorecard/ScorecardInlineEditCell';
 import {
   ChevronLeftIcon,
@@ -8,10 +12,6 @@ import {
   ZapIcon
 } from 'src/components/particles/theme/overrides/CustomIcons';
 import { MyOs, MyOsProps } from './MyOs';
-import {
-  getColorByValue,
-  GoalCondition
-} from 'src/components/organisms/Scorecard/helpers';
 
 const onSave: any = (
   values: InlineFormikProps,
@@ -49,7 +49,8 @@ const buttonGroupProps: ButtonGroupProps = {
           borderRight: 'unset',
           borderLeft: 'unset',
           p: 1,
-          py: 1.5
+          py: 1.5,
+          whiteSpace: 'nowrap'
         },
         flex: 1
       },
@@ -137,9 +138,11 @@ Default.args = {
   },
   slots: {
     latestDigestCardProps: {
+      onClickEmptyState: () => {},
       firstDigestSubtitle: 'First Digest at 9:00AM 08/13'
     },
     scorecardsCardProps: {
+      onClickEmptyState: () => {},
       scorecardsContentProps: [
         {
           title: 'Daily',
@@ -249,30 +252,30 @@ Default.args = {
     }
   },
   digest: [
-    // {
-    //   date: '04/04/24',
-    //   title: 'Daily News',
-    //   readLength: '3 min',
-    //   listenLength: '5 min',
-    //   id: '1',
-    //   onClick: () => console.log('clicked')
-    // },
-    // {
-    //   date: '04/03/24',
-    //   title: 'Yearly Review',
-    //   readLength: '5 min',
-    //   listenLength: '7 min',
-    //   id: '2',
-    //   onClick: () => console.log('clicked')
-    // },
-    // {
-    //   date: '04/02/24',
-    //   title: 'News on AI Implementation',
-    //   readLength: '10 min',
-    //   listenLength: '12 min',
-    //   id: '3',
-    //   onClick: () => console.log('clicked')
-    // }
+    {
+      date: '04/04/24',
+      title: 'Daily News',
+      readLength: '3 min',
+      listenLength: '5 min',
+      id: '1',
+      onClick: () => console.log('clicked')
+    },
+    {
+      date: '04/03/24',
+      title: 'Yearly Review',
+      readLength: '5 min',
+      listenLength: '7 min',
+      id: '2',
+      onClick: () => console.log('clicked')
+    },
+    {
+      date: '04/02/24',
+      title: 'News on AI Implementation',
+      readLength: '10 min',
+      listenLength: '12 min',
+      id: '3',
+      onClick: () => console.log('clicked')
+    }
   ],
   okrs: [
     {
@@ -391,54 +394,6 @@ Default.args = {
         'Take time to review the wireframes before the next review meeting',
       priority: 'Low',
       icon: <ZapIcon />
-    },
-    {
-      id: '2',
-      status: 'In Progress',
-      title:
-        'Take time to review the wireframes before the next review meeting',
-      priority: 'Medium',
-      icon: <ZapIcon />
-    },
-    {
-      id: '3',
-      status: 'In Progress',
-      title:
-        'Take time to review the wireframes before the next review meeting',
-      priority: 'High',
-      icon: <ZapIcon />
-    },
-    {
-      id: '4',
-      status: 'In Progress',
-      title:
-        'Take time to review the wireframes before the next review meeting',
-      priority: 'Medium',
-      icon: <ZapIcon />
-    },
-    {
-      id: '5',
-      status: 'In Progress',
-      title:
-        'Take time to review the wireframes before the next review meeting',
-      priority: 'Low',
-      icon: <ZapIcon />
-    },
-    {
-      id: '6',
-      status: 'In Progress',
-      title:
-        'Take time to review the wireframes before the next review meeting',
-      priority: 'Medium',
-      icon: <ZapIcon />
-    },
-    {
-      id: '7',
-      status: 'In Progress',
-      title:
-        'Take time to review the wireframes before the next review meeting',
-      priority: 'Low',
-      icon: <ZapIcon />
     }
   ],
   feedback: [
@@ -468,6 +423,16 @@ Default.args = {
     }
   ],
   ideas: [
+    {
+      id: '1',
+      status: 'In Progress',
+      title:
+        'Take time to review the wireframes before the next review meeting',
+      priority: 'Medium',
+      icon: <ZapIcon />
+    }
+  ],
+  todos: [
     {
       id: '1',
       status: 'In Progress',

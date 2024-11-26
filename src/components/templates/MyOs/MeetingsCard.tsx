@@ -1,5 +1,4 @@
 import {
-  alpha,
   AvatarGroup,
   Grid,
   SxProps,
@@ -19,14 +18,13 @@ import Avatar from 'src/components/atoms/Avatar/Avatar';
 import Button, { ButtonProps } from 'src/components/atoms/Button/Button';
 import Chip from 'src/components/atoms/Chip/Chip';
 import AvatarAndText from 'src/components/molecules/AvatarAndText/AvatarAndText';
-import EmptyState from 'src/components/molecules/EmptyState/EmptyState';
+import BasicEmptyState from 'src/components/molecules/BasicEmptyState/BasicEmptyState';
 import LoadingIndicator from 'src/components/molecules/LoadingIndicator/LoadingIndicator';
 import Card, { CardProps } from 'src/components/organisms/Card/Card';
 import {
   ArrowRightIcon2,
   CalendarIcon,
-  Expand01Icon,
-  MessageQuestionCircleIcon
+  Expand01Icon
 } from 'src/components/particles/theme/overrides/CustomIcons';
 import { responsiveSpacing } from 'src/components/particles/theme/spacing';
 import { useMeetingsCard } from './hooks';
@@ -37,54 +35,50 @@ interface ContentProps {
   formatDate: (date: Date) => string;
   meetings: Meeting[];
   loading: boolean;
+  onClickEmptyState?: () => void;
+  emptyStateSubtitle?: any;
 }
 const Content = ({
   currentDate,
   formatDate,
   meetings,
-  loading
+  loading,
+  onClickEmptyState,
+  emptyStateSubtitle
 }: ContentProps) => {
   const theme = useTheme();
   if (!meetings || loading || (!loading && isEmpty(meetings)))
     return (
-      <Grid
-        item
-        display={'flex'}
-        flex={1}
-        alignItems={'center'}
-        justifyContent={'center'}
-      >
-        <EmptyState
-          flex={1}
-          alignItems={'center'}
-          justifyContent={'center'}
-          avatarAndTextProps={
-            loading
-              ? undefined
-              : {
-                  title: 'No Meetings',
-                  subtitle: '',
-                  featuredIconProps: {
-                    size: 'md',
-                    children: <MessageQuestionCircleIcon />,
-                    sx: {
-                      color: theme.palette.common.white
-                    },
-                    style: {
-                      backgroundColor: alpha(theme.palette.common.white, 0.4)
-                    }
-                  },
-
-                  featuredIconItemSx: {
-                    zIndex: 2,
-                    color: `${theme.palette.common.white} !important`
-                  }
-                }
+      <BasicEmptyState
+        icon={loading ? null : <CalendarIcon />}
+        title={loading ? '' : `No Meetings`}
+        subtitle={loading ? '' : emptyStateSubtitle}
+        emptyStateHeight={'auto'}
+        slots={{
+          gridSx: {
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+            display: 'flex'
+          },
+          gridProps: {
+            item: true
           }
-        >
-          {loading && <LoadingIndicator />}
-        </EmptyState>
-      </Grid>
+        }}
+        buttonProps={
+          !loading && onClickEmptyState
+            ? {
+                onClick: onClickEmptyState,
+                label: 'Add Meeting',
+                variant: 'outlined',
+                color: 'secondary',
+                sx: { mt: 2 }
+              }
+            : undefined
+        }
+      >
+        {loading && <LoadingIndicator />}
+      </BasicEmptyState>
     );
   return (
     <Grid
@@ -202,6 +196,8 @@ export interface MeetingsCardProps extends Omit<CardProps, 'slots'> {
   externalCurrentDate?: Date;
   externalHandleDateChange?: (value: SetStateAction<Date>) => void;
   loading?: boolean;
+  onClickEmptyState?: () => void;
+  emptyStateSubtitle?: any;
 }
 
 export const MeetingsCard = ({
@@ -211,6 +207,8 @@ export const MeetingsCard = ({
   externalHandleDateChange,
   slots,
   loading,
+  onClickEmptyState,
+  emptyStateSubtitle,
   ...props
 }: MeetingsCardProps) => {
   const theme = useTheme();
@@ -261,7 +259,10 @@ export const MeetingsCard = ({
         </Grid>
         <Grid item mt={1} />
         <Grid item>
-          <Grid container>
+          <Grid
+            container
+            alignItems={meetings.length ? 'flex-start' : 'center'}
+          >
             <Grid
               item
               xs={12}
@@ -328,6 +329,8 @@ export const MeetingsCard = ({
               formatDate={formatDate}
               meetings={meetings}
               loading={loading!}
+              onClickEmptyState={onClickEmptyState}
+              emptyStateSubtitle={emptyStateSubtitle}
             />
           </Grid>
         </Grid>

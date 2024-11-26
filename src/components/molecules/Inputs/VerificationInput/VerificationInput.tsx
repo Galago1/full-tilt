@@ -1,4 +1,9 @@
-import { FormControlLabel, SxProps, Theme } from '@mui/material';
+import {
+  FormControlLabel,
+  FormControlLabelProps,
+  SxProps,
+  Theme
+} from '@mui/material';
 import type { FieldAttributes, FormikProps } from 'formik';
 import { Field } from 'formik';
 import { ChangeEvent, FormEvent } from 'react';
@@ -8,6 +13,9 @@ import MegaInputBase from 'src/components/atoms/InputBase/MegaInputBase/MegaInpu
 export interface VerificationInputProps extends MegaInputBaseProps {
   labelSx: SxProps<Theme>;
   label?: string;
+  slots?: {
+    labelProps?: FormControlLabelProps;
+  };
 }
 
 const findByName = (name: string) => {
@@ -40,7 +48,7 @@ const handlePaste = (
   handleOnPaseOnInput(val, form);
 };
 
-const handleOnPaseOnInput = (value: string, form: FormikProps<any>) => {
+const handleOnPaseOnInput: any = (value: string, form: FormikProps<any>) => {
   const maxLength = 1;
   value.split('').forEach((value: string, index: number) => {
     const name = `code${index + 1}`;
@@ -151,6 +159,7 @@ const VerificationInput = ({
   labelSx,
   ...props
 }: VerificationInputProps) => {
+  const { labelProps } = props.slots || {};
   return (
     <FormControlLabel
       control={<Inputs {...props} />}
@@ -159,6 +168,7 @@ const VerificationInput = ({
       sx={{
         ...labelSx
       }}
+      {...labelProps}
     />
   );
 };

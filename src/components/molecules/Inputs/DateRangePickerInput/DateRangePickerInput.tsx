@@ -1,4 +1,8 @@
-import { FormControlLabel, SxProps } from '@mui/material';
+import {
+  FormControlLabel,
+  FormControlLabelProps,
+  SxProps
+} from '@mui/material';
 import { FieldAttributes, FieldMetaProps, FormikProps } from 'formik';
 import type { DateRangePickerInputBaseProps } from 'src/components/atoms/InputBase/DateRangePickerInputBase/DateRangePickerInputBase';
 import DateRangePickerInputBase from 'src/components/atoms/InputBase/DateRangePickerInputBase/DateRangePickerInputBase';
@@ -17,6 +21,7 @@ export interface DateRangePickerInputProps
   orientation?: Orientation;
   slots?: {
     horizontalInput?: HorizontalInputProps;
+    labelProps?: FormControlLabelProps;
   };
 }
 
@@ -29,7 +34,7 @@ const DateRangePickerInput = ({
   labelSx,
   ...props
 }: DateRangePickerInputProps) => {
-  const { horizontalInput } = props.slots || {};
+  const { horizontalInput, labelProps } = props.slots || {};
   if (orientation === 'horizontal')
     return (
       <HorizontalInput
@@ -49,6 +54,7 @@ const DateRangePickerInput = ({
       sx={{
         ...labelSx
       }}
+      {...labelProps}
     />
   );
 };

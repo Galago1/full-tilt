@@ -12,7 +12,7 @@ import Avatar from 'src/components/atoms/Avatar/Avatar';
 import Button from 'src/components/atoms/Button/Button';
 import Tooltip from 'src/components/atoms/Tooltip/Tooltip';
 import AvatarAndText from 'src/components/molecules/AvatarAndText/AvatarAndText';
-import EmptyState from 'src/components/molecules/EmptyState/EmptyState';
+import BasicEmptyState from 'src/components/molecules/BasicEmptyState/BasicEmptyState';
 import LoadingIndicator from 'src/components/molecules/LoadingIndicator/LoadingIndicator';
 import Card, { CardProps } from 'src/components/organisms/Card/Card';
 import {
@@ -24,6 +24,7 @@ import {
   ZapIcon
 } from 'src/components/particles/theme/overrides/CustomIcons';
 import { responsiveSpacing } from 'src/components/particles/theme/spacing';
+import pluralize from 'src/utils/inflector/pluralize';
 interface Member {
   imageUrl: string;
 }
@@ -50,6 +51,8 @@ interface ContentProps {
   today?: string;
   standups?: { [key: string]: boolean };
   dayOfWeekActions?: DayOfWeekAction;
+  onClickEmptyState?: () => void;
+  emptyStateSubtitle?: any;
 }
 const Content = ({
   teamStandup,
@@ -60,24 +63,40 @@ const Content = ({
   today,
   standups,
   loading,
-  dayOfWeekActions
+  dayOfWeekActions,
+  onClickEmptyState,
+  emptyStateSubtitle
 }: ContentProps) => {
   const theme = useTheme();
   if (!standups || loading || (!loading && isEmpty(standups)))
     return (
-      <Grid item>
-        <EmptyState
-          height={'100%'}
-          flex={1}
-          alignItems={'center'}
-          justifyContent={'center'}
-          avatarAndTextProps={
-            loading ? undefined : { title: 'No daily standup', subtitle: '' }
+      <BasicEmptyState
+        icon={loading ? null : <CalendarMinus01Icon />}
+        title={loading ? '' : `No daily standup`}
+        subtitle={loading ? '' : emptyStateSubtitle}
+        emptyStateHeight={'auto'}
+        slots={{
+          gridSx: {
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+            display: 'flex'
           }
-        >
-          {loading && <LoadingIndicator />}
-        </EmptyState>
-      </Grid>
+        }}
+        buttonProps={
+          !loading && onClickEmptyState
+            ? {
+                label: 'Add Standup',
+                variant: 'outlined',
+                color: 'secondary',
+                onClick: onClickEmptyState,
+                sx: { mt: 2 }
+              }
+            : undefined
+        }
+      >
+        {loading && <LoadingIndicator />}
+      </BasicEmptyState>
     );
   return (
     <>
@@ -139,7 +158,9 @@ const Content = ({
                   mr: 0.5
                 }}
               />
-              <Typography>{daysStreak} days streak</Typography>
+              <Typography>
+                {daysStreak} {pluralize('day', daysStreak)} streak
+              </Typography>
             </Grid>
           ) : null}
         </Grid>
@@ -246,6 +267,8 @@ export interface DailyStandupCardProps extends Omit<CardProps, 'slots'> {
   cardSlots?: CardProps['slots'];
   loading?: boolean;
   dayOfWeekActions?: DayOfWeekAction;
+  onClickEmptyState?: () => void;
+  emptyStateSubtitle?: any;
 }
 
 export const DailyStandupCard = ({
@@ -256,6 +279,8 @@ export const DailyStandupCard = ({
   loading,
   onClick,
   dayOfWeekActions,
+  onClickEmptyState,
+  emptyStateSubtitle,
   ...props
 }: DailyStandupCardProps) => {
   const theme = useTheme();
@@ -311,6 +336,8 @@ export const DailyStandupCard = ({
           today={today!}
           standups={standups}
           dayOfWeekActions={dayOfWeekActions}
+          onClickEmptyState={onClickEmptyState}
+          emptyStateSubtitle={emptyStateSubtitle}
         />
       </Grid>
     </Card>

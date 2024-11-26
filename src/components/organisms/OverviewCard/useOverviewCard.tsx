@@ -4,8 +4,8 @@ import { useCallback, useEffect, useState } from 'react';
 import { Quarter } from 'src/types/other';
 
 type Category =
-  | 'Productivity & Focus'
-  | 'Company Collaboration'
+  | 'Product Feedback'
+  | 'Team Collaboration'
   | 'Project Management'
   | 'Employee Engagement'
   | 'Training & Development'
@@ -14,7 +14,7 @@ type Category =
   | 'Customer Insights'
   | 'Process Improvement'
   | 'Leadership & Management'
-  | 'Customer Testing & Feedback'
+  | 'User Testing & Feedback'
   | 'Company Culture';
 type Score = string;
 type TeamData = Record<Category, Score>;
@@ -85,7 +85,7 @@ export const useOverviewCard = ({
     });
   }, []);
 
-  const quarters: Quarter[] = ['Q1', 'Q2', 'Q3', 'Q4'];
+  const quarters: Quarter[] = ['q1', 'q2', 'q3', 'q4'];
   const currentQuarterIndex = quarters.indexOf(selectedQuarter);
 
   const handleQuarterChange = (direction: 'left' | 'right') => {

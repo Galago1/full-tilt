@@ -61,7 +61,7 @@ export const CloseButton = ({
         item
         sx={{
           display: 'flex',
-          alignSelf: 'normal'
+          alignSelf: 'flex-start'
         }}
       >
         <Button
@@ -136,6 +136,10 @@ export interface ModalHeaderProps extends BoxProps {
      * The padding bottom box props
      */
     paddingBottomBoxProps?: BoxProps;
+    /**
+     * The close button grid item props
+     */
+    closeButtonGridItemProps?: GridProps;
   };
 }
 const ModalHeader = ({
@@ -153,7 +157,8 @@ const ModalHeader = ({
     dividerProps,
     featuredIconProps,
     featuredIconBoxProps,
-    paddingBottomBoxProps
+    paddingBottomBoxProps,
+    closeButtonGridItemProps
   } = slots || {};
   const baseBoxProps = {
     ...styles.boxSx,
@@ -175,7 +180,7 @@ const ModalHeader = ({
                   <TitleWithDefaults {...avatarAndTextProps} />
                 )}
               </Grid>
-              <Grid item>
+              <Grid item alignSelf={'flex-start'} {...closeButtonGridItemProps}>
                 {showClose && (
                   <CloseButton onHide={onHide} {...closeButtonProps} />
                 )}

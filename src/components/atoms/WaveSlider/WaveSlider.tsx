@@ -1,6 +1,6 @@
 import { Grid, SvgIconProps, Typography } from '@mui/material';
 import { FieldInputProps, FieldProps, FormikProps } from 'formik';
-import { useWaveSlider } from './hooks';
+import { ChangeType, useWaveSlider } from './hooks';
 import { ChevronRightIcon } from 'src/components/particles/theme/overrides/CustomIcons';
 import { GridProps } from '@mui/material';
 
@@ -13,7 +13,8 @@ export interface WaveSliderProps extends FieldProps {
   onChange?: (
     form: FormikProps<any>,
     field: FieldInputProps<any>,
-    value: any
+    value: any,
+    changeType: ChangeType
   ) => void;
   disabled?: boolean;
   slots?: {

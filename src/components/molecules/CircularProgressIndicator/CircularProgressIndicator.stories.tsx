@@ -17,25 +17,25 @@ const Template: Story<CircularProgressIndicatorProps> = (args) => (
 
 export const Percent75 = Template.bind({});
 Percent75.args = {
-  value: 75
+  value: 66
 };
 
 export const SizeMedium = Template.bind({});
 SizeMedium.args = {
-  value: 75,
+  value: 66,
   size: CircularProgressIndicatorSize.MEDIUM
 };
 
 export const WithLabel = Template.bind({});
 WithLabel.args = {
-  value: 75,
+  value: 66,
   size: CircularProgressIndicatorSize.MEDIUM,
   label: 'Active Users'
 };
 
 export const WithSmallLabel = Template.bind({});
 WithSmallLabel.args = {
-  value: 75,
+  value: 66,
   size: CircularProgressIndicatorSize.SMALL,
   label: 'Active Users'
 };

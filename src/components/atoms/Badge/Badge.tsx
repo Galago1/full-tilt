@@ -1,8 +1,8 @@
 import type { SxProps, Theme } from '@mui/material';
-import { Badge as MuiBadge } from '@mui/material';
+import { Badge as MuiBadge, BadgeProps as MuiBadgeProps } from '@mui/material';
 import type { ReactNode } from 'react';
 
-export interface BadgeProps {
+export interface BadgeProps extends MuiBadgeProps {
   children?: ReactNode;
   /**
    * display or hide badge
@@ -47,12 +47,8 @@ export interface BadgeProps {
   onClick?: () => void;
 }
 
-const Badge = ({ children, badgeContent, sx, ...props }: BadgeProps) => {
-  return (
-    <MuiBadge badgeContent={badgeContent} sx={sx} {...props}>
-      {children}
-    </MuiBadge>
-  );
+const Badge = ({ children, ...props }: BadgeProps) => {
+  return <MuiBadge {...props}>{children}</MuiBadge>;
 };
 
 export default Badge;

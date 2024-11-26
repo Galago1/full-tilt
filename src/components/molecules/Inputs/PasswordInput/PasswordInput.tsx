@@ -1,5 +1,6 @@
 import {
   FormControlLabel,
+  FormControlLabelProps,
   IconButton,
   InputAdornment,
   SxProps,
@@ -22,6 +23,7 @@ export interface PasswordInputProps extends Omit<TextInputBaseProps, 'type'> {
   orientation?: Orientation;
   slots?: {
     horizontalInput?: HorizontalInputProps;
+    labelProps?: FormControlLabelProps;
   };
 }
 
@@ -40,7 +42,7 @@ const PasswordInput = ({
     event: React.MouseEvent<HTMLButtonElement>
   ) => event.preventDefault();
 
-  const { horizontalInput } = props.slots || {};
+  const { horizontalInput, labelProps } = props.slots || {};
   if (orientation === 'horizontal')
     return (
       <HorizontalInput
@@ -96,6 +98,7 @@ const PasswordInput = ({
       sx={{
         ...labelSx
       }}
+      {...labelProps}
     />
   );
 };

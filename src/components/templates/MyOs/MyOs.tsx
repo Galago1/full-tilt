@@ -11,15 +11,17 @@ import {
   PendingSurveysCardProps
 } from './PendingSurveysCard';
 import { ScorecardsCard, ScorecardsCardProps } from './ScorecardsCard';
+import { TodosCard, TodosCardProps } from './TodosCard';
 import {
+  Digest,
   Feedback,
   Idea,
   Issue,
   Meeting,
   Okr,
   Standup,
-  Digest,
-  Survey
+  Survey,
+  Todo
 } from './types';
 
 export interface MyOsProps {
@@ -33,6 +35,7 @@ export interface MyOsProps {
   issues: Issue[];
   feedback: Feedback[];
   ideas: Idea[];
+  todos: Todo[];
   slots?: {
     dailyStandupCardProps?: DailyStandupCardProps;
     pendingSurveysCard?: PendingSurveysCardProps;
@@ -43,6 +46,7 @@ export interface MyOsProps {
     issuesCardProps?: IssuesCardProps;
     feedbackCardProps?: FeedbackCardProps;
     ideasCardProps?: IdeasCardProps;
+    todosCardProps?: TodosCardProps;
   };
 }
 
@@ -57,6 +61,7 @@ export const MyOs = ({
   issues,
   feedback,
   ideas,
+  todos,
   slots
 }: MyOsProps) => {
   const {
@@ -68,7 +73,8 @@ export const MyOs = ({
     meetingsCardProps,
     issuesCardProps,
     feedbackCardProps,
-    ideasCardProps
+    ideasCardProps,
+    todosCardProps
   } = slots ?? {};
   return (
     <Grid container spacing={2}>
@@ -76,7 +82,7 @@ export const MyOs = ({
         <Grid item container xs={12} lg={9} spacing={2}>
           <Grid item xs={12} md={6} lg={8}>
             <DailyStandupCard
-              {...dailyStandupCardProps}
+              {...dailyStandupCardProps!}
               standups={standups}
               teamStandup={teamStandup}
               today={today}
@@ -102,39 +108,52 @@ export const MyOs = ({
       <Grid
         item
         xs={12}
-        lg={4}
+        lg={6}
         sx={{
           mb: {
-            lg: 3,
             xs: 0
           }
         }}
+        width={'100%'}
       >
         <IssuesCard {...issuesCardProps!} issues={issues} />
       </Grid>
       <Grid
         item
         xs={12}
-        lg={4}
+        lg={6}
         sx={{
           mb: {
-            lg: 3,
             xs: 0
           }
         }}
+        width={'100%'}
+      >
+        <TodosCard {...todosCardProps!} todos={todos} />
+      </Grid>
+      <Grid
+        item
+        xs={12}
+        lg={6}
+        sx={{
+          mb: {
+            xs: 0
+          }
+        }}
+        width={'100%'}
       >
         <FeedbackCard {...feedbackCardProps!} feedback={feedback} />
       </Grid>
       <Grid
         item
         xs={12}
-        lg={4}
+        lg={6}
         sx={{
           mb: {
-            lg: 3,
             xs: 0
           }
         }}
+        width={'100%'}
       >
         <IdeasCard {...ideasCardProps!} ideas={ideas} />
       </Grid>

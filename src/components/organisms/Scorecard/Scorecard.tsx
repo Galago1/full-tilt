@@ -12,6 +12,8 @@ import ScorecardHeadCell from './ScorecardHeadCell';
 import { InlineFormikProps } from './ScorecardInlineEditCell';
 import { RowData, useScorecard } from './useScorecard';
 import { getColorByValue } from './helpers';
+import { AvatarAndText } from 'src/components/molecules';
+import { AvatarAndTextProps } from 'src/components/molecules/AvatarAndText/AvatarAndText';
 
 export interface ScorecardProps extends Omit<CardProps, 'slots'> {
   /**
@@ -60,6 +62,10 @@ export interface ScorecardProps extends Omit<CardProps, 'slots'> {
      * Slots for the empty state
      */
     emptyStateProps?: EmptyStateProps;
+    /**
+     * Slots for the avatar and text
+     */
+    avatarAndTextProps?: AvatarAndTextProps;
   };
   /**
    * Function to handle edit click
@@ -98,7 +104,8 @@ const Scorecard = ({
   onClickDelete,
   ...props
 }: ScorecardProps) => {
-  const { scoreCardDraggableRowProps, emptyStateProps } = slots || {};
+  const { scoreCardDraggableRowProps, emptyStateProps, avatarAndTextProps } =
+    slots || {};
   const {
     allChecked,
     checked,
@@ -116,9 +123,11 @@ const Scorecard = ({
     <DndProvider backend={HTML5Backend}>
       <Card showActions={false} slots={cardSlots} {...props}>
         <>
-          <Typography variant="textLgSemibold">
-            {getTitleByType(type)}
-          </Typography>
+          <AvatarAndText
+            title={getTitleByType(type)}
+            titleTypography={{ variant: 'textLgSemibold' }}
+            {...avatarAndTextProps}
+          />
 
           <Divider sx={{ my: theme.spacing(2.5) }} />
           <Grid

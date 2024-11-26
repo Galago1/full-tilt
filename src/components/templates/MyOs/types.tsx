@@ -70,6 +70,7 @@ export interface Issue {
   priority: string;
   title: string;
   icon: JSX.Element;
+  onClick: MouseEventHandler<HTMLDivElement> | undefined;
 }
 
 export interface Feedback {
@@ -78,6 +79,7 @@ export interface Feedback {
   priority: string;
   title: string;
   icon: JSX.Element;
+  onClick: MouseEventHandler<HTMLDivElement> | undefined;
 }
 
 export interface Idea {
@@ -86,6 +88,16 @@ export interface Idea {
   title: string;
   priority: string;
   icon: JSX.Element;
+  onClick: MouseEventHandler<HTMLDivElement> | undefined;
+}
+
+export interface Todo {
+  id: string;
+  status: string;
+  title: string;
+  priority: string;
+  icon: JSX.Element;
+  onClick: MouseEventHandler<HTMLDivElement> | undefined;
 }
 
 export interface Digest {

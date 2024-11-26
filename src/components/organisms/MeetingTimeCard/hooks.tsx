@@ -1,14 +1,13 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { MeetingDurationItem, PlanItem } from '.';
 
 const mapPlanItemsToElapsedTimes = (
   planItems: PlanItem[]
 ): MeetingDurationItem => {
-  const duration: MeetingDurationItem = {};
-  planItems.map((item) => {
+  return planItems.reduce((duration, item) => {
     duration[item.id] = 0;
-  });
-  return duration;
+    return duration;
+  }, {} as MeetingDurationItem);
 };
 
 export const useMeetingTimeCard = (
@@ -20,78 +19,98 @@ export const useMeetingTimeCard = (
   handleClickCb?: (index: string) => void
 ) => {
   const firstPlanItem = planItems[0];
-  const [currentId, setCurrentId] = useState(firstPlanItem?.id ?? '');
-  const [elapsedTimes, setElapsedTimes] = useState<MeetingDurationItem>(
-    initialElapsedTimes ?? mapPlanItemsToElapsedTimes(planItems)
+  const [currentId, setCurrentId] = useState<string>(firstPlanItem?.id ?? '');
+  const [elapsedTimes, setElapsedTimes] = useState<MeetingDurationItem>(() =>
+    initialElapsedTimes
+      ? { ...initialElapsedTimes }
+      : mapPlanItemsToElapsedTimes(planItems)
   );
   const [isRunning, setIsRunning] = useState(false);
+  const [totalElapsedTime, setTotalElapsedTime] = useState(0);
 
   const intervalRef = useRef<number | null>(null);
+  const elapsedTimesRef = useRef(elapsedTimes);
 
+  // Keep ref in sync with state
   useEffect(() => {
-    if (isRunning) {
+    elapsedTimesRef.current = elapsedTimes;
+  }, [elapsedTimes]);
+
+  // Calculate total elapsed time whenever elapsedTimes changes
+  useEffect(() => {
+    const total = Object.values(elapsedTimes).reduce(
+      (acc, time) => acc + time,
+      0
+    );
+    setTotalElapsedTime(total);
+  }, [elapsedTimes]);
+
+  // Timer effect
+  useEffect(() => {
+    if (isRunning && currentId) {
       intervalRef.current = window.setInterval(() => {
         setElapsedTimes((prev) => {
-          if (!currentId) return prev;
           const newElapsedTimes = { ...prev };
-          newElapsedTimes[currentId] = newElapsedTimes[currentId] + 1;
+          newElapsedTimes[currentId] = (newElapsedTimes[currentId] || 0) + 1;
           return newElapsedTimes;
         });
       }, 1000);
-    } else if (!isRunning && intervalRef.current !== null) {
-      window.clearInterval(intervalRef.current);
-      intervalRef.current = null;
     }
 
     return () => {
       if (intervalRef.current !== null) {
         window.clearInterval(intervalRef.current);
+        intervalRef.current = null;
       }
     };
   }, [isRunning, currentId]);
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     const currentIndex = planItems.findIndex((item) => item.id === currentId);
     const nextIndex =
       currentIndex >= planItems.length - 1 ? 0 : currentIndex + 1;
     const nextItem = planItems[nextIndex];
     setCurrentId(nextItem.id);
     handleNextCb?.(nextItem);
-  };
+  }, [currentId, planItems, handleNextCb]);
 
-  const handleBack = () => {
+  const handleBack = useCallback(() => {
     const currentIndex = planItems.findIndex((item) => item.id === currentId);
     const prevIndex =
       currentIndex > 0 ? currentIndex - 1 : planItems.length - 1;
     const prevItem = planItems[prevIndex];
     setCurrentId(prevItem.id);
     handleBackCb?.(prevItem);
-  };
+  }, [currentId, planItems, handleBackCb]);
 
-  const handlePlayPause = () => {
-    setIsRunning((prev) => !prev);
-    handlePlayPauseCb?.(!isRunning);
-  };
+  const handlePlayPause = useCallback(() => {
+    setIsRunning((prev) => {
+      const newIsRunning = !prev;
+      handlePlayPauseCb?.(newIsRunning);
+      return newIsRunning;
+    });
+  }, [handlePlayPauseCb]);
 
-  const handleClick = (index: string) => {
-    setCurrentId(index);
-    handleClickCb?.(index);
-  };
-
-  const currentItem = currentId
-    ? planItems.find((item) => item.id === currentId)
-    : undefined;
-  const currentItemElapsedTime = elapsedTimes[currentId];
-  const totalElapsedTime = Object.values(elapsedTimes).reduce(
-    (acc, time) => acc + time,
-    0
+  const handleClick = useCallback(
+    (index: string) => {
+      setCurrentId(index);
+      handleClickCb?.(index);
+    },
+    [handleClickCb]
   );
+
+  const updateElapsedTimes = useCallback((newTimes: MeetingDurationItem) => {
+    setElapsedTimes(newTimes);
+  }, []);
+
+  const currentItem = planItems.find((item) => item.id === currentId);
   const currentIndex = planItems.findIndex((item) => item.id === currentId);
+  const currentItemElapsedTime = elapsedTimes[currentId] || 0;
 
   const furthestIndex = planItems.reduce((acc, item, index) => {
     const elapsedTime = elapsedTimes[item.id];
     return elapsedTime !== 0 ? Math.max(acc, index) : acc;
-  }, -1); // used to start at zero once the first item is started
+  }, -1);
 
   return {
     currentId,
@@ -102,7 +121,7 @@ export const useMeetingTimeCard = (
     elapsedTimes,
     currentIndex,
     furthestIndex,
-    setElapsedTimes,
+    setElapsedTimes: updateElapsedTimes,
     handleNext,
     handleBack,
     handlePlayPause,

@@ -16,7 +16,7 @@ const PatternInputBase = ({
   ...props
 }: PatternInputBaseProps) => {
   const { form, field, meta, children, ...rest } = props;
-  const { horizontalInput } = props.slots || {};
+  const { horizontalInput, labelProps } = props.slots || {};
   // const [a, b, helpers] = useField(field.name);
   if (orientation === 'horizontal')
     return (
@@ -54,6 +54,7 @@ const PatternInputBase = ({
       sx={{
         ...labelSx
       }}
+      {...labelProps}
     />
   );
 };

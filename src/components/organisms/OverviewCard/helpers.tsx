@@ -9,6 +9,7 @@ import {
 import { styled } from '@mui/system';
 import { useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
+import Divider from 'src/components/atoms/Divider/Divider';
 import {
   CheckVerifiedIcon,
   FaceSmileIcon,
@@ -25,9 +26,300 @@ import {
 } from 'src/components/particles/theme/overrides/CustomIcons';
 import { Quarter } from 'src/types/other';
 
+export const mockData = {
+  q1: {
+    'All Teams': {
+      'Product Feedback': '0',
+      'Team Collaboration': '66',
+      'Project Management': '34',
+      'Employee Engagement': '92',
+      'Training & Development': '57',
+      'Roadmap & Strategy': '88',
+      'Innovation & Creativity': '64',
+      'Customer Insights': '95',
+      'Process Improvement': '72',
+      'Leadership & Management': '81',
+      'User Testing & Feedback': '68',
+      'Company Culture': '44'
+    },
+    'Product Team': {
+      'Product Feedback': '',
+      'Team Collaboration': '78',
+      'Project Management': '64',
+      'Employee Engagement': '90',
+      'Training & Development': '83',
+      'Roadmap & Strategy': '45',
+      'Innovation & Creativity': '76',
+      'Customer Insights': '91',
+      'Process Improvement': '54',
+      'Leadership & Management': '85',
+      'User Testing & Feedback': '99',
+      'Company Culture': '63'
+    },
+    'Customer Success Team': {
+      'Product Feedback': '61',
+      'Team Collaboration': '73',
+      'Project Management': '82',
+      'Employee Engagement': '89',
+      'Training & Development': '57',
+      'Roadmap & Strategy': '64',
+      'Innovation & Creativity': '79',
+      'Customer Insights': '94',
+      'Process Improvement': '58',
+      'Leadership & Management': '67',
+      'User Testing & Feedback': '93',
+      'Company Culture': '72'
+    },
+    'Sales Team': {
+      'Product Feedback': '74',
+      'Team Collaboration': '89',
+      'Project Management': '65',
+      'Employee Engagement': '92',
+      'Training & Development': '49',
+      'Roadmap & Strategy': '53',
+      'Innovation & Creativity': '88',
+      'Customer Insights': '76',
+      'Process Improvement': '61',
+      'Leadership & Management': '84',
+      'User Testing & Feedback': '94',
+      'Company Culture': '90'
+    },
+    Interns: {
+      'Product Feedback': '63',
+      'Team Collaboration': '48',
+      'Project Management': '70',
+      'Employee Engagement': '59',
+      'Training & Development': '77',
+      'Roadmap & Strategy': '44',
+      'Innovation & Creativity': '91',
+      'Customer Insights': '85',
+      'Process Improvement': '66',
+      'Leadership & Management': '49',
+      'User Testing & Feedback': '77',
+      'Company Culture': '54'
+    }
+  },
+  q2: {
+    'All Teams': {
+      'Product Feedback': '79',
+      'Team Collaboration': '67',
+      'Project Management': '35',
+      'Employee Engagement': '93',
+      'Training & Development': '58',
+      'Roadmap & Strategy': '89',
+      'Innovation & Creativity': '65',
+      'Customer Insights': '96',
+      'Process Improvement': '73',
+      'Leadership & Management': '80',
+      'User Testing & Feedback': '69',
+      'Company Culture': '45'
+    },
+    'Product Team': {
+      'Product Feedback': '53',
+      'Team Collaboration': '77',
+      'Project Management': '65',
+      'Employee Engagement': '91',
+      'Training & Development': '82',
+      'Roadmap & Strategy': '46',
+      'Innovation & Creativity': '77',
+      'Customer Insights': '92',
+      'Process Improvement': '55',
+      'Leadership & Management': '86',
+      'User Testing & Feedback': '98',
+      'Company Culture': '64'
+    },
+    'Customer Success Team': {
+      'Product Feedback': '62',
+      'Team Collaboration': '74',
+      'Project Management': '83',
+      'Employee Engagement': '88',
+      'Training & Development': '58',
+      'Roadmap & Strategy': '65',
+      'Innovation & Creativity': '78',
+      'Customer Insights': '95',
+      'Process Improvement': '57',
+      'Leadership & Management': '68',
+      'User Testing & Feedback': '94',
+      'Company Culture': '73'
+    },
+    'Sales Team': {
+      'Product Feedback': '75',
+      'Team Collaboration': '90',
+      'Project Management': '66',
+      'Employee Engagement': '93',
+      'Training & Development': '50',
+      'Roadmap & Strategy': '54',
+      'Innovation & Creativity': '89',
+      'Customer Insights': '77',
+      'Process Improvement': '60',
+      'Leadership & Management': '85',
+      'User Testing & Feedback': '95',
+      'Company Culture': '91'
+    },
+    Interns: {
+      'Product Feedback': '64',
+      'Team Collaboration': '49',
+      'Project Management': '71',
+      'Employee Engagement': '60',
+      'Training & Development': '76',
+      'Roadmap & Strategy': '45',
+      'Innovation & Creativity': '90',
+      'Customer Insights': '86',
+      'Process Improvement': '67',
+      'Leadership & Management': '50',
+      'User Testing & Feedback': '78',
+      'Company Culture': '55'
+    }
+  },
+  q3: {
+    'All Teams': {
+      'Product Feedback': '',
+      'Team Collaboration': '69',
+      'Project Management': '37',
+      'Employee Engagement': '94',
+      'Training & Development': '60',
+      'Roadmap & Strategy': '91',
+      'Innovation & Creativity': '67',
+      'Customer Insights': '98',
+      'Process Improvement': '75',
+      'Leadership & Management': '82',
+      'User Testing & Feedback': '71',
+      'Company Culture': '49'
+    },
+    'Product Team': {
+      'Product Feedback': '',
+      'Team Collaboration': '79',
+      'Project Management': '66',
+      'Employee Engagement': '92',
+      'Training & Development': '84',
+      'Roadmap & Strategy': '47',
+      'Innovation & Creativity': '78',
+      'Customer Insights': '93',
+      'Process Improvement': '56',
+      'Leadership & Management': '87',
+      'User Testing & Feedback': '97',
+      'Company Culture': '65'
+    },
+    'Customer Success Team': {
+      'Product Feedback': '63',
+      'Team Collaboration': '75',
+      'Project Management': '84',
+      'Employee Engagement': '90',
+      'Training & Development': '59',
+      'Roadmap & Strategy': '66',
+      'Innovation & Creativity': '80',
+      'Customer Insights': '96',
+      'Process Improvement': '59',
+      'Leadership & Management': '69',
+      'User Testing & Feedback': '94',
+      'Company Culture': '74'
+    },
+    'Sales Team': {
+      'Product Feedback': '76',
+      'Team Collaboration': '91',
+      'Project Management': '67',
+      'Employee Engagement': '94',
+      'Training & Development': '51',
+      'Roadmap & Strategy': '55',
+      'Innovation & Creativity': '89',
+      'Customer Insights': '78',
+      'Process Improvement': '62',
+      'Leadership & Management': '86',
+      'User Testing & Feedback': '96',
+      'Company Culture': '92'
+    },
+    Interns: {
+      'Product Feedback': '65',
+      'Team Collaboration': '50',
+      'Project Management': '72',
+      'Employee Engagement': '61',
+      'Training & Development': '78',
+      'Roadmap & Strategy': '46',
+      'Innovation & Creativity': '89',
+      'Customer Insights': '87',
+      'Process Improvement': '68',
+      'Leadership & Management': '51',
+      'User Testing & Feedback': '79',
+      'Company Culture': '56'
+    }
+  },
+  q4: {
+    'All Teams': {
+      'Product Feedback': '81',
+      'Team Collaboration': '71',
+      'Project Management': '39',
+      'Employee Engagement': '95',
+      'Training & Development': '62',
+      'Roadmap & Strategy': '92',
+      'Innovation & Creativity': '69',
+      'Customer Insights': '99',
+      'Process Improvement': '77',
+      'Leadership & Management': '84',
+      'User Testing & Feedback': '73',
+      'Company Culture': '50'
+    },
+    'Product Team': {
+      'Product Feedback': '55',
+      'Team Collaboration': '80',
+      'Project Management': '67',
+      'Employee Engagement': '93',
+      'Training & Development': '85',
+      'Roadmap & Strategy': '48',
+      'Innovation & Creativity': '79',
+      'Customer Insights': '94',
+      'Process Improvement': '57',
+      'Leadership & Management': '88',
+      'User Testing & Feedback': '98',
+      'Company Culture': '66'
+    },
+    'Customer Success Team': {
+      'Product Feedback': '64',
+      'Team Collaboration': '76',
+      'Project Management': '85',
+      'Employee Engagement': '91',
+      'Training & Development': '60',
+      'Roadmap & Strategy': '67',
+      'Innovation & Creativity': '81',
+      'Customer Insights': '97',
+      'Process Improvement': '60',
+      'Leadership & Management': '71',
+      'User Testing & Feedback': '95',
+      'Company Culture': '75'
+    },
+    'Sales Team': {
+      'Product Feedback': '77',
+      'Team Collaboration': '92',
+      'Project Management': '68',
+      'Employee Engagement': '96',
+      'Training & Development': '52',
+      'Roadmap & Strategy': '56',
+      'Innovation & Creativity': '90',
+      'Customer Insights': '79',
+      'Process Improvement': '63',
+      'Leadership & Management': '87',
+      'User Testing & Feedback': '97',
+      'Company Culture': '93'
+    },
+    Interns: {
+      'Product Feedback': '66',
+      'Team Collaboration': '51',
+      'Project Management': '73',
+      'Employee Engagement': '62',
+      'Training & Development': '79',
+      'Roadmap & Strategy': '47',
+      'Innovation & Creativity': '88',
+      'Customer Insights': '88',
+      'Process Improvement': '69',
+      'Leadership & Management': '52',
+      'User Testing & Feedback': '80',
+      'Company Culture': '57'
+    }
+  }
+};
+
 type Category =
-  | 'Productivity & Focus'
-  | 'Company Collaboration'
+  | 'Product Feedback'
+  | 'Team Collaboration'
   | 'Project Management'
   | 'Employee Engagement'
   | 'Training & Development'
@@ -36,7 +328,7 @@ type Category =
   | 'Customer Insights'
   | 'Process Improvement'
   | 'Leadership & Management'
-  | 'Customer Testing & Feedback'
+  | 'User Testing & Feedback'
   | 'Company Culture';
 type Score = string;
 type TeamData = Record<Category, Score>;
@@ -59,7 +351,7 @@ const IconWrapper = styled(Grid)({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  height: '40px'
+  height: '24px'
 });
 
 export const CellBox = styled(Paper)(({ theme }) => ({
@@ -99,6 +391,13 @@ const RotatedHeaderCell = styled(TableCell)({
   borderBottom: 'none',
   height: '200px'
 });
+
+// Add VerticalDivider component
+const VerticalDivider = styled(Divider)(({ theme }) => ({
+  height: 1,
+  margin: `${theme.spacing(1)} 0 ${theme.spacing(0.5)} 0`,
+  backgroundColor: theme.palette.grey[300]
+}));
 
 export const DataCell = styled(TableCell)({
   padding: 4,
@@ -199,8 +498,8 @@ export const DraggableRow = ({
 };
 
 const categoryIcons = {
-  'Productivity & Focus': CheckVerifiedIcon,
-  'Company Collaboration': Users03Icon,
+  'Product Feedback': CheckVerifiedIcon,
+  'Team Collaboration': Users03Icon,
   'Project Management': ListIcon,
   'Employee Engagement': MessageSmileCircleIcon,
   'Training & Development': TrendUp01Icon,
@@ -209,7 +508,7 @@ const categoryIcons = {
   'Customer Insights': FaceSmileIcon,
   'Process Improvement': RouteIcon,
   'Leadership & Management': LayersTwo01Icon,
-  'Customer Testing & Feedback': RulerIcon,
+  'User Testing & Feedback': RulerIcon,
   'Company Culture': HeartIcon
 };
 
@@ -257,12 +556,21 @@ export const DraggableHeaderCell = ({
 
   return (
     <RotatedHeaderCell ref={ref} style={{ opacity: isDragging ? 0.5 : 1 }}>
-      <RotatedCellBox
-        sx={{ padding: `${theme.spacing(2)} ${theme.spacing(1)}` }}
-      >
-        <RotatedTypography variant="body2">{category}</RotatedTypography>
+      <RotatedCellBox>
+        <RotatedTypography
+          variant="body2"
+          sx={{ color: theme.palette.grey[900] }}
+        >
+          {category}
+        </RotatedTypography>
+        <VerticalDivider orientation="vertical" flexItem />
         <IconWrapper>
-          <IconComponent sx={{ color: theme.palette.grey[900] }} />
+          <IconComponent
+            sx={{
+              color: theme.palette.grey[500],
+              fontSize: '24px' // Slightly smaller icon
+            }}
+          />
         </IconWrapper>
       </RotatedCellBox>
     </RotatedHeaderCell>
@@ -271,10 +579,10 @@ export const DraggableHeaderCell = ({
 
 export const getQuarterSpan = (quarter: Quarter): string => {
   const quarterSpans: Record<Quarter, string> = {
-    Q1: 'Jan-Mar',
-    Q2: 'Apr-Jun',
-    Q3: 'Jul-Sep',
-    Q4: 'Oct-Dec'
+    q1: 'Jan-Mar',
+    q2: 'Apr-Jun',
+    q3: 'Jul-Sep',
+    q4: 'Oct-Dec'
   };
   return quarterSpans[quarter];
 };

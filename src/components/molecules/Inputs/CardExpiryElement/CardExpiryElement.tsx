@@ -2,6 +2,7 @@ import {
   Box,
   BoxProps,
   FormControlLabel,
+  FormControlLabelProps,
   SxProps,
   Theme,
   Typography
@@ -21,6 +22,7 @@ interface ContentProps {
   label: string;
   labelSx: SxProps<Theme>;
   options: StripeCardNumberElementOptions['style'];
+  labelProps: FormControlLabelProps;
 }
 const Content = ({
   orientation,
@@ -28,7 +30,8 @@ const Content = ({
   form,
   label,
   labelSx,
-  options
+  options,
+  labelProps
 }: ContentProps) => {
   if (orientation === 'horizontal')
     return (
@@ -61,6 +64,7 @@ const Content = ({
     );
   return (
     <FormControlLabel
+      {...labelProps}
       label={label}
       control={
         <CNE
@@ -96,6 +100,7 @@ export interface CardExpiryElementProps extends BoxProps {
   labelSx?: SxProps<Theme>;
   slots?: {
     horizontalInput?: HorizontalInputProps;
+    labelProps?: FormControlLabelProps;
   };
 }
 
@@ -108,8 +113,10 @@ const CardExpiryElement = ({
   errorSx,
   labelSx,
   label = 'Expiration',
+  slots,
   ...props
 }: CardExpiryElementProps) => {
+  const { horizontalInput, labelProps } = slots || {};
   return (
     <>
       <Box sx={{ position: 'relative', display: 'flex' }} {...props}>
@@ -118,11 +125,12 @@ const CardExpiryElement = ({
             return (
               <Content
                 orientation={orientation}
-                horizontalInput={props.slots?.horizontalInput!}
+                horizontalInput={horizontalInput!}
                 form={form}
                 label={label}
                 labelSx={labelSx!}
                 options={options}
+                labelProps={labelProps!}
               />
             );
           }}

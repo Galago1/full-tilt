@@ -28,6 +28,8 @@ export interface IndividualKanbanColumn {
   title: string;
   titleColor: string;
   cards: KanbanColumnCard[];
+  showDragOrAdd: boolean;
+  showDragOrAddText?: string;
   headerContainerGridItemProps?: GridProps;
   headerAvatarAndTextProps?: AvatarAndTextProps;
   headerEndComp?: React.ReactNode;

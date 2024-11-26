@@ -89,6 +89,13 @@ export interface CircularProgressIndicatorProps
    * The sx props, this shouldn't be needed but it is...
    */
   sx?: SxProps<Theme>;
+  /**
+   * The slots props
+   */
+  slots?: {
+    backgroundProgressProps?: CircularProgressProps;
+    progressProps?: CircularProgressProps;
+  };
 }
 
 /**
@@ -105,9 +112,10 @@ const CircularProgressIndicator = ({
   innerLabelTypographyProps,
   labelTypographyProps,
   variant = 'determinate',
-
+  slots,
   ...props
 }: CircularProgressIndicatorProps) => {
+  const { backgroundProgressProps, progressProps } = slots || {};
   return (
     <Box
       sx={{
@@ -124,11 +132,14 @@ const CircularProgressIndicator = ({
         size={size}
         value={100}
         thickness={4}
+        {...backgroundProgressProps}
       />
       <CircularProgress
         variant={variant}
         {...props}
         sx={{
+          // sx={{ scale: "-1 1" }}
+          scale: '-1 1',
           color: (theme: Theme) => theme.palette.primary.main,
           position: 'absolute',
           ...props?.sx
@@ -136,6 +147,7 @@ const CircularProgressIndicator = ({
         size={size}
         value={value}
         thickness={4}
+        {...progressProps}
       />
       <Box
         sx={{

@@ -23,6 +23,10 @@ Default.args = {
   step: 1,
   minLabel: 'Not likely at all',
   maxLabel: 'Very likely'
+  // onChange: (form, field, value, changeType) => {
+  //   console.log('value', value);
+  //   console.log('changeType', changeType);
+  // }
 };
 
 export const Disabled = Template.bind({});

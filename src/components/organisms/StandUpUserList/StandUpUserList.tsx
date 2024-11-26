@@ -57,6 +57,7 @@ export interface StandUpUserListProps {
   };
   hideShowEditButton?: boolean;
   showTeamSelect?: boolean;
+  initialTeam: string;
 }
 
 const StandUpUserList = forwardRef(
@@ -75,7 +76,8 @@ const StandUpUserList = forwardRef(
       externalSelectedIndex,
       setExternalSelectedIndex,
       hideShowEditButton = false,
-      showTeamSelect = true
+      showTeamSelect = true,
+      initialTeam = 'all'
     }: StandUpUserListProps,
     ref: any
   ) => {
@@ -107,7 +109,8 @@ const StandUpUserList = forwardRef(
       initialDate,
       setExternalDate!,
       externalSelectedIndex!,
-      setExternalSelectedIndex!
+      setExternalSelectedIndex!,
+      initialTeam
     );
 
     const finalEditButtonProps = useMemo(() => {
@@ -156,7 +159,6 @@ const StandUpUserList = forwardRef(
             handleDateChange={handleDateChange}
             selectedTeam={selectedTeam}
             setSelectedIndex={setSelectedIndex}
-            formatStandUpTime={formatStandUpTime}
           />
         </Grid>
         <Grid item xs={12} sm={12} md={12} lg={9}>

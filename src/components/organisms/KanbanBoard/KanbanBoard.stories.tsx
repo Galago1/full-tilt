@@ -69,6 +69,7 @@ const initialData: Partial<KanbanBoardProps> = {
         title: 'Soon',
         titleColor: 'grey.100',
         cards: [],
+        showDragOrAdd: true,
         kanbanColumnProps: {
           slots: {
             addCardButtonProps: {
@@ -82,6 +83,7 @@ const initialData: Partial<KanbanBoardProps> = {
       },
       {
         id: '2',
+        showDragOrAdd: true,
         title: 'In Progress',
         titleColor: 'cyan.500',
         cards: [
@@ -172,6 +174,7 @@ const initialData: Partial<KanbanBoardProps> = {
       },
       {
         id: '3',
+        showDragOrAdd: true,
         title: 'Blocked',
         titleColor: '#D92D20',
         cards: [
@@ -240,6 +243,7 @@ const initialData: Partial<KanbanBoardProps> = {
       },
       {
         id: '4',
+        showDragOrAdd: true,
         title: 'Done',
         titleColor: '#079455',
         cards: [

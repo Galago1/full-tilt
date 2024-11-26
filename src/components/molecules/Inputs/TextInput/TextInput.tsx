@@ -1,4 +1,9 @@
-import { FormControlLabel, SxProps, Theme } from '@mui/material';
+import {
+  FormControlLabel,
+  FormControlLabelProps,
+  SxProps,
+  Theme
+} from '@mui/material';
 import type { TextInputBaseProps } from 'src/components/atoms/InputBase/TextInputBase/TextInputBase';
 import TextInputBase from 'src/components/atoms/InputBase/TextInputBase/TextInputBase';
 import { Orientation } from 'src/types/other';
@@ -10,6 +15,7 @@ export interface TextInputProps extends TextInputBaseProps {
   orientation?: Orientation;
   slots?: {
     horizontalInput?: HorizontalInputProps;
+    labelProps?: FormControlLabelProps;
   };
 }
 
@@ -22,7 +28,7 @@ const TextInput = ({
   labelSx,
   ...props
 }: TextInputProps) => {
-  const { horizontalInput } = props.slots || {};
+  const { horizontalInput, labelProps } = props.slots || {};
   if (orientation === 'horizontal')
     return (
       <HorizontalInput
@@ -43,6 +49,7 @@ const TextInput = ({
       sx={{
         ...labelSx
       }}
+      {...labelProps}
     />
   );
 };

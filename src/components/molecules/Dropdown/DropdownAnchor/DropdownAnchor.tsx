@@ -25,6 +25,10 @@ export interface DropdownAnchorProps {
    * The on click action
    */
   onClick?: (event: React.MouseEvent<HTMLElement>) => void;
+  /**
+   * The component to render
+   */
+  anchorComponent?: React.ReactNode;
 }
 
 /**
@@ -37,7 +41,8 @@ export const DropdownAnchor = forwardRef(
       isOpen,
       onClick,
       buttonProps,
-      iconButtonProps
+      iconButtonProps,
+      anchorComponent
     }: DropdownAnchorProps,
     ref: any
   ) => {
@@ -50,7 +55,9 @@ export const DropdownAnchor = forwardRef(
         }}
         ref={ref}
       >
-        {buttonProps ? (
+        {anchorComponent ? (
+          anchorComponent
+        ) : buttonProps ? (
           <Button
             {...buttonProps}
             sx={{

@@ -1,4 +1,10 @@
-import { FormControlLabel, GridProps, SxProps, Theme } from '@mui/material';
+import {
+  FormControlLabel,
+  FormControlLabelProps,
+  GridProps,
+  SxProps,
+  Theme
+} from '@mui/material';
 import {
   SelectInputBase,
   SelectInputBaseProps
@@ -27,6 +33,7 @@ export interface SelectInputProps extends Omit<SelectInputBaseProps, 'slots'> {
   slots?: {
     horizontalInput?: HorizontalInputProps;
     boxProps?: GridProps;
+    labelProps?: FormControlLabelProps;
   };
 }
 
@@ -40,7 +47,7 @@ const SelectInput = ({
   slots,
   ...props
 }: SelectInputProps) => {
-  const { horizontalInput } = slots || {};
+  const { horizontalInput, labelProps } = slots || {};
   if (orientation === 'horizontal')
     return (
       <HorizontalInput
@@ -62,6 +69,7 @@ const SelectInput = ({
       sx={{
         ...labelSx
       }}
+      {...labelProps}
     />
   );
 };

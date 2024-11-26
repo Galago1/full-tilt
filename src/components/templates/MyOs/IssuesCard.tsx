@@ -1,12 +1,11 @@
 import { Grid, SxProps, Theme, useTheme } from '@mui/material';
 import { isEmpty } from 'lodash';
 import AvatarAndText from 'src/components/molecules/AvatarAndText/AvatarAndText';
-import EmptyState from 'src/components/molecules/EmptyState/EmptyState';
+import BasicEmptyState from 'src/components/molecules/BasicEmptyState/BasicEmptyState';
 import LoadingIndicator from 'src/components/molecules/LoadingIndicator/LoadingIndicator';
 import Card, { CardProps } from 'src/components/organisms/Card/Card';
 import {
   InfoCircleIcon,
-  MessageQuestionCircleIcon,
   ZapIcon
 } from 'src/components/particles/theme/overrides/CustomIcons';
 import { responsiveSpacing } from 'src/components/particles/theme/spacing';
@@ -19,26 +18,47 @@ interface ContentProps {
   issues: Issue[];
   sharedListCardContentProps: SharedListCardContentProps;
   loading: boolean;
+  onClickEmptyState?: () => void;
+  emptyStateSubtitle?: any;
 }
 const Content = ({
   issues,
   sharedListCardContentProps,
-  loading
+  loading,
+  onClickEmptyState,
+  emptyStateSubtitle
 }: ContentProps) => {
   if (!issues || loading || (!loading && isEmpty(issues)))
     return (
-      <Grid item>
-        <EmptyState
-          flex={1}
-          alignItems={'center'}
-          justifyContent={'center'}
-          avatarAndTextProps={
-            loading ? undefined : { title: 'No Issues', subtitle: '' }
+      <BasicEmptyState
+        icon={loading ? null : <InfoCircleIcon />}
+        title={loading ? '' : `No Issues`}
+        emptyStateHeight={'auto'}
+        subtitle={loading ? '' : emptyStateSubtitle}
+        slots={{
+          gridSx: {
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+            display: 'flex',
+            p: 0,
+            pb: responsiveSpacing
           }
-        >
-          {loading && <LoadingIndicator />}
-        </EmptyState>
-      </Grid>
+        }}
+        buttonProps={
+          !loading && onClickEmptyState
+            ? {
+                onClick: onClickEmptyState,
+                label: 'Add Issue',
+                variant: 'outlined',
+                color: 'secondary',
+                sx: { mt: 2 }
+              }
+            : undefined
+        }
+      >
+        {loading && <LoadingIndicator />}
+      </BasicEmptyState>
     );
   return (
     <Grid
@@ -54,7 +74,7 @@ const Content = ({
         scrollbarWidth: 'none',
         msOverflowStyle: 'none',
         maxHeight: '280px',
-        pb: 3
+        pb: responsiveSpacing
       }}
       gap={2}
     >
@@ -62,6 +82,7 @@ const Content = ({
         <SharedListCardContent
           {...sharedListCardContentProps}
           key={issue.id}
+          onClick={issue.onClick}
           status={issue.status}
           priority={issue.priority}
           title={issue.title}
@@ -81,6 +102,8 @@ export interface IssuesCardProps extends Omit<CardProps, 'slots'> {
   };
   cardSlots?: CardProps['slots'];
   loading?: boolean;
+  onClickEmptyState?: () => void;
+  emptyStateSubtitle?: any;
 }
 
 export const IssuesCard = ({
@@ -88,6 +111,8 @@ export const IssuesCard = ({
   slots,
   cardSlots,
   loading,
+  onClickEmptyState,
+  emptyStateSubtitle,
   ...props
 }: IssuesCardProps) => {
   const { sharedListCardContentProps } = slots ?? {};
@@ -129,6 +154,8 @@ export const IssuesCard = ({
           issues={issues}
           sharedListCardContentProps={sharedListCardContentProps!}
           loading={loading!}
+          onClickEmptyState={onClickEmptyState}
+          emptyStateSubtitle={emptyStateSubtitle}
         />
       </Grid>
     </Card>

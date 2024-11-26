@@ -2,6 +2,12 @@ import { useTheme } from '@mui/material';
 import { FieldInputProps, FieldProps, FormikProps } from 'formik';
 import { useEffect, useRef, useState } from 'react';
 
+export enum ChangeType {
+  MOVE = 'move',
+  START = 'start',
+  END = 'end'
+}
+
 export const useWaveSlider = (
   min: number,
   max: number,
@@ -11,15 +17,28 @@ export const useWaveSlider = (
   onChange: (
     form: FormikProps<any>,
     field: FieldInputProps<any>,
-    value: any
+    value: any,
+    changeType: ChangeType
   ) => void,
-  disabled: boolean // Pass the disabled prop to the hook
+  disabled: boolean
 ) => {
   const theme = useTheme();
   const [isDragging, setIsDragging] = useState(false);
   const [tempValue, setTempValue] = useState(field.value);
   const tempValueRef = useRef(field.value);
   const sliderRef = useRef<HTMLDivElement | null>(null);
+  const isInitialMount = useRef(true);
+
+  const updateValue = (newValue: number, changeType: ChangeType) => {
+    const clampedValue = Math.min(Math.max(newValue, min), max);
+    setTempValue(clampedValue);
+    tempValueRef.current = clampedValue;
+
+    if (!isInitialMount.current) {
+      form.setFieldValue(field.name, clampedValue);
+      onChange?.(form, field, clampedValue, changeType);
+    }
+  };
 
   const handleMove = (clientX: number) => {
     if (disabled || !sliderRef.current) return;
@@ -30,16 +49,21 @@ export const useWaveSlider = (
       const percentage = Math.min(Math.max(x / rect.width, 0), 1);
       const newValue =
         Math.round((percentage * (max - min)) / step) * step + min;
-      const clampedValue = Math.min(Math.max(newValue, min), max);
-      setTempValue(clampedValue);
-      tempValueRef.current = clampedValue;
+
+      if (isDragging) {
+        updateValue(newValue, ChangeType.MOVE);
+      }
     });
   };
 
   const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (disabled || !sliderRef.current?.contains(e.target as Node)) return; // Disable mousedown if disabled
+    if (disabled || !sliderRef.current?.contains(e.target as Node)) return;
     setIsDragging(true);
-    handleMove(e.clientX);
+    const rect = sliderRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const percentage = Math.min(Math.max(x / rect.width, 0), 1);
+    const newValue = Math.round((percentage * (max - min)) / step) * step + min;
+    updateValue(newValue, ChangeType.START);
   };
 
   const handleMouseMove = (e: MouseEvent) => {
@@ -51,16 +75,18 @@ export const useWaveSlider = (
   const handleMouseUp = () => {
     if (isDragging && !disabled) {
       setIsDragging(false);
-      const finalValue = tempValueRef.current;
-      form.setFieldValue(field.name, finalValue);
-      onChange?.(form, field, finalValue);
+      updateValue(tempValueRef.current, ChangeType.END);
     }
   };
 
   const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
-    if (disabled || !sliderRef.current?.contains(e.target as Node)) return; // Disable touchstart if disabled
+    if (disabled || !sliderRef.current?.contains(e.target as Node)) return;
     setIsDragging(true);
-    handleMove(e.touches[0].clientX);
+    const rect = sliderRef.current.getBoundingClientRect();
+    const x = e.touches[0].clientX - rect.left;
+    const percentage = Math.min(Math.max(x / rect.width, 0), 1);
+    const newValue = Math.round((percentage * (max - min)) / step) * step + min;
+    updateValue(newValue, ChangeType.START);
   };
 
   const handleTouchMove = (e: TouchEvent) => {
@@ -90,12 +116,18 @@ export const useWaveSlider = (
     };
   }, [isDragging, disabled]);
 
+  // Handle external value changes
   useEffect(() => {
-    if (!isDragging) {
-      form.setFieldValue(field.name, tempValue);
-      onChange?.(form, field, tempValue);
+    if (!isDragging && field.value !== tempValue) {
+      setTempValue(field.value);
+      tempValueRef.current = field.value;
     }
-  }, [tempValue, isDragging]);
+  }, [field.value]);
+
+  // Set initial mount to false after first render
+  useEffect(() => {
+    isInitialMount.current = false;
+  }, []);
 
   const markers = Array.from(
     { length: (max - min) / step + 1 },

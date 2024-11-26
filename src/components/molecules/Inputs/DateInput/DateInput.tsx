@@ -1,4 +1,4 @@
-import { FormControlLabel } from '@mui/material';
+import { FormControlLabel, FormControlLabelProps } from '@mui/material';
 import { FieldAttributes, FieldMetaProps, FormikProps } from 'formik';
 import type { DateInputBaseProps } from 'src/components/atoms/InputBase/DateInputBase/DateInputBase';
 import DateInputBase from 'src/components/atoms/InputBase/DateInputBase/DateInputBase';
@@ -14,6 +14,7 @@ export interface DateInputProps extends DateInputBaseProps {
   orientation?: Orientation;
   slots?: {
     horizontalInput?: HorizontalInputProps;
+    labelProps?: FormControlLabelProps;
   };
 }
 
@@ -26,7 +27,7 @@ const DateInput = ({
   labelSx,
   ...props
 }: DateInputProps) => {
-  const { horizontalInput } = props.slots || {};
+  const { horizontalInput, labelProps } = props.slots || {};
   if (orientation === 'horizontal')
     return (
       <HorizontalInput
@@ -47,6 +48,7 @@ const DateInput = ({
       sx={{
         ...labelSx
       }}
+      {...labelProps}
     />
   );
 };

@@ -24,6 +24,7 @@ import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import { StripeKey } from 'src/constants/keys';
 import yup from 'src/lib/yupLocal';
+import { responsiveSpacing } from 'src/components/particles/theme/spacing';
 
 const ValidationSchema = yup.object().shape({
   textInput: yup.string().required('Required'),
@@ -92,7 +93,7 @@ const Template: Story<DataGridProps> = (args) => {
       >
         {(formik) => {
           return (
-            <Box sx={{ width: '100%', pb: 3 }}>
+            <Box sx={{ width: '100%', pb: responsiveSpacing }}>
               <Grid container spacing={3}>
                 <Grid item xs={12}>
                   <Button

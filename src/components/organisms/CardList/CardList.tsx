@@ -1,6 +1,7 @@
 import { Grid, GridProps } from '@mui/material';
 import type { MediaCardWithContentProps } from 'src/components/molecules/Cards/MediaCardWithContent/MediaCardWithContent';
 import MediaCardWithContent from 'src/components/molecules/Cards/MediaCardWithContent/MediaCardWithContent';
+import { responsiveSpacing } from 'src/components/particles/theme/spacing';
 
 const columnsSizes = {
   6: {
@@ -52,7 +53,7 @@ const Content = ({ columns, card }: ContentProps) => {
         cursor: 'pointer',
         '&.MuiGrid-item': {
           paddingX: { xs: 1, sm: 1.5 },
-          pb: 3
+          pb: responsiveSpacing
         }
       }}
     >

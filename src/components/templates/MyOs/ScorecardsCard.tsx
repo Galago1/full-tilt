@@ -10,10 +10,10 @@ import { FormikHelpers } from 'formik';
 import { isEmpty } from 'lodash';
 import { useState } from 'react';
 import AvatarAndText from 'src/components/molecules/AvatarAndText/AvatarAndText';
+import BasicEmptyState from 'src/components/molecules/BasicEmptyState/BasicEmptyState';
 import ButtonGroup, {
   ButtonGroupProps
 } from 'src/components/molecules/ButtonGroup/ButtonGroup';
-import EmptyState from 'src/components/molecules/EmptyState/EmptyState';
 import NumberInputBase from 'src/components/molecules/Inputs/NumberInputBase/NumberInputBase';
 import LoadingIndicator from 'src/components/molecules/LoadingIndicator/LoadingIndicator';
 import ScorecardInlineEditCell, {
@@ -87,12 +87,11 @@ const ScoreCardItemList = ({
       </Grid>
       <Grid item width={'100%'}>
         <Grid container gap={1} flexWrap={'nowrap'} alignItems={'center'}>
-          <Grid item xs={10}>
+          <Grid item xs={6}>
             <ButtonGroup {...buttonGroupProps} />
           </Grid>
-          <Grid item xs={2}>
+          <Grid item xs={6}>
             <ScorecardInlineEditCell
-              type={'data'}
               initialValue={{
                 id: measurableMetricId || '',
                 value,
@@ -214,10 +213,14 @@ const ScorecardsContent = ({
 interface ScorecardsCardListContentProps {
   scorecardsContentProps: ScorecardsContentProps[];
   loading?: boolean;
+  onClickEmptyState?: () => void;
+  emptyStateSubtitle?: any;
 }
 const ScorecardsCardListContent = ({
   scorecardsContentProps,
-  loading
+  loading,
+  onClickEmptyState,
+  emptyStateSubtitle
 }: ScorecardsCardListContentProps) => {
   if (
     !scorecardsContentProps ||
@@ -225,18 +228,33 @@ const ScorecardsCardListContent = ({
     (!loading && isEmpty(scorecardsContentProps))
   )
     return (
-      <Grid item>
-        <EmptyState
-          flex={1}
-          alignItems={'center'}
-          justifyContent={'center'}
-          avatarAndTextProps={
-            loading ? undefined : { title: 'No items', subtitle: '' }
+      <BasicEmptyState
+        icon={loading ? null : <Target05Icon />}
+        title={loading ? '' : 'No Scorecards'}
+        subtitle={loading ? '' : emptyStateSubtitle}
+        emptyStateHeight={'auto'}
+        slots={{
+          gridSx: {
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+            display: 'flex'
           }
-        >
-          {loading && <LoadingIndicator />}
-        </EmptyState>
-      </Grid>
+        }}
+        buttonProps={
+          !loading && onClickEmptyState
+            ? {
+                onClick: onClickEmptyState,
+                label: 'Add Scorecard',
+                variant: 'outlined',
+                color: 'secondary',
+                sx: { mt: 2 }
+              }
+            : undefined
+        }
+      >
+        {loading && <LoadingIndicator />}
+      </BasicEmptyState>
     );
 
   return (
@@ -255,11 +273,15 @@ const ScorecardsCardListContent = ({
 export interface ScorecardsCardProps extends GridProps {
   scorecardsContentProps?: ScorecardsContentProps[];
   loading?: boolean;
+  onClickEmptyState?: () => void;
+  emptyStateSubtitle?: any;
 }
 
 export const ScorecardsCard = ({
   scorecardsContentProps = [],
+  onClickEmptyState,
   loading,
+  emptyStateSubtitle,
   ...props
 }: ScorecardsCardProps) => {
   const theme = useTheme();
@@ -322,6 +344,8 @@ export const ScorecardsCard = ({
         <ScorecardsCardListContent
           scorecardsContentProps={scorecardsContentProps}
           loading={loading}
+          onClickEmptyState={onClickEmptyState}
+          emptyStateSubtitle={emptyStateSubtitle}
         />
       </Grid>
     </Grid>

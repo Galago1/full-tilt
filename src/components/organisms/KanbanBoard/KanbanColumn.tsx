@@ -150,7 +150,7 @@ const KanbanColumn = ({
         ))}
 
         {/* Show a placeholder card when dragging over an empty column */}
-        {column!.cards.length === 0 && (
+        {column!.showDragOrAdd && (
           <Grid
             container
             sx={{
@@ -170,7 +170,7 @@ const KanbanColumn = ({
             }}
             onClick={onClickPlaceholder}
           >
-            {<span>Drag or add</span>}
+            {<span>{column!.showDragOrAddText || 'Drag or add'}</span>}
           </Grid>
         )}
         {addCardButtonProps && <Button {...addCardButtonProps} />}

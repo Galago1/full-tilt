@@ -2,6 +2,7 @@ import {
   Box,
   BoxProps,
   FormControlLabel,
+  FormControlLabelProps,
   SxProps,
   Theme,
   Typography
@@ -20,6 +21,7 @@ interface ContentProps {
   label: string;
   labelSx: SxProps<Theme>;
   options: StripeCardNumberElementOptions['style'];
+  labelProps: FormControlLabelProps;
 }
 const Content = ({
   orientation,
@@ -27,7 +29,8 @@ const Content = ({
   form,
   label,
   labelSx,
-  options
+  options,
+  labelProps
 }: ContentProps) => {
   if (orientation === 'horizontal')
     return (
@@ -63,6 +66,7 @@ const Content = ({
     );
   return (
     <FormControlLabel
+      {...labelProps}
       label={label}
       control={
         <CVC
@@ -101,6 +105,7 @@ export interface CardCvcElementProps extends BoxProps {
   labelSx?: SxProps<Theme>;
   slots?: {
     horizontalInput?: HorizontalInputProps;
+    labelProps?: FormControlLabelProps;
   };
 }
 
@@ -115,7 +120,7 @@ const CardCvcElement = ({
   label = 'CVC',
   ...props
 }: CardCvcElementProps) => {
-  const { horizontalInput } = props.slots || {};
+  const { horizontalInput, labelProps } = props.slots || {};
   return (
     <>
       <Box sx={{ position: 'relative', display: 'flex' }} {...props}>
@@ -129,6 +134,7 @@ const CardCvcElement = ({
                 label={label}
                 labelSx={labelSx!}
                 options={options}
+                labelProps={labelProps!}
               />
             );
           }}

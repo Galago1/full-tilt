@@ -30,6 +30,14 @@ Daily.args = {
       // slots: {
       //   dropdownProps: scorecardDropdown()
       // }
+    },
+    avatarAndTextProps: {
+      textGridItemProps: {
+        flex: 1
+      },
+      buttonProps: {
+        label: 'Edit'
+      }
     }
   },
   type: 'daily',

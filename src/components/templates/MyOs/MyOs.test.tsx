@@ -50,24 +50,7 @@ const mockProps: MyOsProps = {
     contributors: 15,
     contributed: 8
   },
-  todos: [
-    { status: 'todo', title: 'Design wireframes for Wave' },
-    { status: 'todo', title: 'Create a style guide for the new project' },
-    { status: 'todo', title: 'Develop high-fidelity mockups for the homepage' },
-    {
-      status: 'todo',
-      title: 'Conduct a usability test on the current prototype'
-    },
-    { status: 'completed', title: 'Design icons for the app’s feature set' },
-    {
-      status: 'completed',
-      title: 'Update the design system with new color palettes and typography'
-    },
-    {
-      status: 'completed',
-      title: 'Review and revise the design based on stakeholder feedback'
-    }
-  ],
+  todos: [{ status: 'todo', title: 'Design wireframes for Wave' }],
   digest: [
     {
       id: 'asdc',

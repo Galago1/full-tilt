@@ -66,6 +66,10 @@ export interface DropdownUncontrolledProps extends BoxProps {
    */
   handleClose: () => void;
   open: boolean;
+  /**
+   * The anchor component
+   */
+  anchorComponent?: React.ReactNode;
 }
 const DropdownUncontrolled = ({
   label,
@@ -81,6 +85,7 @@ const DropdownUncontrolled = ({
   anchorEl,
   handleClose,
   open,
+  anchorComponent,
   ...props
 }: DropdownUncontrolledProps) => {
   return (
@@ -91,6 +96,7 @@ const DropdownUncontrolled = ({
         buttonProps={buttonProps}
         iconButtonProps={iconButtonProps}
         isOpen={open}
+        anchorComponent={anchorComponent}
       />
       {anchorEl && (
         <DropdownMenu

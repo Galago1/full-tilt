@@ -1,40 +1,65 @@
-import { FormControlLabel } from '@mui/material';
+import { FormControl, FormControlLabel } from '@mui/material';
 import { useField } from 'formik';
 import { useState } from 'react';
 import { NumericFormat } from 'react-number-format';
 import TextInputBase from 'src/components/atoms/InputBase/TextInputBase/TextInputBase';
 import HorizontalInput from '../HorizontalInput';
 
-// TODO: fix this type error
-export type NumberInputBaseProps = any; ///NumberFormatProps & TextInputBaseProps;
+export type NumberInputBaseProps = any; // TODO: fix this type
 
-/**
- * Primary UI component for user interaction
- */
 const NumberInputBase = ({
   orientation,
   label,
   labelSx,
   ...props
 }: NumberInputBaseProps) => {
-  const { form, field, meta, children, ...rest } = props;
-  const { horizontalInput } = props.slots || {};
+  // Use Formik's useField hook
+  const { meta: ogMeta } = props;
+  const [field, meta, helpers] = useField(props.name || props.field.name);
+
+  const { horizontalInput, labelProps } = props.slots || {};
 
   const [focused, setFocused] = useState(false);
-  const [a, b, helpers] = useField(field.name);
 
   const handleChange = (value: any) => {
     helpers.setValue(value);
   };
+
   const handleFocus = () => {
     setFocused(true);
   };
 
-  const handleBlur = () => {
+  const handleBlur = (e: any) => {
     setFocused(false);
+    field.onBlur(e);
+    helpers.setTouched(true);
   };
 
-  if (orientation === 'horizontal')
+  // Extract error information
+  const hasError = Boolean(meta.touched && meta.error);
+
+  const numericFormatComponent = (
+    <NumericFormat
+      field={field}
+      meta={meta}
+      form={helpers}
+      onFocus={handleFocus}
+      onBlur={handleBlur}
+      disabled={props.disabled || props.form?.isSubmitting}
+      onValueChange={(values) => handleChange(values.value)}
+      customInput={TextInputBase}
+      error={hasError}
+      {...props}
+    />
+  );
+  console.log('methasErrorhasErrora', hasError, ogMeta);
+  const renderWithError = (component: React.ReactNode) => (
+    <FormControl error={hasError} fullWidth>
+      {component}
+    </FormControl>
+  );
+
+  if (orientation === 'horizontal') {
     return (
       <HorizontalInput
         label={label}
@@ -42,42 +67,23 @@ const NumberInputBase = ({
         orientation={orientation}
         {...horizontalInput}
       >
-        <NumericFormat
-          field={field}
-          meta={meta}
-          form={form}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-          {...rest}
-          disabled={props.disabled || form.isSubmitting}
-          onValueChange={(values) => handleChange(values.value)}
-          customInput={TextInputBase}
-        />
+        {renderWithError(numericFormatComponent)}
       </HorizontalInput>
     );
+  }
 
-  return (
+  return renderWithError(
     <FormControlLabel
-      control={
-        <NumericFormat
-          field={field}
-          meta={meta}
-          form={form}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-          {...rest}
-          disabled={props.disabled || form.isSubmitting}
-          onValueChange={(values) => handleChange(values.value)}
-          customInput={TextInputBase}
-        />
-      }
+      control={numericFormatComponent}
       className={focused ? 'focused' : ''}
       label={label}
       labelPlacement={'top'}
       sx={{
         ...labelSx
       }}
+      {...labelProps}
     />
   );
 };
+
 export default NumberInputBase;

@@ -1,11 +1,10 @@
 import { Grid, SxProps, Theme, useTheme } from '@mui/material';
 import { isEmpty } from 'lodash';
 import AvatarAndText from 'src/components/molecules/AvatarAndText/AvatarAndText';
-import EmptyState from 'src/components/molecules/EmptyState/EmptyState';
+import BasicEmptyState from 'src/components/molecules/BasicEmptyState/BasicEmptyState';
 import LoadingIndicator from 'src/components/molecules/LoadingIndicator/LoadingIndicator';
 import Card, { CardProps } from 'src/components/organisms/Card/Card';
 import {
-  MessageQuestionCircleIcon,
   ThumbsUpIcon,
   ZapIcon
 } from 'src/components/particles/theme/overrides/CustomIcons';
@@ -19,26 +18,47 @@ interface ContentProps {
   feedback: Feedback[];
   sharedListCardContentProps: SharedListCardContentProps;
   loading: boolean;
+  onClickEmptyState?: () => void;
+  emptyStateSubtitle?: any;
 }
 const Content = ({
   feedback,
   sharedListCardContentProps,
-  loading
+  loading,
+  onClickEmptyState,
+  emptyStateSubtitle
 }: ContentProps) => {
   if (!feedback || loading || (!loading && isEmpty(feedback)))
     return (
-      <Grid item>
-        <EmptyState
-          flex={1}
-          alignItems={'center'}
-          justifyContent={'center'}
-          avatarAndTextProps={
-            loading ? undefined : { title: 'No Feedback', subtitle: '' }
+      <BasicEmptyState
+        icon={loading ? null : <ThumbsUpIcon />}
+        title={loading ? '' : `No Feedback`}
+        subtitle={loading ? '' : emptyStateSubtitle}
+        emptyStateHeight={'auto'}
+        slots={{
+          gridSx: {
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+            display: 'flex',
+            p: 0,
+            pb: responsiveSpacing
           }
-        >
-          {loading && <LoadingIndicator />}
-        </EmptyState>
-      </Grid>
+        }}
+        buttonProps={
+          !loading && onClickEmptyState
+            ? {
+                label: 'Add Feedback',
+                variant: 'outlined',
+                color: 'secondary',
+                onClick: onClickEmptyState,
+                sx: { mt: 2 }
+              }
+            : undefined
+        }
+      >
+        {loading && <LoadingIndicator />}
+      </BasicEmptyState>
     );
   return (
     <Grid
@@ -54,18 +74,19 @@ const Content = ({
         scrollbarWidth: 'none',
         msOverflowStyle: 'none',
         maxHeight: '280px',
-        pb: 3
+        pb: responsiveSpacing
       }}
       gap={2}
     >
-      {feedback.map((issue, index) => (
+      {feedback.map((listItem, index) => (
         <SharedListCardContent
           {...sharedListCardContentProps}
-          key={issue.id}
-          status={issue.status}
-          priority={issue.priority}
-          title={issue.title}
-          icon={issue.icon ?? <ZapIcon />}
+          key={listItem.id}
+          onClick={listItem.onClick}
+          status={listItem.status}
+          priority={listItem.priority}
+          title={listItem.title}
+          icon={listItem.icon ?? <ZapIcon />}
           index={index}
           listLength={feedback.length}
         />
@@ -81,6 +102,8 @@ export interface FeedbackCardProps extends Omit<CardProps, 'slots'> {
   };
   cardSlots?: CardProps['slots'];
   loading?: boolean;
+  onClickEmptyState?: () => void;
+  emptyStateSubtitle?: any;
 }
 
 export const FeedbackCard = ({
@@ -88,6 +111,8 @@ export const FeedbackCard = ({
   slots,
   cardSlots,
   loading,
+  onClickEmptyState,
+  emptyStateSubtitle,
   ...props
 }: FeedbackCardProps) => {
   const { sharedListCardContentProps } = slots ?? {};
@@ -129,6 +154,8 @@ export const FeedbackCard = ({
           feedback={feedback}
           sharedListCardContentProps={sharedListCardContentProps!}
           loading={loading!}
+          onClickEmptyState={onClickEmptyState}
+          emptyStateSubtitle={emptyStateSubtitle}
         />
       </Grid>
     </Card>

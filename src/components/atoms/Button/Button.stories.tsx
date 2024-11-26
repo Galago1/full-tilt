@@ -6,7 +6,6 @@ import {
 import Button, { ButtonProps } from './Button';
 
 // import {
-//   CheckCircleIcon,
 //   XCloseIcon
 // } from 'src/components/particles/theme/overrides/CustomIcons';
 // // import { CircularProgress } from '../CircularProgress/CircularProgress';

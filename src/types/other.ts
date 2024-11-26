@@ -3,4 +3,4 @@ export enum Orientation {
   HORIZONTAL = 'horizontal'
 }
 
-export type Quarter = 'Q1' | 'Q2' | 'Q3' | 'Q4';
+export type Quarter = 'q1' | 'q2' | 'q3' | 'q4';

@@ -88,7 +88,10 @@ export interface DropdownProps extends BoxProps {
    * The Grid container props
    */
   gridContainerProps?: GridProps;
-  // ... other props ...
+  /**
+   * The anchor component
+   */
+  anchorComponent?: React.ReactNode;
   /**
    * The open state of the dropdown
    */
@@ -110,6 +113,7 @@ const Dropdown = ({
   gridContainerProps,
   isOpen: controlledOpen,
   onOpenChange,
+  anchorComponent,
   ...props
 }: DropdownProps) => {
   const { anchorEl, open, handleClick, handleClose } = useDropdown(
@@ -132,6 +136,7 @@ const Dropdown = ({
       anchorEl={anchorEl}
       handleClose={handleClose}
       open={open}
+      anchorComponent={anchorComponent}
       {...props}
     />
   );

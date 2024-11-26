@@ -1,47 +1,36 @@
 import {
-  Box,
   Grid,
   List,
   ListItem,
   ListItemAvatar,
   ListItemText,
-  Theme,
-  Typography
+  Theme
 } from '@mui/material';
 import { Fragment } from 'react';
-import { Avatar, Divider } from 'src/components/atoms';
+import { Avatar, Badge, Divider } from 'src/components/atoms';
 import { AvatarProps } from 'src/components/atoms/Avatar/Avatar';
-import { responsiveSpacing } from 'src/components/particles/theme/spacing';
+import { VerifiedTickIcon } from 'src/components/particles/theme/overrides/CustomIcons';
 import { TeamMember } from './StandUpUserList';
-
-const getStatusBadgeColor = (standUpCompletedAt: string | null): string => {
-  return standUpCompletedAt ? 'success.500' : 'grey.500';
-};
 
 interface StandUpUserListContentProps {
   selectedIndex: number | null;
   filteredMembers: TeamMember[];
   setSelectedIndex: (index: number) => void;
   theme: Theme;
-  formatStandUpTime: (
-    standUpCompletedAt: string | null,
-    hideIncomplete?: boolean
-  ) => string;
 }
 
 const StandUpUserListContent = ({
   selectedIndex,
   filteredMembers,
   setSelectedIndex,
-  theme,
-  formatStandUpTime
+  theme
 }: StandUpUserListContentProps) => {
   return (
     <List
       sx={{
         flex: 1,
         overflowY: 'auto',
-        px: responsiveSpacing
+        px: 2
       }}
     >
       {filteredMembers.map((member, index) => {
@@ -70,21 +59,24 @@ const StandUpUserListContent = ({
               <Grid container alignItems="center" wrap="nowrap" gap={1}>
                 <Grid item sx={{ position: 'relative' }}>
                   <ListItemAvatar>
-                    <Avatar {...avatarProps} />
-                    <Box
+                    <Badge
+                      anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                      badgeContent={
+                        member.standUpCompletedAt ? (
+                          <VerifiedTickIcon sx={{ width: 20, height: 20 }} />
+                        ) : undefined
+                      }
                       sx={{
-                        position: 'absolute',
-                        right: 0,
-                        bottom: 0,
-                        width: 10,
-                        height: 10,
-                        borderRadius: '50%',
-                        border: `1px solid ${theme.palette.background.paper}`,
-                        backgroundColor: getStatusBadgeColor(
-                          member.standUpCompletedAt
-                        )
+                        '& .MuiBadge-badge': {
+                          p: 0,
+                          height: 10,
+                          width: 10,
+                          minWidth: 10
+                        }
                       }}
-                    />
+                    >
+                      <Avatar {...avatarProps} />
+                    </Badge>
                   </ListItemAvatar>
                 </Grid>
                 <Grid item xs zeroMinWidth>
@@ -102,19 +94,6 @@ const StandUpUserListContent = ({
                     }}
                   />
                 </Grid>
-                {/* <Grid
-                  item
-                  sx={{
-                    position: 'relative',
-                    textWrap: 'nowrap',
-                    display: 'flex',
-                    alignSelf: 'baseline'
-                  }}
-                >
-                  <Typography variant="caption">
-                    {formatStandUpTime(member.standUpCompletedAt, true)}
-                  </Typography>
-                </Grid> */}
               </Grid>
             </ListItem>
             {index !== filteredMembers.length - 1 && <Divider />}

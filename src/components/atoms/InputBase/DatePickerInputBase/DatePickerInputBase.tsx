@@ -37,7 +37,12 @@ export interface DatePickerInputBaseProps extends DatePickerProps<any> {
 const DatePickerInputBase = ({ ...props }: DatePickerInputBaseProps) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
-      <DatePicker {...props} value={props.field.value} />
+      <DatePicker
+        views={['year', 'month', 'day']}
+        openTo="day"
+        {...props}
+        value={props.field.value}
+      />
     </LocalizationProvider>
   );
 };
