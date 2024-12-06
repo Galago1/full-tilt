@@ -20,7 +20,7 @@ import Card, { CardProps } from 'src/components/organisms/Card/Card';
 import {
   ArrowUpRightIcon,
   CalendarIcon,
-  MessageQuestionCircleIcon,
+  ChevronRightIcon,
   TriangleIcon,
   Users01Icon
 } from 'src/components/particles/theme/overrides/CustomIcons';
@@ -30,13 +30,13 @@ import { Okr } from './types';
 interface ContentProps {
   okrs: Okr[];
   loading: boolean;
-  okrName: string;
+  okrName?: 'OKR' | 'Rock';
   onClickEmptyState?: () => void;
   emptyStateSubtitle?: any;
 }
 const Content = ({
   okrs,
-  okrName = 'OKRs',
+  okrName = 'OKR',
   onClickEmptyState,
   loading,
   emptyStateSubtitle
@@ -71,7 +71,7 @@ const Content = ({
             }
           }}
           icon={loading ? null : <TriangleIcon />}
-          title={loading ? '' : `No ${okrName}`}
+          title={loading ? '' : `No ${okrName}s`}
           subtitle={loading ? '' : emptyStateSubtitle}
           buttonProps={
             !loading && onClickEmptyState
@@ -112,11 +112,20 @@ const Content = ({
         minHeight: '280px',
         pb: 8
       }}
-      gap={2}
+      gap={0}
     >
       {okrs.map((okr, index) => (
         <Fragment key={okr.id}>
-          <Grid item xs={12} onClick={okr.onClick} sx={{ cursor: 'pointer' }}>
+          <Grid
+            item
+            xs={12}
+            onClick={okr.onClick}
+            sx={{
+              cursor: 'pointer',
+              '&:hover': { backgroundColor: 'grey.50' },
+              pt: 2
+            }}
+          >
             <Grid container>
               <Grid item flex={1}>
                 <Grid
@@ -133,13 +142,13 @@ const Content = ({
                     />
                   </Grid>
 
-                  <Grid item container flexDirection={'column'}>
+                  <Grid item container flexDirection={'column'} gap={1.5}>
                     <Grid item>
                       <Typography variant="textMdRegular">
                         {okr.title}
                       </Typography>
                     </Grid>
-                    <Grid item display={'flex'} gap={1} mt={1.5}>
+                    <Grid item display={'flex'} gap={1} alignItems={'center'}>
                       <CalendarIcon sx={{ color: theme.palette.grey[400] }} />
                       <Typography variant="textSmMedium">
                         Quarter {capitalize(okr.quarter)}
@@ -173,10 +182,11 @@ const Content = ({
 
 export interface OkrsCardProps extends Omit<CardProps, 'slots'> {
   okrs?: Okr[];
-  cardSlots: CardProps['slots'];
+  cardSlots?: CardProps['slots'];
   loading?: boolean;
-  okrName: string;
+  okrName?: 'OKR' | 'Rock';
   onClickEmptyState?: () => void;
+  onHeaderClick?: () => void;
   emptyStateSubtitle?: any;
 }
 
@@ -187,6 +197,7 @@ export const OkrsCard = ({
   okrName,
   onClickEmptyState,
   emptyStateSubtitle,
+  onHeaderClick,
   ...props
 }: OkrsCardProps) => {
   const theme = useTheme();
@@ -233,12 +244,19 @@ export const OkrsCard = ({
       >
         <Grid item display={'flex'} alignItems={'center'}>
           <AvatarAndText
+            spacing={0}
             gap={1}
+            alignItems={'center'}
             leftIcon={<TriangleIcon />}
-            leftIconItemSx={{ display: 'flex' }}
-            title={`My OKRs`}
-            titleTypography={{ variant: 'textLgSemibold' }}
-          />
+            leftIconGridProps={{ display: 'flex' }}
+            title={`My ${okrName}s`}
+            textGridItemProps={{ flex: 1 }}
+            childrenGridProps={{ display: 'flex' }}
+            onClick={onHeaderClick}
+            sx={{ cursor: 'pointer' }}
+          >
+            <ChevronRightIcon />
+          </AvatarAndText>
         </Grid>
         <Content
           okrs={okrs}

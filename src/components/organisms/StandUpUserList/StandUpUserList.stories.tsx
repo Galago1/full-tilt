@@ -25,7 +25,7 @@ export default {
 const createDate = (offset = 0) => {
   const date = new Date();
   date.setDate(date.getDate() + offset);
-  return formatDateIso(date, DateFormat.yyyyMMdd);
+  return formatDateIso(date, DateFormat.ISO8601);
 };
 
 const today = createDate();

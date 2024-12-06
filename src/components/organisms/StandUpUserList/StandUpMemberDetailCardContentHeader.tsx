@@ -3,7 +3,8 @@ import Avatar from 'src/components/atoms/Avatar/Avatar';
 import Button, { ButtonProps } from 'src/components/atoms/Button/Button';
 import {
   SkipBackIcon,
-  SkipForwardIcon
+  SkipForwardIcon,
+  VerifiedTickIcon
 } from 'src/components/particles/theme/overrides/CustomIcons';
 import { rowInitials } from 'src/utils/users/initials';
 import { TeamMember } from './StandUpUserList';
@@ -34,6 +35,7 @@ const StandUpMemberDetailCardContentHeader = ({
   showEditButton,
   editButtonProps
 }: StandUpMemberDetailCardContentHeaderProps) => {
+  const grey700 = theme.palette.grey[800];
   return (
     <Grid
       container
@@ -60,14 +62,24 @@ const StandUpMemberDetailCardContentHeader = ({
               <Typography variant="displayXsRegular" noWrap>
                 {member.name}
               </Typography>
-              <Chip
-                label={formatStandUpTime(member.standUpCompletedAt)}
-                variant={'outlined'}
-                sx={{
-                  backgroundColor: 'transparent',
-                  borderRadius: theme.borderRadius.sm
-                }}
-              />
+              {member.standUpCompletedAt && (
+                <Chip
+                  label={
+                    <Grid display={'flex'} gap={1} alignItems={'center'}>
+                      <VerifiedTickIcon
+                        sx={{ width: 16, height: 16 }}
+                        fill={grey700}
+                      />
+                      {formatStandUpTime(member.standUpCompletedAt)}
+                    </Grid>
+                  }
+                  variant={'outlined'}
+                  sx={{
+                    backgroundColor: 'transparent',
+                    borderRadius: theme.borderRadius.sm
+                  }}
+                />
+              )}
             </Grid>
             <Typography variant="textSmRegular" color="text.secondary">
               {member.team}

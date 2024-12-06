@@ -1,14 +1,7 @@
-import {
-  AvatarGroup,
-  Grid,
-  SxProps,
-  Theme,
-  Typography,
-  useTheme
-} from '@mui/material';
+import { Grid, SxProps, Theme, Typography, useTheme } from '@mui/material';
+import { addDays, format, startOfWeek } from 'date-fns';
 import { isEmpty } from 'lodash';
 import { MouseEventHandler } from 'react';
-import Avatar from 'src/components/atoms/Avatar/Avatar';
 import Button from 'src/components/atoms/Button/Button';
 import Tooltip from 'src/components/atoms/Tooltip/Tooltip';
 import AvatarAndText from 'src/components/molecules/AvatarAndText/AvatarAndText';
@@ -25,14 +18,18 @@ import {
 } from 'src/components/particles/theme/overrides/CustomIcons';
 import { responsiveSpacing } from 'src/components/particles/theme/spacing';
 import pluralize from 'src/utils/inflector/pluralize';
-interface Member {
-  imageUrl: string;
-}
+import { Standup } from './types';
 
-interface TeamStandup {
-  name: string;
-  members: Member[];
-}
+const getCurrentWeekString = () => {
+  // Get start of current week (Sunday by default)
+  const start = startOfWeek(new Date());
+  // Add 1 day to get to Monday
+  const monday = addDays(start, 1);
+  // Add 5 days to get to sunday
+  const sunday = addDays(monday, 6);
+
+  return `${format(monday, 'MM-dd')} - ${format(sunday, 'MM-dd')}`;
+};
 
 interface DayOfWeekAction {
   [key: string]: {
@@ -42,7 +39,7 @@ interface DayOfWeekAction {
 }
 
 interface ContentProps {
-  teamStandup: TeamStandup;
+  teamStandup: Standup;
   loading: boolean;
   onClick: MouseEventHandler<HTMLDivElement> | undefined;
   daysOfWeek: string[];
@@ -98,11 +95,12 @@ const Content = ({
         {loading && <LoadingIndicator />}
       </BasicEmptyState>
     );
+  const currentWeekString = getCurrentWeekString();
   return (
     <>
       <Grid item display={'flex'} flexDirection={'column'}>
         <Typography variant="textSmRegular" mb={1} mt={2}>
-          Your weekly entries
+          Your weekly entries for {currentWeekString}
         </Typography>
         <Grid container gap={1} flexDirection={'column'}>
           <Grid item>
@@ -173,18 +171,11 @@ const Content = ({
               <Typography variant="textSmRegular" mr={1}>
                 Completed by
               </Typography>
-              <AvatarGroup max={3}>
-                {teamStandup.members.map((member, idx) => (
-                  <Avatar
-                    key={idx}
-                    src={member.imageUrl}
-                    sx={{
-                      marginLeft: idx !== 0 ? '-7px' : '0'
-                    }}
-                  />
-                ))}
-                {isEmpty(teamStandup) ? 'None' : null}
-              </AvatarGroup>
+
+              <Typography variant="textSmRegular" mr={1} component={'span'}>
+                {teamStandup.members.length || 0}/
+                {teamStandup.totalMembers || 0} Team Members
+              </Typography>
             </Grid>
           </Grid>
           <Grid item ml={'auto'}>
@@ -260,7 +251,7 @@ const DetermineIcon = ({
 };
 
 export interface DailyStandupCardProps extends Omit<CardProps, 'slots'> {
-  teamStandup?: TeamStandup;
+  teamStandup?: Standup;
   standups?: { [key: string]: boolean };
   today?: string | null;
   daysStreak?: number;

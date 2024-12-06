@@ -3,8 +3,7 @@ import {
   List,
   ListItem,
   ListItemAvatar,
-  ListItemText,
-  Theme
+  ListItemText
 } from '@mui/material';
 import { Fragment } from 'react';
 import { Avatar, Badge, Divider } from 'src/components/atoms';
@@ -16,14 +15,12 @@ interface StandUpUserListContentProps {
   selectedIndex: number | null;
   filteredMembers: TeamMember[];
   setSelectedIndex: (index: number) => void;
-  theme: Theme;
 }
 
 const StandUpUserListContent = ({
   selectedIndex,
   filteredMembers,
-  setSelectedIndex,
-  theme
+  setSelectedIndex
 }: StandUpUserListContentProps) => {
   return (
     <List
@@ -44,6 +41,7 @@ const StandUpUserListContent = ({
         };
 
         const isSelected = selectedIndex === index;
+        console.log('member.standUpCompletedAt', member.standUpCompletedAt);
 
         return (
           <Fragment key={member.id}>
@@ -53,7 +51,10 @@ const StandUpUserListContent = ({
                 py: 1,
                 px: 0.5,
                 cursor: 'pointer',
-                backgroundColor: isSelected ? 'grey.50' : 'transparent'
+                backgroundColor: isSelected ? 'grey.50' : 'transparent',
+                '&:hover': {
+                  backgroundColor: 'grey.50'
+                }
               }}
             >
               <Grid container alignItems="center" wrap="nowrap" gap={1}>
@@ -71,7 +72,8 @@ const StandUpUserListContent = ({
                           p: 0,
                           height: 10,
                           width: 10,
-                          minWidth: 10
+                          minWidth: 10,
+                          transform: 'none'
                         }
                       }}
                     >

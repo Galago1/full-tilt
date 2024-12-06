@@ -1,3 +1,4 @@
+import { Theme } from '@emotion/react';
 import { Grid, SxProps, useTheme } from '@mui/material';
 import { useRef, useState } from 'react';
 import {
@@ -6,14 +7,12 @@ import {
   useDrag,
   useDrop
 } from 'react-dnd';
+import Button, { ButtonProps } from 'src/components/atoms/Button/Button';
 import KanbanCard from './KanbanCard';
 import KanbanColumnHeader, {
   KanbanColumnHeaderProps
 } from './KanbanColumnHeader';
 import { IndividualKanbanColumn } from './types';
-import { responsiveSpacing } from 'src/components/particles/theme/spacing';
-import { Theme } from '@emotion/react';
-import Button, { ButtonProps } from 'src/components/atoms/Button/Button';
 
 export interface KanbanColumnProps {
   column?: IndividualKanbanColumn;
@@ -111,8 +110,8 @@ const KanbanColumn = ({
       sx={{
         borderRadius: theme.borderRadius.md,
         border: theme.border.outlinedButton,
-        opacity,
         backgroundColor: 'grey.50',
+        opacity,
         overflow: 'hidden',
         display: 'flex',
         height: '100%', // Changed from minHeight to height
@@ -146,6 +145,7 @@ const KanbanColumn = ({
             columnId={column!.id}
             moveCard={moveCard!}
             handleEditCard={handleEditCard!}
+            sx={card.sx}
           />
         ))}
 
@@ -153,27 +153,47 @@ const KanbanColumn = ({
         {column!.showDragOrAdd && (
           <Grid
             container
-            sx={{
-              padding: theme.spacing(1),
-              borderRadius: theme.borderRadius.sm,
-              backgroundColor: isOverEmpty
-                ? theme.palette.grey[200]
-                : 'transparent',
-              border: `2px dashed ${theme.palette.primary.main}`,
-              height: 120,
-              transition: 'all 0.3s ease',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              opacity: 0.8,
-              px: responsiveSpacing
-            }}
             onClick={onClickPlaceholder}
+            flexDirection={'column'}
+            sx={{
+              px: 2
+            }}
           >
-            {<span>{column!.showDragOrAddText || 'Drag or add'}</span>}
+            <Grid
+              item
+              sx={{
+                padding: theme.spacing(1),
+                borderRadius: theme.borderRadius.sm,
+                backgroundColor: isOverEmpty
+                  ? theme.palette.grey[200]
+                  : 'transparent',
+                border: `2px dashed ${theme.palette.primary.main}`,
+                height: 120,
+                transition: 'all 0.3s ease',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                opacity: 0.8,
+
+                cursor: 'pointer'
+              }}
+              onClick={onClickPlaceholder}
+            >
+              {<span>{column!.showDragOrAddText || 'Drag or add'}</span>}
+            </Grid>
           </Grid>
         )}
-        {addCardButtonProps && <Button {...addCardButtonProps} />}
+        {addCardButtonProps && (
+          <Grid
+            container
+            flexDirection={'column'}
+            sx={{
+              px: 2
+            }}
+          >
+            <Button {...addCardButtonProps} />
+          </Grid>
+        )}
       </Grid>
     </Grid>
   );

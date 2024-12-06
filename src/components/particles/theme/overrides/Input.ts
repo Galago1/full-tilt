@@ -124,12 +124,12 @@ const Input = (theme: Theme) => {
           { ...inputPallet('success', theme) }
         ],
         root: {
-          '> label:not(.Mui-focused)': {
-            transform: 'translate(14px, 8px) scale(1)'
-          },
-          '> label.Mui-focused, > label.MuiFormLabel-filled': {
-            transform: 'translate(14px, -9px) scale(0.75)'
-          },
+          // '> label:not(.Mui-focused)': {
+          //   transform: 'translate(14px, 8px) scale(1)'
+          // },
+          // '> label.Mui-focused, > label.MuiFormLabel-filled': {
+          //   transform: 'translate(14px, -9px) scale(0.75)'
+          // },
           '& .MuiFormHelperText-root': {
             marginLeft: 0,
             marginTop: theme.spacing(0.75)

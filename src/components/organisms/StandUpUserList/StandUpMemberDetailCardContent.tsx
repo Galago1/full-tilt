@@ -113,7 +113,7 @@ const StandUpMemberDetailCardContent = ({
                 title: 'Stand Up Not Completed',
                 subtitle: `${
                   isMember ? 'You' : member.name
-                } did not complete the stand up for this day.`,
+                } did not complete the Stand Up for this day.`,
                 alignItems: 'center',
                 textContainerGridItemProps: {
                   alignItems: 'center'

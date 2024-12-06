@@ -58,4 +58,39 @@ const Template: ComponentStory<typeof UserProfileCard> = (args) => {
   );
 };
 
+const EmptyStateTemplate: ComponentStory<typeof UserProfileCard> = (args) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleOpen = () => {
+    setIsOpen(true);
+  };
+
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+
+  return (
+    <>
+      <Button onClick={handleOpen} variant="contained">
+        Open User Profile
+      </Button>
+      <UserProfileCard
+        data={{
+          ...testData,
+          birthdate: '',
+          workAnniversary: '',
+          // keyMetric: '',
+          responsibility: '',
+          reportsTo: {},
+          metric: ''
+        }}
+        isOpen={isOpen}
+        onClose={handleClose}
+        emailIconClick={() => console.log('emailIconClick')}
+      />
+    </>
+  );
+};
+
 export const Default = Template.bind({});
+export const EmptyState = EmptyStateTemplate.bind({});

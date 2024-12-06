@@ -17,7 +17,9 @@ import { SetStateAction } from 'react';
 import Avatar from 'src/components/atoms/Avatar/Avatar';
 import Button, { ButtonProps } from 'src/components/atoms/Button/Button';
 import Chip from 'src/components/atoms/Chip/Chip';
-import AvatarAndText from 'src/components/molecules/AvatarAndText/AvatarAndText';
+import AvatarAndText, {
+  AvatarAndTextProps
+} from 'src/components/molecules/AvatarAndText/AvatarAndText';
 import BasicEmptyState from 'src/components/molecules/BasicEmptyState/BasicEmptyState';
 import LoadingIndicator from 'src/components/molecules/LoadingIndicator/LoadingIndicator';
 import Card, { CardProps } from 'src/components/organisms/Card/Card';
@@ -117,7 +119,10 @@ const Content = ({
                 border: theme.border.outlinedButton,
                 borderRadius: theme.borderRadius.xl,
                 boxShadow: theme.customShadows.xs,
-                cursor: 'pointer'
+                cursor: 'pointer',
+                '&:hover': {
+                  backgroundColor: 'grey.50'
+                }
               }}
               onClick={meeting.onClick}
             >
@@ -198,6 +203,7 @@ export interface MeetingsCardProps extends Omit<CardProps, 'slots'> {
   loading?: boolean;
   onClickEmptyState?: () => void;
   emptyStateSubtitle?: any;
+  onHeaderClick?: () => void;
 }
 
 export const MeetingsCard = ({
@@ -209,6 +215,7 @@ export const MeetingsCard = ({
   loading,
   onClickEmptyState,
   emptyStateSubtitle,
+  onHeaderClick,
   ...props
 }: MeetingsCardProps) => {
   const theme = useTheme();
@@ -248,6 +255,8 @@ export const MeetingsCard = ({
             leftIconItemSx={{ display: 'flex' }}
             title={`My Meetings`}
             titleTypography={{ variant: 'textLgSemibold' }}
+            sx={{ cursor: 'pointer' }}
+            onClick={onHeaderClick}
           />
           <Button
             label={<Expand01Icon />}

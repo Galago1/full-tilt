@@ -1,14 +1,10 @@
-import {
-  Chip,
-  Collapse,
-  Divider,
-  Grid,
-  GridProps,
-  useTheme
-} from '@mui/material';
+import { Collapse, Grid, GridProps, useTheme } from '@mui/material';
 import { FormikHelpers } from 'formik';
 import { isEmpty } from 'lodash';
 import { useState } from 'react';
+import Chip from 'src/components/atoms/Chip/Chip';
+import Divider from 'src/components/atoms/Divider/Divider';
+import Link from 'src/components/atoms/Link/Link';
 import AvatarAndText from 'src/components/molecules/AvatarAndText/AvatarAndText';
 import BasicEmptyState from 'src/components/molecules/BasicEmptyState/BasicEmptyState';
 import ButtonGroup, {
@@ -87,10 +83,10 @@ const ScoreCardItemList = ({
       </Grid>
       <Grid item width={'100%'}>
         <Grid container gap={1} flexWrap={'nowrap'} alignItems={'center'}>
-          <Grid item xs={6}>
+          <Grid item xs={9}>
             <ButtonGroup {...buttonGroupProps} />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={3}>
             <ScorecardInlineEditCell
               initialValue={{
                 id: measurableMetricId || '',
@@ -133,13 +129,17 @@ interface ScorecardsContentProps {
   isFirst?: boolean;
   title: string;
   scorecards: Scorecard[];
+  onClickEmptyState: () => void;
 }
 const ScorecardsContent = ({
   isFirst,
   title,
-  scorecards = []
+  scorecards = [],
+  onClickEmptyState
 }: ScorecardsContentProps) => {
   const [expanded, setExpanded] = useState(true);
+  const noScorecards = isEmpty(scorecards);
+
   return (
     <Grid container flexDirection={'column'} gap={2}>
       {!isFirst && (
@@ -159,23 +159,26 @@ const ScorecardsContent = ({
           <Grid item width={'100%'}>
             <AvatarAndText
               title={title}
-              subtitle={isEmpty(scorecards) ? 'No Measurable' : ''}
               alignItems={'center'}
               textGridItemProps={{ flex: 1 }}
               childrenGridProps={{ onClick: () => setExpanded(!expanded) }}
             >
               <Grid container alignItems={'center'}>
                 <Chip
-                  label={scorecards.length}
+                  label={`${scorecards.length} `}
                   color="primary"
                   variant={'outlined'}
                 />
-                {expanded ? <ChevronUpIcon /> : <ChevronDownIcon />}
+                {(noScorecards ? !expanded : expanded) ? (
+                  <ChevronUpIcon sx={{ cursor: 'pointer' }} />
+                ) : (
+                  <ChevronDownIcon sx={{ cursor: 'pointer' }} />
+                )}
               </Grid>
             </AvatarAndText>
           </Grid>
           <Collapse
-            in={expanded}
+            in={noScorecards ? !expanded : expanded}
             sx={{
               width: '100%',
               '& .MuiCollapse-wrapperInner': {
@@ -183,26 +186,65 @@ const ScorecardsContent = ({
                 flexDirection: 'column',
                 gap: 2
               }
+              // TODO: figure out how to animate the collapse and hide the empty space left by the collapse
+              // display: !expanded ? 'none' : undefined
             }}
           >
-            {scorecards.map((scorecard) => (
-              <Grid
-                item
-                width={'100%'}
-                key={`scorecards-content-index-${scorecard.id}`}
-              >
-                <ScoreCardItemList
-                  title={scorecard.title}
-                  goal={scorecard.goal}
-                  value={scorecard.value}
-                  onSave={scorecard.onSave}
-                  slots={scorecard.slots}
-                  measurableMetricId={scorecard.measurableMetricId}
-                  date={scorecard.date}
-                  backgroundColor={scorecard.backgroundColor}
-                />
+            {noScorecards ? (
+              <Grid container flexDirection={'column'} gap={0.5}>
+                <Grid item width={'100%'}>
+                  <Divider />
+                </Grid>
+                <Grid item width={'100%'}>
+                  <AvatarAndText
+                    spacing={0}
+                    gap={2}
+                    title={`No ${title} Measurables`}
+                    titleTypography={{
+                      variant: 'textMdRegular',
+                      sx: {
+                        textWrap: 'nowrap',
+                        overflow: 'hidden'
+                      }
+                    }}
+                    alignItems={'center'}
+                    textGridItemProps={{
+                      flex: 1,
+                      sx: {
+                        textWrap: 'nowrap',
+                        overflow: 'hidden'
+                      }
+                    }}
+                  >
+                    <Link
+                      onClick={onClickEmptyState}
+                      sx={{ cursor: 'pointer' }}
+                    >
+                      Add
+                    </Link>
+                  </AvatarAndText>
+                </Grid>
               </Grid>
-            ))}
+            ) : (
+              scorecards.map((scorecard) => (
+                <Grid
+                  item
+                  width={'100%'}
+                  key={`scorecards-content-index-${scorecard.id}`}
+                >
+                  <ScoreCardItemList
+                    title={scorecard.title}
+                    goal={scorecard.goal}
+                    value={scorecard.value}
+                    onSave={scorecard.onSave}
+                    slots={scorecard.slots}
+                    measurableMetricId={scorecard.measurableMetricId}
+                    date={scorecard.date}
+                    backgroundColor={scorecard.backgroundColor}
+                  />
+                </Grid>
+              ))
+            )}
           </Collapse>
         </Grid>
       </Grid>
@@ -222,11 +264,10 @@ const ScorecardsCardListContent = ({
   onClickEmptyState,
   emptyStateSubtitle
 }: ScorecardsCardListContentProps) => {
-  if (
-    !scorecardsContentProps ||
-    loading ||
-    (!loading && isEmpty(scorecardsContentProps))
-  )
+  const isCompletelyEmpty = scorecardsContentProps.every(
+    (scorecardsContentProps) => isEmpty(scorecardsContentProps.scorecards)
+  );
+  if (!scorecardsContentProps || loading || (!loading && isCompletelyEmpty))
     return (
       <BasicEmptyState
         icon={loading ? null : <Target05Icon />}
@@ -273,12 +314,14 @@ const ScorecardsCardListContent = ({
 export interface ScorecardsCardProps extends GridProps {
   scorecardsContentProps?: ScorecardsContentProps[];
   loading?: boolean;
+  onHeaderClick?: () => void;
   onClickEmptyState?: () => void;
   emptyStateSubtitle?: any;
 }
 
 export const ScorecardsCard = ({
   scorecardsContentProps = [],
+  onHeaderClick,
   onClickEmptyState,
   loading,
   emptyStateSubtitle,
@@ -316,6 +359,8 @@ export const ScorecardsCard = ({
           title={'My Scorecards'}
           textGridItemProps={{ flex: 1 }}
           childrenGridProps={{ display: 'flex' }}
+          onClick={onHeaderClick}
+          sx={{ cursor: 'pointer' }}
         >
           <ChevronRightIcon />
         </AvatarAndText>

@@ -5,6 +5,7 @@ import BasicEmptyState from 'src/components/molecules/BasicEmptyState/BasicEmpty
 import LoadingIndicator from 'src/components/molecules/LoadingIndicator/LoadingIndicator';
 import Card, { CardProps } from 'src/components/organisms/Card/Card';
 import {
+  ChevronRightIcon,
   Lightbulb05Icon,
   ZapIcon
 } from 'src/components/particles/theme/overrides/CustomIcons';
@@ -66,6 +67,7 @@ const Content = ({
       container
       sx={{
         flex: 1,
+        flexDirection: 'column',
 
         overflowY: 'auto',
         '&::-webkit-scrollbar': {
@@ -76,7 +78,7 @@ const Content = ({
         maxHeight: '280px',
         pb: responsiveSpacing
       }}
-      gap={2}
+      gap={0}
     >
       {ideas.map((idea, index) => (
         <SharedListCardContent
@@ -103,6 +105,7 @@ export interface IdeasCardProps extends Omit<CardProps, 'slots'> {
   cardSlots?: CardProps['slots'];
   loading?: boolean;
   onClickEmptyState?: () => void;
+  onHeaderClick?: () => void;
   emptyStateSubtitle?: any;
 }
 
@@ -112,6 +115,7 @@ export const IdeasCard = ({
   cardSlots,
   loading,
   onClickEmptyState,
+  onHeaderClick,
   emptyStateSubtitle,
   ...props
 }: IdeasCardProps) => {
@@ -128,6 +132,7 @@ export const IdeasCard = ({
       showActions={false}
       sx={{
         maxHeight: '338px',
+        minHeight: '338px',
         height: '100%',
         border: theme.border.outlinedButton,
         borderRadius: theme.borderRadius.xl,
@@ -143,12 +148,19 @@ export const IdeasCard = ({
       <Grid container flexDirection="column" gap={2} height={'100%'}>
         <Grid item display={'flex'} alignItems={'center'}>
           <AvatarAndText
+            spacing={0}
             gap={1}
+            alignItems={'center'}
             leftIcon={<Lightbulb05Icon />}
-            leftIconItemSx={{ display: 'flex' }}
+            leftIconGridProps={{ display: 'flex' }}
             title={`My Ideas`}
-            titleTypography={{ variant: 'textLgSemibold' }}
-          />
+            textGridItemProps={{ flex: 1 }}
+            childrenGridProps={{ display: 'flex' }}
+            onClick={onHeaderClick}
+            sx={{ cursor: 'pointer' }}
+          >
+            <ChevronRightIcon />
+          </AvatarAndText>
         </Grid>
         <Content
           ideas={ideas}

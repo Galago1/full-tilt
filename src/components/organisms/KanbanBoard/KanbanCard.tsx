@@ -1,4 +1,4 @@
-import { Grid, useTheme } from '@mui/material';
+import { Grid, SxProps, Theme, useTheme } from '@mui/material';
 import { useRef, useState } from 'react';
 import {
   DragSourceMonitor,
@@ -22,6 +22,7 @@ interface KanbanCardProps {
     hoverIndex: number
   ) => void;
   handleEditCard: (card: any) => void;
+  sx?: SxProps<Theme>;
 }
 
 const KanbanCard = ({
@@ -29,7 +30,8 @@ const KanbanCard = ({
   index,
   columnId,
   moveCard,
-  handleEditCard
+  handleEditCard,
+  sx
 }: KanbanCardProps) => {
   const theme = useTheme();
   const ref = useRef<HTMLDivElement | null>(null);
@@ -115,17 +117,18 @@ const KanbanCard = ({
       onFocus={handleFocus}
       onBlur={handleBlur}
       sx={{
-        margin: theme.spacing(1, 20 / 8),
+        margin: theme.spacing(0, 16 / 8),
         padding: isFocused
           ? theme.spacing(10 / 8, 14 / 8)
           : theme.spacing(12 / 8, 2),
+
         borderRadius: theme.borderRadius.md,
+        border: theme.border.appearanceCardHover,
         backgroundColor: theme.palette.common.white,
         cursor: 'pointer',
         opacity,
-        // outline: isFocused ? theme.border.grey900 : 'none',
-        border: isFocused ? theme.border.grey900 : 'none',
-        width: 'auto'
+        width: 'auto',
+        ...sx
       }}
       onClick={() => {
         handleEditCard(card);

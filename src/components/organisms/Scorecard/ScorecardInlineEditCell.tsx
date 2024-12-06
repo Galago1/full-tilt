@@ -55,12 +55,16 @@ const ScorecardInlineEditCellContent = ({
           }) => (
             <Form
               style={{
-                flex: 1
+                flex: 1,
+                display: 'flex',
+                flexDirection: 'column'
               }}
             >
               <Field
                 component={component}
-                labelSx={{ display: isLoading || isSuccess ? 'none' : 'flex' }}
+                labelSx={{
+                  display: isLoading || isSuccess ? 'none' : 'flex'
+                }}
                 id="value"
                 name="value"
                 value={values.value}

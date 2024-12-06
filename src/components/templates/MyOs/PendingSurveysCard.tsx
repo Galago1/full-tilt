@@ -8,6 +8,7 @@ import CircularProgressIndicator, {
 import LoadingIndicator from 'src/components/molecules/LoadingIndicator/LoadingIndicator';
 import {
   AlertTriangleIcon,
+  CheckVerifiedIcon,
   ChevronRightIcon,
   MessageQuestionCircleIcon
 } from 'src/components/particles/theme/overrides/CustomIcons';
@@ -15,6 +16,7 @@ import { responsiveSpacing } from 'src/components/particles/theme/spacing';
 import { Survey } from './types';
 
 interface ContentProps {
+  onClick: React.MouseEventHandler<HTMLDivElement> | undefined;
   survey: Survey;
   loading: boolean;
   onClickEmptyState?: () => void;
@@ -22,6 +24,7 @@ interface ContentProps {
   onClickCompletedState?: () => void;
 }
 const Content = ({
+  onClick,
   survey,
   loading,
   onClickEmptyState,
@@ -67,40 +70,40 @@ const Content = ({
   if (survey.completed)
     return (
       <BasicEmptyState
-        icon={loading ? null : <MessageQuestionCircleIcon />}
-        title={survey.nextSurveyTitle}
-        subtitle={survey.nextSurveySubtitle}
+        icon={loading ? null : <CheckVerifiedIcon />}
+        subtitle={`Your all caught up! ${survey.nextSurveySubtitle}`}
         emptyStateHeight={'auto'}
         sx={{
           flex: 1,
-          alignItems: 'center',
-          justifyContent: 'center'
+          alignItems: 'flex-start',
+          justifyContent: 'flex-start'
         }}
         slots={{
           gridSx: {
             flex: 1,
-            alignItems: 'center',
-            justifyContent: 'center',
+            alignItems: 'flex-start',
+            justifyContent: 'flex-start',
             display: 'flex',
             p: 1
           }
         }}
-        buttonProps={
-          onClickCompletedState
-            ? {
-                onClick: onClickCompletedState,
-                label: 'Add Survey',
-                variant: 'outlined',
-                color: 'secondary',
-                sx: { mt: 2 }
-              }
-            : undefined
-        }
       />
     );
   return (
     <>
-      <Grid item display={'flex'} flexDirection={'column'} mt={2}>
+      <Grid
+        item
+        display={'flex'}
+        flexDirection={'column'}
+        mt={2}
+        sx={{
+          cursor: 'pointer',
+          '&:hover': {
+            backgroundColor: 'grey.50'
+          }
+        }}
+        onClick={onClick}
+      >
         <Typography variant="textLgRegular">{survey.name}</Typography>
         <Grid container flexDirection={'column'} mt={1.5}>
           <Grid item display="flex" alignItems={'center'} gap={0.5}>
@@ -139,7 +142,7 @@ const Content = ({
             hideValue={true}
           />
           <Typography variant="textSmRegular" ml={1}>
-            {survey.contributed}/{survey.contributors} contributed
+            {survey.contributed}/{survey.contributors} people contributed
           </Typography>
         </Grid>
       </Grid>
@@ -158,6 +161,7 @@ export interface PendingSurveysCardProps extends GridProps {
   loading?: boolean;
   onClickEmptyState?: () => void;
   onClickCompletedState?: () => void;
+  onHeaderClick?: () => void;
   emptyStateSubtitle?: any;
 }
 
@@ -167,6 +171,7 @@ export const PendingSurveysCard = ({
   loading,
   onClickEmptyState,
   onClickCompletedState,
+  onHeaderClick,
   emptyStateSubtitle,
   ...props
 }: PendingSurveysCardProps) => {
@@ -195,28 +200,22 @@ export const PendingSurveysCard = ({
       >
         <Grid item display={'flex'} alignItems={'center'}>
           <AvatarAndText
+            spacing={0}
             gap={1}
+            alignItems={'center'}
             leftIcon={<MessageQuestionCircleIcon />}
-            leftIconItemSx={{ display: 'flex' }}
-            title={`Pending Surveys`}
-            titleTypography={{ variant: 'textLgSemibold' }}
-          />
-          <Button
-            variant="text"
-            color="secondary"
-            onClick={onClick}
-            sx={{ ml: 'auto', '&': { minWidth: 'auto' } }}
-            label={
-              <ChevronRightIcon
-                sx={{
-                  width: 20,
-                  height: 20
-                }}
-              />
-            }
-          />
+            leftIconGridProps={{ display: 'flex' }}
+            title={'Pending Surveys'}
+            textGridItemProps={{ flex: 1 }}
+            childrenGridProps={{ display: 'flex' }}
+            onClick={onHeaderClick}
+            sx={{ cursor: 'pointer' }}
+          >
+            <ChevronRightIcon />
+          </AvatarAndText>
         </Grid>
         <Content
+          onClick={onClick!}
           survey={survey!}
           loading={loading!}
           onClickEmptyState={onClickEmptyState}

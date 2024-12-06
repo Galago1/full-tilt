@@ -23,6 +23,7 @@ const SharedListCardContent = ({
   icon,
   index,
   listLength,
+  onClick,
   slots,
   ...props
 }: SharedListCardContentProps) => {
@@ -34,25 +35,57 @@ const SharedListCardContent = ({
         display="flex"
         alignItems="flex-start"
         width={'100%'}
+        onClick={onClick}
+        sx={{
+          cursor: 'pointer',
+          '&:hover': {
+            backgroundColor: 'grey.50'
+          },
+          py: 2
+        }}
         {...props}
       >
         <Grid container alignItems="center" gap={0.5}>
           <AvatarAndText
-            title={
-              <>
-                <Chip {...chipProps} label={status} />
-                {icon}
-                <Typography variant="textSmMedium" sx={{ ml: 1 }}>
-                  {priority}
-                </Typography>
-              </>
-            }
+            title={title}
+            alignItems="center"
             titleTypography={{
               sx: { display: 'flex', alignItems: 'center' }
             }}
-            subtitle={title}
+            subtitle={
+              <Grid container alignItems="center" gap={0.5}>
+                <Grid item>
+                  <Chip {...chipProps} label={status} />
+                </Grid>
+                <Grid
+                  item
+                  display={'flex'}
+                  alignItems={'center'}
+                  color={'trext.secondary'}
+                  sx={{
+                    '&': {
+                      // color: 'text.secondary'
+                      color: (theme) =>
+                        ` ${theme.palette.text.secondary} !important`
+                    }
+                  }}
+                >
+                  {icon}
+                  <Typography
+                    variant="textSmMedium"
+                    sx={{ ml: 1 }}
+                    color={'text.secondary'}
+                  >
+                    {priority}
+                  </Typography>
+                </Grid>
+              </Grid>
+            }
             subtitleTypography={{
               variant: 'textSmRegular'
+            }}
+            textSubtitleGridItemProps={{
+              sx: { display: 'flex', alignItems: 'center' }
             }}
           />
         </Grid>
@@ -65,11 +98,9 @@ const SharedListCardContent = ({
           }}
         />
       </Grid>
-      {index !== listLength! - 1 && (
-        <Grid item sx={{ width: '100%' }}>
-          <Divider />
-        </Grid>
-      )}
+      <Grid item sx={{ width: '100%', py: 0, my: 0 }}>
+        <Divider />
+      </Grid>
     </>
   );
 };

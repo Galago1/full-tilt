@@ -14,6 +14,7 @@ import EmptyState, { EmptyStateProps } from '../EmptyState/EmptyState';
 export interface BasicEmptyStateProps extends EmptyStateProps {
   image?: string;
   title?: string;
+  tertiaryTitle?: string;
   subtitle?: string;
   pt?: number;
   avatarProps?: AvatarProps;
@@ -34,6 +35,7 @@ const BasicEmptyState = ({
   image,
   title,
   subtitle,
+  tertiaryTitle,
   avatarProps,
   buttonProps,
   buttonGridProps,
@@ -43,6 +45,8 @@ const BasicEmptyState = ({
   featuredIconBottom = 0,
   sx,
   slots,
+  alignItems = 'center',
+  justifyContent = 'center',
   ...props
 }: BasicEmptyStateProps) => {
   const { gridSx, gridProps } = slots || {};
@@ -62,18 +66,48 @@ const BasicEmptyState = ({
           position: 'relative',
           height: emptyStateHeight,
           display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
+          alignItems,
+          justifyContent,
           flexWrap: 'nowrap',
           ...sx
         }}
         avatarAndTextProps={{
           sx: {
             maxWidth: 352,
-            justifyContent: 'center',
+            justifyContent,
             flexWrap: 'nowrap'
           },
+
+          textContainerGridItemProps: {
+            sx: { textAlign: alignItems === 'center' ? 'center' : 'left' }
+          },
+          flexDirection: 'column',
           gap: 2,
+
+          title,
+          titleTypography: {
+            variant: 'textLgSemibold',
+            color: 'text.primary',
+            sx: { textAlign: alignItems === 'center' ? 'center' : 'left' }
+          },
+          subtitle: subtitle,
+          subtitleTypography: {
+            variant: 'textMdRegular',
+            color: 'text.secondary',
+            sx: {
+              textAlign: alignItems === 'center' ? 'center' : 'left'
+            }
+          },
+          tertiaryTitle: tertiaryTitle,
+          tertiaryTitleTypography: tertiaryTitle
+            ? {
+                variant: 'textMdRegular',
+                color: 'text.secondary',
+                sx: {
+                  textAlign: alignItems === 'center' ? 'center' : 'left'
+                }
+              }
+            : undefined,
           featuredIconProps: icon
             ? {
                 children: icon as any,
@@ -90,12 +124,13 @@ const BasicEmptyState = ({
                         0.4
                       )} !important`
                     }
-                  : undefined
+                  : undefined,
+                ...props.avatarAndTextProps?.featuredIconProps
               }
             : undefined,
           featuredIconItemSx: {
             position: image ? 'absolute' : 'relative',
-            zIndex: 2,
+            zIndex: 1,
             color: `${theme.palette.common.white} !important`,
             bottom:
               featuredIconBottom ||
@@ -105,7 +140,8 @@ const BasicEmptyState = ({
                   : 0
                 : image
                 ? 152
-                : 0)
+                : 0),
+            ...props.avatarAndTextProps?.featuredIconItemSx
           },
           avatarProps: image
             ? {
@@ -116,22 +152,9 @@ const BasicEmptyState = ({
                 ...avatarProps
               }
             : undefined,
-          textContainerGridItemProps: { sx: { textAlign: 'center' } },
-          flexDirection: 'column',
 
-          title,
-          titleTypography: {
-            variant: 'textLgSemibold',
-            color: 'text.primary',
-            sx: { textAlign: 'center' }
-          },
-          subtitle: subtitle,
-          subtitleTypography: {
-            variant: 'textMdRegular',
-            color: 'text.secondary',
-            sx: { textAlign: 'center' }
-          },
-          childrenGridProps: buttonGridProps
+          childrenGridProps: buttonGridProps,
+          ...props.avatarAndTextProps
         }}
         {...props}
       >

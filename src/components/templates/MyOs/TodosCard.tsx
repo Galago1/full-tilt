@@ -6,6 +6,7 @@ import LoadingIndicator from 'src/components/molecules/LoadingIndicator/LoadingI
 import Card, { CardProps } from 'src/components/organisms/Card/Card';
 import {
   CheckCircleIcon,
+  ChevronRightIcon,
   ZapIcon
 } from 'src/components/particles/theme/overrides/CustomIcons';
 import { responsiveSpacing } from 'src/components/particles/theme/spacing';
@@ -66,6 +67,7 @@ const Content = ({
       container
       sx={{
         flex: 1,
+        flexDirection: 'column',
 
         overflowY: 'auto',
         '&::-webkit-scrollbar': {
@@ -76,7 +78,7 @@ const Content = ({
         maxHeight: '280px',
         pb: responsiveSpacing
       }}
-      gap={2}
+      gap={0}
     >
       {todos.map((todo, index) => (
         <SharedListCardContent
@@ -103,6 +105,7 @@ export interface TodosCardProps extends Omit<CardProps, 'slots'> {
   cardSlots?: CardProps['slots'];
   loading?: boolean;
   onClickEmptyState?: () => void;
+  onHeaderClick?: () => void;
   emptyStateSubtitle?: any;
 }
 
@@ -112,6 +115,7 @@ export const TodosCard = ({
   cardSlots,
   loading,
   onClickEmptyState,
+  onHeaderClick,
   emptyStateSubtitle,
   ...props
 }: TodosCardProps) => {
@@ -128,6 +132,7 @@ export const TodosCard = ({
       showActions={false}
       sx={{
         maxHeight: '338px',
+        minHeight: '338px',
         height: '100%',
         border: theme.border.outlinedButton,
         borderRadius: theme.borderRadius.xl,
@@ -143,12 +148,19 @@ export const TodosCard = ({
       <Grid container flexDirection="column" gap={2} height={'100%'}>
         <Grid item display={'flex'} alignItems={'center'}>
           <AvatarAndText
+            spacing={0}
             gap={1}
+            alignItems={'center'}
             leftIcon={<CheckCircleIcon />}
-            leftIconItemSx={{ display: 'flex' }}
-            title={`My Todos`}
-            titleTypography={{ variant: 'textLgSemibold' }}
-          />
+            leftIconGridProps={{ display: 'flex' }}
+            title={`My To-Dos`}
+            textGridItemProps={{ flex: 1 }}
+            childrenGridProps={{ display: 'flex' }}
+            onClick={onHeaderClick}
+            sx={{ cursor: 'pointer' }}
+          >
+            <ChevronRightIcon />
+          </AvatarAndText>
         </Grid>
         <Content
           todos={todos}

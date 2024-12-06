@@ -5,6 +5,7 @@ import BasicEmptyState from 'src/components/molecules/BasicEmptyState/BasicEmpty
 import LoadingIndicator from 'src/components/molecules/LoadingIndicator/LoadingIndicator';
 import Card, { CardProps } from 'src/components/organisms/Card/Card';
 import {
+  ChevronRightIcon,
   ThumbsUpIcon,
   ZapIcon
 } from 'src/components/particles/theme/overrides/CustomIcons';
@@ -66,6 +67,7 @@ const Content = ({
       container
       sx={{
         flex: 1,
+        flexDirection: 'column',
 
         overflowY: 'auto',
         '&::-webkit-scrollbar': {
@@ -76,7 +78,7 @@ const Content = ({
         maxHeight: '280px',
         pb: responsiveSpacing
       }}
-      gap={2}
+      gap={0}
     >
       {feedback.map((listItem, index) => (
         <SharedListCardContent
@@ -103,6 +105,7 @@ export interface FeedbackCardProps extends Omit<CardProps, 'slots'> {
   cardSlots?: CardProps['slots'];
   loading?: boolean;
   onClickEmptyState?: () => void;
+  onHeaderClick?: () => void;
   emptyStateSubtitle?: any;
 }
 
@@ -112,6 +115,7 @@ export const FeedbackCard = ({
   cardSlots,
   loading,
   onClickEmptyState,
+  onHeaderClick,
   emptyStateSubtitle,
   ...props
 }: FeedbackCardProps) => {
@@ -129,6 +133,7 @@ export const FeedbackCard = ({
       sx={{
         height: '100%',
         maxHeight: '338px',
+        minHeight: '338px',
         border: theme.border.outlinedButton,
         borderRadius: theme.borderRadius.xl,
         boxShadow: theme.customShadows.xs
@@ -143,12 +148,19 @@ export const FeedbackCard = ({
       <Grid container flexDirection="column" gap={2} height={'100%'}>
         <Grid item display="flex" alignItems="center">
           <AvatarAndText
+            spacing={0}
             gap={1}
+            alignItems={'center'}
             leftIcon={<ThumbsUpIcon />}
-            leftIconItemSx={{ display: 'flex' }}
+            leftIconGridProps={{ display: 'flex' }}
             title={`My Feedback`}
-            titleTypography={{ variant: 'textLgSemibold' }}
-          />
+            textGridItemProps={{ flex: 1 }}
+            childrenGridProps={{ display: 'flex' }}
+            onClick={onHeaderClick}
+            sx={{ cursor: 'pointer' }}
+          >
+            <ChevronRightIcon />
+          </AvatarAndText>
         </Grid>
         <Content
           feedback={feedback}

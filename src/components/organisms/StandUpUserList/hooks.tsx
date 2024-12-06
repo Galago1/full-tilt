@@ -1,5 +1,5 @@
 import { SelectChangeEvent } from '@mui/material';
-import { formatDistanceToNow, parseISO } from 'date-fns';
+import { parseISO } from 'date-fns';
 import { useEffect, useState } from 'react';
 import { DateFormat } from 'src/types/dateFns';
 import { formatDateIso, formatIso } from 'src/utils/date';
@@ -60,6 +60,8 @@ export const useStandUpUserList = (
       );
     });
 
+  console.log('filteredMembers', teamMembers, selectedTeam);
+
   const handleNext = () => {
     setSelectedIndex((prevIndex) =>
       prevIndex < filteredMembers.length - 1 ? prevIndex + 1 : prevIndex
@@ -78,14 +80,16 @@ export const useStandUpUserList = (
   };
 
   const formatStandUpTime = (
-    standUpCompletedAt: string | null,
-    hideIncomplete: boolean = false
+    standUpCompletedAt: string | null
+    // hideIncomplete: boolean = false
   ) => {
     if (!standUpCompletedAt) {
-      return hideIncomplete ? '' : 'Incomplete';
+      // return hideIncomplete ? '' : 'Incomplete';
+      return '';
     }
     const date = parseISO(standUpCompletedAt);
-    return formatDistanceToNow(date, { addSuffix: true }).replace('about ', '');
+    // return formatDistanceToNow(date, { addSuffix: true }).replace('about ', '');
+    return formatDateIso(date, DateFormat.HHMM);
   };
 
   const [tipVisible, setTipVisible] = useState(tipVisibleInitial);

@@ -46,16 +46,18 @@ const buttonGroupProps: ButtonGroupProps = {
       sx: {
         '&': {
           minWidth: 'auto',
-          borderRight: 'unset',
-          borderLeft: 'unset',
           p: 1,
           py: 1.5,
           whiteSpace: 'nowrap'
         },
+        '&.Mui-disabled': {
+          backgroundColor: 'white',
+          borderRight: 'none',
+          borderLeft: 'none'
+        },
         flex: 1
       },
       disabled: true
-      // itemprops: { flex: 1 }
     },
     {
       label: <ChevronRightIcon sx={{ width: 20, height: 20 }} />,
@@ -68,6 +70,9 @@ const buttonGroupProps: ButtonGroupProps = {
           borderLeft: 'unset',
           p: 1,
           py: 1.5
+        },
+        '&:hover': {
+          borderLeft: 'none'
         }
       },
       onClick: () => console.log('clicked')
@@ -121,7 +126,8 @@ Default.args = {
       { imageUrl: 'https://example.com/avatar4.jpg' },
       { imageUrl: 'https://example.com/avatar5.jpg' }
     ],
-    streak: '2 day streak'
+    streak: '2 day streak',
+    totalMembers: 5
   },
   survey: {
     name: 'Team Bonding Effectiveness',
@@ -131,21 +137,43 @@ Default.args = {
     dueValue: 3,
     contributors: 15,
     contributed: 8,
-    completed: true,
+    completed: false,
     nextSurveyTitle: 'Team Bonding',
     nextSurveySubtitle: 'Next Survey at 9:00AM 08/13',
     id: '1'
   },
   slots: {
+    pendingSurveysCard: {
+      onHeaderClick: () => {}
+    },
+    feedbackCardProps: {
+      onHeaderClick: () => {}
+    },
+    ideasCardProps: {
+      onHeaderClick: () => {}
+    },
+    issuesCardProps: {
+      onHeaderClick: () => {}
+    },
+    okrsCardProps: {
+      okrName: 'OKR',
+      onHeaderClick: () => {}
+    },
     latestDigestCardProps: {
       onClickEmptyState: () => {},
-      firstDigestSubtitle: 'First Digest at 9:00AM 08/13'
+      firstDigestSubtitle: 'First Digest at 9:00AM 08/13',
+      onHeaderClick: () => {}
+    },
+    todosCardProps: {
+      onHeaderClick: () => {}
     },
     scorecardsCardProps: {
       onClickEmptyState: () => {},
+      onHeaderClick: () => {},
       scorecardsContentProps: [
         {
           title: 'Daily',
+          onClickEmptyState: () => {},
           scorecards: [
             {
               id: '1',
@@ -211,6 +239,7 @@ Default.args = {
         },
         {
           title: 'Weekly',
+          onClickEmptyState: () => {},
           scorecards: [
             {
               id: '5',
@@ -246,6 +275,7 @@ Default.args = {
         },
         {
           title: 'Monthly',
+          onClickEmptyState: () => {},
           scorecards: []
         }
       ]
@@ -393,7 +423,8 @@ Default.args = {
       title:
         'Take time to review the wireframes before the next review meeting',
       priority: 'Low',
-      icon: <ZapIcon />
+      icon: <ZapIcon />,
+      onClick: () => console.log('clicked')
     }
   ],
   feedback: [
@@ -403,7 +434,8 @@ Default.args = {
       title:
         'Take time to review the wireframes before the next review meeting',
       priority: 'High',
-      icon: <ZapIcon />
+      icon: <ZapIcon />,
+      onClick: () => console.log('clicked')
     },
     {
       id: '2',
@@ -411,7 +443,8 @@ Default.args = {
       title:
         'Take time to review the wireframes before the next review meeting',
       priority: 'High',
-      icon: <ZapIcon />
+      icon: <ZapIcon />,
+      onClick: () => console.log('clicked')
     },
     {
       id: '3',
@@ -419,7 +452,8 @@ Default.args = {
       title:
         'Take time to review the wireframes before the next review meeting',
       priority: 'High',
-      icon: <ZapIcon />
+      icon: <ZapIcon />,
+      onClick: () => console.log('clicked')
     }
   ],
   ideas: [
@@ -429,7 +463,8 @@ Default.args = {
       title:
         'Take time to review the wireframes before the next review meeting',
       priority: 'Medium',
-      icon: <ZapIcon />
+      icon: <ZapIcon />,
+      onClick: () => console.log('clicked')
     }
   ],
   todos: [
@@ -439,7 +474,74 @@ Default.args = {
       title:
         'Take time to review the wireframes before the next review meeting',
       priority: 'Medium',
-      icon: <ZapIcon />
+      icon: <ZapIcon />,
+      onClick: () => console.log('clicked')
     }
   ]
+};
+
+export const Empty = Template.bind({});
+Empty.args = {
+  today: (() => {
+    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const today = days[new Date().getDay()];
+    return ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].includes(today)
+      ? today
+      : null;
+  })(),
+  standups: {
+    mon: false,
+    tue: true,
+    wed: true,
+    thu: false,
+    fri: false,
+    sat: false,
+    sun: false
+  },
+  teamStandup: {
+    name: 'Design Team Standup',
+    members: [],
+    streak: '2 day streak',
+    totalMembers: 0
+  },
+  slots: {
+    pendingSurveysCard: {
+      onHeaderClick: () => {},
+      emptyStateSubtitle: 'No Pending Surveys'
+    },
+    feedbackCardProps: {
+      onHeaderClick: () => {},
+      emptyStateSubtitle: 'No Feedback'
+    },
+    ideasCardProps: {
+      onHeaderClick: () => {}
+    },
+    issuesCardProps: {
+      onHeaderClick: () => {}
+    },
+    okrsCardProps: {
+      okrName: 'OKR',
+      onHeaderClick: () => {}
+    },
+    latestDigestCardProps: {
+      onClickEmptyState: () => {},
+      firstDigestSubtitle: 'First Digest at 9:00AM 08/13',
+      onHeaderClick: () => {}
+    },
+    todosCardProps: {
+      onHeaderClick: () => {}
+    },
+    scorecardsCardProps: {
+      onClickEmptyState: () => {},
+      onHeaderClick: () => {},
+      scorecardsContentProps: []
+    }
+  },
+  digest: [],
+  okrs: [],
+  meetings: [],
+  issues: [],
+  feedback: [],
+  ideas: [],
+  todos: []
 };

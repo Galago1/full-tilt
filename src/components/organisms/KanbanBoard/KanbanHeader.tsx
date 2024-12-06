@@ -132,7 +132,7 @@ const KanbanHeader = ({
               <Chip
                 variant="outlined"
                 sx={{ borderRadius: theme.borderRadius.xl }}
-                label={filteredCards!.length}
+                label={filteredCards!.length || '0'}
                 {...chipProps}
               />
             )}

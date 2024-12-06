@@ -155,7 +155,7 @@ const ResponseRateCard = ({
                         '& .MuiCircularProgress': {
                           borderRadius: '8px'
                         },
-                        color: '#088AB2'
+                        color: '#06AED4'
                       }}
                       style={{
                         position: 'absolute',

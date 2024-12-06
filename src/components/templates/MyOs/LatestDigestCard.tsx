@@ -11,6 +11,7 @@ import {
   ArrowUpRightIcon,
   BookOpenIcon,
   CalendarIcon,
+  ChevronRightIcon,
   Headphones01Icon,
   ZapIcon
 } from 'src/components/particles/theme/overrides/CustomIcons';
@@ -22,14 +23,12 @@ interface ContentProps {
   firstDigestSubtitle: string;
   loading: boolean;
   onClickEmptyState?: () => void;
-  emptyStateSubtitle?: any;
 }
 const Content = ({
   digest,
   firstDigestSubtitle,
   loading,
-  onClickEmptyState,
-  emptyStateSubtitle
+  onClickEmptyState
 }: ContentProps) => {
   if (!digest || loading || (!loading && isEmpty(digest))) {
     if (!loading && isEmpty(digest))
@@ -111,11 +110,23 @@ const Content = ({
         minHeight: '280px',
         pb: 8
       }}
-      gap={2}
+      gap={0}
     >
       {digest.map((story, index) => (
         <Fragment key={story.id}>
-          <Grid item xs={12} onClick={story.onClick}>
+          <Grid
+            item
+            xs={12}
+            onClick={story.onClick}
+            sx={{
+              '&:hover': {
+                cursor: 'pointer',
+                backgroundColor: 'grey.50'
+              },
+              // pt: index === 0 ? 0 : 2
+              pt: 2
+            }}
+          >
             <Grid container>
               <Grid item flexGrow={1}>
                 <Typography variant="textSmRegular">{story.date}</Typography>
@@ -169,7 +180,7 @@ export interface LatestDigestCardProps extends Omit<CardProps, 'slots'> {
   cardSlots?: CardProps['slots'];
   loading?: boolean;
   onClickEmptyState?: () => void;
-  emptyStateSubtitle?: any;
+  onHeaderClick?: () => void;
 }
 
 export const LatestDigestCard = ({
@@ -179,7 +190,7 @@ export const LatestDigestCard = ({
   onClick,
   loading,
   onClickEmptyState,
-  emptyStateSubtitle,
+  onHeaderClick,
   ...props
 }: LatestDigestCardProps) => {
   const theme = useTheme();
@@ -224,19 +235,25 @@ export const LatestDigestCard = ({
       >
         <Grid item display="flex" alignItems="center">
           <AvatarAndText
+            spacing={0}
             gap={1}
+            alignItems={'center'}
             leftIcon={<ZapIcon />}
-            leftIconItemSx={{ display: 'flex' }}
-            title={`Latest Digest`}
-            titleTypography={{ variant: 'textLgSemibold' }}
-          />
+            leftIconGridProps={{ display: 'flex' }}
+            title={'Latest Digest'}
+            textGridItemProps={{ flex: 1 }}
+            childrenGridProps={{ display: 'flex' }}
+            onClick={onHeaderClick}
+            sx={{ cursor: 'pointer' }}
+          >
+            <ChevronRightIcon />
+          </AvatarAndText>
         </Grid>
         <Content
           digest={digest}
           firstDigestSubtitle={firstDigestSubtitle}
           loading={loading!}
           onClickEmptyState={onClickEmptyState}
-          emptyStateSubtitle={emptyStateSubtitle}
         />
       </Grid>
     </Card>

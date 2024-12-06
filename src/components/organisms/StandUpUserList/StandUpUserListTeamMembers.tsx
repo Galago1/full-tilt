@@ -94,7 +94,6 @@ const StandUpUserListTeamMembers = ({
             selectedIndex={selectedIndex}
             filteredMembers={filteredMembers}
             setSelectedIndex={setSelectedIndex}
-            theme={theme}
           />
         </Grid>
       </Grid>

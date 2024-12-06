@@ -179,7 +179,13 @@ const ScorecardDraggableRow = ({
         disabled={true}
       />
       <ScorecardCell
-        content={{ value: row!.prefix ? row!.trend : round(row!.trend, 2) }}
+        content={{
+          value: row!.prefix
+            ? row!.trend
+            : typeof row!.trend === 'number'
+            ? round(row!.trend, 2)
+            : row!.trend
+        }}
         type="data"
         width={columnWidths.trend}
         bgcolor={getColorByValue!(

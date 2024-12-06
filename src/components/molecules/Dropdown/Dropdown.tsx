@@ -35,6 +35,7 @@ const useDropdown = (
 
   // Event handler for when the dropdown trigger is clicked
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    event.stopPropagation();
     setDropdownOpen(true, event);
   };
 

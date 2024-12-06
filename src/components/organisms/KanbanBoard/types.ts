@@ -1,4 +1,4 @@
-import { GridProps } from '@mui/material';
+import { GridProps, SxProps, Theme } from '@mui/material';
 import { AvatarAndTextProps } from 'src/components/molecules/AvatarAndText/AvatarAndText';
 import { KanbanColumnProps } from './KanbanColumn';
 
@@ -22,6 +22,7 @@ export interface KanbanColumnCard {
   footerGridProps?: GridProps;
   footerAvatarAndTextProps?: AvatarAndTextProps;
   bodyAvatarAndTextProps?: AvatarAndTextProps;
+  sx?: SxProps<Theme>;
 }
 export interface IndividualKanbanColumn {
   id: string;

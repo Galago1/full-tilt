@@ -8,8 +8,10 @@ import {
 } from '@mui/material';
 import { filter } from 'lodash';
 import { useState } from 'react';
-import { Button, Divider } from 'src/components/atoms';
-import { ButtonProps } from 'src/components/atoms/Button/Button';
+// import { Button, Chip, Divider } from 'src/components/atoms';
+import Button, { ButtonProps } from 'src/components/atoms/Button/Button';
+import Chip from 'src/components/atoms/Chip/Chip';
+import Divider from 'src/components/atoms/Divider/Divider';
 import AvatarAndText from 'src/components/molecules/AvatarAndText/AvatarAndText';
 import { Drawer } from 'src/components/organisms';
 import {
@@ -38,10 +40,10 @@ interface Data {
   };
   image: string;
   responsibility: string;
-  reportsTo: {
-    email: string;
-    name: string;
-    image: string;
+  reportsTo?: {
+    email?: string;
+    name?: string;
+    image?: string;
   };
   metric: string;
 }
@@ -52,7 +54,7 @@ export interface UserProfileCardProps {
   onClose: () => void;
   phoneIconClick?: () => void;
   emailIconClick?: () => void;
-  slots: {
+  slots?: {
     fullProfileButtonProps?: ButtonProps;
     bannerGridProps?: GridProps;
   };
@@ -70,12 +72,16 @@ const UserProfileCard = ({
   const theme = useTheme();
   const [isTruncated, setIsTruncated] = useState(true);
 
-  const truncateText = (text: string, length: number) =>
-    isTruncated && text.length > length
-      ? text.substring(0, length) + '...'
-      : text;
-  const showReadMore = data.responsibility.length > 238;
+  const truncateText = (text: string, length: number) => {
+    const result =
+      isTruncated && text.length > length
+        ? text.substring(0, length) + '...'
+        : text;
+    console.log('resultldkaklmdsc', result);
+    return result;
+  };
 
+  const showReadMore = data.responsibility.length > 238;
   return (
     <Drawer
       anchor="right"
@@ -132,14 +138,14 @@ const UserProfileCard = ({
           {...bannerGridProps}
         >
           <Avatar
-            alt="Bill Gates"
+            alt={data.name}
             src={data.image}
             sx={{
               width: 96,
               height: 96,
               position: 'absolute',
-              bottom: -60,
-              left: 20,
+              bottom: -72,
+              left: 16,
               border: theme.border.userProfileAvatar,
               boxShadow: theme.customShadows.lg
             }}
@@ -203,81 +209,25 @@ const UserProfileCard = ({
             alignItems={'center'}
             padding={theme.spacing(2, 0)}
           >
-            {data.group && (
-              <Grid item>
-                {/* TODO: Create a Badge Variant */}
-                <Grid
-                  sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    border: theme.border.userProfile,
-                    borderRadius: theme.borderRadius.sm,
-                    '&': {
-                      p: 0.25
-                    }
-                  }}
-                >
-                  <Grid
-                    sx={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      margin: theme.spacing(0, 0.25)
-                    }}
-                  >
-                    <UsersIcon
-                      sx={{
-                        width: 12,
-                        height: 12,
-                        marginRight: 0.25
-                      }}
-                    />
-                    <Typography variant="textXsRegular" color="text.primary">
-                      {data.group}
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </Grid>
-            )}
-            {(data.address.city || data.address.state) && (
-              <Grid item>
-                <Grid
-                  sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    border: theme.border.userProfile,
-                    borderRadius: theme.borderRadius.sm,
-                    '&': {
-                      p: 0.25
-                    }
-                  }}
-                >
-                  <Grid
-                    sx={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      margin: theme.spacing(0, 0.25)
-                    }}
-                  >
-                    <MarkerPinIcon
-                      sx={{
-                        width: 12,
-                        height: 12,
-                        marginRight: 0.25
-                      }}
-                    />
-                    <Typography
-                      variant="textXsRegular"
-                      color="text.primary"
-                      sx={{ wordBreak: 'break-all' }}
-                    >
-                      {filter([data.address.city, data.address.state]).join(
-                        ', '
-                      )}
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </Grid>
-            )}
+            <Grid item>
+              <Chip
+                label={data.group || 'NA'}
+                icon={<UsersIcon />}
+                variant={'outlined'}
+                color={'secondary'}
+              />
+            </Grid>
+            <Grid item>
+              <Chip
+                label={
+                  filter([data.address.city, data.address.state]).join(', ') ||
+                  'NA'
+                }
+                icon={<MarkerPinIcon />}
+                variant={'outlined'}
+                color={'secondary'}
+              />
+            </Grid>
           </Grid>
           <Grid container flexDirection={'column'} spacing={0}>
             <Grid item>
@@ -330,10 +280,10 @@ const UserProfileCard = ({
             <Grid item>
               <Typography
                 variant="textMdMedium"
-                sx={{ whiteSpace: 'pre-line', wordBreak: 'break-all' }}
+                sx={{ whiteSpace: 'pre-line', wordBreak: 'break-word' }}
                 color="text.primary"
               >
-                {truncateText(data.responsibility, 238)}
+                {truncateText(data.responsibility, 238) || 'NA'}
               </Typography>
             </Grid>
             {showReadMore && (
@@ -364,63 +314,69 @@ const UserProfileCard = ({
               <Typography
                 variant="textSmMedium"
                 color="grey.900"
-                sx={{ wordBreak: 'break-all' }}
+                sx={{ wordBreak: 'break-word' }}
               >
-                {data.firstName}’s Key Metric
+                {data.firstName || 'NA'}’s Key Metric
               </Typography>
             </Grid>
-            {data.metric && (
-              <Grid item display={'flex'} alignItems={'center'} paddingTop={2}>
-                {/* TODO: Make a featured icon variant */}
-                <Grid
-                  sx={{
-                    border: theme.border.outlinedButton,
-                    borderRadius: theme.borderRadius.md,
+            <Grid item display={'flex'} alignItems={'center'} paddingTop={2}>
+              {/* TODO: Make a featured icon variant */}
+              <Grid
+                sx={{
+                  border: theme.border.outlinedButton,
+                  borderRadius: theme.borderRadius.md,
+                  width: 40,
+                  height: 40,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+              >
+                <TrendUp01Icon sx={{ width: 20, height: 20 }} />
+              </Grid>
+              <Typography
+                variant="textMdMedium"
+                paddingLeft={1.5}
+                color="text.primary"
+                sx={{ wordBreak: 'break-word' }}
+              >
+                {data.metric || 'NA'}
+              </Typography>
+            </Grid>
+          </Grid>
+          <Grid paddingTop={2}>
+            <Grid item marginBottom={2}>
+              <Typography variant="textSmRegular" color="grey.900">
+                Reports To
+              </Typography>
+            </Grid>
+            <Grid item display={'flex'}>
+              <AvatarAndText
+                gap={1}
+                avatarProps={{
+                  alt: data.reportsTo?.name || 'NA',
+                  src: data.reportsTo?.image,
+                  sx: {
                     width: 40,
                     height: 40,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  }}
-                >
-                  <TrendUp01Icon sx={{ width: 20, height: 20 }} />
-                </Grid>
-                <Typography
-                  variant="textMdMedium"
-                  paddingLeft={1.5}
-                  color="text.primary"
-                  sx={{ wordBreak: 'break-all' }}
-                >
-                  {data.metric}
-                </Typography>
-              </Grid>
-            )}
-          </Grid>
-          {data.reportsTo.name && (
-            <Grid paddingTop={2}>
-              <Grid item marginBottom={2}>
-                <Typography variant="textSmRegular" color="grey.900">
-                  Reports To
-                </Typography>
-              </Grid>
-              <Grid item display={'flex'}>
-                <AvatarAndText
-                  gap={1}
-                  avatarProps={{
-                    alt: data.reportsTo.name,
-                    src: data.reportsTo.image,
-                    sx: {
-                      width: 40,
-                      height: 40,
-                      border: theme.border.userProfileAvatarTiny
-                    }
-                  }}
-                  title={data.reportsTo.name}
-                  subtitle={data.reportsTo.email}
-                />
-              </Grid>
+                    border: theme.border.userProfileAvatarTiny
+                  },
+                  children: data.reportsTo?.image
+                    ? undefined
+                    : rowInitials(
+                        {
+                          name: data.reportsTo?.name || 'NA'
+                        },
+                        false,
+                        !data.reportsTo?.name
+                      )
+                }}
+                title={data.reportsTo?.name || 'NA'}
+                subtitle={data.reportsTo?.email || ''}
+                alignItems={'center'}
+              />
             </Grid>
-          )}
+          </Grid>
         </Grid>
       </>
     </Drawer>

@@ -11,6 +11,7 @@ export interface Standup {
   name: string;
   members: TeamMember[];
   streak: string;
+  totalMembers: number;
 }
 
 export interface Survey {

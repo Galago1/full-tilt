@@ -17,8 +17,8 @@ const KanbanColumnHeader = ({ column }: KanbanColumnHeaderProps) => {
         border: theme.border.appearanceCardHover,
         borderRadius: theme.borderRadius.sm,
         backgroundColor: theme.palette.common.white,
-        margin: 2.25,
-        padding: theme.spacing(18 / 8, 12 / 8),
+        m: 2,
+        padding: theme.spacing(2, 12 / 8),
         alignItems: 'center',
         width: 'auto'
       }}
