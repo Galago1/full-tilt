@@ -11,7 +11,7 @@ import { Orientation } from 'src/types/other';
 import HorizontalInput from '../HorizontalInput';
 import { HorizontalInputProps } from '../HorizontalInput/HorizontalInput';
 
-export interface NumberTimePickerInputProps extends TimePickerInputBaseProps {
+export interface TimePickerInputProps extends TimePickerInputBaseProps {
   label?: string;
   labelSx?: SxProps;
   form?: FormikProps<any>;
@@ -30,7 +30,7 @@ export interface NumberTimePickerInputProps extends TimePickerInputBaseProps {
 /**
  * Primary UI component for user interaction
  */
-const NumberTimePickerInput = ({
+const TimePickerInput = ({
   field: outerField,
   form: outerForm,
   meta: outerMeta,
@@ -38,30 +38,7 @@ const NumberTimePickerInput = ({
   label,
   labelSx,
   ...props
-}: NumberTimePickerInputProps) => {
-  const displayValue =
-    outerField?.value !== null &&
-    (typeof outerField?.value === 'number' ||
-      typeof outerField?.value === 'string')
-      ? new Date(
-          new Date().setHours(
-            Math.floor(outerField.value / 3600),
-            Math.floor((outerField.value % 3600) / 60),
-            outerField.value % 60,
-            0
-          )
-        )
-      : outerField?.value;
-
-  const handleChange = (date: Date | null, innerForm: FormikProps<any>) => {
-    const seconds = date
-      ? date.getHours() * 3600 + date.getMinutes() * 60 + date.getSeconds()
-      : null;
-
-    outerForm.setFieldValue(outerField.name, seconds);
-    innerForm.setFieldValue('innerName', date);
-  };
-
+}: TimePickerInputProps) => {
   const { horizontalInput, labelProps } = props.slots || {};
   if (orient === 'horizontal')
     return (
@@ -86,4 +63,4 @@ const NumberTimePickerInput = ({
     />
   );
 };
-export default NumberTimePickerInput;
+export default TimePickerInput;

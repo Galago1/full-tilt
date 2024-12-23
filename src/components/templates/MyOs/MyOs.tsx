@@ -1,6 +1,5 @@
 import { Grid } from '@mui/material';
 import { DailyStandupCard, DailyStandupCardProps } from './DailyStandupCard';
-import { FeedbackCard, FeedbackCardProps } from './FeedbackCard';
 import { IdeasCard, IdeasCardProps } from './IdeasCard';
 import { IssuesCard, IssuesCardProps } from './IssuesCard';
 import { LatestDigestCard, LatestDigestCardProps } from './LatestDigestCard';
@@ -14,7 +13,6 @@ import { ScorecardsCard, ScorecardsCardProps } from './ScorecardsCard';
 import { TodosCard, TodosCardProps } from './TodosCard';
 import {
   Digest,
-  Feedback,
   Idea,
   Issue,
   Meeting,
@@ -33,7 +31,6 @@ export interface MyOsProps {
   okrs: Okr[];
   meetings: Meeting[];
   issues: Issue[];
-  feedback: Feedback[];
   ideas: Idea[];
   todos: Todo[];
   slots?: {
@@ -44,7 +41,6 @@ export interface MyOsProps {
     scorecardsCardProps?: ScorecardsCardProps;
     meetingsCardProps?: MeetingsCardProps;
     issuesCardProps?: IssuesCardProps;
-    feedbackCardProps?: FeedbackCardProps;
     ideasCardProps?: IdeasCardProps;
     todosCardProps?: TodosCardProps;
   };
@@ -59,7 +55,6 @@ export const MyOs = ({
   okrs,
   meetings,
   issues,
-  feedback,
   ideas,
   todos,
   slots
@@ -72,7 +67,6 @@ export const MyOs = ({
     scorecardsCardProps,
     meetingsCardProps,
     issuesCardProps,
-    feedbackCardProps,
     ideasCardProps,
     todosCardProps
   } = slots ?? {};
@@ -131,19 +125,7 @@ export const MyOs = ({
       >
         <TodosCard {...todosCardProps!} todos={todos} />
       </Grid>
-      <Grid
-        item
-        xs={12}
-        lg={6}
-        sx={{
-          mb: {
-            xs: 0
-          }
-        }}
-        width={'100%'}
-      >
-        <FeedbackCard {...feedbackCardProps!} feedback={feedback} />
-      </Grid>
+
       <Grid
         item
         xs={12}

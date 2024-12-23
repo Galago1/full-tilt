@@ -1,6 +1,6 @@
 import type { GridProps, IconButtonProps } from '@mui/material';
 import { BoxProps } from '@mui/material';
-import { useState } from 'react';
+import { forwardRef, useImperativeHandle, useState } from 'react';
 import { ButtonProps } from 'src/components/atoms/Button/Button';
 import type { AvatarAndTextProps } from '../AvatarAndText/AvatarAndText';
 import type { DropdownListItem } from './DropdownList/DropdownList';
@@ -9,13 +9,24 @@ import DropdownUncontrolled from './DropdownUncontrolled';
 
 const useDropdown = (
   controlledOpen?: boolean,
-  onOpenChange?: (open: boolean) => void
+  onOpenChange?: (open: boolean, handleClose: () => void) => void
 ) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [openInternal, setOpenInternal] = useState(false);
 
   // Define 'isOpen' to determine the state of the dropdown
   const isOpen = controlledOpen !== undefined ? controlledOpen : openInternal;
+
+  // Event handler for when the dropdown trigger is clicked
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    event.stopPropagation();
+    setDropdownOpen(true, event);
+  };
+
+  // Event handler for closing the dropdown
+  const handleClose = () => {
+    setDropdownOpen(false);
+  };
 
   // Function to manage the opening and closing of the dropdown
   const setDropdownOpen = (
@@ -30,18 +41,7 @@ const useDropdown = (
         setAnchorEl(event.currentTarget); // Set anchor element when opening
       }
     }
-    onOpenChange?.(open);
-  };
-
-  // Event handler for when the dropdown trigger is clicked
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    event.stopPropagation();
-    setDropdownOpen(true, event);
-  };
-
-  // Event handler for closing the dropdown
-  const handleClose = () => {
-    setDropdownOpen(false);
+    onOpenChange?.(open, handleClose);
   };
 
   return {
@@ -100,46 +100,55 @@ export interface DropdownProps extends BoxProps {
   /**
    * Callback fired when the open state is changed
    */
-  onOpenChange?: (open: boolean) => void;
+  onOpenChange?: (open: boolean, handleClose: () => void) => void;
 }
-const Dropdown = ({
-  label,
-  buttonProps,
-  iconButtonProps,
-  avatarAndTextProps,
-  dropdownListItems,
-  dropdownMenuProps,
-  gridItemProps,
-  boxProps,
-  gridContainerProps,
-  isOpen: controlledOpen,
-  onOpenChange,
-  anchorComponent,
-  ...props
-}: DropdownProps) => {
-  const { anchorEl, open, handleClick, handleClose } = useDropdown(
-    controlledOpen,
-    onOpenChange
-  );
+const Dropdown = forwardRef(
+  (
+    {
+      label,
+      buttonProps,
+      iconButtonProps,
+      avatarAndTextProps,
+      dropdownListItems,
+      dropdownMenuProps,
+      gridItemProps,
+      boxProps,
+      gridContainerProps,
+      isOpen: controlledOpen,
+      onOpenChange,
+      anchorComponent,
+      ...props
+    }: DropdownProps,
+    ref
+  ) => {
+    const { anchorEl, open, handleClick, handleClose } = useDropdown(
+      controlledOpen,
+      onOpenChange
+    );
+    useImperativeHandle(ref, () => ({
+      handleClose
+    }));
 
-  return (
-    <DropdownUncontrolled
-      label={label}
-      buttonProps={buttonProps}
-      iconButtonProps={iconButtonProps}
-      avatarAndTextProps={avatarAndTextProps}
-      dropdownListItems={dropdownListItems}
-      dropdownMenuProps={dropdownMenuProps}
-      gridItemProps={gridItemProps}
-      gridContainerProps={gridContainerProps}
-      boxProps={boxProps}
-      handleClick={handleClick}
-      anchorEl={anchorEl}
-      handleClose={handleClose}
-      open={open}
-      anchorComponent={anchorComponent}
-      {...props}
-    />
-  );
-};
+    return (
+      <DropdownUncontrolled
+        label={label}
+        buttonProps={buttonProps}
+        iconButtonProps={iconButtonProps}
+        avatarAndTextProps={avatarAndTextProps}
+        dropdownListItems={dropdownListItems}
+        dropdownMenuProps={dropdownMenuProps}
+        gridItemProps={gridItemProps}
+        gridContainerProps={gridContainerProps}
+        boxProps={boxProps}
+        handleClick={handleClick}
+        anchorEl={anchorEl}
+        handleClose={handleClose}
+        open={open}
+        anchorComponent={anchorComponent}
+        {...props}
+      />
+    );
+  }
+);
+Dropdown.displayName = 'Dropdown';
 export default Dropdown;

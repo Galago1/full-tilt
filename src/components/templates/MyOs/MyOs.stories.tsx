@@ -156,9 +156,6 @@ Default.args = {
     pendingSurveysCard: {
       onHeaderClick: () => {}
     },
-    feedbackCardProps: {
-      onHeaderClick: () => {}
-    },
     ideasCardProps: {
       onHeaderClick: () => {}
     },
@@ -437,35 +434,6 @@ Default.args = {
       onClick: () => console.log('clicked')
     }
   ],
-  feedback: [
-    {
-      id: '1',
-      status: 'In Progress',
-      title:
-        'Take time to review the wireframes before the next review meeting',
-      priority: 'High',
-      icon: <ZapIcon />,
-      onClick: () => console.log('clicked')
-    },
-    {
-      id: '2',
-      status: 'In Progress',
-      title:
-        'Take time to review the wireframes before the next review meeting',
-      priority: 'High',
-      icon: <ZapIcon />,
-      onClick: () => console.log('clicked')
-    },
-    {
-      id: '3',
-      status: 'In Progress',
-      title:
-        'Take time to review the wireframes before the next review meeting',
-      priority: 'High',
-      icon: <ZapIcon />,
-      onClick: () => console.log('clicked')
-    }
-  ],
   ideas: [
     {
       id: '1',
@@ -528,10 +496,6 @@ Empty.args = {
       onHeaderClick: () => {},
       emptyStateSubtitle: 'No Pending Surveys'
     },
-    feedbackCardProps: {
-      onHeaderClick: () => {},
-      emptyStateSubtitle: 'No Feedback'
-    },
     ideasCardProps: {
       onHeaderClick: () => {}
     },
@@ -560,7 +524,6 @@ Empty.args = {
   okrs: [],
   meetings: [],
   issues: [],
-  feedback: [],
   ideas: [],
   todos: []
 };

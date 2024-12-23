@@ -25,12 +25,12 @@ Daily.args = {
   onSave,
   onClickEdit: (event, row) => console.log('Edit clicked', event, row),
   slots: {
-    scoreCardDraggableRowProps: {
-      onClickIcon: (event, row) => console.log('Icon clicked', event, row),
-      showEndIcon: true
-      // slots: {
-      //   dropdownProps: scorecardDropdown()
-      // }
+    rowsOrEmptyStateProps: {
+      slots: {
+        scoreCardDraggableRowProps: {
+          dataComponent: TimePickerInputBase
+        }
+      }
     },
     avatarAndTextProps: {
       textGridItemProps: {
@@ -38,13 +38,6 @@ Daily.args = {
       },
       buttonProps: {
         label: 'Edit'
-      }
-    },
-    rowsOrEmptyStateProps: {
-      slots: {
-        scoreCardDraggableRowProps: {
-          dataComponent: TimePickerInputBase
-        }
       }
     }
   },
@@ -108,18 +101,19 @@ DailyEmpty.args = {
   onSave,
   onClickEdit: (event, row) => console.log('Edit clicked', event, row),
   slots: {
-    scoreCardDraggableRowProps: {
-      showEndIcon: true,
-      slots: {
-        dropdownProps: scorecardDropdown()
-      }
-    },
     emptyStateProps: {
       avatarAndTextProps: {
         subtitle: 'There are no daily measurables at this time.',
         subtitleTypography: {
           variant: 'textSmSemibold',
           color: 'text.secondary'
+        }
+      }
+    },
+    rowsOrEmptyStateProps: {
+      slots: {
+        scoreCardDraggableRowProps: {
+          dataComponent: TimePickerInputBase
         }
       }
     }

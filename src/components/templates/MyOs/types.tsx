@@ -76,15 +76,6 @@ export interface Issue {
   onClick: MouseEventHandler<HTMLDivElement> | undefined;
 }
 
-export interface Feedback {
-  id: string;
-  status: string;
-  priority: string;
-  title: string;
-  icon: JSX.Element;
-  onClick: MouseEventHandler<HTMLDivElement> | undefined;
-}
-
 export interface Idea {
   id: string;
   status: string;

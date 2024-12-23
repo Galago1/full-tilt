@@ -4,6 +4,7 @@ import { ZapIcon } from 'src/components/particles/theme/overrides/CustomIcons';
 import { composeStories } from '@storybook/testing-react';
 import * as MyOsStories from './MyOs.stories'; //👈  Our stories imported here
 import { MyOsProps } from './MyOs';
+import { WorkScheduleStatus } from './DailyStandupCard';
 //👇 composeStories will process all information related to the component (e.g., args)
 const { Default } = composeStories(MyOsStories);
 
@@ -38,6 +39,16 @@ const mockProps: MyOsProps = {
       { imageUrl: 'https://example.com/avatar4.jpg' },
       { imageUrl: 'https://example.com/avatar5.jpg' }
     ],
+    totalMembers: 5,
+    workingSchedule: {
+      Mon: WorkScheduleStatus.WORKING_FROM_OFFICE,
+      Tue: WorkScheduleStatus.WORKING_FROM_OFFICE,
+      Wed: WorkScheduleStatus.WORKING_FROM_OFFICE,
+      Thu: WorkScheduleStatus.WORKING_FROM_OFFICE,
+      Fri: WorkScheduleStatus.WORKING_FROM_OFFICE,
+      Sat: WorkScheduleStatus.WORKING_FROM_OFFICE,
+      Sun: WorkScheduleStatus.WORKING_FROM_OFFICE
+    },
     streak: '2 day streak'
   },
   survey: {
@@ -48,9 +59,21 @@ const mockProps: MyOsProps = {
     due: '2 days',
     dueValue: 2,
     contributors: 15,
-    contributed: 8
+    contributed: 8,
+    completed: false,
+    nextSurveyTitle: 'Team Bonding Effectiveness',
+    nextSurveySubtitle: '2 days'
   },
-  todos: [{ status: 'todo', title: 'Design wireframes for Wave' }],
+  todos: [
+    {
+      status: 'todo',
+      title: 'Design wireframes for Wave',
+      id: '1',
+      priority: 'High',
+      icon: <ZapIcon />,
+      onClick: () => {}
+    }
+  ],
   digest: [
     {
       id: 'asdc',
@@ -185,7 +208,8 @@ const mockProps: MyOsProps = {
       title:
         'Take time to review the wireframes before the next review meeting',
       priority: 'Low',
-      icon: <ZapIcon />
+      icon: <ZapIcon />,
+      onClick: () => {}
     },
     {
       id: '2',
@@ -193,7 +217,8 @@ const mockProps: MyOsProps = {
       title:
         'Take time to review the wireframes before the next review meeting',
       priority: 'Medium',
-      icon: <ZapIcon />
+      icon: <ZapIcon />,
+      onClick: () => {}
     },
     {
       id: '3',
@@ -201,7 +226,8 @@ const mockProps: MyOsProps = {
       title:
         'Take time to review the wireframes before the next review meeting',
       priority: 'High',
-      icon: <ZapIcon />
+      icon: <ZapIcon />,
+      onClick: () => {}
     },
     {
       id: '4',
@@ -209,7 +235,8 @@ const mockProps: MyOsProps = {
       title:
         'Take time to review the wireframes before the next review meeting',
       priority: 'Medium',
-      icon: <ZapIcon />
+      icon: <ZapIcon />,
+      onClick: () => {}
     },
     {
       id: '5',
@@ -217,7 +244,8 @@ const mockProps: MyOsProps = {
       title:
         'Take time to review the wireframes before the next review meeting',
       priority: 'Low',
-      icon: <ZapIcon />
+      icon: <ZapIcon />,
+      onClick: () => {}
     },
     {
       id: '6',
@@ -225,7 +253,8 @@ const mockProps: MyOsProps = {
       title:
         'Take time to review the wireframes before the next review meeting',
       priority: 'Medium',
-      icon: <ZapIcon />
+      icon: <ZapIcon />,
+      onClick: () => {}
     },
     {
       id: '7',
@@ -233,33 +262,8 @@ const mockProps: MyOsProps = {
       title:
         'Take time to review the wireframes before the next review meeting',
       priority: 'Low',
-      icon: <ZapIcon />
-    }
-  ],
-  feedback: [
-    {
-      id: '1',
-      status: 'In Progress',
-      title:
-        'Take time to review the wireframes before the next review meeting',
-      priority: 'High',
-      icon: <ZapIcon />
-    },
-    {
-      id: '2',
-      status: 'In Progress',
-      title:
-        'Take time to review the wireframes before the next review meeting',
-      priority: 'High',
-      icon: <ZapIcon />
-    },
-    {
-      id: '3',
-      status: 'In Progress',
-      title:
-        'Take time to review the wireframes before the next review meeting',
-      priority: 'High',
-      icon: <ZapIcon />
+      icon: <ZapIcon />,
+      onClick: () => {}
     }
   ],
   ideas: [
@@ -269,7 +273,8 @@ const mockProps: MyOsProps = {
       title:
         'Take time to review the wireframes before the next review meeting',
       priority: 'Medium',
-      icon: <ZapIcon />
+      icon: <ZapIcon />,
+      onClick: () => {}
     },
     {
       id: '2',
@@ -277,7 +282,8 @@ const mockProps: MyOsProps = {
       title:
         'Take time to review the wireframes before the next review meeting',
       priority: 'Low',
-      icon: <ZapIcon />
+      icon: <ZapIcon />,
+      onClick: () => {}
     },
     {
       id: '3',
@@ -285,7 +291,8 @@ const mockProps: MyOsProps = {
       title:
         'Take time to review the wireframes before the next review meeting',
       priority: 'High',
-      icon: <ZapIcon />
+      icon: <ZapIcon />,
+      onClick: () => {}
     }
   ]
 };

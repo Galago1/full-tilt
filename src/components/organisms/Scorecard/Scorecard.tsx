@@ -7,7 +7,7 @@ import { EmptyStateProps } from 'src/components/molecules/EmptyState/EmptyState'
 import Card, { CardProps } from 'src/components/organisms/Card/Card';
 import Divider from '../../atoms/Divider/Divider';
 import RowsOrEmptyState, { RowsOrEmptyStateProps } from './RowsOrEmptyState';
-import { ScorecardDraggableRowProps } from './ScorecardDraggableRow';
+// import { ScorecardDraggableRowProps } from './ScorecardDraggableRow';
 import ScorecardHeadCell from './ScorecardHeadCell';
 import { InlineFormikProps } from './ScorecardInlineEditCell';
 import { RowData, useScorecard } from './useScorecard';
@@ -54,10 +54,6 @@ export interface ScorecardProps extends Omit<CardProps, 'slots'> {
    */
   canEdit: boolean;
   slots?: {
-    /**
-     *
-     */
-    scoreCardDraggableRowProps?: ScorecardDraggableRowProps;
     /**
      * Slots for the empty state
      */
@@ -108,12 +104,8 @@ const Scorecard = ({
   onClickDelete,
   ...props
 }: ScorecardProps) => {
-  const {
-    scoreCardDraggableRowProps,
-    emptyStateProps,
-    avatarAndTextProps,
-    rowsOrEmptyStateProps
-  } = slots || {};
+  const { emptyStateProps, avatarAndTextProps, rowsOrEmptyStateProps } =
+    slots || {};
   const {
     allChecked,
     checked,
@@ -211,7 +203,6 @@ const Scorecard = ({
             <RowsOrEmptyState
               rows={rows}
               isLoading={isLoading!}
-              scoreCardDraggableRowProps={scoreCardDraggableRowProps!}
               emptyStateProps={emptyStateProps}
               moveRow={moveRow}
               columnWidths={columnWidths}
