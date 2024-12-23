@@ -2,6 +2,7 @@ import { FormikHelpers } from 'formik';
 import { MouseEventHandler } from 'react';
 import { ButtonGroupProps } from 'src/components/molecules/ButtonGroup/ButtonGroup';
 import { InlineFormikProps } from 'src/components/organisms/Scorecard/ScorecardInlineEditCell';
+import { WorkSchedule } from './DailyStandupCard';
 
 export interface TeamMember {
   imageUrl: string;
@@ -12,6 +13,7 @@ export interface Standup {
   members: TeamMember[];
   streak: string;
   totalMembers: number;
+  workingSchedule: WorkSchedule;
 }
 
 export interface Survey {

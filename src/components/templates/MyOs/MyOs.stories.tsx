@@ -12,6 +12,7 @@ import {
   ZapIcon
 } from 'src/components/particles/theme/overrides/CustomIcons';
 import { MyOs, MyOsProps } from './MyOs';
+import { WorkScheduleStatus } from './DailyStandupCard';
 
 const onSave: any = (
   values: InlineFormikProps,
@@ -127,7 +128,16 @@ Default.args = {
       { imageUrl: 'https://example.com/avatar5.jpg' }
     ],
     streak: '2 day streak',
-    totalMembers: 5
+    totalMembers: 5,
+    workingSchedule: {
+      Mon: WorkScheduleStatus.WORKING_FROM_OFFICE,
+      Tue: WorkScheduleStatus.WORKING_FROM_OFFICE,
+      Wed: WorkScheduleStatus.WORKING_FROM_OFFICE,
+      Thu: WorkScheduleStatus.WORKING_FROM_OFFICE,
+      Fri: WorkScheduleStatus.WORKING_FROM_OFFICE,
+      Sat: WorkScheduleStatus.DAY_OFF,
+      Sun: WorkScheduleStatus.DAY_OFF
+    }
   },
   survey: {
     name: 'Team Bonding Effectiveness',
@@ -502,7 +512,16 @@ Empty.args = {
     name: 'Design Team Standup',
     members: [],
     streak: '2 day streak',
-    totalMembers: 0
+    totalMembers: 0,
+    workingSchedule: {
+      Mon: WorkScheduleStatus.DAY_OFF,
+      Tue: WorkScheduleStatus.DAY_OFF,
+      Wed: WorkScheduleStatus.DAY_OFF,
+      Thu: WorkScheduleStatus.DAY_OFF,
+      Fri: WorkScheduleStatus.DAY_OFF,
+      Sat: WorkScheduleStatus.DAY_OFF,
+      Sun: WorkScheduleStatus.DAY_OFF
+    }
   },
   slots: {
     pendingSurveysCard: {

@@ -55,6 +55,7 @@ export interface ScorecardDraggableRowProps {
     dropdownProps: DropdownProps;
   };
   showEndIcon?: boolean;
+  dataComponent?: any;
 }
 
 const ScorecardDraggableRow = ({
@@ -74,7 +75,8 @@ const ScorecardDraggableRow = ({
   closeOnSave,
   canEdit,
   slots,
-  showEndIcon
+  showEndIcon,
+  dataComponent = NumberInputBase
 }: ScorecardDraggableRowProps) => {
   const { dropdownProps } = slots || {};
   const theme = useTheme();
@@ -214,7 +216,7 @@ const ScorecardDraggableRow = ({
             data.value as number
           )}
           onSave={async (a, b, c) => await onSave!(a, b, c, row!)}
-          component={NumberInputBase}
+          component={dataComponent}
           closeOnSave={closeOnSave!}
           canEdit={canEdit!}
           suffix={data!.suffix}

@@ -1,6 +1,7 @@
 import { Meta, Story } from '@storybook/react';
 import Scorecard, { ScorecardProps } from './Scorecard';
 import { GoalCondition, scorecardDropdown } from './helpers';
+import { TimePickerInputBase } from 'src/components/atoms';
 
 const onSave = async (
   values: any,
@@ -37,6 +38,13 @@ Daily.args = {
       },
       buttonProps: {
         label: 'Edit'
+      }
+    },
+    rowsOrEmptyStateProps: {
+      slots: {
+        scoreCardDraggableRowProps: {
+          dataComponent: TimePickerInputBase
+        }
       }
     }
   },

@@ -6,7 +6,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import { EmptyStateProps } from 'src/components/molecules/EmptyState/EmptyState';
 import Card, { CardProps } from 'src/components/organisms/Card/Card';
 import Divider from '../../atoms/Divider/Divider';
-import RowsOrEmptyState from './RowsOrEmptyState';
+import RowsOrEmptyState, { RowsOrEmptyStateProps } from './RowsOrEmptyState';
 import { ScorecardDraggableRowProps } from './ScorecardDraggableRow';
 import ScorecardHeadCell from './ScorecardHeadCell';
 import { InlineFormikProps } from './ScorecardInlineEditCell';
@@ -66,6 +66,10 @@ export interface ScorecardProps extends Omit<CardProps, 'slots'> {
      * Slots for the avatar and text
      */
     avatarAndTextProps?: AvatarAndTextProps;
+    /**
+     * Slots for the rows or empty state
+     */
+    rowsOrEmptyStateProps?: RowsOrEmptyStateProps;
   };
   /**
    * Function to handle edit click
@@ -104,8 +108,12 @@ const Scorecard = ({
   onClickDelete,
   ...props
 }: ScorecardProps) => {
-  const { scoreCardDraggableRowProps, emptyStateProps, avatarAndTextProps } =
-    slots || {};
+  const {
+    scoreCardDraggableRowProps,
+    emptyStateProps,
+    avatarAndTextProps,
+    rowsOrEmptyStateProps
+  } = slots || {};
   const {
     allChecked,
     checked,
@@ -217,6 +225,7 @@ const Scorecard = ({
               canEdit={canEdit}
               onClickEdit={onClickEdit}
               onClickDelete={onClickDelete}
+              {...rowsOrEmptyStateProps}
             />
           </Grid>
         </>

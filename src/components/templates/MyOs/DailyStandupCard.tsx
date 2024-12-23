@@ -1,5 +1,4 @@
 import { Grid, SxProps, Theme, Typography, useTheme } from '@mui/material';
-import { addDays, format, startOfWeek } from 'date-fns';
 import { isEmpty } from 'lodash';
 import { MouseEventHandler } from 'react';
 import Button from 'src/components/atoms/Button/Button';
@@ -13,23 +12,14 @@ import {
   CheckCircleIcon,
   ChevronRightIcon,
   CircleIcon,
+  SlashCircle01Icon,
   XCircleIcon,
   ZapIcon
 } from 'src/components/particles/theme/overrides/CustomIcons';
 import { responsiveSpacing } from 'src/components/particles/theme/spacing';
 import pluralize from 'src/utils/inflector/pluralize';
 import { Standup } from './types';
-
-const getCurrentWeekString = () => {
-  // Get start of current week (Sunday by default)
-  const start = startOfWeek(new Date());
-  // Add 1 day to get to Monday
-  const monday = addDays(start, 1);
-  // Add 5 days to get to sunday
-  const sunday = addDays(monday, 6);
-
-  return `${format(monday, 'MM-dd')} - ${format(sunday, 'MM-dd')}`;
-};
+import { get } from 'lodash';
 
 interface DayOfWeekAction {
   [key: string]: {
@@ -50,6 +40,7 @@ interface ContentProps {
   dayOfWeekActions?: DayOfWeekAction;
   onClickEmptyState?: () => void;
   emptyStateSubtitle?: any;
+  currentWeekString: string;
 }
 const Content = ({
   teamStandup,
@@ -62,7 +53,8 @@ const Content = ({
   loading,
   dayOfWeekActions,
   onClickEmptyState,
-  emptyStateSubtitle
+  emptyStateSubtitle,
+  currentWeekString = 'Your weekly entries'
 }: ContentProps) => {
   const theme = useTheme();
   if (!standups || loading || (!loading && isEmpty(standups)))
@@ -95,18 +87,22 @@ const Content = ({
         {loading && <LoadingIndicator />}
       </BasicEmptyState>
     );
-  const currentWeekString = getCurrentWeekString();
   return (
     <>
       <Grid item display={'flex'} flexDirection={'column'}>
         <Typography variant="textSmRegular" mb={1} mt={2}>
-          Your weekly entries for {currentWeekString}
+          {currentWeekString}
         </Typography>
         <Grid container gap={1} flexDirection={'column'}>
           <Grid item>
             <Grid container gap={1} alignItems={'center'}>
               {daysOfWeek.map((day, index) => {
                 const isAfterToday = isPastToday(index);
+                const workingScheduleStatus = get(
+                  teamStandup,
+                  `workingSchedule.${day}`,
+                  WorkScheduleStatus.DAY_OFF
+                );
                 return (
                   <Tooltip title={dayOfWeekActions?.[day]?.title ?? ''}>
                     <Grid
@@ -129,6 +125,7 @@ const Content = ({
                         day={day}
                         today={today!}
                         isAfterToday={isAfterToday}
+                        workingScheduleStatus={workingScheduleStatus}
                       />
                       <Typography
                         color={day === today ? 'white' : 'text-secondary'}
@@ -200,19 +197,54 @@ const Content = ({
   );
 };
 
+export interface WorkSchedule {
+  Mon: WorkScheduleStatus;
+  Tue: WorkScheduleStatus;
+  Wed: WorkScheduleStatus;
+  Thu: WorkScheduleStatus;
+  Fri: WorkScheduleStatus;
+  Sat: WorkScheduleStatus;
+  Sun: WorkScheduleStatus;
+}
+
+export enum WorkScheduleStatus {
+  WORKING_FROM_OFFICE = 'working_from_office',
+  WORKING_FROM_HOME = 'working_from_home',
+  WORKING_REMOTE = 'working_remote',
+  HYBRID_FIELD_WORK = 'hybrid_field_work',
+  ON_VACATION = 'on_vacation',
+  DAY_OFF = 'day_off',
+  AWAY = 'away'
+}
+
 interface DetermineIconProps {
   standups: { [key: string]: boolean };
   day: string;
   today: string | null;
   isAfterToday: boolean;
+  workingScheduleStatus: WorkScheduleStatus;
 }
 const DetermineIcon = ({
   standups,
   day,
   today,
-  isAfterToday
+  isAfterToday,
+  workingScheduleStatus
 }: DetermineIconProps) => {
   const theme = useTheme();
+
+  if (workingScheduleStatus === WorkScheduleStatus.DAY_OFF)
+    return (
+      <SlashCircle01Icon
+        sx={{
+          color:
+            day === today
+              ? theme.palette.common.white
+              : theme.palette.text.primary,
+          marginRight: 0.5
+        }}
+      />
+    );
 
   if (standups[day.toLowerCase()] === true)
     return (
@@ -221,7 +253,7 @@ const DetermineIcon = ({
           color:
             day === today
               ? theme.palette.common.white
-              : theme.palette.success[900],
+              : theme.palette.text.primary,
           marginRight: 0.5
         }}
       />
@@ -233,7 +265,7 @@ const DetermineIcon = ({
           color:
             day === today
               ? theme.palette.common.white
-              : theme.palette.secondary[900],
+              : theme.palette.text.primary,
           marginRight: 0.5
         }}
       />
@@ -260,6 +292,7 @@ export interface DailyStandupCardProps extends Omit<CardProps, 'slots'> {
   dayOfWeekActions?: DayOfWeekAction;
   onClickEmptyState?: () => void;
   emptyStateSubtitle?: any;
+  currentWeekString: string;
 }
 
 export const DailyStandupCard = ({
@@ -272,6 +305,7 @@ export const DailyStandupCard = ({
   dayOfWeekActions,
   onClickEmptyState,
   emptyStateSubtitle,
+  currentWeekString,
   ...props
 }: DailyStandupCardProps) => {
   const theme = useTheme();
@@ -329,6 +363,7 @@ export const DailyStandupCard = ({
           dayOfWeekActions={dayOfWeekActions}
           onClickEmptyState={onClickEmptyState}
           emptyStateSubtitle={emptyStateSubtitle}
+          currentWeekString={currentWeekString}
         />
       </Grid>
     </Card>

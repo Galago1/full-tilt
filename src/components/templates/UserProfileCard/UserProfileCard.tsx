@@ -116,6 +116,7 @@ const UserProfileCard = ({
       <>
         <Button
           label={<XCloseIcon />}
+          onClick={onClose}
           variant={'text'}
           sx={{
             '&': {
