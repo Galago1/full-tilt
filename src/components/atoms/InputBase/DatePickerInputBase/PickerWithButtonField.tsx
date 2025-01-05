@@ -8,15 +8,9 @@ import {
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
 const ButtonField = (props: any = { InputProps: { ref: null } }) => {
-  const {
-    setOpen,
-    id,
-    disabled,
-    onOpen,
-    InputProps: { ref }
-  } = props;
-
-  console.log('prsetOpensetOpenops', setOpen, onOpen, props);
+  const { setOpen, id, disabled, onOpen } = props;
+  const InputProps = props?.InputProps || {};
+  const ref = InputProps?.ref;
 
   return (
     <Button

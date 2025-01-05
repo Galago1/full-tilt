@@ -1,6 +1,6 @@
 import { FormikHelpers } from 'formik';
 import { MouseEventHandler } from 'react';
-import { ButtonGroupProps } from 'src/components/molecules/ButtonGroup/ButtonGroup';
+import { DateNavigatorInputProps } from 'src/components/molecules/Inputs/DateNavigatorInput/DateNavigatorInput';
 import { InlineFormikProps } from 'src/components/organisms/Scorecard/ScorecardInlineEditCell';
 import { WorkSchedule } from './DailyStandupCard';
 
@@ -44,7 +44,7 @@ export interface Scorecard {
     onCloseEditor: () => void
   ) => Promise<void>;
   slots: {
-    buttonGroupProps: ButtonGroupProps;
+    dateNavigatorInputProps: DateNavigatorInputProps;
   };
 }
 
@@ -54,6 +54,14 @@ export interface Okr {
   quarter: string;
   people: string;
   percentage: number;
+  onClick: MouseEventHandler<HTMLDivElement> | undefined;
+}
+
+export interface Rock {
+  id: string;
+  title: string;
+  quarter: string;
+  people: string;
   onClick: MouseEventHandler<HTMLDivElement> | undefined;
 }
 
@@ -67,7 +75,7 @@ export interface Meeting {
   onClick: MouseEventHandler<HTMLDivElement> | undefined;
 }
 
-export interface Issue {
+interface SharedList {
   id: string;
   status: string;
   priority: string;
@@ -76,23 +84,13 @@ export interface Issue {
   onClick: MouseEventHandler<HTMLDivElement> | undefined;
 }
 
-export interface Idea {
-  id: string;
-  status: string;
-  title: string;
-  priority: string;
-  icon: JSX.Element;
-  onClick: MouseEventHandler<HTMLDivElement> | undefined;
-}
+export interface Issue extends SharedList {}
 
-export interface Todo {
-  id: string;
-  status: string;
-  title: string;
-  priority: string;
-  icon: JSX.Element;
-  onClick: MouseEventHandler<HTMLDivElement> | undefined;
-}
+export interface Idea extends SharedList {}
+
+export interface Todo extends SharedList {}
+
+export interface Headline extends SharedList {}
 
 export interface Digest {
   id: string;

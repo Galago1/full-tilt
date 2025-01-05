@@ -101,13 +101,15 @@ const VerifyForm = ({
           sx={{ mb: 3 }}
         />
         <Formik
-          initialValues={{
-            code: '',
-            code1: '',
-            code2: '',
-            code3: '',
-            code4: ''
-          }}
+          initialValues={
+            {
+              code: '',
+              code1: '',
+              code2: '',
+              code3: '',
+              code4: ''
+            } as SignupFormFormProps
+          }
           onSubmit={(values, form) => {
             const { code1, code2, code3, code4 } = values;
             const code = [code1, code2, code3, code4].join('');

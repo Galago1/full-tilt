@@ -84,11 +84,12 @@ const Content = ({
         <SharedListCardContent
           {...sharedListCardContentProps}
           key={todo.id}
+          id={todo.id}
           onClick={todo.onClick}
           status={todo.status}
           priority={todo.priority}
           title={todo.title}
-          icon={todo.icon ?? <ZapIcon />}
+          icon={todo.icon}
           index={index}
           listLength={todos.length}
         />

@@ -151,7 +151,7 @@ const Content = ({
                     <Grid item display={'flex'} gap={1} alignItems={'center'}>
                       <CalendarIcon sx={{ color: theme.palette.grey[400] }} />
                       <Typography variant="textSmMedium">
-                        Quarter {capitalize(okr.quarter)}
+                        Quarter {capitalize(okr.quarter || '')}
                       </Typography>
                       <Users01Icon sx={{ color: theme.palette.grey[400] }} />
                       <Typography variant="textSmMedium">
@@ -213,14 +213,9 @@ export const OkrsCard = ({
       showActions={false}
       {...props}
       sx={{
-        // pb: 2,
-        paddingBottom: '16px',
         height: '100%',
-        // 596px - 258.25px - 16px = 321.75px
-        // minHeight: 'calc(596px - 258.25px - 16px)',
-        // 596 - 258.25 - 16 - 30.5 = 290.25
-        // maxHeight: 290.25,
-        maxHeight: 310.25,
+        maxHeight: '338px',
+        minHeight: '338px',
         border: theme.border.outlinedButton,
         borderRadius: theme.borderRadius.xl,
         boxShadow: theme.customShadows.xs

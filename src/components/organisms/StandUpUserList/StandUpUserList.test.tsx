@@ -1,35 +1,14 @@
-import '@testing-library/jest-dom';
-import { render } from '@testing-library/react';
-import StandUpUserList, { TeamMember } from './StandUpUserList';
+import { render, screen } from '@testing-library/react';
 
-// Sample team members data
-const teamMembers: TeamMember[] = [
-  {
-    id: '1',
-    imageUrl: 'https://via.placeholder.com/150',
-    name: 'John Doe',
-    status: 'Active',
-    team: 'Development',
-    // date: '2024-06-18',
-    teamId: '1',
-    standUpCompletedAt: '2024-06-18T09:00:00Z',
-    standUpContent: ['Did some coding', 'Reviewed PRs'],
-    lastSeen: '2024-06-18T08:55:00Z'
-  },
-  {
-    id: '2',
-    imageUrl: 'https://via.placeholder.com/150',
-    name: 'Jane Smith',
-    status: 'Active',
-    team: 'Marketing',
-    // date: '2024-06-18',
-    teamId: '2',
-    standUpCompletedAt: null,
-    standUpContent: ['Worked on campaign', 'Updated social media'],
-    lastSeen: '2024-06-18T08:50:00Z'
-  }
-];
+import { composeStories } from '@storybook/testing-react';
+import * as StandUpUserListStories from './StandUpUserList.stories'; //👈  Our stories imported here
+//👇 composeStories will process all information related to the component (e.g., args)
+const { Default } = composeStories(StandUpUserListStories) as any;
 
-test('renders StandUpUserList component', () => {
-  render(<StandUpUserList teamMembers={teamMembers} />);
+describe('StandUpUserList', () => {
+  test('submits the form', async () => {
+    render(<Default data-testid="custom-element" />);
+    const element = await screen.findByTestId('custom-element');
+    expect(element).toBeInTheDocument();
+  });
 });

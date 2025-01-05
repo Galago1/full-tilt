@@ -34,7 +34,7 @@ export interface DropdownUncontrolledProps extends BoxProps {
   /**
    * The DropdownMenu props
    */
-  dropdownMenuProps: Partial<DropdownMenuProps>;
+  dropdownMenuProps?: Partial<DropdownMenuProps>;
   /**
    * The Grid menu item props
    */
@@ -104,10 +104,10 @@ const DropdownUncontrolled = ({
           id="account-menu"
           onClose={handleClose}
           onClick={handleClose}
+          {...dropdownMenuProps}
           transformOrigin={{ horizontal: 'right', vertical: 'top' }}
           anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
           avatarAndTextProps={avatarAndTextProps}
-          {...dropdownMenuProps}
           dropdownListItems={dropdownListItems}
           gridItemProps={gridItemProps}
           gridContainerProps={gridContainerProps}

@@ -5,8 +5,8 @@ import { TablePaginationWaveProps } from 'src/components/molecules/Table/TablePa
 interface UseResponseRateCardProps {
   slots: {
     dataGridProps: DataGridProps;
-    dataGridGridItemProps: GridProps;
-    tablePaginationWaveProps: TablePaginationWaveProps;
+    dataGridGridItemProps?: GridProps;
+    tablePaginationWaveProps?: TablePaginationWaveProps;
   };
 }
 

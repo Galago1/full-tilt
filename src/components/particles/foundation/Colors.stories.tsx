@@ -1,7 +1,7 @@
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
 
 import { Box, Card, Stack, Typography, Theme } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
+import { useTheme } from '@mui/material';
 import BlockContainer from 'src/components/organisms/BlockContainer/BlockContainer';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export

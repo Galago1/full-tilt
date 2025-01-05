@@ -51,8 +51,8 @@ Disabled.args = {
 export const ReadOnly = Template.bind({});
 ReadOnly.args = {
   label: 'Custom',
-  readOnly: true,
-  value: new Date('2022-01-01T00:00:00.000Z')
+  readOnly: true
+  // value: new Date('2022-01-01T00:00:00.000Z')
 };
 
 // export const Error = Template.bind({});

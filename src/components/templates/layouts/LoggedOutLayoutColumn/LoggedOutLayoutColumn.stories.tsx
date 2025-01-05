@@ -47,7 +47,6 @@ LoggedOutLayoutColumnTemplate.args = {
     ),
 
     dropdownProps: {
-      dropdownMenuProps: {},
       iconButtonProps: {
         size: 'small'
       },
@@ -95,7 +94,6 @@ LoggedOutLayoutColumnFullTemplate.args = {
       buttonSpacing: 0.5
     },
     dropdownProps: {
-      dropdownMenuProps: {},
       iconButtonProps: {
         size: 'small'
       },

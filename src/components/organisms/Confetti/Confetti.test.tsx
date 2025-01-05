@@ -8,9 +8,11 @@ import { Success } from './Confetti.stories';
 
 describe('Confetti', () => {
   it('renders successfully', async () => {
-    render(<Success />);
-    const alertComponent = await screen.findByRole('alert');
-    expect(alertComponent).toBeVisible();
+    await act(async () => {
+      render(<Success />);
+    });
+    const canvasElement = screen.getByTestId('confetti-canvas');
+    expect(canvasElement).toBeInTheDocument();
   });
 });
 
@@ -53,64 +55,68 @@ const _Confetti = () => {
 
 describe('<Confetti> Component', () => {
   jest.useFakeTimers();
+
   it('renders successfully', async () => {
-    render(
-      <ThemeProvider isDarkMode={false}>
-        <ConfettiProvider
-          init={
-            {
-              message: 'This is a test message',
+    await act(async () => {
+      render(
+        <ThemeProvider isDarkMode={false}>
+          <ConfettiProvider
+            init={{
               duration: 1000,
-              visible: true,
-              type: 'error'
-            } as unknown as any
-          }
-        >
-          <Confetti />
-        </ConfettiProvider>
-      </ThemeProvider>
-    );
-    const alertComponent = await screen.findByRole('alert');
-    expect(alertComponent).toBeVisible();
+              visible: true
+            }}
+          >
+            <Confetti />
+          </ConfettiProvider>
+        </ThemeProvider>
+      );
+    });
+
+    const canvasElement = screen.getByTestId('confetti-canvas');
+    expect(canvasElement).toBeInTheDocument();
+
     act(() => {
       jest.advanceTimersByTime(2000);
     });
+
     await waitFor(() => {
-      expect(alertComponent).not.toBeVisible();
+      expect(canvasElement).toHaveStyle({ display: 'none' });
     });
   });
 
-  it('calls showConfetti() succesfully', () => {
-    render(
-      <Provider visible={false}>
-        <_Confetti />
-      </Provider>
-    );
+  it('calls showConfetti() succesfully', async () => {
+    await act(async () => {
+      render(
+        <Provider visible={false}>
+          <_Confetti />
+        </Provider>
+      );
+    });
     const button = screen.getByRole('button');
     fireEvent.click(button);
   });
 
-  it('inits succesfully', () => {
-    render(
-      <ThemeProvider isDarkMode={false}>
-        <DefaultProvider>
-          <Confetti />
-        </DefaultProvider>
-      </ThemeProvider>
-    );
+  it('inits succesfully', async () => {
+    await act(async () => {
+      render(
+        <ThemeProvider isDarkMode={false}>
+          <DefaultProvider>
+            <Confetti />
+          </DefaultProvider>
+        </ThemeProvider>
+      );
+    });
   });
 
-  //I can't figure out how to test the clickaway line, don't want to waste anymore time on it - Dave
-  it.todo('handles clickaway');
-
-  it('renders with an  function handler', () => {
-    render(
-      <Provider visible={false}>
-        <_Confetti />
-      </Provider>
-    );
-    const button = screen.getByRole('button');
-
-    fireEvent.click(button);
+  it('renders with an function handler', async () => {
+    await act(async () => {
+      render(
+        <ThemeProvider isDarkMode={false}>
+          <DefaultProvider>
+            <Confetti />
+          </DefaultProvider>
+        </ThemeProvider>
+      );
+    });
   });
 });

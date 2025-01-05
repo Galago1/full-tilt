@@ -142,6 +142,14 @@ export interface AvatarAndTextProps extends Omit<GridProps, 'title'> {
    * Left icon grid props
    */
   leftIconGridProps?: GridProps;
+  /**
+   * Left component
+   */
+  leftComponent?: ReactNode;
+  /**
+   * Left component item sx
+   */
+  leftComponentItemSx?: SxProps<Theme>;
 }
 
 /**
@@ -179,6 +187,8 @@ const AvatarAndText = forwardRef(
       textTertiaryGridItemProps,
       textSubtitleGridItemProps,
       spacing = 0,
+      leftComponent,
+      leftComponentItemSx,
       ...props
     }: AvatarAndTextProps,
     ref: any
@@ -202,6 +212,17 @@ const AvatarAndText = forwardRef(
         spacing={spacing ?? 1.25} //
         ref={ref}
       >
+        {leftComponent && (
+          <Grid
+            item
+            sx={{
+              alignSelf: 'center',
+              ...leftComponentItemSx
+            }}
+          >
+            {leftComponent}
+          </Grid>
+        )}
         {leftButtonProps && (
           <Grid
             item

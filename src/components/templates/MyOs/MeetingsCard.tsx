@@ -17,9 +17,7 @@ import { SetStateAction } from 'react';
 import Avatar from 'src/components/atoms/Avatar/Avatar';
 import Button, { ButtonProps } from 'src/components/atoms/Button/Button';
 import Chip from 'src/components/atoms/Chip/Chip';
-import AvatarAndText, {
-  AvatarAndTextProps
-} from 'src/components/molecules/AvatarAndText/AvatarAndText';
+import AvatarAndText from 'src/components/molecules/AvatarAndText/AvatarAndText';
 import BasicEmptyState from 'src/components/molecules/BasicEmptyState/BasicEmptyState';
 import LoadingIndicator from 'src/components/molecules/LoadingIndicator/LoadingIndicator';
 import Card, { CardProps } from 'src/components/organisms/Card/Card';

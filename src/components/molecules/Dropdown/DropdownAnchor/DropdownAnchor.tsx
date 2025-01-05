@@ -16,7 +16,7 @@ export interface DropdownAnchorProps {
   /**
    * The name, icon, or avatar
    */
-  label: JSX.Element | string;
+  label?: JSX.Element | string;
   /**
    * The open status
    */

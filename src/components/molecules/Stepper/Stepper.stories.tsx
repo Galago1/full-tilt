@@ -14,12 +14,10 @@ import {
 import type { ComponentMeta, Story } from '@storybook/react';
 import type { ReactNode } from 'react';
 import { Fragment } from 'react';
+import { SettingsIcon } from 'src/components/particles/theme/overrides/CustomIcons';
+import useStepper from 'src/hooks/useStepper';
 import type { StepperProps } from './Stepper';
 import Stepper from './Stepper';
-import SettingsIcon from '@mui/icons-material/Settings';
-import GroupAddIcon from '@mui/icons-material/GroupAdd';
-import VideoLabelIcon from '@mui/icons-material/VideoLabel';
-import useStepper from 'src/hooks/useStepper';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -262,8 +260,8 @@ const ColorlibStepIcon = (props: StepIconProps) => {
 
   const icons: { [index: string]: React.ReactElement } = {
     1: <SettingsIcon />,
-    2: <GroupAddIcon />,
-    3: <VideoLabelIcon />
+    2: <SettingsIcon />,
+    3: <SettingsIcon />
   };
 
   return (

@@ -28,7 +28,7 @@ export default {
 } as ComponentMeta<typeof BoxSelect>;
 
 const Template: ComponentStory<typeof BoxSelect> = (args) => (
-  <Formik initialValues={{ name: '' }} onSubmit={() => console.log('changed')}>
+  <Formik initialValues={{ name: '' }} onSubmit={() => {}}>
     <Field name="name" component={BoxSelect} {...args} />
   </Formik>
 );

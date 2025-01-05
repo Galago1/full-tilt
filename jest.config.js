@@ -13,7 +13,15 @@ module.exports = {
     }
   },
 
-  transformIgnorePatterns: ['node_modules/(?!(react-dnd)/)'],
+  transformIgnorePatterns: [
+    'node_modules/(?!(' +
+      'dnd-core|' +
+      'react-dnd|' +
+      'react-dnd-html5-backend|' +
+      '@react-dnd|' +
+      'redux-dnd|' +
+      ')/)'
+  ],
   testEnvironment: 'jest-environment-jsdom',
   // Transforms tell jest how to process our non-javascript files.
   // Here we're using babel for .js and .jsx files, and ts-jest for

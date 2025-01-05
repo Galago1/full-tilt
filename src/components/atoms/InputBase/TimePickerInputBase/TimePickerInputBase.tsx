@@ -37,7 +37,7 @@ export interface TimePickerInputBaseProps extends TimePickerProps<any> {
 const TimePickerInputBase = ({ ...props }: TimePickerInputBaseProps) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
-      <TimePicker {...props} value={props.field.value} />
+      <TimePicker {...props} value={props?.field?.value || null} />
     </LocalizationProvider>
   );
 };

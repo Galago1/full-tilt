@@ -21,7 +21,7 @@ const Template: Story<BreadcrumbsProps> = (args) => <Breadcrumbs {...args} />;
 
 export const HomeOnly = Template.bind({ title: 'Secondary' });
 HomeOnly.args = {
-  breadcrumbs: [{ label: '', onClick: () => console.log('Home clicked') }]
+  breadcrumbs: [{ label: '', onClick: () => {} }]
 };
 export const HomeEnd = Template.bind({ title: 'Secondary' });
 HomeEnd.args = {

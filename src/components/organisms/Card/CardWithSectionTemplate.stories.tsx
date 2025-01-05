@@ -2,6 +2,8 @@ import { Box, InputAdornment } from '@mui/material';
 import { ComponentMeta, Story } from '@storybook/react';
 import { Formik } from 'formik';
 import TextInput from 'src/components/molecules/Inputs/TextInput';
+import Tabs from 'src/components/molecules/Tabs';
+import { FullWidthAndBorder } from 'src/components/molecules/Tabs/Tabs.stories';
 import { SearchMdIcon } from 'src/components/particles/theme/overrides/CustomIcons';
 import useCardSectionHeaderProps, {
   UseCardSectionHeaderProps
@@ -9,11 +11,6 @@ import useCardSectionHeaderProps, {
 import { EmployeeDataGrid } from '../DataGrid/DataGrid.stories';
 import type { CardProps } from './Card';
 import Card from './Card';
-import Tabs from 'src/components/molecules/Tabs';
-import {
-  FullWidthAndBorder,
-  ShowBackground
-} from 'src/components/molecules/Tabs/Tabs.stories';
 
 export default {
   title: 'Organisms/Card/CardWithSectionTemplate',

@@ -7,7 +7,6 @@ import { EmptyStateProps } from 'src/components/molecules/EmptyState/EmptyState'
 import Card, { CardProps } from 'src/components/organisms/Card/Card';
 import Divider from '../../atoms/Divider/Divider';
 import RowsOrEmptyState, { RowsOrEmptyStateProps } from './RowsOrEmptyState';
-// import { ScorecardDraggableRowProps } from './ScorecardDraggableRow';
 import ScorecardHeadCell from './ScorecardHeadCell';
 import { InlineFormikProps } from './ScorecardInlineEditCell';
 import { RowData, useScorecard } from './useScorecard';

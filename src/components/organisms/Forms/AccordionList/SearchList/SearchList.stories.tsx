@@ -28,6 +28,7 @@ InitiallyClosed.args = {
     // sx: { width: '100%' },
     checkboxInputs: [
       {
+        type: 'checkbox',
         labelProps: {
           label: 'Select All',
           sx: {

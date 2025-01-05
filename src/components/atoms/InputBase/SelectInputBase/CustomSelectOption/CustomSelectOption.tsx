@@ -1,4 +1,4 @@
-import type { GridProps, Theme } from '@mui/material';
+import type { GridProps, SxProps, Theme } from '@mui/material';
 import { Typography } from '@mui/material';
 import { Grid } from '@mui/material';
 import { CheckIcon } from 'src/components/particles/theme/overrides/CustomIcons';
@@ -36,6 +36,7 @@ export interface CustomSelectOptionProps {
    * hde the subvalue form the display
    */
   hideSubvalue?: boolean;
+  containerSx?: SxProps<Theme>;
 }
 
 /**
@@ -50,6 +51,7 @@ export const CustomSelectOption = ({
   overrideDisplayValue,
   allowOverrideDisplayValue,
   hideSubvalue,
+  containerSx,
   ...props
 }: CustomSelectOptionProps) => {
   return (
@@ -62,14 +64,14 @@ export const CustomSelectOption = ({
         borderRadius: 0,
         alignItems: 'center',
         padding: (theme: Theme) => theme.spacing(1.25, 1.25, 1.25, 1),
-        '&:hover': (theme: Theme) => theme.palette.grey[50]
+        '&:hover': (theme: Theme) => theme.palette.grey[50],
+        ...containerSx
       }}
+      gap={1}
+      flexWrap={'nowrap'}
     >
       {icon && (
-        <Grid
-          item
-          sx={{ mr: (theme: Theme) => theme.spacing(1), display: 'flex' }}
-        >
+        <Grid item sx={{ display: 'flex' }}>
           {icon}
         </Grid>
       )}
@@ -83,7 +85,6 @@ export const CustomSelectOption = ({
         <Typography
           variant="textMdRegular"
           sx={{
-            mr: (theme: Theme) => theme.spacing(1),
             color: (theme: Theme) => theme.palette.grey[900]
           }}
         >
@@ -106,11 +107,5 @@ export const CustomSelectOption = ({
         </Grid>
       )}
     </Grid>
-
-    // <ListItemButton {...props}>
-    //   {icon && <ListItemIcon>{icon}</ListItemIcon>}
-    //   <ListItemText primary={value} />
-    //   {checked && <CheckIcon color={'primary'} />}
-    // </ListItemButton>
   );
 };

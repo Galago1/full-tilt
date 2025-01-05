@@ -1,5 +1,3 @@
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import {
   Grid,
   Paper,
@@ -18,9 +16,12 @@ import ButtonGroup from 'src/components/molecules/ButtonGroup/ButtonGroup';
 import Card, { CardProps } from 'src/components/organisms/Card/Card';
 import {
   CalendarIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
   SwitchHorizontal01Icon,
   SwitchVertical02Icon
 } from 'src/components/particles/theme/overrides/CustomIcons';
+import { Quarter } from 'src/types/other';
 import Divider from '../../atoms/Divider';
 import {
   CellBox,
@@ -34,7 +35,6 @@ import {
   TeamHeaderCell
 } from './helpers';
 import { useOverviewCard } from './useOverviewCard';
-import { Quarter } from 'src/types/other';
 
 const quarterLabel: Record<Quarter, string> = {
   q1: 'Q1',
@@ -126,7 +126,7 @@ const OverviewCard = ({
         <Grid container alignItems="center" mb={2}>
           <Grid item flex={1}>
             <Typography variant="textLgSemibold" noWrap>
-              Survey Overview
+              Feedback Overview
             </Typography>
           </Grid>
           <Grid item>
@@ -134,7 +134,7 @@ const OverviewCard = ({
               customVariant="roundedEdges"
               buttons={[
                 {
-                  endIcon: <ArrowBackIosNewIcon />,
+                  endIcon: <ChevronLeftIcon />,
                   onClick: () => handleQuarterChange('left'),
                   disabled: currentQuarterIndex === 0
                 },
@@ -150,7 +150,7 @@ const OverviewCard = ({
                   ...middleButtonProps
                 },
                 {
-                  endIcon: <ArrowForwardIosIcon />,
+                  endIcon: <ChevronRightIcon />,
                   onClick: () => handleQuarterChange('right'),
                   disabled: currentQuarterIndex === quarters.length - 1
                 }
@@ -176,8 +176,8 @@ const OverviewCard = ({
                         alignItems: 'flex-end',
                         width: '100%',
                         height: '100%',
-                        border: '1px solid #e0e0e0',
-                        borderRadius: '8px'
+                        border: theme.border.basicBox,
+                        borderRadius: theme.borderRadius.md
                       }}
                     >
                       <Grid

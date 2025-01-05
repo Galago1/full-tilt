@@ -30,24 +30,6 @@ const Employee: Story<DataGridProps> = (args) => {
   return <DataGrid {...args} {...data} loading={data.rows.length === 0} />;
 };
 
-const Commodity: Story<DataGridProps> = (args) => {
-  const { data, loading } = useDemoData({
-    dataSet: 'Commodity',
-    rowLength: 1,
-    // maxColumns: 10,
-    editable: true
-  });
-  return (
-    <DataGrid
-      {...args}
-      {...data}
-      loading={loading}
-      components={{ Toolbar: GridToolbar, Footer: DatagridFooter }}
-      experimentalFeatures={{ newEditingApi: true }}
-    />
-  );
-};
-
 export const LoadingDataGrid = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 LoadingDataGrid.args = {
@@ -61,13 +43,13 @@ EmptyDataGrid.args = {
   columns: []
 };
 
-export const StateOfDataGrid = Template.bind({});
-StateOfDataGrid.args = {
-  ...STATE_OF_DATA
-};
+// export const StateOfDataGrid = Template.bind({});
+// StateOfDataGrid.args = {
+//   ...STATE_OF_DATA
+// };
 
-export const CommodityDataGrid = Commodity.bind({});
-CommodityDataGrid.args = {};
+// export const CommodityDataGrid = Commodity.bind({});
+// CommodityDataGrid.args = {};
 
 export const EmployeeDataGrid = Employee.bind({});
 EmployeeDataGrid.args = {};

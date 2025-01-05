@@ -8,7 +8,7 @@ import {
   Toolbar,
   ToolbarProps
 } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
+import { useTheme } from '@mui/material';
 import { isEmpty } from 'lodash';
 import { AvatarAndText } from 'src/components/molecules';
 import { AvatarAndTextProps } from 'src/components/molecules/AvatarAndText/AvatarAndText';

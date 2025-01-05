@@ -47,6 +47,7 @@ const Confetti = forwardRef(({ ...props }: ConfettiProps, ref) => {
       width={width}
       height={height}
       style={{ display: visible ? 'block' : 'none' }}
+      data-testid="confetti-canvas"
     />
   );
 });

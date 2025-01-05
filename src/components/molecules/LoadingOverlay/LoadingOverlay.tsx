@@ -10,7 +10,11 @@ export interface LoadingOverlayProps {
 /**
  * Primary UI component for user interaction
  */
-const LoadingOverlay = ({ isLoading, isSuccess }: LoadingOverlayProps) => {
+const LoadingOverlay = ({
+  isLoading,
+  isSuccess,
+  ...props
+}: LoadingOverlayProps) => {
   return (
     <Fade in={isLoading || isSuccess}>
       <Grid
@@ -18,6 +22,7 @@ const LoadingOverlay = ({ isLoading, isSuccess }: LoadingOverlayProps) => {
           display: isLoading || isSuccess ? 'flex' : 'none',
           justifyContent: 'center'
         }}
+        {...props}
       >
         <Fade in={isLoading && !isSuccess}>
           <Grid

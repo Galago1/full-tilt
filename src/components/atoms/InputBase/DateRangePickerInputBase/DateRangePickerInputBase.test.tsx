@@ -6,12 +6,8 @@ const { Variant } = composeStories(DateRangePickerInputBaseStories);
 
 describe('DateRangePickerInputBase', () => {
   test('renders the Variant', () => {
-    // render(<Variant />);
-    // const element = screen.getByLabelText('Custom');
-    // expect(element).toBeInTheDocument();
-
     render(<Variant />);
-    const element = screen.getByTestId('custom-date-range-picker');
-    expect(element).toBeInTheDocument();
+    expect(screen.getByLabelText('Check-in')).toBeInTheDocument();
+    expect(screen.getByLabelText('Check-out')).toBeInTheDocument();
   });
 });

@@ -60,9 +60,6 @@ export const scorecardDropdown = (): DropdownProps => {
       sx: { '&': { minWidth: 'auto', px: 7 / 8 } }
     },
     // avatarAndTextProps: currentUserAvatarAndTextProps(currentUser),
-    dropdownMenuProps: {
-      // onClick: () => setOpen(false)
-    },
     dropdownListItems: dropdownListItems
   };
 };

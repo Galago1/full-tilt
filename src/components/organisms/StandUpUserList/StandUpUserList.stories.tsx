@@ -9,12 +9,13 @@ import {
 import { Story } from '@storybook/react';
 import { Edit05Icon } from 'src/components/particles/theme/overrides/CustomIcons';
 import { DateFormat } from 'src/types/dateFns';
-import { formatDateIso } from 'src/utils/date';
+import { formatDateIso, formatIso } from 'src/utils/date';
 import StandUpUserList, {
   StandUpUserListProps,
   TeamMember
 } from './StandUpUserList';
 import { SelectOption } from 'src/components/atoms/InputBase/SelectInputBase/SelectInputBase';
+import { ThemeProvider } from 'src/components/particles';
 const image = 'https://robohash.org/WTN.png?set=set1';
 
 export default {
@@ -25,7 +26,8 @@ export default {
 const createDate = (offset = 0) => {
   const date = new Date();
   date.setDate(date.getDate() + offset);
-  return formatDateIso(date, DateFormat.ISO8601);
+  // return formatDateIso(date, DateFormat.ISO8601);
+  return formatDateIso(date, DateFormat.yyyyMMddTHHmmssZ);
 };
 
 const today = createDate();
@@ -48,6 +50,7 @@ const teamMembers: TeamMember[] = [
     team: 'Product',
     teamId: 'asdc',
     standUpCompletedAt: null,
+    standUpCompletedAtTime: null,
     standUpContent: [
       'Increase team health and trust.',
       'Update our company Vision.',
@@ -56,13 +59,15 @@ const teamMembers: TeamMember[] = [
     lastSeen: activeTimestamp.toISOString()
   },
   {
-    id: 'asdcad',
+    id: 'asdcadasdcasd',
     name: 'Phoenix Baker',
     imageUrl: image,
     status: 'Active',
     team: 'Product',
     teamId: 'asdc',
     standUpCompletedAt: today,
+    // standUpCompletedAtTime: formatIso(today, DateFormat.HHMM),
+    standUpCompletedAtTime: '12:00 AM',
     standUpContent: [
       'Increase team health and trust.',
       'Update our company Vision.',
@@ -77,6 +82,8 @@ const teamMembers: TeamMember[] = [
     team: 'HR',
     teamId: 'asdasdcc',
     standUpCompletedAt: yesterday,
+    // standUpCompletedAtTime: formatIso(yesterday, DateFormat.HHMM),
+    standUpCompletedAtTime: '4:34AM',
     standUpContent: [
       'Prepare onboarding materials for new hires.',
       'Review company policies.',
@@ -88,7 +95,9 @@ const teamMembers: TeamMember[] = [
 
 const Template: Story<StandUpUserListProps> = (args) => (
   <Box sx={{ height: '100vh' }}>
-    <StandUpUserList {...args} />
+    <ThemeProvider>
+      <StandUpUserList {...args} />
+    </ThemeProvider>
   </Box>
 );
 
@@ -119,6 +128,7 @@ Controlled.args = {
   teamsOptions: teamsOptions,
   showTeamSelect: false,
   hideShowEditButton: true,
+  initialDate: today,
   currentMember: teamMembers[0],
   memberButtonProps: { label: 'Complete Stand Up' },
   slots: {
@@ -156,10 +166,7 @@ Controlled.args = {
     }
   },
   showEditFor: (member) => {
-    console.log('Edit button clicked for:', member);
     return true;
   },
-  onEdit: (member) => {
-    console.log('Edit button clicked for:', member);
-  }
+  onEdit: (member) => {}
 };

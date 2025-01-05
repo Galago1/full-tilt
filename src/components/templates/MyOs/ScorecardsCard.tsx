@@ -1,5 +1,5 @@
 import { Collapse, Grid, GridProps, useTheme } from '@mui/material';
-import { FormikHelpers } from 'formik';
+import { Field, Formik, FormikHelpers } from 'formik';
 import { isEmpty } from 'lodash';
 import { useState } from 'react';
 import Chip from 'src/components/atoms/Chip/Chip';
@@ -7,9 +7,9 @@ import Divider from 'src/components/atoms/Divider/Divider';
 import Link from 'src/components/atoms/Link/Link';
 import AvatarAndText from 'src/components/molecules/AvatarAndText/AvatarAndText';
 import BasicEmptyState from 'src/components/molecules/BasicEmptyState/BasicEmptyState';
-import ButtonGroup, {
-  ButtonGroupProps
-} from 'src/components/molecules/ButtonGroup/ButtonGroup';
+import DateNavigatorInput, {
+  DateNavigatorInputProps
+} from 'src/components/molecules/Inputs/DateNavigatorInput/DateNavigatorInput';
 import NumberInputBase from 'src/components/molecules/Inputs/NumberInputBase/NumberInputBase';
 import LoadingIndicator from 'src/components/molecules/LoadingIndicator/LoadingIndicator';
 import ScorecardInlineEditCell, {
@@ -19,12 +19,13 @@ import {
   ChevronDownIcon,
   ChevronRightIcon,
   ChevronUpIcon,
-  Target05Icon
+  LayoutGrid02Icon
 } from 'src/components/particles/theme/overrides/CustomIcons';
 import { responsiveSpacing } from 'src/components/particles/theme/spacing';
 import { Scorecard } from './types';
 
 interface ScoreCardItemProps {
+  id: string;
   title: string;
   goal: string;
   measurableMetricId: string;
@@ -37,10 +38,11 @@ interface ScoreCardItemProps {
   ) => Promise<void>;
   backgroundColor: string;
   slots: {
-    buttonGroupProps: ButtonGroupProps;
+    dateNavigatorInputProps: DateNavigatorInputProps;
   };
 }
 const ScoreCardItemList = ({
+  id,
   title,
   goal,
   measurableMetricId,
@@ -50,8 +52,9 @@ const ScoreCardItemList = ({
   backgroundColor,
   slots
 }: ScoreCardItemProps) => {
-  const { buttonGroupProps } = slots || {};
+  const { dateNavigatorInputProps } = slots || {};
   const theme = useTheme();
+
   return (
     <Grid container flexDirection={'column'} gap={0.5}>
       <Grid item width={'100%'}>
@@ -84,7 +87,13 @@ const ScoreCardItemList = ({
       <Grid item width={'100%'}>
         <Grid container gap={1} flexWrap={'nowrap'} alignItems={'center'}>
           <Grid item xs={9}>
-            <ButtonGroup {...buttonGroupProps} />
+            <Formik initialValues={{ date, id }} onSubmit={() => {}}>
+              <Field
+                {...dateNavigatorInputProps}
+                component={DateNavigatorInput}
+                name="date"
+              />
+            </Formik>
           </Grid>
           <Grid item xs={3}>
             <ScorecardInlineEditCell
@@ -125,7 +134,7 @@ const ScoreCardItemList = ({
   );
 };
 
-interface ScorecardsContentProps {
+export interface ScorecardsContentProps {
   isFirst?: boolean;
   title: string;
   scorecards: Scorecard[];
@@ -233,6 +242,7 @@ const ScorecardsContent = ({
                   key={`scorecards-content-index-${scorecard.id}`}
                 >
                   <ScoreCardItemList
+                    id={scorecard.id}
                     title={scorecard.title}
                     goal={scorecard.goal}
                     value={scorecard.value}
@@ -270,7 +280,7 @@ const ScorecardsCardListContent = ({
   if (!scorecardsContentProps || loading || (!loading && isCompletelyEmpty))
     return (
       <BasicEmptyState
-        icon={loading ? null : <Target05Icon />}
+        icon={loading ? null : <LayoutGrid02Icon />}
         title={loading ? '' : 'No Scorecards'}
         subtitle={loading ? '' : emptyStateSubtitle}
         emptyStateHeight={'auto'}
@@ -354,7 +364,7 @@ export const ScorecardsCard = ({
           spacing={0}
           gap={1}
           alignItems={'center'}
-          leftIcon={<Target05Icon />}
+          leftIcon={<LayoutGrid02Icon />}
           leftIconGridProps={{ display: 'flex' }}
           title={'My Scorecards'}
           textGridItemProps={{ flex: 1 }}

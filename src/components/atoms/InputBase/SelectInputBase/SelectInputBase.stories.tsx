@@ -29,7 +29,10 @@ const basicOptions: SelectOption[] = [
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 const Template: Story<SelectInputBaseProps> = (args) => {
   return (
-    <Formik initialValues={{ name: 'none' }} onSubmit={(v) => {}}>
+    <Formik
+      initialValues={{ name: args.SelectProps?.multiple ? ['none'] : 'none' }}
+      onSubmit={(v) => {}}
+    >
       <Field {...args} name="name">
         {({ field }: any) => {
           return <SelectInputBase {...args} {...field} />;
@@ -42,13 +45,21 @@ const Template: Story<SelectInputBaseProps> = (args) => {
 export const NoneSelected = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 NoneSelected.args = {
-  defaultOptionLabel: 'Select an op',
+  defaultOptionLabel: 'Select an option',
   value: 'none',
   options: basicOptions
 };
 
 export const CheckSelected = Template.bind({});
 CheckSelected.args = {
+  SelectProps: {
+    multiple: true,
+    sx: {
+      '& .MuiSelect-select': {
+        display: 'flex'
+      }
+    }
+  },
   options: [
     {
       value: '1',
@@ -61,6 +72,11 @@ CheckSelected.args = {
           </Avatar>
         )
         // checked: true
+      },
+      menuItem: {
+        sx: {
+          px: 0
+        }
       }
     },
     {
@@ -74,10 +90,32 @@ CheckSelected.args = {
           </Avatar>
         )
         // checked: false
+      },
+      menuItem: {
+        sx: {
+          px: 0
+        }
+      }
+    },
+    {
+      value: '3',
+      label: {
+        value: 'Other Other value',
+        subvalue: 'Other other other val',
+        icon: (
+          <Avatar sx={{ height: 24, width: 24 }}>
+            <>OK</>
+          </Avatar>
+        )
+      },
+      menuItem: {
+        sx: {
+          px: 0
+        }
       }
     }
   ],
-  value: '1',
+  value: [],
   label: 'Custom',
   checkSelected: true
 };

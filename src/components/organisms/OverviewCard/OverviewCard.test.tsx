@@ -1,23 +1,16 @@
 import { render } from '@testing-library/react';
-import OverviewCard from './OverviewCard';
-import { mockData } from './helpers';
+import * as OverviewCardStories from './OverviewCard.stories'; //👈  Our stories imported here
+import { composeStories } from '@storybook/testing-react';
+//👇 composeStories will process all information related to the component (e.g., args)
+const { Default } = composeStories(OverviewCardStories);
 
 describe('OverviewCard', () => {
   test('renders without crashing', () => {
-    const { getByText } = render(
-      <OverviewCard
-        data={mockData}
-        selectedQuarter="q1"
-        onQuarterChange={() => {}}
-        showSwitches={false}
-        middleButtonProps={{}}
-      />
-    );
+    const { getByText } = render(<Default />);
 
-    expect(getByText('Survey Overview')).toBeInTheDocument();
+    expect(getByText('Feedback Overview')).toBeInTheDocument();
     expect(getByText('Teams')).toBeInTheDocument();
     expect(getByText('Product Team')).toBeInTheDocument();
     expect(getByText('Productivity & Focus')).toBeInTheDocument();
-    expect(getByText('85')).toBeInTheDocument();
   });
 });

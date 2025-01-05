@@ -71,7 +71,7 @@ export interface HorizontalInputProps {
   /**
    * The children
    */
-  children: React.ReactNode;
+  children?: React.ReactNode;
   slots?: {
     /**
      * container grid item props

@@ -52,7 +52,6 @@ const NumberInputBase = ({
       {...props}
     />
   );
-  console.log('methasErrorhasErrora', hasError, ogMeta);
   const renderWithError = (component: React.ReactNode) => (
     <FormControl error={hasError} fullWidth>
       {component}

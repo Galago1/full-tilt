@@ -1,18 +1,21 @@
 import { ComponentMeta, Story } from '@storybook/react';
-import { FormikHelpers } from 'formik';
-import { ButtonGroupProps } from 'src/components/molecules/ButtonGroup/ButtonGroup';
+import { FieldInputProps, FormikHelpers, FormikProps } from 'formik';
+import { useState } from 'react';
+import { DateNavigatorInterval } from 'src/components/atoms/DateNavigator/DateNavigator';
+import { DateNavigatorInputProps } from 'src/components/molecules/Inputs/DateNavigatorInput/DateNavigatorInput';
 import {
   getColorByValue,
   GoalCondition
 } from 'src/components/organisms/Scorecard/helpers';
 import { InlineFormikProps } from 'src/components/organisms/Scorecard/ScorecardInlineEditCell';
-import {
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  ZapIcon
-} from 'src/components/particles/theme/overrides/CustomIcons';
-import { MyOs, MyOsProps } from './MyOs';
+import { ZapIcon } from 'src/components/particles/theme/overrides/CustomIcons';
+import { formatDateIso, parseDate } from 'src/utils/date';
 import { WorkScheduleStatus } from './DailyStandupCard';
+import { MyOs, MyOsProps } from './MyOs';
+import { ScorecardsContentProps } from './ScorecardsCard';
+import { Scorecard } from './types';
+import { DateFormat } from 'src/types/dateFns';
+import { ThemeProvider } from 'src/components/particles';
 
 const onSave: any = (
   values: InlineFormikProps,
@@ -20,65 +23,12 @@ const onSave: any = (
   onCloseEditor: () => void
 ) => {};
 
-const buttonGroupProps: ButtonGroupProps = {
-  sx: { '&': { display: 'flex' } },
-  buttons: [
-    {
-      label: <ChevronLeftIcon sx={{ width: 20, height: 20 }} />,
-      variant: 'outlined',
-      color: 'secondary',
-      size: 'small',
-      sx: {
-        '&': {
-          minWidth: 'auto',
-          borderRight: 'unset',
-          p: 1,
-          py: 1.5
-        }
-      },
-      onClick: () => console.log('clicked')
-    },
-    {
-      label: 'Jul 16',
-      variant: 'outlined',
-      color: 'secondary',
-      size: 'small',
-      fullWidth: true,
-      sx: {
-        '&': {
-          minWidth: 'auto',
-          p: 1,
-          py: 1.5,
-          whiteSpace: 'nowrap'
-        },
-        '&.Mui-disabled': {
-          backgroundColor: 'white',
-          borderRight: 'none',
-          borderLeft: 'none'
-        },
-        flex: 1
-      },
-      disabled: true
-    },
-    {
-      label: <ChevronRightIcon sx={{ width: 20, height: 20 }} />,
-      variant: 'outlined',
-      color: 'secondary',
-      size: 'small',
-      sx: {
-        '&': {
-          minWidth: 'auto',
-          borderLeft: 'unset',
-          p: 1,
-          py: 1.5
-        },
-        '&:hover': {
-          borderLeft: 'none'
-        }
-      },
-      onClick: () => console.log('clicked')
-    }
-  ]
+const dateNavigatorInputProps: DateNavigatorInputProps = {
+  interval: DateNavigatorInterval.DAILY,
+  onPreviousChange: () => {},
+  onNextChange: () => {},
+  sx: { '&': { display: 'flex' }, width: '100%' }
+  // dateLabelFn: () => '',
 };
 
 export default {
@@ -89,7 +39,93 @@ export default {
   }
 } as ComponentMeta<typeof MyOs>;
 
-const Template: Story<MyOsProps> = (args) => <MyOs {...args} />;
+const Template: Story<MyOsProps> = (args) => {
+  const intialDate = new Date();
+  const [dates, setDates] = useState<{ [key: string]: string | undefined }>({});
+  const newArgs: MyOsProps = {
+    ...args,
+    slots: {
+      ...args.slots,
+      scorecardsCardProps: {
+        ...args.slots?.scorecardsCardProps,
+        scorecardsContentProps: (
+          args.slots?.scorecardsCardProps?.scorecardsContentProps || []
+        ).map((scorecard: ScorecardsContentProps) => ({
+          ...scorecard,
+          scorecards: scorecard.scorecards.map(
+            (scorecard: Scorecard): Scorecard => {
+              return {
+                ...scorecard,
+                slots: {
+                  ...scorecard.slots,
+                  dateNavigatorInputProps: {
+                    ...scorecard.slots?.dateNavigatorInputProps,
+                    // interval: DateNavigatorInterval.DAILY,
+                    onPreviousChange: (
+                      interval: DateNavigatorInterval,
+                      form: FormikProps<any> | undefined,
+                      field: FieldInputProps<any> | undefined
+                    ) => {
+                      const { id } = scorecard;
+                      const newDates = { ...dates };
+                      const newestDate = newDates[id]
+                        ? parseDate(newDates[id])
+                        : new Date(intialDate); // Ensure a new Date instance
+                      newestDate.setDate(newestDate.getDate() - 1);
+
+                      setDates({
+                        ...newDates,
+                        [id]: formatDateIso(newestDate)
+                      });
+                      form?.setFieldValue(
+                        field?.name || '',
+                        formatDateIso(newestDate)
+                      );
+                    },
+                    onNextChange: (
+                      interval: DateNavigatorInterval,
+                      form: FormikProps<any> | undefined,
+                      field: FieldInputProps<any> | undefined
+                    ) => {
+                      const { id } = scorecard;
+                      const newDates = { ...dates };
+                      const newestDate = newDates[id]
+                        ? parseDate(newDates[id])
+                        : new Date(intialDate); // Ensure a new Date instance
+                      newestDate.setDate(newestDate.getDate() + 1);
+
+                      setDates({
+                        ...newDates,
+                        [id]: formatDateIso(newestDate)
+                      });
+                      form?.setFieldValue(
+                        field?.name || '',
+                        formatDateIso(newestDate)
+                      );
+                    },
+                    dateLabelFn: (date: string) => {
+                      // const interval = scorecard.interval;
+                      const format =
+                        date.length >= 10 ? DateFormat.MDY : DateFormat.MMMdd;
+                      const parsedDate = parseDate(date, format);
+                      return formatDateIso(parsedDate, DateFormat.MMMdd);
+                    },
+                    sx: { '&': { display: 'flex' }, width: '100%' }
+                  }
+                }
+              };
+            }
+          )
+        }))
+      }
+    }
+  };
+  return (
+    <ThemeProvider>
+      <MyOs {...newArgs} />
+    </ThemeProvider>
+  );
+};
 
 export const Default = Template.bind({});
 Default.args = {
@@ -153,8 +189,34 @@ Default.args = {
     id: '1'
   },
   slots: {
+    dailyStandupCardProps: {
+      onHeaderClick: () => {}
+    },
     pendingSurveysCard: {
       onHeaderClick: () => {}
+    },
+    headlinesCardProps: {
+      loading: false,
+      cardSlots: {},
+      slots: {
+        sharedListCardContentProps: {
+          slots: {
+            checkDoneFormProps: {
+              // id?: string;
+              // isTransitioning?: boolean;
+              handleSubmit: async (
+                values: { id: string; done: boolean },
+                formik: FormikHelpers<{ id: string; done: boolean }>
+              ) => {},
+              isCheckedFn: (id: string) => {
+                return true;
+              }
+              // isTransitioningRowFn?: (id: string) => boolean;
+              // hoveredRowIdFn?: (id: string) => string | null;
+            }
+          }
+        }
+      }
     },
     ideasCardProps: {
       onHeaderClick: () => {}
@@ -188,7 +250,7 @@ Default.args = {
               goal: '> 1',
               value: 0,
               onSave,
-              slots: { buttonGroupProps },
+              slots: { dateNavigatorInputProps },
               backgroundColor: getColorByValue(
                 GoalCondition.GREATER_THAN,
                 '1',
@@ -203,7 +265,7 @@ Default.args = {
               goal: '= 100',
               value: 70,
               onSave,
-              slots: { buttonGroupProps },
+              slots: { dateNavigatorInputProps },
               backgroundColor: getColorByValue(
                 GoalCondition.EQUAL_TO,
                 '100',
@@ -218,7 +280,7 @@ Default.args = {
               goal: '> 10',
               value: 99,
               onSave,
-              slots: { buttonGroupProps },
+              slots: { dateNavigatorInputProps },
               backgroundColor: getColorByValue(
                 GoalCondition.GREATER_THAN,
                 '10',
@@ -233,7 +295,7 @@ Default.args = {
               goal: '= 100',
               value: 20,
               onSave,
-              slots: { buttonGroupProps },
+              slots: { dateNavigatorInputProps },
               backgroundColor: getColorByValue(
                 GoalCondition.EQUAL_TO,
                 '100',
@@ -254,7 +316,7 @@ Default.args = {
               goal: '= 100',
               value: 50,
               onSave,
-              slots: { buttonGroupProps },
+              slots: { dateNavigatorInputProps },
               backgroundColor: getColorByValue(
                 GoalCondition.EQUAL_TO,
                 '100',
@@ -269,7 +331,7 @@ Default.args = {
               goal: '< 100',
               value: 70,
               onSave,
-              slots: { buttonGroupProps },
+              slots: { dateNavigatorInputProps },
               backgroundColor: getColorByValue(
                 GoalCondition.LESS_THAN,
                 '100',
@@ -295,7 +357,7 @@ Default.args = {
       readLength: '3 min',
       listenLength: '5 min',
       id: '1',
-      onClick: () => console.log('clicked')
+      onClick: () => {}
     },
     {
       date: '04/03/24',
@@ -303,7 +365,7 @@ Default.args = {
       readLength: '5 min',
       listenLength: '7 min',
       id: '2',
-      onClick: () => console.log('clicked')
+      onClick: () => {}
     },
     {
       date: '04/02/24',
@@ -311,7 +373,7 @@ Default.args = {
       readLength: '10 min',
       listenLength: '12 min',
       id: '3',
-      onClick: () => console.log('clicked')
+      onClick: () => {}
     }
   ],
   okrs: [
@@ -321,7 +383,7 @@ Default.args = {
       quarter: '1',
       people: 'Org Wide',
       percentage: 50,
-      onClick: () => console.log('clicked')
+      onClick: () => {}
     },
     {
       id: '2',
@@ -329,7 +391,7 @@ Default.args = {
       quarter: '3',
       people: 'Design',
       percentage: 70,
-      onClick: () => console.log('clicked')
+      onClick: () => {}
     },
     {
       id: '3',
@@ -337,7 +399,7 @@ Default.args = {
       quarter: '2',
       people: 'Engineering',
       percentage: 99,
-      onClick: () => console.log('clicked')
+      onClick: () => {}
     },
     {
       id: '4',
@@ -345,7 +407,7 @@ Default.args = {
       quarter: '4',
       people: 'Design',
       percentage: 20,
-      onClick: () => console.log('clicked')
+      onClick: () => {}
     }
   ],
   meetings: [
@@ -368,7 +430,7 @@ Default.args = {
         { url: 'https://example.com/avatar1.jpg' },
         { url: 'https://example.com/avatar1.jpg' }
       ],
-      onClick: () => console.log('clicked')
+      onClick: () => {}
     },
     {
       id: '2',
@@ -381,7 +443,7 @@ Default.args = {
           url: 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSGuzuLcvM2-IVSuAPSO-RGl9yIfqYUroEv0UCbBI7RAhVM9HuZaQ-tBimvtqSIHTV546yl8raPzrdbvNPUZFMR2-eg6ej5xAg1aFPrs2A'
         }
       ],
-      onClick: () => console.log('clicked')
+      onClick: () => {}
     },
     {
       id: '3',
@@ -394,7 +456,7 @@ Default.args = {
           url: 'https://static.wikia.nocookie.net/disney/images/7/78/Mike_Wazowski_2.jpg'
         }
       ],
-      onClick: () => console.log('clicked')
+      onClick: () => {}
     },
     {
       id: '4',
@@ -407,7 +469,7 @@ Default.args = {
           url: 'https://static.wikia.nocookie.net/disney/images/7/78/Mike_Wazowski_2.jpg'
         }
       ],
-      onClick: () => console.log('clicked')
+      onClick: () => {}
     },
     {
       id: '5',
@@ -420,7 +482,36 @@ Default.args = {
           url: 'https://static.wikia.nocookie.net/disney/images/4/47/Profile_-_Randall_Boggs.jpeg'
         }
       ],
-      onClick: () => console.log('clicked')
+      onClick: () => {}
+    }
+  ],
+  headlines: [
+    {
+      id: '1',
+      status: 'In Progress',
+      title:
+        'Take time to review the wireframes before the next review meeting',
+      priority: 'Low',
+      icon: <ZapIcon />,
+      onClick: () => {}
+    },
+    {
+      id: '2',
+      status: 'In Progress',
+      title:
+        'Take time to review the wireframes before the next review meeting',
+      priority: 'Low',
+      icon: <ZapIcon />,
+      onClick: () => {}
+    },
+    {
+      id: '3',
+      status: 'In Progress',
+      title:
+        'Take time to review the wireframes before the next review meeting',
+      priority: 'Low',
+      icon: <ZapIcon />,
+      onClick: () => {}
     }
   ],
   issues: [
@@ -431,7 +522,7 @@ Default.args = {
         'Take time to review the wireframes before the next review meeting',
       priority: 'Low',
       icon: <ZapIcon />,
-      onClick: () => console.log('clicked')
+      onClick: () => {}
     }
   ],
   ideas: [
@@ -442,7 +533,7 @@ Default.args = {
         'Take time to review the wireframes before the next review meeting',
       priority: 'Medium',
       icon: <ZapIcon />,
-      onClick: () => console.log('clicked')
+      onClick: () => {}
     }
   ],
   todos: [
@@ -453,7 +544,7 @@ Default.args = {
         'Take time to review the wireframes before the next review meeting',
       priority: 'Medium',
       icon: <ZapIcon />,
-      onClick: () => console.log('clicked')
+      onClick: () => {}
     }
   ]
 };

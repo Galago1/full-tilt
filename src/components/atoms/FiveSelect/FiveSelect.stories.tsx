@@ -8,7 +8,7 @@ export default {
 } as ComponentMeta<typeof FiveSelect>;
 
 const Template: Story<FiveSelectProps> = (args) => (
-  <Formik initialValues={{ name: '' }} onSubmit={() => console.log('asdcads')}>
+  <Formik initialValues={{ name: '' }} onSubmit={() => {}}>
     <Field name={'name'} component={FiveSelect} {...args} />
   </Formik>
 );

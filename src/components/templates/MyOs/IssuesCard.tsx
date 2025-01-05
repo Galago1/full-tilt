@@ -6,7 +6,7 @@ import LoadingIndicator from 'src/components/molecules/LoadingIndicator/LoadingI
 import Card, { CardProps } from 'src/components/organisms/Card/Card';
 import {
   ChevronRightIcon,
-  InfoCircleIcon,
+  AlertCircleIcon,
   ZapIcon
 } from 'src/components/particles/theme/overrides/CustomIcons';
 import { responsiveSpacing } from 'src/components/particles/theme/spacing';
@@ -32,7 +32,7 @@ const Content = ({
   if (!issues || loading || (!loading && isEmpty(issues)))
     return (
       <BasicEmptyState
-        icon={loading ? null : <InfoCircleIcon />}
+        icon={loading ? null : <AlertCircleIcon />}
         title={loading ? '' : `No Issues`}
         emptyStateHeight={'auto'}
         subtitle={loading ? '' : emptyStateSubtitle}
@@ -84,6 +84,7 @@ const Content = ({
         <SharedListCardContent
           {...sharedListCardContentProps}
           key={issue.id}
+          id={issue.id}
           onClick={issue.onClick}
           status={issue.status}
           priority={issue.priority}
@@ -151,7 +152,7 @@ export const IssuesCard = ({
             spacing={0}
             gap={1}
             alignItems={'center'}
-            leftIcon={<InfoCircleIcon />}
+            leftIcon={<AlertCircleIcon />}
             leftIconGridProps={{ display: 'flex' }}
             title={`My Issues`}
             textGridItemProps={{ flex: 1 }}

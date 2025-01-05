@@ -1,7 +1,6 @@
-import { Button } from '@mui/material';
 import { ComponentMeta, Story } from '@storybook/react';
-import { useState } from 'react';
 import StandUpSlideout, { StandUpSlideoutProps } from './StandUpSlideout';
+import { ThemeProvider } from 'src/components/particles';
 
 export default {
   title: 'Templates/StandUpSlideout',
@@ -13,40 +12,50 @@ export default {
 } as ComponentMeta<typeof StandUpSlideout>;
 
 const Template: Story<StandUpSlideoutProps> = (args) => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const handleOpen = () => {
-    setIsOpen(true);
-  };
-
-  const handleClose = () => {
-    setIsOpen(false);
-  };
-
   return (
-    <>
-      <Button onClick={handleOpen} variant="contained">
-        Open Stand Up Slideout
-      </Button>
-      <StandUpSlideout
-        isOpen={isOpen}
-        onClose={handleClose}
-        onSubmit={() => {}}
-        date={'04/20/2022'}
-        // TODO: Add slots
-        // slots={
-        //  standUpSlideoutContentProps:{
-        //   alignedOnTrackFieldAttributes,
-        //   metGoalsFieldAttributes,
-        //   haveBlockersFieldAttributes,
-        //   plannedWorkFieldAttributes,
-        //   haveQuestionsFieldAttributes,
-        //   blockersFieldAttributes
-        // }
-        // }
-      />
-    </>
+    <ThemeProvider>
+      <StandUpSlideout {...args} />
+    </ThemeProvider>
   );
 };
 
 export const Default = Template.bind({});
+Default.args = {
+  date: '04/20/2022',
+  slots: {
+    standUpSlideoutContentProps: {
+      slots: {
+        alignedOnTrackFieldAttributes: {
+          name: 'alignedOnTrack',
+          label: 'Aligned On Track',
+          type: 'checkbox'
+        },
+        metGoalsFieldAttributes: {
+          name: 'metGoals',
+          label: 'Met Goals',
+          type: 'checkbox'
+        },
+        haveBlockersFieldAttributes: {
+          name: 'haveBlockers',
+          label: 'Have Blockers',
+          type: 'checkbox'
+        },
+        plannedWorkFieldAttributes: {
+          name: 'plannedWork',
+          label: 'Planned Work',
+          type: 'checkbox'
+        },
+        haveQuestionsFieldAttributes: {
+          name: 'haveQuestions',
+          label: 'Have Questions',
+          type: 'checkbox'
+        },
+        blockersFieldAttributes: {
+          name: 'blockers',
+          label: 'Blockers',
+          type: 'checkbox'
+        }
+      }
+    }
+  }
+};

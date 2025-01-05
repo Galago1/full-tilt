@@ -1,5 +1,5 @@
-import StarIcon from '@mui/icons-material/Star';
-import { styled } from '@mui/material/styles';
+import { styled } from '@mui/material';
+import { StarIcon } from 'src/components/particles/theme/overrides/CustomIcons';
 
 export interface StarProps {
   active: boolean;

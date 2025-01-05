@@ -127,18 +127,19 @@ const KanbanColumn = ({
       <Grid item>
         <Grid container flexDirection={'column'} gap={2}>
           <Grid
+            container
             item
             width={'100%'}
+            flexDirection={'column'}
             sx={{
               overflowY: 'auto',
-              display: 'flex',
-              flexDirection: 'column',
               minHeight: 0,
               height: 740,
               // pb: 2,
               minWidth: 240,
               ...columnCardsGridSx
             }}
+            gap={2}
           >
             <Grid container flexDirection={'column'} gap={2}>
               {column!.cards.map((card, idx) => (

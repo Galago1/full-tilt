@@ -273,7 +273,6 @@ EmptyForm.args = {
     </Typography>
   ),
   dropdownMenuProps: {
-    onClick: () => {},
     PaperProps: {
       elevation: 0,
       sx: {

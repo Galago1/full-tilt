@@ -46,8 +46,7 @@ Disabled.args = {
 export const ReadOnly = Template.bind({});
 ReadOnly.args = {
   label: 'Custom',
-  readOnly: true,
-  value: 'filled'
+  readOnly: true
 };
 
 // export const Error = Template.bind({});

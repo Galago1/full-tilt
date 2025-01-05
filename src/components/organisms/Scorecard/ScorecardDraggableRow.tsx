@@ -75,7 +75,7 @@ const ScorecardDraggableRow = ({
   closeOnSave,
   canEdit,
   slots,
-  showEndIcon,
+  showEndIcon = true,
   dataComponent = NumberInputBase
 }: ScorecardDraggableRowProps) => {
   const { dropdownProps } = slots || {};

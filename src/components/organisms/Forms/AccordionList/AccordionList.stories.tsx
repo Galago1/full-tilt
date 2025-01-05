@@ -69,6 +69,7 @@ const Template: Story<AccordionListProps> = (args) => {
                     checkboxInputs: Array.from({ length: 1001 }).map(
                       (_, index) => {
                         return {
+                          type: 'checkbox',
                           labelProps: {
                             label: `Garage ${index}`,
                             sx: {
@@ -114,6 +115,7 @@ const Template: Story<AccordionListProps> = (args) => {
                   sx: { width: '100%' },
                   checkboxInputs: [
                     {
+                      type: 'checkbox',
                       labelProps: {
                         label: 'Chi Delta Theta',
                         sx: {

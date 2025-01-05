@@ -4,8 +4,8 @@ import { useCallback, useEffect, useState } from 'react';
 import { Quarter } from 'src/types/other';
 
 type Category =
-  | 'Product Feedback'
-  | 'Team Collaboration'
+  | 'Productivity & Focus'
+  | 'Company Collaboration'
   | 'Project Management'
   | 'Employee Engagement'
   | 'Training & Development'
@@ -14,7 +14,7 @@ type Category =
   | 'Customer Insights'
   | 'Process Improvement'
   | 'Leadership & Management'
-  | 'User Testing & Feedback'
+  | 'Customer Testing & Feedback'
   | 'Company Culture';
 type Score = string;
 type TeamData = Record<Category, Score>;

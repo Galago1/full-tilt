@@ -45,12 +45,12 @@ describe('Tabs', () => {
       );
       const user = userEvent.setup();
 
-      await waitFor(() => user.click(screen.getByRole('button')));
+      await waitFor(() => user.click(screen.getByRole('combobox')));
       const listbox = within(screen.getByRole('listbox'));
 
       await waitFor(() => user.click(listbox.getByText(/Dos/i)));
 
-      expect(screen.getByRole('button')).toHaveTextContent(/Dos/i);
+      expect(screen.getByRole('combobox')).toHaveTextContent(/Dos/i);
     });
   });
 });

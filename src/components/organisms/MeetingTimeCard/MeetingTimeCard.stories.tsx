@@ -2,6 +2,7 @@ import { ComponentStory } from '@storybook/react';
 import MeetingTimeCard, { MeetingTimeCardProps } from './MeetingTimeCard';
 import { PlanItem } from '.';
 import { useLayoutEffect, useRef } from 'react';
+import ThemeProvider from 'src/components/particles/theme';
 
 export default {
   title: 'Organisms/MeetingTimeCard',
@@ -20,7 +21,9 @@ const planItems: PlanItem[] = [
 ];
 
 const Template: ComponentStory<typeof MeetingTimeCard> = (args) => (
-  <MeetingTimeCard {...args} />
+  <ThemeProvider>
+    <MeetingTimeCard {...args} />
+  </ThemeProvider>
 );
 
 export const Default = Template.bind({});

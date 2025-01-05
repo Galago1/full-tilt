@@ -1,6 +1,8 @@
 import {
   Grid,
   Paper,
+  PaperProps,
+  // styled,
   TableCell,
   TableRow,
   Theme,
@@ -29,8 +31,8 @@ import { Quarter } from 'src/types/other';
 export const mockData = {
   q1: {
     'All Teams': {
-      'Product Feedback': '0',
-      'Team Collaboration': '66',
+      'Productivity & Focus': '0',
+      'Company Collaboration': '66',
       'Project Management': '34',
       'Employee Engagement': '92',
       'Training & Development': '57',
@@ -39,12 +41,12 @@ export const mockData = {
       'Customer Insights': '95',
       'Process Improvement': '72',
       'Leadership & Management': '81',
-      'User Testing & Feedback': '68',
+      'Customer Testing & Feedback': '68',
       'Company Culture': '44'
     },
     'Product Team': {
-      'Product Feedback': '',
-      'Team Collaboration': '78',
+      'Productivity & Focus': '',
+      'Company Collaboration': '78',
       'Project Management': '64',
       'Employee Engagement': '90',
       'Training & Development': '83',
@@ -53,12 +55,12 @@ export const mockData = {
       'Customer Insights': '91',
       'Process Improvement': '54',
       'Leadership & Management': '85',
-      'User Testing & Feedback': '99',
+      'Customer Testing & Feedback': '99',
       'Company Culture': '63'
     },
     'Customer Success Team': {
-      'Product Feedback': '61',
-      'Team Collaboration': '73',
+      'Productivity & Focus': '61',
+      'Company Collaboration': '73',
       'Project Management': '82',
       'Employee Engagement': '89',
       'Training & Development': '57',
@@ -67,12 +69,12 @@ export const mockData = {
       'Customer Insights': '94',
       'Process Improvement': '58',
       'Leadership & Management': '67',
-      'User Testing & Feedback': '93',
+      'Customer Testing & Feedback': '93',
       'Company Culture': '72'
     },
     'Sales Team': {
-      'Product Feedback': '74',
-      'Team Collaboration': '89',
+      'Productivity & Focus': '74',
+      'Company Collaboration': '89',
       'Project Management': '65',
       'Employee Engagement': '92',
       'Training & Development': '49',
@@ -81,12 +83,12 @@ export const mockData = {
       'Customer Insights': '76',
       'Process Improvement': '61',
       'Leadership & Management': '84',
-      'User Testing & Feedback': '94',
+      'Customer Testing & Feedback': '94',
       'Company Culture': '90'
     },
     Interns: {
-      'Product Feedback': '63',
-      'Team Collaboration': '48',
+      'Productivity & Focus': '63',
+      'Company Collaboration': '48',
       'Project Management': '70',
       'Employee Engagement': '59',
       'Training & Development': '77',
@@ -95,14 +97,14 @@ export const mockData = {
       'Customer Insights': '85',
       'Process Improvement': '66',
       'Leadership & Management': '49',
-      'User Testing & Feedback': '77',
+      'Customer Testing & Feedback': '77',
       'Company Culture': '54'
     }
   },
   q2: {
     'All Teams': {
-      'Product Feedback': '79',
-      'Team Collaboration': '67',
+      'Productivity & Focus': '79',
+      'Company Collaboration': '67',
       'Project Management': '35',
       'Employee Engagement': '93',
       'Training & Development': '58',
@@ -111,12 +113,12 @@ export const mockData = {
       'Customer Insights': '96',
       'Process Improvement': '73',
       'Leadership & Management': '80',
-      'User Testing & Feedback': '69',
+      'Customer Testing & Feedback': '69',
       'Company Culture': '45'
     },
     'Product Team': {
-      'Product Feedback': '53',
-      'Team Collaboration': '77',
+      'Productivity & Focus': '53',
+      'Company Collaboration': '77',
       'Project Management': '65',
       'Employee Engagement': '91',
       'Training & Development': '82',
@@ -125,12 +127,12 @@ export const mockData = {
       'Customer Insights': '92',
       'Process Improvement': '55',
       'Leadership & Management': '86',
-      'User Testing & Feedback': '98',
+      'Customer Testing & Feedback': '98',
       'Company Culture': '64'
     },
     'Customer Success Team': {
-      'Product Feedback': '62',
-      'Team Collaboration': '74',
+      'Productivity & Focus': '62',
+      'Company Collaboration': '74',
       'Project Management': '83',
       'Employee Engagement': '88',
       'Training & Development': '58',
@@ -139,12 +141,12 @@ export const mockData = {
       'Customer Insights': '95',
       'Process Improvement': '57',
       'Leadership & Management': '68',
-      'User Testing & Feedback': '94',
+      'Customer Testing & Feedback': '94',
       'Company Culture': '73'
     },
     'Sales Team': {
-      'Product Feedback': '75',
-      'Team Collaboration': '90',
+      'Productivity & Focus': '75',
+      'Company Collaboration': '90',
       'Project Management': '66',
       'Employee Engagement': '93',
       'Training & Development': '50',
@@ -153,12 +155,12 @@ export const mockData = {
       'Customer Insights': '77',
       'Process Improvement': '60',
       'Leadership & Management': '85',
-      'User Testing & Feedback': '95',
+      'Customer Testing & Feedback': '95',
       'Company Culture': '91'
     },
     Interns: {
-      'Product Feedback': '64',
-      'Team Collaboration': '49',
+      'Productivity & Focus': '64',
+      'Company Collaboration': '49',
       'Project Management': '71',
       'Employee Engagement': '60',
       'Training & Development': '76',
@@ -167,14 +169,14 @@ export const mockData = {
       'Customer Insights': '86',
       'Process Improvement': '67',
       'Leadership & Management': '50',
-      'User Testing & Feedback': '78',
+      'Customer Testing & Feedback': '78',
       'Company Culture': '55'
     }
   },
   q3: {
     'All Teams': {
-      'Product Feedback': '',
-      'Team Collaboration': '69',
+      'Productivity & Focus': '',
+      'Company Collaboration': '69',
       'Project Management': '37',
       'Employee Engagement': '94',
       'Training & Development': '60',
@@ -183,12 +185,12 @@ export const mockData = {
       'Customer Insights': '98',
       'Process Improvement': '75',
       'Leadership & Management': '82',
-      'User Testing & Feedback': '71',
+      'Customer Testing & Feedback': '71',
       'Company Culture': '49'
     },
     'Product Team': {
-      'Product Feedback': '',
-      'Team Collaboration': '79',
+      'Productivity & Focus': '',
+      'Company Collaboration': '79',
       'Project Management': '66',
       'Employee Engagement': '92',
       'Training & Development': '84',
@@ -197,12 +199,12 @@ export const mockData = {
       'Customer Insights': '93',
       'Process Improvement': '56',
       'Leadership & Management': '87',
-      'User Testing & Feedback': '97',
+      'Customer Testing & Feedback': '97',
       'Company Culture': '65'
     },
     'Customer Success Team': {
-      'Product Feedback': '63',
-      'Team Collaboration': '75',
+      'Productivity & Focus': '63',
+      'Company Collaboration': '75',
       'Project Management': '84',
       'Employee Engagement': '90',
       'Training & Development': '59',
@@ -211,12 +213,12 @@ export const mockData = {
       'Customer Insights': '96',
       'Process Improvement': '59',
       'Leadership & Management': '69',
-      'User Testing & Feedback': '94',
+      'Customer Testing & Feedback': '94',
       'Company Culture': '74'
     },
     'Sales Team': {
-      'Product Feedback': '76',
-      'Team Collaboration': '91',
+      'Productivity & Focus': '76',
+      'Company Collaboration': '91',
       'Project Management': '67',
       'Employee Engagement': '94',
       'Training & Development': '51',
@@ -225,12 +227,12 @@ export const mockData = {
       'Customer Insights': '78',
       'Process Improvement': '62',
       'Leadership & Management': '86',
-      'User Testing & Feedback': '96',
+      'Customer Testing & Feedback': '96',
       'Company Culture': '92'
     },
     Interns: {
-      'Product Feedback': '65',
-      'Team Collaboration': '50',
+      'Productivity & Focus': '65',
+      'Company Collaboration': '50',
       'Project Management': '72',
       'Employee Engagement': '61',
       'Training & Development': '78',
@@ -239,14 +241,14 @@ export const mockData = {
       'Customer Insights': '87',
       'Process Improvement': '68',
       'Leadership & Management': '51',
-      'User Testing & Feedback': '79',
+      'Customer Testing & Feedback': '79',
       'Company Culture': '56'
     }
   },
   q4: {
     'All Teams': {
-      'Product Feedback': '81',
-      'Team Collaboration': '71',
+      'Productivity & Focus': '81',
+      'Company Collaboration': '71',
       'Project Management': '39',
       'Employee Engagement': '95',
       'Training & Development': '62',
@@ -255,12 +257,12 @@ export const mockData = {
       'Customer Insights': '99',
       'Process Improvement': '77',
       'Leadership & Management': '84',
-      'User Testing & Feedback': '73',
+      'Customer Testing & Feedback': '73',
       'Company Culture': '50'
     },
     'Product Team': {
-      'Product Feedback': '55',
-      'Team Collaboration': '80',
+      'Productivity & Focus': '55',
+      'Company Collaboration': '80',
       'Project Management': '67',
       'Employee Engagement': '93',
       'Training & Development': '85',
@@ -269,12 +271,12 @@ export const mockData = {
       'Customer Insights': '94',
       'Process Improvement': '57',
       'Leadership & Management': '88',
-      'User Testing & Feedback': '98',
+      'Customer Testing & Feedback': '98',
       'Company Culture': '66'
     },
     'Customer Success Team': {
-      'Product Feedback': '64',
-      'Team Collaboration': '76',
+      'Productivity & Focus': '64',
+      'Company Collaboration': '76',
       'Project Management': '85',
       'Employee Engagement': '91',
       'Training & Development': '60',
@@ -283,12 +285,12 @@ export const mockData = {
       'Customer Insights': '97',
       'Process Improvement': '60',
       'Leadership & Management': '71',
-      'User Testing & Feedback': '95',
+      'Customer Testing & Feedback': '95',
       'Company Culture': '75'
     },
     'Sales Team': {
-      'Product Feedback': '77',
-      'Team Collaboration': '92',
+      'Productivity & Focus': '77',
+      'Company Collaboration': '92',
       'Project Management': '68',
       'Employee Engagement': '96',
       'Training & Development': '52',
@@ -297,12 +299,12 @@ export const mockData = {
       'Customer Insights': '79',
       'Process Improvement': '63',
       'Leadership & Management': '87',
-      'User Testing & Feedback': '97',
+      'Customer Testing & Feedback': '97',
       'Company Culture': '93'
     },
     Interns: {
-      'Product Feedback': '66',
-      'Team Collaboration': '51',
+      'Productivity & Focus': '66',
+      'Company Collaboration': '51',
       'Project Management': '73',
       'Employee Engagement': '62',
       'Training & Development': '79',
@@ -311,15 +313,15 @@ export const mockData = {
       'Customer Insights': '88',
       'Process Improvement': '69',
       'Leadership & Management': '52',
-      'User Testing & Feedback': '80',
+      'Customer Testing & Feedback': '80',
       'Company Culture': '57'
     }
   }
 };
 
 type Category =
-  | 'Product Feedback'
-  | 'Team Collaboration'
+  | 'Productivity & Focus'
+  | 'Company Collaboration'
   | 'Project Management'
   | 'Employee Engagement'
   | 'Training & Development'
@@ -328,7 +330,7 @@ type Category =
   | 'Customer Insights'
   | 'Process Improvement'
   | 'Leadership & Management'
-  | 'User Testing & Feedback'
+  | 'Customer Testing & Feedback'
   | 'Company Culture';
 type Score = string;
 type TeamData = Record<Category, Score>;
@@ -354,7 +356,7 @@ const IconWrapper = styled(Grid)({
   height: '24px'
 });
 
-export const CellBox = styled(Paper)(({ theme }) => ({
+export const CellBox = styled(Paper)<PaperProps>(({ theme }: any) => ({
   padding: `${theme.spacing(1)} ${theme.spacing(2)}`,
   textAlign: 'center',
   height: '44px',
@@ -362,12 +364,12 @@ export const CellBox = styled(Paper)(({ theme }) => ({
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
-  border: '1px solid #e0e0e0',
-  borderRadius: '8px',
+  border: theme.border.basicBox,
+  borderRadius: theme.borderRadius.md,
   boxShadow: 'none'
 }));
 
-const RotatedCellBox = styled(Paper)(({ theme }) => ({
+const RotatedCellBox = styled(Paper)(({ theme }: any) => ({
   padding: `${theme.spacing(1)} ${theme.spacing(2)}`,
   textAlign: 'center',
   height: '100%',
@@ -375,8 +377,8 @@ const RotatedCellBox = styled(Paper)(({ theme }) => ({
   flexDirection: 'column',
   justifyContent: 'flex-end',
   alignItems: 'center',
-  border: '1px solid #e0e0e0',
-  borderRadius: '8px',
+  border: theme.border.basicBox,
+  borderRadius: theme.borderRadius.md,
   boxShadow: 'none'
 }));
 
@@ -498,8 +500,8 @@ export const DraggableRow = ({
 };
 
 const categoryIcons = {
-  'Product Feedback': CheckVerifiedIcon,
-  'Team Collaboration': Users03Icon,
+  'Productivity & Focus': CheckVerifiedIcon,
+  'Company Collaboration': Users03Icon,
   'Project Management': ListIcon,
   'Employee Engagement': MessageSmileCircleIcon,
   'Training & Development': TrendUp01Icon,
@@ -508,7 +510,7 @@ const categoryIcons = {
   'Customer Insights': FaceSmileIcon,
   'Process Improvement': RouteIcon,
   'Leadership & Management': LayersTwo01Icon,
-  'User Testing & Feedback': RulerIcon,
+  'Customer Testing & Feedback': RulerIcon,
   'Company Culture': HeartIcon
 };
 
@@ -556,7 +558,7 @@ export const DraggableHeaderCell = ({
 
   return (
     <RotatedHeaderCell ref={ref} style={{ opacity: isDragging ? 0.5 : 1 }}>
-      <RotatedCellBox>
+      <RotatedCellBox sx={{ gap: 1 }}>
         <RotatedTypography
           variant="body2"
           sx={{ color: theme.palette.grey[900] }}
@@ -568,7 +570,9 @@ export const DraggableHeaderCell = ({
           <IconComponent
             sx={{
               color: theme.palette.grey[500],
-              fontSize: '24px' // Slightly smaller icon
+              fontSize: '24px', // Slightly smaller icon
+              marginTop: 0.75,
+              marginBottom: 1
             }}
           />
         </IconWrapper>

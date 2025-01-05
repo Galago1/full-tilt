@@ -83,7 +83,9 @@ const SignupForm = ({
           sx={{ mb: 4 }}
         />
         <Formik
-          initialValues={{ phone: '', fullName: '', email: '' }}
+          initialValues={
+            { phone: '', fullName: '', email: '' } as SignupFormFormProps
+          }
           onSubmit={(values, form) => {
             onSubmit(values, form);
           }}

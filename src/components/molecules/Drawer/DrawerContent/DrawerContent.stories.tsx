@@ -1,6 +1,6 @@
 import { Meta, Story } from '@storybook/react';
-import { Drawer } from '../../../organisms';
 import DrawerContent, { DrawerContentProps } from './DrawerContent';
+import Drawer from 'src/components/organisms/Drawer/Drawer';
 
 export default {
   title: 'Molecules/Drawer/DrawerContent',

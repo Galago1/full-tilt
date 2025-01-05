@@ -92,7 +92,6 @@ const PlanItemRow = ({
 }: PlanItemRowProps) => {
   const theme = useTheme();
   const isOver = elapsedTimes[currentId] > item.value;
-  console.log('showElapsedTime', showElapsedTime);
   return (
     <Grid
       container

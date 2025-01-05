@@ -104,10 +104,12 @@ const Content = ({
                   WorkScheduleStatus.DAY_OFF
                 );
                 return (
-                  <Tooltip title={dayOfWeekActions?.[day]?.title ?? ''}>
+                  <Tooltip
+                    title={dayOfWeekActions?.[day]?.title ?? ''}
+                    key={`daily-stand-up-card-${day}`}
+                  >
                     <Grid
                       item
-                      key={day}
                       display={'flex'}
                       alignItems={'center'}
                       sx={{
@@ -292,7 +294,8 @@ export interface DailyStandupCardProps extends Omit<CardProps, 'slots'> {
   dayOfWeekActions?: DayOfWeekAction;
   onClickEmptyState?: () => void;
   emptyStateSubtitle?: any;
-  currentWeekString: string;
+  currentWeekString?: string;
+  onHeaderClick: () => void;
 }
 
 export const DailyStandupCard = ({
@@ -306,6 +309,7 @@ export const DailyStandupCard = ({
   onClickEmptyState,
   emptyStateSubtitle,
   currentWeekString,
+  onHeaderClick,
   ...props
 }: DailyStandupCardProps) => {
   const theme = useTheme();
@@ -349,7 +353,13 @@ export const DailyStandupCard = ({
             leftIconItemSx={{ display: 'flex' }}
             title={`Daily Stand Up`}
             titleTypography={{ variant: 'textLgSemibold' }}
-          />
+            textGridItemProps={{ flex: 1 }}
+            childrenGridProps={{ display: 'flex' }}
+            onClick={onHeaderClick}
+            sx={{ cursor: 'pointer' }}
+          >
+            <ChevronRightIcon />
+          </AvatarAndText>
         </Grid>
         <Content
           teamStandup={teamStandup!}
@@ -363,7 +373,7 @@ export const DailyStandupCard = ({
           dayOfWeekActions={dayOfWeekActions}
           onClickEmptyState={onClickEmptyState}
           emptyStateSubtitle={emptyStateSubtitle}
-          currentWeekString={currentWeekString}
+          currentWeekString={currentWeekString!}
         />
       </Grid>
     </Card>

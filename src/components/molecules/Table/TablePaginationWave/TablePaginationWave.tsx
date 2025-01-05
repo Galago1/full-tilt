@@ -1,11 +1,12 @@
-import { MouseEvent } from 'react';
-import { useTheme } from '@mui/material/styles';
+import { Box, BoxProps, Typography, useTheme } from '@mui/material';
 import Button from '@mui/material/Button';
-import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
-import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import usePagination from '@mui/material/usePagination';
-import { Box, BoxProps, Typography } from '@mui/material';
+import { MouseEvent } from 'react';
 import { ButtonProps } from 'src/components/atoms/Button/Button';
+import {
+  ChevronLeftIcon,
+  ChevronRightIcon
+} from 'src/components/particles/theme/overrides/CustomIcons';
 
 export interface TablePaginationWaveProps extends Omit<BoxProps, 'onChange'> {
   count?: number;
@@ -80,9 +81,9 @@ const TablePaginationWave = ({
                 }
               >
                 {type === 'previous' ? (
-                  <NavigateBeforeIcon />
+                  <ChevronLeftIcon />
                 ) : (
-                  <NavigateNextIcon />
+                  <ChevronRightIcon />
                 )}
               </Button>
             );

@@ -97,12 +97,6 @@ const Input = (theme: Theme) => {
           },
           '& .MuiSelect-icon': {
             right: theme.spacing(1.75)
-          },
-          '& .MuiSelect-select': {
-            marginRight: theme.spacing(1.125),
-            '& .MuiTypography-root': {
-              lineHeight: '1.1875rem'
-            }
           }
         },
         input: {

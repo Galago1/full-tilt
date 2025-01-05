@@ -41,7 +41,6 @@ const StandUpUserListContent = ({
         };
 
         const isSelected = selectedIndex === index;
-        console.log('member.standUpCompletedAt', member.standUpCompletedAt);
 
         return (
           <Fragment key={member.id}>

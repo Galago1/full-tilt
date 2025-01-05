@@ -20,10 +20,6 @@ interface StandUpMemberDetailCardContentProps {
   canGoNext: boolean;
   tipVisible: boolean;
   handleClose: () => void;
-  formatStandUpTime: (
-    standUpCompletedAt: string | null,
-    hideIncomplete?: boolean
-  ) => string;
   theme: Theme;
   showEditButton: boolean;
   editButtonProps: ButtonProps;
@@ -39,7 +35,6 @@ const StandUpMemberDetailCardContent = ({
   canGoNext,
   tipVisible,
   handleClose,
-  formatStandUpTime,
   theme,
   showEditButton,
   editButtonProps,
@@ -80,7 +75,6 @@ const StandUpMemberDetailCardContent = ({
         onNext={onNext}
         canGoBack={canGoBack}
         canGoNext={canGoNext}
-        formatStandUpTime={formatStandUpTime}
         theme={theme}
         showEditButton={showEditButton}
         editButtonProps={editButtonProps}

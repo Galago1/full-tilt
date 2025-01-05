@@ -104,21 +104,15 @@ export default {
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 const Template: Story<SideNavProps> = (args) => {
-  const [alignmentOpen, setAlignmentOpen] = useState(false);
-  const onClick = () => {
-    setAlignmentOpen((prev) => !prev);
-  };
+  // const [alignmentOpen, setAlignmentOpen] = useState(false);
+  // const onClick = () => {
+  //   setAlignmentOpen((prev) => !prev);
+  // };
+  // const genericMenuListProps = glNavItemsProps(onClick, alignmentOpen);
 
-  const genericMenuListProps = glNavItemsProps(onClick, alignmentOpen);
-
-  const sideNavListItemIcon = {
-    ...TextAndIconFlex1.args,
-    children: <Box>Test Child</Box>
-    // children: <GenericMenuList {...genericMenuListProps} />
-  };
   const finalArgs: SideNavProps = {
     ...args,
-    sideNavListItemIcons: [sideNavListItemIcon, ...args.sideNavListItemIcons]
+    sideNavListItemIcons: [...args.sideNavListItemIcons]
   } as any;
 
   return <SideNav {...finalArgs} />;
@@ -384,14 +378,16 @@ const addClickToItems = (
 
 const FadeTemplate: Story<SideNavProps> = (_args) => {
   const [slide, setSlide] = useState(false);
-  const [args, setArgs] = useState(Overview.args as SideNavProps);
+  const [args, setArgs] = useState(() =>
+    addClickToItems(Overview.args as SideNavProps, setSlide)
+  );
+
   useEffect(() => {
-    setArgs(
-      addClickToItems(
-        slide ? (Third.args as SideNavProps) : (Overview.args as SideNavProps),
-        setSlide
-      )
-    );
+    if (slide) {
+      setArgs(addClickToItems(Third.args as SideNavProps, setSlide));
+    } else {
+      setArgs(addClickToItems(Overview.args as SideNavProps, setSlide));
+    }
   }, [slide]);
 
   return <SideNav {...args} />;

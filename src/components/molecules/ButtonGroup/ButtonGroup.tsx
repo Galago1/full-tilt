@@ -3,7 +3,7 @@ import {
   ButtonGroup as MuiButtonGroup,
   ButtonGroupProps as MuiButtonGroupProps
 } from '@mui/material';
-import { styled, useTheme } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import { useState } from 'react';
 import type { ButtonProps } from 'src/components/atoms/Button/Button';
 import Button from 'src/components/atoms/Button/Button';
@@ -14,7 +14,7 @@ export interface ButtonGroupProps extends Omit<MuiButtonGroupProps, 'onClick'> {
     selected?: boolean;
     tooltip?: string;
   })[];
-  sx?: SxProps;
+  sx?: SxProps<Theme>;
   disabled?: boolean;
   onClick?: (index: number) => void;
   customVariant?: 'default' | 'roundedEdges';
@@ -37,7 +37,6 @@ const ButtonGroup = ({
   useSelectedStyles = true,
   ...props
 }: ButtonGroupProps) => {
-  const theme = useTheme();
   const [selectedIndex, setSelectedIndex] = useState(
     buttons.findIndex((button) => button.selected) ?? 0
   );

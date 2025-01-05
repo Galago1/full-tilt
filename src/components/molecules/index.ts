@@ -62,6 +62,7 @@ export { default as CheckboxGroup } from './Inputs/CheckboxGroup';
 export { default as CheckboxInputBase } from './Inputs/CheckboxInputBase';
 export { default as CheckboxList } from './Inputs/CheckboxList';
 export { default as DateInput } from './Inputs/DateInput';
+export { default as DateNavigatorInput } from './Inputs/DateNavigatorInput';
 export { default as DatePickerInput } from './Inputs/DatePickerInput';
 export { default as DateRangePickerInput } from './Inputs/DateRangePickerInput';
 export { default as DollarInput } from './Inputs/DollarInput';

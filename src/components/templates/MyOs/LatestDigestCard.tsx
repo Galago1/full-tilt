@@ -241,6 +241,7 @@ export const LatestDigestCard = ({
             leftIcon={<ZapIcon />}
             leftIconGridProps={{ display: 'flex' }}
             title={'Latest Digest'}
+            titleTypography={{ variant: 'textLgSemibold' }}
             textGridItemProps={{ flex: 1 }}
             childrenGridProps={{ display: 'flex' }}
             onClick={onHeaderClick}

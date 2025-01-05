@@ -21,7 +21,13 @@ const Select = (theme: Theme) => {
       },
       styleOverrides: {
         select: {
-          minWidth: 120
+          minWidth: 120,
+          '& .MuiMenuItem-root': {
+            backgroundColor: 'transparent',
+            '&:hover': {
+              backgroundColor: 'transparent'
+            }
+          }
         }
       }
     }

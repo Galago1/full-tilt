@@ -37,8 +37,8 @@ export interface ResponseRateCardProps {
   lineChartComp: JSX.Element;
   slots: {
     dataGridProps: DataGridProps;
-    dataGridGridItemProps: GridProps;
-    tablePaginationWaveProps: TablePaginationWaveProps;
+    dataGridGridItemProps?: GridProps;
+    tablePaginationWaveProps?: TablePaginationWaveProps;
   };
   responseCardDateForm: JSX.Element;
   showChange?: boolean;

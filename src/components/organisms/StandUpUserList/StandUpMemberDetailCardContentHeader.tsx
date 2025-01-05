@@ -16,10 +16,6 @@ interface StandUpMemberDetailCardContentHeaderProps {
   onNext: () => void;
   canGoBack: boolean;
   canGoNext: boolean;
-  formatStandUpTime: (
-    standUpCompletedAt: string | null,
-    hideIncomplete?: boolean
-  ) => string;
   theme: Theme;
   showEditButton: boolean;
   editButtonProps: ButtonProps;
@@ -30,7 +26,6 @@ const StandUpMemberDetailCardContentHeader = ({
   onNext,
   canGoBack,
   canGoNext,
-  formatStandUpTime,
   theme,
   showEditButton,
   editButtonProps
@@ -70,7 +65,7 @@ const StandUpMemberDetailCardContentHeader = ({
                         sx={{ width: 16, height: 16 }}
                         fill={grey700}
                       />
-                      {formatStandUpTime(member.standUpCompletedAt)}
+                      {member.standUpCompletedAtTime}
                     </Grid>
                   }
                   variant={'outlined'}

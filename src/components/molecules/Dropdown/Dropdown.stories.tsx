@@ -134,9 +134,6 @@ ButtonFullWidthIcon.args = {
     </Typography>
   ),
 
-  dropdownMenuProps: {
-    onClick: () => {}
-  },
   dropdownListItems: WithMenuItemsAndDividerArgs.dropdownListItems
 };
 

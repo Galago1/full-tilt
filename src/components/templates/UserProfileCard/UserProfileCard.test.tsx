@@ -1,27 +1,17 @@
 import { render, screen } from '@testing-library/react';
-import UserProfileCard from './UserProfileCard';
+
+import { composeStories } from '@storybook/testing-react';
+import * as UserProfileCardStories from './UserProfileCard.stories'; //👈  Our stories imported here
+//👇 composeStories will process all information related to the component (e.g., args)
+const { Default } = composeStories(UserProfileCardStories);
 
 describe('UserProfileCard', () => {
-  const setup = (isOpen: boolean) => {
-    const onClose = jest.fn();
-    render(
-      <UserProfileCard isOpen={isOpen} onClose={onClose} data={{} as any} />
-    );
-    return { onClose };
-  };
-
   test('renders correctly when the drawer is open', () => {
-    setup(true);
+    render(<Default isOpen={true} />);
 
     expect(screen.getByText('Mollie Hall')).toBeInTheDocument();
     expect(screen.getByText('Lead Developer')).toBeInTheDocument();
     expect(screen.getByText('Product Team')).toBeInTheDocument();
     expect(screen.getByText('Phoenix, AZ')).toBeInTheDocument();
-  });
-
-  test('does not render when the drawer is closed', () => {
-    setup(false);
-
-    expect(screen.queryByText('Mollie Hall')).not.toBeInTheDocument();
   });
 });

@@ -13,14 +13,19 @@ import { ScorecardsCard, ScorecardsCardProps } from './ScorecardsCard';
 import { TodosCard, TodosCardProps } from './TodosCard';
 import {
   Digest,
+  Headline,
   Idea,
   Issue,
   Meeting,
   Okr,
+  Rock,
   Standup,
   Survey,
   Todo
 } from './types';
+import { HeadlinesCard, HeadlinesCardProps } from './HeadlinesCard';
+import { RocksCard } from './RocksCard';
+import { RocksCardProps } from './RocksCard';
 
 export interface MyOsProps {
   standups: Record<string, boolean>;
@@ -29,6 +34,8 @@ export interface MyOsProps {
   survey: Survey;
   digest: Digest[];
   okrs: Okr[];
+  rocks: Rock[];
+  headlines: Headline[];
   meetings: Meeting[];
   issues: Issue[];
   ideas: Idea[];
@@ -43,7 +50,10 @@ export interface MyOsProps {
     issuesCardProps?: IssuesCardProps;
     ideasCardProps?: IdeasCardProps;
     todosCardProps?: TodosCardProps;
+    headlinesCardProps?: HeadlinesCardProps;
+    rocksCardProps?: RocksCardProps;
   };
+  useRocks: boolean;
 }
 
 export const MyOs = ({
@@ -53,11 +63,14 @@ export const MyOs = ({
   survey,
   digest,
   okrs,
+  rocks,
+  headlines,
   meetings,
   issues,
   ideas,
   todos,
-  slots
+  slots,
+  useRocks
 }: MyOsProps) => {
   const {
     dailyStandupCardProps,
@@ -68,7 +81,9 @@ export const MyOs = ({
     meetingsCardProps,
     issuesCardProps,
     ideasCardProps,
-    todosCardProps
+    todosCardProps,
+    headlinesCardProps,
+    rocksCardProps
   } = slots ?? {};
   return (
     <Grid container spacing={2}>
@@ -89,15 +104,65 @@ export const MyOs = ({
             <LatestDigestCard {...latestDigestCardProps!} digest={digest!} />
           </Grid>
           <Grid item xs={12} md={6} lg={6}>
-            <OkrsCard {...okrsCardProps!} okrs={okrs} />
+            <HeadlinesCard {...headlinesCardProps!} headlines={headlines} />
           </Grid>
         </Grid>
+        {/* WIP: Trying to get the cards height to match */}
+        {/* <Grid
+          item
+          container
+          xs={12}
+          lg={9}
+          spacing={2}
+          flexDirection={'column'}
+        >
+          <Grid item container spacing={2}>
+            <Grid item xs={12} md={6} lg={8}>
+              <DailyStandupCard
+                {...dailyStandupCardProps!}
+                standups={standups}
+                teamStandup={teamStandup}
+                today={today}
+              />
+            </Grid>
+            <Grid item xs={12} md={6} lg={4}>
+              <PendingSurveysCard {...pendingSurveysCard!} survey={survey} />
+            </Grid>
+          </Grid>
+
+          <Grid item container spacing={2}>
+            <Grid item xs={12} md={6} lg={6}>
+              <LatestDigestCard {...latestDigestCardProps!} digest={digest!} />
+            </Grid>
+            <Grid item xs={12} md={6} lg={6}>
+              <HeadlinesCard {...headlinesCardProps!} headlines={headlines} />
+            </Grid>
+          </Grid>
+        </Grid> */}
+
         <Grid item xs={12} md={12} lg={3} maxHeight={596}>
           <ScorecardsCard {...scorecardsCardProps!} />
         </Grid>
       </Grid>
       <Grid item xs={12}>
         <MeetingsCard {...meetingsCardProps!} meetings={meetings} />
+      </Grid>
+      <Grid
+        item
+        xs={12}
+        lg={6}
+        sx={{
+          mb: {
+            xs: 0
+          }
+        }}
+        width={'100%'}
+      >
+        {useRocks ? (
+          <RocksCard {...rocksCardProps!} rocks={rocks} />
+        ) : (
+          <OkrsCard {...okrsCardProps!} okrs={okrs} />
+        )}
       </Grid>
       <Grid
         item
@@ -125,7 +190,6 @@ export const MyOs = ({
       >
         <TodosCard {...todosCardProps!} todos={todos} />
       </Grid>
-
       <Grid
         item
         xs={12}

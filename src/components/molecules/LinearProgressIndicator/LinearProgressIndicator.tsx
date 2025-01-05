@@ -3,7 +3,7 @@ import { forwardRef } from 'react';
 import LinearProgressBar, {
   LinearProgressProps
 } from 'src/components/atoms/LinearProgressBar/LinearProgressBar';
-import { useTheme } from '@mui/material/styles';
+import { useTheme } from '@mui/material';
 
 export interface LinearProgressIndicatorProps {
   /**

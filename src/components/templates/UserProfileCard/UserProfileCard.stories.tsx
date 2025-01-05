@@ -1,13 +1,12 @@
-import { Button } from '@mui/material';
-import { ComponentStory } from '@storybook/react';
-import { useState } from 'react';
-import UserProfileCard from './UserProfileCard';
+import { Story } from '@storybook/react';
 import image from 'src/assets/images/blurbackground.png';
+import ThemeProvider from 'src/components/particles/theme';
+import UserProfileCard, { UserProfileCardProps } from './UserProfileCard';
 
 const testData = {
-  firstName: 'Breaking The ui with thisincrediblylongunbreakablewordexample',
+  firstName: 'Mollie',
   lastName: 'Hall',
-  name: 'Breaking The ui with thisincrediblylongunbreakablewordexample',
+  name: 'Mollie Hall',
   role: 'Lead Developer',
   group: 'Product Team',
   birthdate: 'November, 24',
@@ -32,65 +31,25 @@ export default {
   component: UserProfileCard
 };
 
-const Template: ComponentStory<typeof UserProfileCard> = (args) => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const handleOpen = () => {
-    setIsOpen(true);
-  };
-
-  const handleClose = () => {
-    setIsOpen(false);
-  };
-
-  return (
-    <>
-      <Button onClick={handleOpen} variant="contained">
-        Open User Profile
-      </Button>
-      <UserProfileCard
-        data={testData}
-        isOpen={isOpen}
-        onClose={handleClose}
-        emailIconClick={() => console.log('emailIconClick')}
-      />
-    </>
-  );
-};
-
-const EmptyStateTemplate: ComponentStory<typeof UserProfileCard> = (args) => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const handleOpen = () => {
-    setIsOpen(true);
-  };
-
-  const handleClose = () => {
-    setIsOpen(false);
-  };
-
-  return (
-    <>
-      <Button onClick={handleOpen} variant="contained">
-        Open User Profile
-      </Button>
-      <UserProfileCard
-        data={{
-          ...testData,
-          birthdate: '',
-          workAnniversary: '',
-          // keyMetric: '',
-          responsibility: '',
-          reportsTo: {},
-          metric: ''
-        }}
-        isOpen={isOpen}
-        onClose={handleClose}
-        emailIconClick={() => console.log('emailIconClick')}
-      />
-    </>
-  );
-};
+const Template: Story<UserProfileCardProps> = (args) => (
+  <ThemeProvider>
+    <UserProfileCard {...args} />
+  </ThemeProvider>
+);
 
 export const Default = Template.bind({});
-export const EmptyState = EmptyStateTemplate.bind({});
+Default.args = {
+  data: testData
+};
+export const EmptyState = Template.bind({});
+EmptyState.args = {
+  data: {
+    ...testData,
+    birthdate: '',
+    workAnniversary: '',
+    // keyMetric: '',
+    responsibility: '',
+    reportsTo: {},
+    metric: ''
+  }
+};

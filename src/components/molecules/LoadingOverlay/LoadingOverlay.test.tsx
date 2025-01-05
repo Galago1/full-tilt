@@ -6,7 +6,7 @@ const { Default } = composeStories(LoadingOverlayStories);
 
 describe('LoadingOverlay', () => {
   test('renders the LoadingOverlay', async () => {
-    render(<Default />);
+    render(<Default data-testid="filter-list" />);
     const element = await screen.findByTestId('filter-list');
     expect(element).toBeInTheDocument();
   });

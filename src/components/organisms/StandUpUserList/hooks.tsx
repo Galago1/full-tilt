@@ -1,14 +1,12 @@
 import { SelectChangeEvent } from '@mui/material';
-import { parseISO } from 'date-fns';
 import { useEffect, useState } from 'react';
-import { DateFormat } from 'src/types/dateFns';
 import { formatDateIso, formatIso } from 'src/utils/date';
 import { TeamMember } from './StandUpUserList';
 
 const createDate = (offset = 0): string => {
   const date = new Date();
   date.setDate(date.getDate() + offset);
-  return formatDateIso(date, DateFormat.yyyyMMdd);
+  return formatDateIso(date);
 };
 const today = createDate();
 
@@ -30,7 +28,7 @@ export const useStandUpUserList = (
 
   const handleDateChange = (date: Date | null) => {
     if (date) {
-      const formattedDate = formatDateIso(date, DateFormat.yyyyMMdd);
+      const formattedDate = formatDateIso(date);
       setSelectedDate(formattedDate);
       if (setExternalDate) {
         setExternalDate(formattedDate);
@@ -60,8 +58,6 @@ export const useStandUpUserList = (
       );
     });
 
-  console.log('filteredMembers', teamMembers, selectedTeam);
-
   const handleNext = () => {
     setSelectedIndex((prevIndex) =>
       prevIndex < filteredMembers.length - 1 ? prevIndex + 1 : prevIndex
@@ -76,21 +72,26 @@ export const useStandUpUserList = (
   const canGoBack = selectedIndex > 0;
 
   const formatDate = (dateString: string) => {
-    return formatIso(dateString, DateFormat.MMMddyyyy);
+    const result = formatIso(dateString);
+    return result;
   };
 
-  const formatStandUpTime = (
-    standUpCompletedAt: string | null
-    // hideIncomplete: boolean = false
-  ) => {
-    if (!standUpCompletedAt) {
-      // return hideIncomplete ? '' : 'Incomplete';
-      return '';
-    }
-    const date = parseISO(standUpCompletedAt);
-    // return formatDistanceToNow(date, { addSuffix: true }).replace('about ', '');
-    return formatDateIso(date, DateFormat.HHMM);
-  };
+  // const formatStandUpTime = (
+  //   standUpCompletedAt: string | null
+  //   // hideIncomplete: boolean = false
+  // ) => {
+  //   if (!standUpCompletedAt) {
+  //     // return hideIncomplete ? '' : 'Incomplete';
+  //     return '';
+  //   }
+  //   const date = parse(
+  //     standUpCompletedAt,
+  //     DateFormat.yyyyMMddTHHmmssZ,
+  //     new Date()
+  //   );
+  //   // return formatDistanceToNow(date, { addSuffix: true }).replace('about ', '');
+  //   return formatDateIso(date, DateFormat.HHMM);
+  // };
 
   const [tipVisible, setTipVisible] = useState(tipVisibleInitial);
 
@@ -116,7 +117,6 @@ export const useStandUpUserList = (
     canGoNext,
     canGoBack,
     formatDate,
-    formatStandUpTime,
     tipVisible,
     handleClose,
     countCompletedStandUps,

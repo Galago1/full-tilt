@@ -10,7 +10,7 @@ export default {
 
 const Template: Story<WaveSliderProps> = (args) => (
   <ThemeProvider>
-    <Formik initialValues={{ name: '' }} onSubmit={() => console.log('test')}>
+    <Formik initialValues={{ name: '' }} onSubmit={() => {}}>
       <Field name="name" component={WaveSlider} {...args} />
     </Formik>
   </ThemeProvider>
@@ -23,10 +23,6 @@ Default.args = {
   step: 1,
   minLabel: 'Not likely at all',
   maxLabel: 'Very likely'
-  // onChange: (form, field, value, changeType) => {
-  //   console.log('value', value);
-  //   console.log('changeType', changeType);
-  // }
 };
 
 export const Disabled = Template.bind({});

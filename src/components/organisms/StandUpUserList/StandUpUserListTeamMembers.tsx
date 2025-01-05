@@ -15,6 +15,10 @@ export interface StandUpUserListTeamMembersProps {
   showTeamSelect: boolean;
   handleTeamChange: (event: SelectChangeEvent<string>) => void;
   formatDate: (dateString: string) => string;
+  /**
+   * The date selected by the user
+   * format: MM/dd/yyyy
+   */
   selectedDate: string;
   countCompletedStandUps: (teamMembers: TeamMember[]) => number;
   filteredMembers: TeamMember[];

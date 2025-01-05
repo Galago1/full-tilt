@@ -1,4 +1,4 @@
-import { Box, BoxProps, Grid, SxProps, Theme } from '@mui/material';
+import { Box, BoxProps, Grid, GridProps, SxProps, Theme } from '@mui/material';
 import Divider, { DividerProps } from 'src/components/atoms/Divider/Divider';
 import { responsiveSpacing } from 'src/components/particles/theme/spacing';
 import { AvatarAndTextProps } from '../../AvatarAndText/AvatarAndText';
@@ -43,6 +43,10 @@ export interface CardHeaderProps extends BoxProps {
      * the divider props
      */
     dividerProps?: DividerProps;
+    /**
+     * the avatar and text grid item props
+     */
+    avatarAndTextGridItemProps?: GridProps;
   };
 }
 const CardHeader = ({
@@ -52,8 +56,12 @@ const CardHeader = ({
   slots,
   ...props
 }: CardHeaderProps) => {
-  const { avatarAndTextProps, paddingBottomBoxProps, dividerProps } =
-    slots || {};
+  const {
+    avatarAndTextProps,
+    paddingBottomBoxProps,
+    dividerProps,
+    avatarAndTextGridItemProps
+  } = slots || {};
   const baseBoxProps = {
     ...styles.boxSx,
     pt: !!avatarAndTextProps ? responsiveSpacing : 0
@@ -62,7 +70,7 @@ const CardHeader = ({
     <>
       <Box sx={baseBoxProps} {...props}>
         <Grid container flexDirection={'column'} gap={responsiveSpacing}>
-          <Grid item>
+          <Grid item {...avatarAndTextGridItemProps} flex={1}>
             {avatarAndTextProps && (
               <TitleWithDefaults {...avatarAndTextProps} />
             )}

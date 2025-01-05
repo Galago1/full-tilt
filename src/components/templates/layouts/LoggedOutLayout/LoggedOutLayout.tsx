@@ -1,5 +1,4 @@
-import { Grid, GridProps } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
+import { Grid, GridProps, useTheme } from '@mui/material';
 import { Image, ImageProps } from 'src/components/atoms/Image/Image';
 import TransparentCard, {
   TransparentCardProps

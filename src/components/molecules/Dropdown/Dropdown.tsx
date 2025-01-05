@@ -80,7 +80,7 @@ export interface DropdownProps extends BoxProps {
   /**
    * The DropdownMenu props
    */
-  dropdownMenuProps: Partial<DropdownMenuProps>;
+  dropdownMenuProps?: Partial<DropdownMenuProps>;
   /**
    * The Grid menu item props
    */

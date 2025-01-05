@@ -39,4 +39,13 @@ import '@testing-library/jest-dom/extend-expect';
   clip: () => {}
 }));
 
+// Mock ResizeObserver
+class ResizeObserver {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+}
+
+global.ResizeObserver = ResizeObserver;
+
 // Mock any other items here as needed

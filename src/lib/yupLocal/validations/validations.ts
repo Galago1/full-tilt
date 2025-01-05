@@ -8,6 +8,19 @@ declare module 'yup' {
 
 export function phone(this: StringSchema) {
   return this.test('phone', 'Invalid phone format', (value: any) => {
-    return phoneRegExp.test(value) || /^[0-9]{10}$/.test(value);
+    // return phoneRegExp.test(value) || /^[0-9]{10}$/.test(value);
+    if (!value) return true; // Allow empty values (handled by required validation if needed)
+    // Format number to (XXX) XXX-XXXX if it's just digits
+    console.log(
+      'phoneRegExp.test(value)',
+      value || 'noValue',
+      phoneRegExp.test(value)
+    );
+
+    if (/^\d{10}$/.test(value)) {
+      const formatted = value.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3');
+      return phoneRegExp.test(formatted);
+    }
+    return phoneRegExp.test(value);
   });
 }

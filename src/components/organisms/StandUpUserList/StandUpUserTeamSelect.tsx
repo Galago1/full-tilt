@@ -22,7 +22,7 @@ const StandUpUserTeamSelect = ({
   return (
     <Formik
       initialValues={{ name: value }}
-      onSubmit={() => console.log('asckasd')}
+      onSubmit={() => {}}
       enableReinitialize
     >
       {(formik) => {

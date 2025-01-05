@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { RowData } from './useScorecard';
 import * as ScorecardStories from './Scorecard.stories'; //👈  Our stories imported here
 import { composeStories } from '@storybook/testing-react';
+import { GoalCondition } from './helpers';
 //👇 composeStories will process all information related to the component (e.g., args)
 const { Daily } = composeStories(ScorecardStories);
 
@@ -12,6 +13,7 @@ const mockData: RowData[] = [
     title: '1 point a day',
     goal: '<1',
     trend: 1.1,
+    goalCondition: GoalCondition.LESS_THAN,
     data: [
       { id: '1', value: undefined, date: '2022-01-01' },
       { id: '2', value: 0.8, date: '2022-01-02' },
@@ -27,6 +29,7 @@ const mockData: RowData[] = [
     title: '2 points a day',
     goal: '1-2',
     trend: 1.5,
+    goalCondition: GoalCondition.LESS_THAN,
     data: [
       { id: '1', value: 0.6, date: '2022-01-01' },
       { id: '2', value: undefined, date: '2022-01-02' },
@@ -42,6 +45,7 @@ const mockData: RowData[] = [
     title: '3-4 points a day',
     goal: '3-4',
     trend: 3.8,
+    goalCondition: GoalCondition.LESS_THAN,
     data: [
       { id: '1', value: 0.7, date: '2022-01-01' },
       { id: '2', value: 0.5, date: '2022-01-02' },

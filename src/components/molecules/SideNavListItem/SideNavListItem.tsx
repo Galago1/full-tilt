@@ -10,11 +10,10 @@ import {
   ListItemText,
   ListItemTextProps
 } from '@mui/material';
+import { forwardRef, ReactNode } from 'react';
+import Tooltip, { TooltipProps } from 'src/components/atoms/Tooltip/Tooltip';
 import IconWithTooltip from '../IconWithTooltip';
 import { IconWithTooltipProps } from '../IconWithTooltip/IconWithTooltip';
-import Tooltip from 'src/components/atoms/Tooltip/Tooltip';
-import { TooltipProps } from 'src/components/atoms/Tooltip/Tooltip';
-import { forwardRef } from 'react';
 
 const ListItemButtonClone = forwardRef(({ children, ...props }: any, ref) => {
   return (
@@ -61,11 +60,11 @@ export interface SideNavListItemProps extends ListItemProps {
   /**
    * The children to display.
    */
-  children?: React.ReactNode;
+  children?: ReactNode;
   /**
    * The icon to display.
    */
-  listItemEndIcon?: React.ReactNode;
+  listItemEndIcon?: ReactNode;
   /**
    * Props for the list item end icon component.
    */

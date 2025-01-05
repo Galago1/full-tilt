@@ -3,8 +3,10 @@ import { Chip, Divider } from 'src/components/atoms';
 import { ChipProps } from 'src/components/atoms/Chip/Chip';
 import { AvatarAndText } from 'src/components/molecules';
 import { ArrowUpRightIcon } from 'src/components/particles/theme/overrides/CustomIcons';
+import CheckDoneForm, { CheckDoneFormProps } from './CheckDoneForm';
 
 export interface SharedListCardContentProps extends GridProps {
+  id?: string;
   status?: string;
   priority?: string;
   title?: string;
@@ -12,11 +14,13 @@ export interface SharedListCardContentProps extends GridProps {
   index?: number;
   listLength?: number;
   slots?: {
-    chipProps: ChipProps;
+    chipProps?: ChipProps;
+    checkDoneFormProps?: CheckDoneFormProps;
   };
 }
 
 const SharedListCardContent = ({
+  id,
   status,
   priority,
   title,
@@ -27,7 +31,7 @@ const SharedListCardContent = ({
   slots,
   ...props
 }: SharedListCardContentProps) => {
-  const { chipProps } = slots || {};
+  const { chipProps, checkDoneFormProps } = slots || {};
   return (
     <>
       <Grid
@@ -47,6 +51,12 @@ const SharedListCardContent = ({
       >
         <Grid container alignItems="center" gap={0.5}>
           <AvatarAndText
+            gap={1}
+            flexWrap="nowrap"
+            leftComponent={<CheckDoneForm id={id!} {...checkDoneFormProps!} />}
+            leftComponentItemSx={{
+              alignSelf: 'flex-start'
+            }}
             title={title}
             alignItems="center"
             titleTypography={{

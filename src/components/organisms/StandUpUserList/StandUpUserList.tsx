@@ -35,6 +35,7 @@ export interface TeamMember {
   team: string;
   // date: string;
   standUpCompletedAt: string | null;
+  standUpCompletedAtTime: string | null;
   standUpContent: string[];
   lastSeen: string;
 }
@@ -77,7 +78,8 @@ const StandUpUserList = forwardRef(
       setExternalSelectedIndex,
       hideShowEditButton = false,
       showTeamSelect = true,
-      initialTeam = 'all'
+      initialTeam = 'all',
+      ...props
     }: StandUpUserListProps,
     ref: any
   ) => {
@@ -97,7 +99,6 @@ const StandUpUserList = forwardRef(
       canGoNext,
       canGoBack,
       formatDate,
-      formatStandUpTime,
       tipVisible,
       handleClose,
       countCompletedStandUps,
@@ -143,7 +144,12 @@ const StandUpUserList = forwardRef(
     }));
 
     return (
-      <Grid container spacing={2} sx={{ height: '100%', paddingBottom: 2 }}>
+      <Grid
+        container
+        spacing={2}
+        sx={{ height: '100%', paddingBottom: 2 }}
+        {...props}
+      >
         <Grid item xs={12} sm={12} md={12} lg={3} sx={{ height: '100%' }}>
           <StandUpUserListTeamMembers
             selectedIndex={selectedIndex}
@@ -171,7 +177,6 @@ const StandUpUserList = forwardRef(
               canGoNext={canGoNext}
               tipVisible={tipVisible}
               handleClose={handleClose}
-              formatStandUpTime={formatStandUpTime}
               theme={theme}
               editButtonProps={finalEditButtonProps!}
               showEditButton={showEditButton}

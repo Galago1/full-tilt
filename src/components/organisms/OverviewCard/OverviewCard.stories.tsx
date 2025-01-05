@@ -1,8 +1,9 @@
 import { Meta, Story } from '@storybook/react';
 import { useState } from 'react';
-import OverviewCard, { OverviewCardProps } from './OverviewCard';
+import { ThemeProvider } from 'src/components/particles';
 import { Quarter } from 'src/types/other';
 import { mockData } from './helpers';
+import OverviewCard, { OverviewCardProps } from './OverviewCard';
 
 export default {
   title: 'Organisms/OverviewCard',
@@ -17,11 +18,13 @@ const Template: Story<OverviewCardProps> = (args) => {
   };
 
   return (
-    <OverviewCard
-      {...args}
-      selectedQuarter={selectedQuarter}
-      onQuarterChange={handleQuarterChange}
-    />
+    <ThemeProvider>
+      <OverviewCard
+        {...args}
+        selectedQuarter={selectedQuarter}
+        onQuarterChange={handleQuarterChange}
+      />
+    </ThemeProvider>
   );
 };
 

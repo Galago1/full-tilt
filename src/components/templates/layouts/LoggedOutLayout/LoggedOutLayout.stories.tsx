@@ -68,7 +68,6 @@ LoggedOutLayoutMobileTemplate.args = {
     ),
 
     dropdownProps: {
-      dropdownMenuProps: {},
       iconButtonProps: {
         size: 'small'
       },

@@ -1,11 +1,10 @@
-import type { ComponentStory, ComponentMeta } from '@storybook/react';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
 
 import type { PaperProps } from '@mui/material';
-import { Box, Paper, Typography } from '@mui/material';
+import { Box, Paper, Typography, useTheme } from '@mui/material';
 import type { SxProps, Theme } from '@mui/material/styles';
-import { useTheme } from '@mui/material/styles';
-import BlockContainer from 'src/components/organisms/BlockContainer/BlockContainer';
 import image from 'src/assets/images/blurbackground.png';
+import BlockContainer from 'src/components/organisms/BlockContainer/BlockContainer';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {

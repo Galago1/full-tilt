@@ -1,7 +1,8 @@
 import { Meta, Story } from '@storybook/react';
-import Scorecard, { ScorecardProps } from './Scorecard';
-import { GoalCondition, scorecardDropdown } from './helpers';
 import { TimePickerInputBase } from 'src/components/atoms';
+import ThemeProvider from 'src/components/particles/theme';
+import Scorecard, { ScorecardProps } from './Scorecard';
+import { GoalCondition } from './helpers';
 
 const onSave = async (
   values: any,
@@ -9,7 +10,6 @@ const onSave = async (
   onClose: () => void,
   row: any
 ) => {
-  console.log('onSave', values, form, onClose, row);
   await new Promise((resolve) => setTimeout(resolve, 1000));
 };
 
@@ -18,12 +18,16 @@ export default {
   component: Scorecard
 } as Meta;
 
-const Template: Story<ScorecardProps> = (args) => <Scorecard {...args} />;
+const Template: Story<ScorecardProps> = (args) => (
+  <ThemeProvider>
+    <Scorecard {...args} />
+  </ThemeProvider>
+);
 
 export const Daily = Template.bind({});
 Daily.args = {
   onSave,
-  onClickEdit: (event, row) => console.log('Edit clicked', event, row),
+  onClickEdit: (event, row) => {},
   slots: {
     rowsOrEmptyStateProps: {
       slots: {
@@ -99,7 +103,7 @@ Daily.args = {
 export const DailyEmpty = Template.bind({});
 DailyEmpty.args = {
   onSave,
-  onClickEdit: (event, row) => console.log('Edit clicked', event, row),
+  onClickEdit: (event, row) => {},
   slots: {
     emptyStateProps: {
       avatarAndTextProps: {

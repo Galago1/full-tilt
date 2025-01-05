@@ -12,7 +12,7 @@ export default {
 const Template: Story<ReplyProps> = (args) => (
   <Formik
     initialValues={{ reply: 'Your reply', anonymous: true }}
-    onSubmit={() => console.log('adscasd')}
+    onSubmit={() => {}}
   >
     {(formik) => <Reply {...args} />}
   </Formik>

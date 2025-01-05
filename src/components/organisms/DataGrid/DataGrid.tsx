@@ -20,7 +20,7 @@ const DataGrid = ({
   ...props
 }: DataGridProps) => {
   return (
-    <Box sx={{ ...boxSx }}>
+    <Box sx={{ ...boxSx }} data-testid="data-grid">
       <DataGridPremium {...props} />
     </Box>
   );

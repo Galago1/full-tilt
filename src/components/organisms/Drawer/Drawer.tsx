@@ -44,7 +44,7 @@ export interface DrawerProps extends Omit<MuiDrawerProps, 'slots'> {
   /**
    * close the drawer
    */
-  onClose: {
+  onClose?: {
     bivarianceHack(event: {}, reason: 'backdropClick' | 'escapeKeyDown'): void;
   }['bivarianceHack'];
   /**
@@ -111,7 +111,7 @@ const Drawer = ({
       {...props}
       onClose={(event: {}, reason: 'backdropClick' | 'escapeKeyDown') => {
         if (useBackdropClick) {
-          onClose(event, reason);
+          onClose?.(event, reason);
         }
       }}
     >

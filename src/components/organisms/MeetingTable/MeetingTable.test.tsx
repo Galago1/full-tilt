@@ -45,7 +45,7 @@ describe('MeetingTable', () => {
     render(<Default data={mockData} />);
 
     // Check if the title is rendered
-    expect(screen.getByText('Meetings')).toBeInTheDocument();
+    expect(screen.getByText('All Meetings')).toBeInTheDocument();
 
     // // Check if the Select component is rendered with the first team
     expect(screen.getByDisplayValue('TeamA')).toBeInTheDocument();

@@ -9,9 +9,9 @@ const { EmployeeDataGrid } = composeStories(DataGridStories);
 describe('DataGrid', () => {
   test('renders the basic datagrid', async () => {
     await act(async () => {
-      render(<EmployeeDataGrid data-testid="custom-element" />);
+      render(<EmployeeDataGrid />);
     });
-    const element = screen.getByTestId('custom-element');
+    const element = screen.getByTestId('data-grid');
     expect(element).toBeInTheDocument();
   });
 });

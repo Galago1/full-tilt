@@ -11,12 +11,12 @@ export default {
 } as ComponentMeta<typeof Stars>;
 
 export const Default: Story<StarsProps> = () => (
-  <Formik initialValues={{ name: '' }} onSubmit={() => console.log('asdcads')}>
+  <Formik initialValues={{ name: '' }} onSubmit={() => {}}>
     <Field name={'name'} component={Stars} totalStars={5} />
   </Formik>
 );
 export const WithTenStars: Story<StarsProps> = () => (
-  <Formik initialValues={{ name: '' }} onSubmit={() => console.log('asdcads')}>
+  <Formik initialValues={{ name: '' }} onSubmit={() => {}}>
     <Field name={'name'} component={Stars} totalStars={10} />
   </Formik>
 );

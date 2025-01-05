@@ -84,6 +84,7 @@ const Content = ({
         <SharedListCardContent
           {...sharedListCardContentProps}
           key={idea.id}
+          id={idea.id}
           onClick={idea.onClick}
           status={idea.status}
           priority={idea.priority}

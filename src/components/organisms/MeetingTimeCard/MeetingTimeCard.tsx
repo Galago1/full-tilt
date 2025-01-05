@@ -13,6 +13,7 @@ import MeetingTimePlanList, {
 import { responsiveSpacing } from 'src/components/particles/theme/spacing';
 
 export interface MeetingTimeCardProps {
+  'data-testid'?: string;
   /**
    * The plan items to display
    */
@@ -76,7 +77,8 @@ const MeetingTimeCard = forwardRef(
       handleNextCb,
       handlePlayPauseCb,
       handleClickCb,
-      slots
+      slots,
+      ...props
     }: MeetingTimeCardProps,
     ref
   ) => {
@@ -90,7 +92,6 @@ const MeetingTimeCard = forwardRef(
       meetingTimePlanListProps,
       meetingTimeHeaderProps
     } = slots || {};
-    console.log('laksdmcalksdmcsa', slots);
     const {
       currentId,
       isRunning,
@@ -149,9 +150,12 @@ const MeetingTimeCard = forwardRef(
       () => determineFirstStep(),
       [totalElapsedTime, currentIndex]
     );
-    console.log('laksdmcalksdmcsa', meetingTimePlanListProps);
     return (
-      <Card showActions={false} {...cardProps}>
+      <Card
+        showActions={false}
+        {...cardProps}
+        data-testid={props['data-testid']}
+      >
         <Grid
           container
           flexDirection={'column'}

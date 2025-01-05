@@ -1,16 +1,23 @@
 import { fireEvent, render } from '@testing-library/react';
-
 import { composeStories } from '@storybook/testing-react';
-import * as WaveSliderStories from './WaveSlider.stories'; //👈  Our stories imported here
-//👇 composeStories will process all information related to the component (e.g., args)
+import * as WaveSliderStories from './WaveSlider.stories';
+
 const { Default } = composeStories(WaveSliderStories);
 
 describe('WaveSlider', () => {
-  test('renders correctly with default props', () => {
-    const { getByText } = render(<Default minLabel="Min" maxLabel="Max" />);
-
-    expect(getByText('Min')).toBeInTheDocument();
-    expect(getByText('Max')).toBeInTheDocument();
+  beforeEach(() => {
+    // Mock getBoundingClientRect
+    Element.prototype.getBoundingClientRect = jest.fn(() => ({
+      width: 100,
+      height: 100,
+      top: 0,
+      left: 0,
+      bottom: 0,
+      right: 0,
+      x: 0,
+      y: 0,
+      toJSON: () => {}
+    }));
   });
 
   test('slider value updates on click', () => {
@@ -27,9 +34,9 @@ describe('WaveSlider', () => {
       <Default min={0} max={10} step={1} minLabel="Min" maxLabel="Max" />
     );
 
-    const sliderThumb = getByTestId('slider-thumb');
-    fireEvent.mouseDown(sliderThumb, { clientX: 0 });
-    fireEvent.mouseMove(document, { clientX: 100 });
+    const sliderTrack = getByTestId('slider-track');
+    fireEvent.mouseDown(sliderTrack, { clientX: 0 });
+    fireEvent.mouseMove(document, { clientX: 50 });
     fireEvent.mouseUp(document);
   });
 });

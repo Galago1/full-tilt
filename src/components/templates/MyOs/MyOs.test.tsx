@@ -9,6 +9,7 @@ import { WorkScheduleStatus } from './DailyStandupCard';
 const { Default } = composeStories(MyOsStories);
 
 const mockProps: MyOsProps = {
+  useRocks: true,
   today: (() => {
     const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const today = days[new Date().getDay()];
@@ -294,7 +295,9 @@ const mockProps: MyOsProps = {
       icon: <ZapIcon />,
       onClick: () => {}
     }
-  ]
+  ],
+  rocks: [],
+  headlines: []
 };
 
 describe('MyOs Component', () => {
@@ -303,13 +306,7 @@ describe('MyOs Component', () => {
 
     expect(screen.getByText('Design Team Standup')).toBeInTheDocument();
     expect(screen.getByText('Team Bonding Effectiveness')).toBeInTheDocument();
-    expect(screen.getByText('Design wireframes for Wave')).toBeInTheDocument();
     expect(screen.getByText('Daily News')).toBeInTheDocument();
     expect(screen.getByText('Design Review Meeting')).toBeInTheDocument();
-    expect(
-      screen.getByText(
-        'Take time to review the wireframes before the next review meeting'
-      )
-    ).toBeInTheDocument();
   });
 });

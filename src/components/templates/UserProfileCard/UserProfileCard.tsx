@@ -77,7 +77,6 @@ const UserProfileCard = ({
       isTruncated && text.length > length
         ? text.substring(0, length) + '...'
         : text;
-    console.log('resultldkaklmdsc', result);
     return result;
   };
 
@@ -233,7 +232,7 @@ const UserProfileCard = ({
           <Grid container flexDirection={'column'} spacing={0}>
             <Grid item>
               <Typography
-                variant="textSmMedium"
+                variant="textMdRegular"
                 paddingBottom={1}
                 color="text.secondary"
               >
@@ -251,7 +250,7 @@ const UserProfileCard = ({
             </Grid>
             <Grid item sx={{ mt: 1 }}>
               <Typography
-                variant="textSmMedium"
+                variant="textMdRegular"
                 padding={theme.spacing(1, 0)}
                 color="text.secondary"
               >
@@ -274,13 +273,13 @@ const UserProfileCard = ({
               marginBottom: responsiveSpacing
             }}
           />
-          <Typography variant="textSmMedium" color="grey.900">
+          <Typography variant="textMdMedium" color="grey.900">
             Responsibility
           </Typography>
           <Grid>
             <Grid item>
               <Typography
-                variant="textMdMedium"
+                variant="textMdRegular"
                 sx={{ whiteSpace: 'pre-line', wordBreak: 'break-word' }}
                 color="text.primary"
               >
@@ -313,7 +312,7 @@ const UserProfileCard = ({
           <Grid paddingTop={responsiveSpacing}>
             <Grid item>
               <Typography
-                variant="textSmMedium"
+                variant="textMdMedium"
                 color="grey.900"
                 sx={{ wordBreak: 'break-word' }}
               >
@@ -336,7 +335,7 @@ const UserProfileCard = ({
                 <TrendUp01Icon sx={{ width: 20, height: 20 }} />
               </Grid>
               <Typography
-                variant="textMdMedium"
+                variant="textMdRegular"
                 paddingLeft={1.5}
                 color="text.primary"
                 sx={{ wordBreak: 'break-word' }}
@@ -347,7 +346,7 @@ const UserProfileCard = ({
           </Grid>
           <Grid paddingTop={2}>
             <Grid item marginBottom={2}>
-              <Typography variant="textSmRegular" color="grey.900">
+              <Typography variant="textMdMedium" color="grey.900">
                 Reports To
               </Typography>
             </Grid>
@@ -373,6 +372,10 @@ const UserProfileCard = ({
                       )
                 }}
                 title={data.reportsTo?.name || 'NA'}
+                titleTypography={{
+                  variant: 'textMdRegular',
+                  color: 'text.primary'
+                }}
                 subtitle={data.reportsTo?.email || ''}
                 alignItems={'center'}
               />

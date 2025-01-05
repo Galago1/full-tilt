@@ -61,10 +61,7 @@ const StandUpUserListTeamMembersHeader = ({
         </Grid>
       </Grid>
       <Grid sx={{ position: 'relative' }}>
-        <Formik
-          initialValues={{ date: null }}
-          onSubmit={() => console.log('what')}
-        >
+        <Formik initialValues={{ date: null }} onSubmit={() => {}}>
           {(formik) => (
             <Field
               name="date"
