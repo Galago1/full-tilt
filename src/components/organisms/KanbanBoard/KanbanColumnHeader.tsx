@@ -17,7 +17,7 @@ const KanbanColumnHeader = ({ column }: KanbanColumnHeaderProps) => {
         border: theme.border.appearanceCardHover,
         borderRadius: theme.borderRadius.sm,
         backgroundColor: theme.palette.common.white,
-        m: 2,
+        // m: 2,
         padding: theme.spacing(2, 12 / 8),
         alignItems: 'center',
         width: 'auto'
@@ -27,7 +27,7 @@ const KanbanColumnHeader = ({ column }: KanbanColumnHeaderProps) => {
       <Grid item flex={1}>
         <Grid
           container
-          gap={1}
+          gap={2}
           alignItems="center"
           {...column?.headerContainerGridItemProps}
         >
@@ -43,18 +43,23 @@ const KanbanColumnHeader = ({ column }: KanbanColumnHeaderProps) => {
               />
             </Grid>
           )}
-          <Grid item>
-            <AvatarAndText
-              title={column?.title}
-              titleTypography={{ variant: 'textSmSemibold', color: 'grey.700' }}
-              sx={{
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                whiteSpace: 'nowrap'
-              }}
-              {...column?.headerAvatarAndTextProps!}
-            />
-          </Grid>
+          {column?.title && (
+            <Grid item>
+              <AvatarAndText
+                title={column?.title}
+                titleTypography={{
+                  variant: 'textSmSemibold',
+                  color: 'grey.700'
+                }}
+                sx={{
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'nowrap'
+                }}
+                {...column?.headerAvatarAndTextProps!}
+              />
+            </Grid>
+          )}
           <Grid item>
             <Chip variant="outlined" label={column?.cards.length} />
           </Grid>

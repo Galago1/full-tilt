@@ -7,14 +7,11 @@ import {
   SxProps,
   Theme
 } from '@mui/material';
-import { Divider, FeaturedIcon } from 'src/components/atoms';
+import { CloseButton, Divider, FeaturedIcon } from 'src/components/atoms';
+import { CloseButtonProps } from 'src/components/atoms/CloseButton/CloseButton';
 import { FeaturedIconProps } from 'src/components/atoms/FeaturedIcon/FeaturedIcon';
 import { responsiveSpacing } from 'src/components/particles/theme/spacing';
 import { AvatarAndTextProps } from '../../AvatarAndText/AvatarAndText';
-import {
-  CloseButton,
-  CloseButtonProps
-} from '../../Modal/ModalHeader/ModalHeader';
 import TitleWithDefaults from '../../Shared/TitleWithDefaults/TitleWithDefaults';
 
 const boxSx: SxProps<Theme> = {

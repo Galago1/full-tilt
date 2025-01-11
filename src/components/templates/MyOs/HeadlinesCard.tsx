@@ -11,7 +11,7 @@ import {
 import { responsiveSpacing } from 'src/components/particles/theme/spacing';
 import SharedListCardContent, {
   SharedListCardContentProps
-} from './SharedListCardContent';
+} from './SharedListCardContent/SharedListCardContent';
 import { Headline } from './types';
 
 const statusMap: any = {

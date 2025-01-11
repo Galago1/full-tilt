@@ -128,38 +128,52 @@ const Content = ({
           >
             <Grid container>
               <Grid item flex={1}>
-                <Grid
-                  container
-                  alignItems={'center'}
+                <AvatarAndText
                   gap={1}
-                  flexWrap={'nowrap'}
-                >
-                  <Grid item>
-                    <CircularProgressIndicator
-                      size={CircularProgressIndicatorSize.XSMALL}
-                      value={okr.percentage}
-                      hideValue={true}
-                    />
-                  </Grid>
-
-                  <Grid item container flexDirection={'column'} gap={1.5}>
-                    <Grid item>
-                      <Typography variant="textMdRegular">
-                        {okr.title}
-                      </Typography>
+                  flexWrap="nowrap"
+                  leftComponent={
+                    <Grid sx={{ p: 0.5 }}>
+                      <CircularProgressIndicator
+                        size={CircularProgressIndicatorSize.XXSMALL}
+                        value={okr.percentage}
+                        hideValue={true}
+                      />
                     </Grid>
-                    <Grid item display={'flex'} gap={1} alignItems={'center'}>
-                      <CalendarIcon sx={{ color: theme.palette.grey[400] }} />
-                      <Typography variant="textSmMedium">
-                        Quarter {capitalize(okr.quarter || '')}
-                      </Typography>
-                      <Users01Icon sx={{ color: theme.palette.grey[400] }} />
-                      <Typography variant="textSmMedium">
-                        {okr.people}
-                      </Typography>
+                  }
+                  leftComponentItemSx={{
+                    alignSelf: 'flex-start'
+                  }}
+                  title={okr.title}
+                  alignItems="center"
+                  titleTypography={{
+                    sx: { display: 'flex', alignItems: 'center' }
+                  }}
+                  subtitle={
+                    <Grid
+                      container
+                      alignItems={'center'}
+                      gap={0.5}
+                      flexWrap={'nowrap'}
+                    >
+                      <Grid item display={'flex'} gap={1} alignItems={'center'}>
+                        <CalendarIcon sx={{ color: theme.palette.grey[400] }} />
+                        <Typography variant="textSmMedium">
+                          Quarter {capitalize(okr.quarter || '')}
+                        </Typography>
+                        <Users01Icon sx={{ color: theme.palette.grey[400] }} />
+                        <Typography variant="textSmMedium">
+                          {okr.people}
+                        </Typography>
+                      </Grid>
                     </Grid>
-                  </Grid>
-                </Grid>
+                  }
+                  subtitleTypography={{
+                    variant: 'textSmRegular'
+                  }}
+                  textSubtitleGridItemProps={{
+                    sx: { display: 'flex', alignItems: 'center' }
+                  }}
+                />
               </Grid>
 
               <Grid item display={'flex'} alignSelf={'flex-start'}>

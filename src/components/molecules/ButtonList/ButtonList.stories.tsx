@@ -54,17 +54,20 @@ ThreeButtons.args = {
     {
       label: 'Login',
       color: 'secondary',
-      variant: 'text'
+      variant: 'text',
+      tooltipProps: { title: 'Login' }
     },
     {
       label: 'Other',
       color: 'secondary',
-      variant: 'contained'
+      variant: 'contained',
+      tooltipProps: { title: 'Other' }
     },
     {
       label: 'Signup',
       color: 'primary',
-      variant: 'contained'
+      variant: 'contained',
+      tooltipProps: { title: 'Signup' }
     }
   ]
 };

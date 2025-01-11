@@ -7,76 +7,16 @@ import {
   SxProps,
   Theme
 } from '@mui/material';
-import { Divider, FeaturedIcon } from 'src/components/atoms';
-import Button from 'src/components/atoms/Button';
-import { FeaturedIconProps } from 'src/components/atoms/FeaturedIcon/FeaturedIcon';
-import { XCloseIcon } from 'src/components/particles/theme/overrides/CustomIcons';
+import CloseButton, {
+  CloseButtonProps
+} from 'src/components/atoms/CloseButton/CloseButton';
+import Divider from 'src/components/atoms/Divider/Divider';
+import FeaturedIcon, {
+  FeaturedIconProps
+} from 'src/components/atoms/FeaturedIcon/FeaturedIcon';
 import { responsiveSpacing } from 'src/components/particles/theme/spacing';
 import { AvatarAndTextProps } from '../../AvatarAndText/AvatarAndText';
 import TitleWithDefaults from '../../Shared/TitleWithDefaults/TitleWithDefaults';
-import { ButtonProps } from 'src/components/atoms/Button/Button';
-
-export interface CloseButtonProps extends GridProps {
-  /**
-   * Option to use absolute position
-   */
-  useAbsolutePosition?: boolean;
-  /**
-   * close the modal
-   */
-  onHide?:
-    | ((event: {}, reason: 'backdropClick' | 'escapeKeyDown') => void)
-    | undefined;
-  /**
-   * The container styles
-   */
-  closeGridItemProp?: SxProps<Theme>;
-  slots?: {
-    buttonProps?: ButtonProps;
-  };
-}
-
-export const CloseButton = ({
-  useAbsolutePosition,
-  closeGridItemProp,
-  onHide,
-  slots,
-  ...props
-}: CloseButtonProps) => {
-  const { buttonProps } = slots || {};
-  return (
-    <Grid
-      container
-      alignItems={'center'}
-      justifyContent={useAbsolutePosition ? 'flex-end' : 'flex-start'}
-      sx={{
-        position: useAbsolutePosition ? 'absolute' : 'relative',
-        top: useAbsolutePosition ? 24 : 'unset',
-        right: useAbsolutePosition ? 24 : 'unset',
-        ...closeGridItemProp
-      }}
-      {...props}
-    >
-      <Grid
-        item
-        sx={{
-          display: 'flex',
-          alignSelf: 'flex-start'
-        }}
-      >
-        <Button
-          endIcon={<XCloseIcon />}
-          size={'large'}
-          color={'secondary'}
-          variant={'text'}
-          onClick={onHide}
-          data-testid="close-button"
-          {...buttonProps}
-        />
-      </Grid>
-    </Grid>
-  );
-};
 
 const responsiveBottomPadding = responsiveSpacing;
 

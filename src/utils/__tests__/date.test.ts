@@ -1,28 +1,16 @@
-import { format, parseISO } from 'date-fns';
-import { formatIso, formatDateIso, getFirstDayOfNextMonth } from '../date';
+import { format } from 'date-fns';
+import { formatDate, getFirstDayOfNextMonth } from '../date';
 
 describe('dateUtils', () => {
-  describe('formatIso', () => {
+  describe('formatDate', () => {
     it('returns an empty string if no date is provided', () => {
-      expect(formatIso()).toBe('');
-    });
-
-    it('returns the formatted date for a valid ISO date string', () => {
-      const date = '2021-09-21T00:00:00.000Z';
-      const formattedDate = format(parseISO(date), 'MM/dd/yyyy');
-      expect(formatIso(date)).toBe(formattedDate);
-    });
-  });
-
-  describe('formatDateIso', () => {
-    it('returns an empty string if no date is provided', () => {
-      expect(formatDateIso()).toBe('');
+      expect(formatDate()).toBe('');
     });
 
     it('returns the formatted date for a valid Date object', () => {
       const date = new Date('2021-09-21T00:00:00.000Z');
       const formattedDate = format(date, 'MM/dd/yyyy');
-      expect(formatDateIso(date)).toBe(formattedDate);
+      expect(formatDate(date)).toBe(formattedDate);
     });
   });
 

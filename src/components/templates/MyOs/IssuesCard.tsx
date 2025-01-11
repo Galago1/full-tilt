@@ -5,14 +5,13 @@ import BasicEmptyState from 'src/components/molecules/BasicEmptyState/BasicEmpty
 import LoadingIndicator from 'src/components/molecules/LoadingIndicator/LoadingIndicator';
 import Card, { CardProps } from 'src/components/organisms/Card/Card';
 import {
-  ChevronRightIcon,
   AlertCircleIcon,
-  ZapIcon
+  ChevronRightIcon
 } from 'src/components/particles/theme/overrides/CustomIcons';
 import { responsiveSpacing } from 'src/components/particles/theme/spacing';
 import SharedListCardContent, {
   SharedListCardContentProps
-} from './SharedListCardContent';
+} from './SharedListCardContent/SharedListCardContent';
 import { Issue } from './types';
 
 interface ContentProps {
@@ -87,11 +86,13 @@ const Content = ({
           id={issue.id}
           onClick={issue.onClick}
           status={issue.status}
+          type={issue.type}
           priority={issue.priority}
           title={issue.title}
-          icon={issue.icon ?? <ZapIcon />}
+          icon={issue.icon}
           index={index}
           listLength={issues.length}
+          useType={true}
         />
       ))}
     </Grid>

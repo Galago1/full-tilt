@@ -127,6 +127,50 @@ DailyEmpty.args = {
   data: []
 };
 
+export const DailyEmptyRow = Template.bind({});
+DailyEmptyRow.args = {
+  onSave,
+  onClickEdit: (event, row) => {},
+  slots: {
+    rowsOrEmptyStateProps: {
+      slots: {
+        scoreCardDraggableRowProps: {
+          dataComponent: TimePickerInputBase
+        }
+      }
+    },
+    avatarAndTextProps: {
+      textGridItemProps: {
+        flex: 1
+      },
+      buttonProps: {
+        label: 'Edit'
+      }
+    }
+  },
+  type: 'daily',
+  showEndIcon: true,
+  data: [
+    {
+      owner: 'James P Sullivan',
+      avatar: 'path/to/avatar.jpg',
+      title: '1 point a day',
+      goal: '> 1',
+      trend: undefined,
+      suffix: '',
+      data: [
+        { value: undefined },
+        { value: undefined },
+        { value: undefined },
+        { value: undefined },
+        { value: undefined },
+        { value: undefined }
+      ],
+      goalCondition: GoalCondition.GREATER_THAN
+    }
+  ]
+};
+
 export const Weekly = Template.bind({});
 Weekly.args = {
   onSave,

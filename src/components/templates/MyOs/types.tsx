@@ -3,6 +3,7 @@ import { MouseEventHandler } from 'react';
 import { DateNavigatorInputProps } from 'src/components/molecules/Inputs/DateNavigatorInput/DateNavigatorInput';
 import { InlineFormikProps } from 'src/components/organisms/Scorecard/ScorecardInlineEditCell';
 import { WorkSchedule } from './DailyStandupCard';
+import { RockStatus } from './RocksCard/RockStatusForm/RockStatusForm';
 
 export interface TeamMember {
   imageUrl: string;
@@ -63,6 +64,8 @@ export interface Rock {
   quarter: string;
   people: string;
   onClick: MouseEventHandler<HTMLDivElement> | undefined;
+  onChangeRockStatus: (values: { id: string; newValue: RockStatus }) => void;
+  rockStatus: RockStatus;
 }
 
 export interface Meeting {
@@ -78,7 +81,8 @@ export interface Meeting {
 interface SharedList {
   id: string;
   status: string;
-  priority: string;
+  type?: string;
+  priority?: string;
   title: string;
   icon: JSX.Element;
   onClick: MouseEventHandler<HTMLDivElement> | undefined;

@@ -1,20 +1,6 @@
-import { format, parseISO, parse } from 'date-fns';
+import { format, parse } from 'date-fns';
 import { DateFormat } from '../types/dateFns';
-
-export const formatIso = (
-  date?: string,
-  dateFormat = DateFormat.MDY
-): string => {
-  try {
-    if (!date) return '';
-    return format(parseISO(date), dateFormat);
-  } catch (error) {
-    console.error('Error formatting date:', error);
-    return '';
-  }
-};
-
-export const formatDateIso = (
+export const formatDate = (
   date?: Date,
   dateFormat = DateFormat.MDY
 ): string => {

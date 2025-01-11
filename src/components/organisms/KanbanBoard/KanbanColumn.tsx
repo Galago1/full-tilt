@@ -13,6 +13,7 @@ import KanbanColumnHeader, {
   KanbanColumnHeaderProps
 } from './KanbanColumnHeader';
 import { IndividualKanbanColumn } from './types';
+import { isEmpty } from 'lodash';
 
 export interface KanbanColumnProps {
   column?: IndividualKanbanColumn;
@@ -107,7 +108,7 @@ const KanbanColumn = ({
       ref={ref}
       container
       flexDirection={'column'}
-      // gap={2}
+      gap={2}
       sx={{
         borderRadius: theme.borderRadius.md,
         border: theme.border.outlinedButton,
@@ -118,29 +119,34 @@ const KanbanColumn = ({
         height: '100%', // Changed from minHeight to height
         maxHeight: '100vh', // Added maxHeight
         flexWrap: 'nowrap',
-        pb: 14
+        pb: 14,
+        p: 2
       }}
     >
       <Grid item>
         <KanbanColumnHeader column={column} {...kanbanColumnHeaderProps!} />
       </Grid>
       <Grid item>
-        <Grid container flexDirection={'column'} gap={2}>
-          <Grid
-            container
-            item
-            width={'100%'}
-            flexDirection={'column'}
-            sx={{
-              overflowY: 'auto',
-              minHeight: 0,
-              height: 740,
-              // pb: 2,
-              minWidth: 240,
-              ...columnCardsGridSx
-            }}
-            gap={2}
-          >
+        <Grid
+          container
+          item
+          width={'100%'}
+          flexDirection={'column'}
+          sx={{
+            overflowY: 'auto',
+            minHeight: 0,
+            height: 740,
+            minWidth: 240,
+            // px: 2, // Add horizontal padding
+            // pt: 2, // Add top padding
+            // pb: 4, // Add bottom padding
+            // mx: -2, // Negative margin to offset parent padding
+            // mt: -2, // Negative margin to offset parent padding
+            ...columnCardsGridSx
+          }}
+          gap={2}
+        >
+          {!isEmpty(column!.cards) && (
             <Grid container flexDirection={'column'} gap={2}>
               {column!.cards.map((card, idx) => (
                 <KanbanCard
@@ -154,54 +160,54 @@ const KanbanColumn = ({
                 />
               ))}
             </Grid>
+          )}
 
-            {/* Show a placeholder card when dragging over an empty column */}
-            {column!.showDragOrAdd && (
+          {/* Show a placeholder card when dragging over an empty column */}
+          {column!.showDragOrAdd && (
+            <Grid
+              container
+              onClick={onClickPlaceholder}
+              flexDirection={'column'}
+              sx={{
+                px: 0,
+                pt: 0
+              }}
+            >
               <Grid
-                container
+                item
+                sx={{
+                  padding: theme.spacing(1),
+                  borderRadius: theme.borderRadius.sm,
+                  backgroundColor: isOverEmpty
+                    ? theme.palette.grey[200]
+                    : 'transparent',
+                  border: `2px dashed ${theme.palette.primary.main}`,
+                  height: 120,
+                  transition: 'all 0.3s ease',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  opacity: 0.8,
+
+                  cursor: 'pointer'
+                }}
                 onClick={onClickPlaceholder}
-                flexDirection={'column'}
-                sx={{
-                  px: 2,
-                  pt: 0
-                }}
               >
-                <Grid
-                  item
-                  sx={{
-                    padding: theme.spacing(1),
-                    borderRadius: theme.borderRadius.sm,
-                    backgroundColor: isOverEmpty
-                      ? theme.palette.grey[200]
-                      : 'transparent',
-                    border: `2px dashed ${theme.palette.primary.main}`,
-                    height: 120,
-                    transition: 'all 0.3s ease',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    opacity: 0.8,
-
-                    cursor: 'pointer'
-                  }}
-                  onClick={onClickPlaceholder}
-                >
-                  {<span>{column!.showDragOrAddText || 'Drag or add'}</span>}
-                </Grid>
+                {<span>{column!.showDragOrAddText || 'Drag or add'}</span>}
               </Grid>
-            )}
-            {addCardButtonProps && (
-              <Grid
-                container
-                flexDirection={'column'}
-                sx={{
-                  px: 2
-                }}
-              >
-                <Button {...addCardButtonProps} />
-              </Grid>
-            )}
-          </Grid>
+            </Grid>
+          )}
+          {addCardButtonProps && (
+            <Grid
+              container
+              flexDirection={'column'}
+              sx={{
+                px: 2
+              }}
+            >
+              <Button {...addCardButtonProps} />
+            </Grid>
+          )}
         </Grid>
       </Grid>
     </Grid>

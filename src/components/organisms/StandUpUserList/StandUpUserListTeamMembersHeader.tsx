@@ -1,6 +1,7 @@
 import { Grid, Theme, Typography, useTheme } from '@mui/material';
 import { Field, Formik } from 'formik';
 import PickerWithButtonField from 'src/components/atoms/InputBase/DatePickerInputBase/PickerWithButtonField';
+import Tooltip from 'src/components/atoms/Tooltip/Tooltip';
 import { responsiveSpacing } from 'src/components/particles/theme/spacing';
 
 const currentTimestamp = new Date();
@@ -60,29 +61,31 @@ const StandUpUserListTeamMembersHeader = ({
           </Grid>
         </Grid>
       </Grid>
-      <Grid sx={{ position: 'relative' }}>
-        <Formik initialValues={{ date: null }} onSubmit={() => {}}>
-          {(formik) => (
-            <Field
-              name="date"
-              component={PickerWithButtonField}
-              sx={{
-                '& .MuiButton-root': {
-                  minWidth: 'auto',
-                  padding: (theme: Theme) => theme.spacing(10 / 8)
-                }
-              }}
-              maxDate={new Date()}
-              open={open}
-              onOpen={() => setOpen(true)}
-              onClose={() => setOpen(false)}
-              slotProps={{ field: { setOpen: setOpen } }}
-              setOpen={setOpen}
-              onChange={handleDateChange}
-            />
-          )}
-        </Formik>
-      </Grid>
+      <Tooltip title={'Filter Date'}>
+        <Grid sx={{ position: 'relative' }}>
+          <Formik initialValues={{ date: null }} onSubmit={() => {}}>
+            {(formik) => (
+              <Field
+                name="date"
+                component={PickerWithButtonField}
+                sx={{
+                  '& .MuiButton-root': {
+                    minWidth: 'auto',
+                    padding: (theme: Theme) => theme.spacing(10 / 8)
+                  }
+                }}
+                maxDate={new Date()}
+                open={open}
+                onOpen={() => setOpen(true)}
+                onClose={() => setOpen(false)}
+                slotProps={{ field: { setOpen: setOpen } }}
+                setOpen={setOpen}
+                onChange={handleDateChange}
+              />
+            )}
+          </Formik>
+        </Grid>
+      </Tooltip>
     </Grid>
   );
 };

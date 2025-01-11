@@ -1,12 +1,12 @@
 import { SelectChangeEvent } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { formatDateIso, formatIso } from 'src/utils/date';
+import { formatDate as _formatDate, parseDate } from 'src/utils/date';
 import { TeamMember } from './StandUpUserList';
 
 const createDate = (offset = 0): string => {
   const date = new Date();
   date.setDate(date.getDate() + offset);
-  return formatDateIso(date);
+  return _formatDate(date);
 };
 const today = createDate();
 
@@ -28,7 +28,7 @@ export const useStandUpUserList = (
 
   const handleDateChange = (date: Date | null) => {
     if (date) {
-      const formattedDate = formatDateIso(date);
+      const formattedDate = _formatDate(date);
       setSelectedDate(formattedDate);
       if (setExternalDate) {
         setExternalDate(formattedDate);
@@ -72,7 +72,7 @@ export const useStandUpUserList = (
   const canGoBack = selectedIndex > 0;
 
   const formatDate = (dateString: string) => {
-    const result = formatIso(dateString);
+    const result = _formatDate(parseDate(dateString));
     return result;
   };
 
@@ -90,7 +90,7 @@ export const useStandUpUserList = (
   //     new Date()
   //   );
   //   // return formatDistanceToNow(date, { addSuffix: true }).replace('about ', '');
-  //   return formatDateIso(date, DateFormat.HHMM);
+  //   return formatDate(date, DateFormat.HHMM);
   // };
 
   const [tipVisible, setTipVisible] = useState(tipVisibleInitial);

@@ -177,22 +177,6 @@ const Content = ({
               </Typography>
             </Grid>
           </Grid>
-          <Grid item ml={'auto'}>
-            <Button
-              variant="text"
-              color="secondary"
-              onClick={onClick}
-              sx={{ '&': { minWidth: 'auto' } }}
-              label={
-                <ChevronRightIcon
-                  sx={{
-                    width: 20,
-                    height: 20
-                  }}
-                />
-              }
-            />
-          </Grid>
         </Grid>
       </Grid>
     </>

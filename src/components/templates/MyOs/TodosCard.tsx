@@ -6,13 +6,12 @@ import LoadingIndicator from 'src/components/molecules/LoadingIndicator/LoadingI
 import Card, { CardProps } from 'src/components/organisms/Card/Card';
 import {
   CheckCircleIcon,
-  ChevronRightIcon,
-  ZapIcon
+  ChevronRightIcon
 } from 'src/components/particles/theme/overrides/CustomIcons';
 import { responsiveSpacing } from 'src/components/particles/theme/spacing';
 import SharedListCardContent, {
   SharedListCardContentProps
-} from './SharedListCardContent';
+} from './SharedListCardContent/SharedListCardContent';
 import { Todo } from './types';
 
 interface ContentProps {

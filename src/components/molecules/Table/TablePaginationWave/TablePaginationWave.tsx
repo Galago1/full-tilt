@@ -1,8 +1,7 @@
+import { usePagination } from '@mui/lab';
 import { Box, BoxProps, Typography, useTheme } from '@mui/material';
-import Button from '@mui/material/Button';
-import usePagination from '@mui/material/usePagination';
 import { MouseEvent } from 'react';
-import { ButtonProps } from 'src/components/atoms/Button/Button';
+import Button, { ButtonProps } from 'src/components/atoms/Button/Button';
 import {
   ChevronLeftIcon,
   ChevronRightIcon
@@ -68,8 +67,6 @@ const TablePaginationWave = ({
                 sx={{
                   minWidth: 36,
                   boxShadow: 'none',
-                  border: theme.border.userProfile,
-                  borderRadius: theme.borderRadius.md,
                   width: 40,
                   height: 40,
                   display: 'flex',

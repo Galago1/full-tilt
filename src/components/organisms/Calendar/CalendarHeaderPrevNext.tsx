@@ -7,7 +7,7 @@ import {
   ChevronRightIcon
 } from 'src/components/particles/theme/overrides/CustomIcons';
 import { DateFormat } from 'src/types/dateFns';
-import { formatDateIso } from 'src/utils/date';
+import { formatDate } from 'src/utils/date';
 
 const monthNames = [
   'January',
@@ -143,7 +143,7 @@ const DaySelector = ({
       }
     },
     disabled: true,
-    label: formatDateIso(currentDate, DateFormat.MMMMddyyyy)
+    label: formatDate(currentDate, DateFormat.MMMMddyyyy)
   };
   const buttonGroupProps: ButtonGroupProps = {
     buttons: [firstButton, dateButton, lastButton]

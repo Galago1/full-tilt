@@ -33,6 +33,7 @@ interface CustomBorderOptions {
   grey300: string;
   cyan600: string;
   error300: string;
+  success300: string;
   white: string;
 }
 
@@ -77,7 +78,8 @@ const border: CustomBorderOptions = {
   green200: `1px solid #ABEFC6`,
   grey900: `2px solid ${palette.light.grey[900]}`,
   cyan600: `1px solid ${palette.light.cyan[500]}`,
-  error300: `1px solid ${palette.light.error[300]}`
+  error300: `1px solid ${palette.light.error[300]}`,
+  success300: `1px solid ${palette.light.success[300]}`
 };
 
 export default border;

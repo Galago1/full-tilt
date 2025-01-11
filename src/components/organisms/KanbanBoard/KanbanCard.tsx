@@ -9,6 +9,7 @@ import {
 import { AvatarAndText } from 'src/components/molecules';
 import { KanbanColumnCard } from './types';
 import { responsiveSpacing } from 'src/components/particles/theme/spacing';
+import { greyMegaHoverStyle } from 'src/utils/greyMegaHoverStyle';
 const CARD = 'CARD';
 
 interface KanbanCardProps {
@@ -117,17 +118,19 @@ const KanbanCard = ({
       onFocus={handleFocus}
       onBlur={handleBlur}
       sx={{
-        margin: theme.spacing(0, 16 / 8),
         padding: isFocused
           ? theme.spacing(10 / 8, 14 / 8)
           : theme.spacing(12 / 8, 2),
-
         borderRadius: theme.borderRadius.md,
         border: theme.border.appearanceCardHover,
         backgroundColor: theme.palette.common.white,
         cursor: 'pointer',
         opacity,
         width: 'auto',
+        // position: 'relative', // Add this
+        // zIndex: theme.zIndex.appBar, // Add this
+        // margin: '2px', // Add this to give space for shadow
+        ...(greyMegaHoverStyle as any),
         ...sx
       }}
       onClick={() => {

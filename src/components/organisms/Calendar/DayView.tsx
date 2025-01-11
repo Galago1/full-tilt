@@ -8,7 +8,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DateFormat } from 'src/types/dateFns';
-import { formatDateIso } from 'src/utils/date';
+import { formatDate } from 'src/utils/date';
 import DayViewMeeting, { DayViewMeetingProps } from './DayViewMeeting';
 import DayViewTimeSlot from './DayViewTimeSlot';
 import { useDayView } from './hooks';
@@ -145,7 +145,7 @@ const DayView = ({
                   }}
                 >
                   <Typography variant="textSmRegular">
-                    {formatDateIso(currentDateState, DateFormat.EEEEd)}
+                    {formatDate(currentDateState, DateFormat.EEEEd)}
                   </Typography>
                 </Grid>
               </Grid>

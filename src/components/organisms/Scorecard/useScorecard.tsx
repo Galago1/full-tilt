@@ -27,7 +27,7 @@ export interface RowData {
   avatar?: string;
   title: string;
   goal: string;
-  trend: number;
+  trend: number | undefined;
   data: RowDataObject[];
   goalCondition: GoalCondition;
   suffix?: string;

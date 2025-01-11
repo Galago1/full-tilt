@@ -15,28 +15,153 @@ import BasicEmptyState from 'src/components/molecules/BasicEmptyState';
 import LoadingIndicator from 'src/components/molecules/LoadingIndicator/LoadingIndicator';
 import Card, { CardProps } from 'src/components/organisms/Card/Card';
 import {
+  AlertTriangleIcon,
   ArrowUpRightIcon,
   CalendarIcon,
+  CheckCircleIcon,
   ChevronRightIcon,
   RockIcon,
+  ThumbsUpIcon,
   Users01Icon
 } from 'src/components/particles/theme/overrides/CustomIcons';
 import { responsiveSpacing } from 'src/components/particles/theme/spacing';
-import { Rock } from './types';
+import { Rock } from '../types';
+import RockStatusForm, { RockStatus } from './RockStatusForm/RockStatusForm';
+import ListPopover, { useListPopover } from './ListPopover/ListPopover';
+import { SelectOption } from 'src/components/atoms/InputBase/SelectInputBase/SelectInputBase';
 
-interface ContentProps {
+// const rockTypeOptions: SelectOption[] = [
+//   { label: { value: labelMap.company }, value: 'company' },
+//   { label: { value: labelMap.individual }, value: 'individual' }
+// ];
+
+// completed on_track off_track
+const rockStatusOptions: SelectOption[] = [
+  { label: { value: 'Off-Track' }, value: RockStatus.OFF_TRACK },
+  { label: { value: 'On-Track' }, value: RockStatus.ON_TRACK },
+  { label: { value: 'Completed' }, value: RockStatus.COMPLETED }
+];
+
+const rockStatusIconMap = {
+  [RockStatus.COMPLETED]: <CheckCircleIcon sx={{ color: 'success.500' }} />,
+  [RockStatus.ON_TRACK]: <ThumbsUpIcon />,
+  [RockStatus.OFF_TRACK]: <AlertTriangleIcon sx={{ color: 'error.500' }} />
+};
+
+interface RockCardItemProps {
+  index: number;
+  rock: Rock;
+  loading: boolean;
+  rocks: Rock[];
+}
+const RockCardItem = ({ index, rock, loading, rocks }: RockCardItemProps) => {
+  const {
+    anchorEl,
+    handleClick: handleRockStatusOpen,
+    handleClose,
+    handleOptionClick
+  } = useListPopover(rock.onChangeRockStatus!);
+  const theme = useTheme();
+  return (
+    <Fragment key={rock.id}>
+      <Grid
+        item
+        xs={12}
+        onClick={rock.onClick}
+        sx={{
+          cursor: 'pointer',
+          '&:hover': { backgroundColor: 'grey.50' },
+          pt: 2
+        }}
+      >
+        <Grid container alignItems="center" gap={2}>
+          <Grid item flex={1}>
+            <AvatarAndText
+              gap={1}
+              flexWrap="nowrap"
+              leftComponent={
+                <>
+                  <RockStatusForm
+                    isTransitioning={loading}
+                    status={rock.rockStatus}
+                    handleRockStatusOpen={handleRockStatusOpen}
+                  />
+                  <ListPopover
+                    anchorEl={anchorEl}
+                    handleClose={handleClose}
+                    options={rockStatusOptions}
+                    handleOptionClick={handleOptionClick}
+                    iconMap={rockStatusIconMap}
+                    id={rock.id}
+                  />
+                </>
+              }
+              leftComponentItemSx={{
+                alignSelf: 'flex-start'
+              }}
+              title={rock.title}
+              alignItems="center"
+              titleTypography={{
+                sx: { display: 'flex', alignItems: 'center' }
+              }}
+              subtitle={
+                <Grid
+                  container
+                  alignItems={'center'}
+                  gap={0.5}
+                  flexWrap={'nowrap'}
+                >
+                  <Grid item container flexDirection={'column'} gap={1.5}>
+                    <Grid item display={'flex'} gap={1} alignItems={'center'}>
+                      <CalendarIcon sx={{ color: theme.palette.grey[400] }} />
+                      <Typography variant="textSmMedium">
+                        Quarter {capitalize(rock.quarter || '')}
+                      </Typography>
+                      <Users01Icon sx={{ color: theme.palette.grey[400] }} />
+                      <Typography variant="textSmMedium">
+                        {rock.people}
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              }
+              subtitleTypography={{
+                variant: 'textSmRegular'
+              }}
+              textSubtitleGridItemProps={{
+                sx: { display: 'flex', alignItems: 'center' }
+              }}
+            />
+          </Grid>
+
+          <Grid item display={'flex'} alignSelf={'flex-start'}>
+            <Button
+              variant="text"
+              color="secondary"
+              // onClick={okr.onClick}
+              sx={{ '&': { minWidth: 'auto' } }}
+              label={<ArrowUpRightIcon />}
+            />
+          </Grid>
+        </Grid>
+        {index !== rocks.length - 1 && <Divider sx={{ mt: 2 }} />}
+      </Grid>
+    </Fragment>
+  );
+};
+
+interface RocksCardContentProps {
   rocks: Rock[];
   loading: boolean;
   onClickEmptyState?: () => void;
   emptyStateSubtitle?: any;
 }
-const Content = ({
+const RocksCardContent = ({
   rocks,
   onClickEmptyState,
   loading,
   emptyStateSubtitle
-}: ContentProps) => {
-  const theme = useTheme();
+}: RocksCardContentProps) => {
   if (!rocks || loading || (!loading && isEmpty(rocks)))
     return (
       <Grid
@@ -110,58 +235,13 @@ const Content = ({
       gap={0}
     >
       {rocks.map((rock, index) => (
-        <Fragment key={rock.id}>
-          <Grid
-            item
-            xs={12}
-            onClick={rock.onClick}
-            sx={{
-              cursor: 'pointer',
-              '&:hover': { backgroundColor: 'grey.50' },
-              pt: 2
-            }}
-          >
-            <Grid container>
-              <Grid item flex={1}>
-                <Grid
-                  container
-                  alignItems={'center'}
-                  gap={1}
-                  flexWrap={'nowrap'}
-                >
-                  <Grid item container flexDirection={'column'} gap={1.5}>
-                    <Grid item>
-                      <Typography variant="textMdRegular">
-                        {rock.title}
-                      </Typography>
-                    </Grid>
-                    <Grid item display={'flex'} gap={1} alignItems={'center'}>
-                      <CalendarIcon sx={{ color: theme.palette.grey[400] }} />
-                      <Typography variant="textSmMedium">
-                        Quarter {capitalize(rock.quarter || '')}
-                      </Typography>
-                      <Users01Icon sx={{ color: theme.palette.grey[400] }} />
-                      <Typography variant="textSmMedium">
-                        {rock.people}
-                      </Typography>
-                    </Grid>
-                  </Grid>
-                </Grid>
-              </Grid>
-
-              <Grid item display={'flex'} alignSelf={'flex-start'}>
-                <Button
-                  variant="text"
-                  color="secondary"
-                  // onClick={okr.onClick}
-                  sx={{ '&': { minWidth: 'auto' } }}
-                  label={<ArrowUpRightIcon />}
-                />
-              </Grid>
-            </Grid>
-            {index !== rocks.length - 1 && <Divider sx={{ mt: 2 }} />}
-          </Grid>
-        </Fragment>
+        <RockCardItem
+          key={rock.id}
+          index={index}
+          rock={rock}
+          rocks={rocks}
+          loading={loading}
+        />
       ))}
     </Grid>
   );
@@ -176,7 +256,7 @@ export interface RocksCardProps extends Omit<CardProps, 'slots'> {
   emptyStateSubtitle?: any;
 }
 
-export const RocksCard = ({
+const RocksCard = ({
   rocks = [],
   cardSlots,
   loading,
@@ -238,7 +318,7 @@ export const RocksCard = ({
             <ChevronRightIcon />
           </AvatarAndText>
         </Grid>
-        <Content
+        <RocksCardContent
           rocks={rocks}
           loading={loading!}
           onClickEmptyState={onClickEmptyState}
@@ -248,3 +328,5 @@ export const RocksCard = ({
     </Card>
   );
 };
+
+export default RocksCard;

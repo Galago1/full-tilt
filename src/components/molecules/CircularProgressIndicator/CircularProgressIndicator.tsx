@@ -11,6 +11,7 @@ import CircularProgress, {
 } from 'src/components/atoms/CircularProgress/CircularProgress';
 
 export enum CircularProgressIndicatorSize {
+  XXSMALL = 32,
   XSMALL = 48,
   SMALL = 64,
   MEDIUM = 160,
@@ -19,6 +20,7 @@ export enum CircularProgressIndicatorSize {
   DOSXLARGE = 280
 }
 const CircularProgressIndicatorFontSize = {
+  [CircularProgressIndicatorSize.XXSMALL]: 'textXsRegular',
   [CircularProgressIndicatorSize.XSMALL]: 'textSmRegular',
   [CircularProgressIndicatorSize.SMALL]: 'textSmRegular',
   [CircularProgressIndicatorSize.MEDIUM]: 'displayXsSemibold',
@@ -27,6 +29,7 @@ const CircularProgressIndicatorFontSize = {
   [CircularProgressIndicatorSize.DOSXLARGE]: 'displayLgSemibold'
 } as const;
 const CircularProgressIndicatorLabelFontSize = {
+  [CircularProgressIndicatorSize.XXSMALL]: 'textXsRegular',
   [CircularProgressIndicatorSize.XSMALL]: 'textXsRegular',
   [CircularProgressIndicatorSize.SMALL]: 'textXsRegular',
   [CircularProgressIndicatorSize.MEDIUM]: 'textXsRegular',
@@ -189,6 +192,7 @@ const CircularProgressIndicator = ({
       </Box>
       {label &&
         [
+          CircularProgressIndicatorSize.XXSMALL,
           CircularProgressIndicatorSize.XSMALL,
           CircularProgressIndicatorSize.SMALL
         ].includes(size) && (

@@ -13,7 +13,7 @@ import {
 } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { isEmpty } from 'lodash';
-import { SetStateAction } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import Avatar from 'src/components/atoms/Avatar/Avatar';
 import Button, { ButtonProps } from 'src/components/atoms/Button/Button';
 import Chip from 'src/components/atoms/Chip/Chip';
@@ -27,8 +27,8 @@ import {
   Expand01Icon
 } from 'src/components/particles/theme/overrides/CustomIcons';
 import { responsiveSpacing } from 'src/components/particles/theme/spacing';
-import { useMeetingsCard } from './hooks';
-import { Meeting } from './types';
+import { useMeetingsCard } from '../hooks';
+import { Meeting } from '../types';
 
 interface ContentProps {
   currentDate: Date;
@@ -197,14 +197,14 @@ export interface MeetingsCardProps extends Omit<CardProps, 'slots'> {
   };
   cardSlots?: CardProps['slots'];
   externalCurrentDate?: Date;
-  externalHandleDateChange?: (value: SetStateAction<Date>) => void;
+  externalHandleDateChange?: Dispatch<SetStateAction<Date>>;
   loading?: boolean;
   onClickEmptyState?: () => void;
   emptyStateSubtitle?: any;
   onHeaderClick?: () => void;
 }
 
-export const MeetingsCard = ({
+const MeetingsCard = ({
   meetings = [],
   cardSlots,
   externalCurrentDate,
@@ -345,3 +345,5 @@ export const MeetingsCard = ({
     </Card>
   );
 };
+
+export default MeetingsCard;

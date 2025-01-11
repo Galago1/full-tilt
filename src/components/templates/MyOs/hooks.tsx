@@ -1,13 +1,16 @@
 import { format } from 'date-fns';
-import { SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 export const useMeetingsCard = (
   externalCurrentDate?: Date,
-  externalHandleDateChange?: (value: SetStateAction<Date>) => void
+  externalHandleDateChange?: Dispatch<SetStateAction<Date>>
 ) => {
   const [currentDate, setCurrentDate] = useState<Date>(
     externalCurrentDate || new Date()
   );
+  useEffect(() => {
+    setCurrentDate(externalCurrentDate ?? currentDate);
+  }, [externalCurrentDate]);
 
   const handleDateChange = (date: Date | null) => {
     if (date) {

@@ -3,11 +3,12 @@ import { Chip, Divider } from 'src/components/atoms';
 import { ChipProps } from 'src/components/atoms/Chip/Chip';
 import { AvatarAndText } from 'src/components/molecules';
 import { ArrowUpRightIcon } from 'src/components/particles/theme/overrides/CustomIcons';
-import CheckDoneForm, { CheckDoneFormProps } from './CheckDoneForm';
+import CheckDoneForm, { CheckDoneFormProps } from '../CheckDoneForm';
 
 export interface SharedListCardContentProps extends GridProps {
   id?: string;
   status?: string;
+  type?: string;
   priority?: string;
   title?: string;
   icon?: JSX.Element;
@@ -17,11 +18,13 @@ export interface SharedListCardContentProps extends GridProps {
     chipProps?: ChipProps;
     checkDoneFormProps?: CheckDoneFormProps;
   };
+  useType?: boolean;
 }
 
 const SharedListCardContent = ({
   id,
   status,
+  type,
   priority,
   title,
   icon,
@@ -29,6 +32,7 @@ const SharedListCardContent = ({
   listLength,
   onClick,
   slots,
+  useType = false,
   ...props
 }: SharedListCardContentProps) => {
   const { chipProps, checkDoneFormProps } = slots || {};
@@ -76,7 +80,7 @@ const SharedListCardContent = ({
                     '&': {
                       // color: 'text.secondary'
                       color: (theme) =>
-                        ` ${theme.palette.text.secondary} !important`
+                        `${theme.palette.text.secondary} !important`
                     }
                   }}
                 >
@@ -86,7 +90,7 @@ const SharedListCardContent = ({
                     sx={{ ml: 1 }}
                     color={'text.secondary'}
                   >
-                    {priority}
+                    {useType ? type : priority}
                   </Typography>
                 </Grid>
               </Grid>

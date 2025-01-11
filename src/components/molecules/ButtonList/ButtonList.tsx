@@ -18,7 +18,10 @@ const Content = ({ tooltipProps, buttonProps }: ContentProps) => {
   return <Button {...buttonProps} />;
 };
 
-export type ButtonListButton = ButtonProps & { itemprops?: GridProps };
+export type ButtonListButton = ButtonProps & {
+  itemprops?: GridProps;
+  tooltipProps?: TooltipProps;
+};
 
 export interface ButtonListProps extends GridProps {
   /**
@@ -63,14 +66,22 @@ const ButtonList = ({
       alignItems="center"
     >
       {buttons.map((button: ButtonListButton, index: number) => {
+        const {
+          itemprops,
+          tooltipProps: buttonTooltipProps,
+          ...buttonProps
+        } = button;
         return (
           <Grid
             item
             key={`button-list-index[${index}]`}
             sx={{ ...itemSx, alignSelf: 'center' }}
-            {...button.itemprops}
+            {...itemprops}
           >
-            <Content buttonProps={button} tooltipProps={tooltipProps} />
+            <Content
+              buttonProps={buttonProps}
+              tooltipProps={buttonTooltipProps || tooltipProps}
+            />
           </Grid>
         );
       })}

@@ -328,7 +328,7 @@ export const CheckIcon = (props: SvgIconProps): JSX.Element => {
         <path
           d="M20 6L9 17L4 12"
           stroke="currentColor"
-          strokeWidth="2"
+          strokeWidth={props.strokeWidth || '2'}
           strokeLinecap="round"
           strokeLinejoin="round"
         />
@@ -995,7 +995,7 @@ export const PlusIcon = (props: SvgIconProps): JSX.Element => {
         <path
           d="M12 5V19M5 12H19"
           stroke="currentColor"
-          strokeWidth="2"
+          strokeWidth={props.strokeWidth || '2'}
           strokeLinecap="round"
           strokeLinejoin="round"
         />

@@ -7,15 +7,15 @@ import {
   Typography
 } from '@mui/material';
 import { Story } from '@storybook/react';
+import { SelectOption } from 'src/components/atoms/InputBase/SelectInputBase/SelectInputBase';
+import { ThemeProvider } from 'src/components/particles';
 import { Edit05Icon } from 'src/components/particles/theme/overrides/CustomIcons';
 import { DateFormat } from 'src/types/dateFns';
-import { formatDateIso, formatIso } from 'src/utils/date';
+import { formatDate } from 'src/utils/date';
 import StandUpUserList, {
   StandUpUserListProps,
   TeamMember
 } from './StandUpUserList';
-import { SelectOption } from 'src/components/atoms/InputBase/SelectInputBase/SelectInputBase';
-import { ThemeProvider } from 'src/components/particles';
 const image = 'https://robohash.org/WTN.png?set=set1';
 
 export default {
@@ -23,14 +23,15 @@ export default {
   component: StandUpUserList
 };
 
-const createDate = (offset = 0) => {
+const createDate = (offset = 0, format: DateFormat = DateFormat.ISO8601) => {
   const date = new Date();
   date.setDate(date.getDate() + offset);
-  // return formatDateIso(date, DateFormat.ISO8601);
-  return formatDateIso(date, DateFormat.yyyyMMddTHHmmssZ);
+  // return formatDate(date, DateFormat.ISO8601);
+  return formatDate(date, format);
 };
 
-const today = createDate();
+const today = createDate(0, DateFormat.MDY);
+const standUpCompletedAt = createDate(-1);
 const yesterday = createDate(-1);
 // const tomorrow = createDate(1);
 
@@ -65,8 +66,7 @@ const teamMembers: TeamMember[] = [
     status: 'Active',
     team: 'Product',
     teamId: 'asdc',
-    standUpCompletedAt: today,
-    // standUpCompletedAtTime: formatIso(today, DateFormat.HHMM),
+    standUpCompletedAt: standUpCompletedAt,
     standUpCompletedAtTime: '12:00 AM',
     standUpContent: [
       'Increase team health and trust.',
@@ -82,7 +82,6 @@ const teamMembers: TeamMember[] = [
     team: 'HR',
     teamId: 'asdasdcc',
     standUpCompletedAt: yesterday,
-    // standUpCompletedAtTime: formatIso(yesterday, DateFormat.HHMM),
     standUpCompletedAtTime: '4:34AM',
     standUpContent: [
       'Prepare onboarding materials for new hires.',

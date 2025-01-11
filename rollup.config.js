@@ -8,6 +8,23 @@ import typescript from 'rollup-plugin-typescript2';
 
 const pkg = require('./package.json');
 
+// Custom plugin to exclude story files
+const excludeStoriesPlugin = () => ({
+  name: 'exclude-stories',
+  resolveId(source, importer) {
+    if (source.includes('.stories.') || importer?.includes('.stories.')) {
+      return { id: 'empty-module', external: true };
+    }
+    return null;
+  },
+  load(id) {
+    if (id === 'empty-module') {
+      return 'export default {};';
+    }
+    return null;
+  }
+});
+
 export default [
   {
     external: [
@@ -54,18 +71,14 @@ export default [
     ],
     plugins: [
       external(),
-      resolve(),
+      excludeStoriesPlugin(),
+      resolve({
+        extensions: ['.js', '.jsx', '.ts', '.tsx']
+      }),
       commonjs(),
-      // resolve({ dedupe: ['react', 'react-dom'] }),
-
       typescript({
-        useTsconfigDeclarationDir: true,
-        exclude: [
-          'node_modules',
-          'dist',
-          'src/**/*.stories.tsx',
-          'src/**/*.test.tsx'
-        ]
+        tsconfig: './tsconfig.build.json',
+        useTsconfigDeclarationDir: true
       }),
       postcss(),
       terser()

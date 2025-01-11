@@ -1,8 +1,7 @@
 import type { ComponentMeta, Story } from '@storybook/react';
+import ThemeProvider from 'src/components/particles/theme';
 import type { TablePaginationWaveProps } from './TablePaginationWave';
 import TablePaginationWave from './TablePaginationWave';
-import { alpha } from '@mui/material';
-import ThemeProvider from 'src/components/particles/theme';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {

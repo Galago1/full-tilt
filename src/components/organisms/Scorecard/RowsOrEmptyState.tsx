@@ -20,7 +20,7 @@ export interface RowsOrEmptyStateProps {
   getColorByValue?: (
     goalCondition: GoalCondition,
     goalValue: string,
-    trend: number
+    trend: number | undefined
   ) => string;
   showCheckbox?: boolean;
   showDotsIcon?: boolean;

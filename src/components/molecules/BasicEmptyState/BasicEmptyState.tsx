@@ -96,7 +96,8 @@ const BasicEmptyState = ({
             color: 'text.secondary',
             sx: {
               textAlign: alignItems === 'center' ? 'center' : 'left'
-            }
+            },
+            ...props.avatarAndTextProps?.subtitleTypography
           },
           tertiaryTitle: tertiaryTitle,
           tertiaryTitleTypography: tertiaryTitle

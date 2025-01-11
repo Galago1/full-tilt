@@ -1,0 +1,23 @@
+# Source files
+src/**/*.stories.tsx
+src/**/*.test.tsx
+src/**/*.spec.tsx
+
+# Development configs
+.storybook
+.eslintrc
+.prettierrc
+rollup.config.js
+tsconfig.json
+
+# Development folders
+node_modules
+coverage
+storybook-static
+.github
+.vscode
+
+# Misc
+.DS_Store
+*.log
+.env*
