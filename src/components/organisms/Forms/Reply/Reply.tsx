@@ -18,22 +18,8 @@ interface UseReplyProps {
   };
 }
 const useReploy = ({ slots }: UseReplyProps) => {
-  const {
-    textAreaFieldAttributes,
-    switchFieldAttributes,
-    buttonProps,
-    buttonGridItemProps,
-    switchGridItemProps,
-    avatarAndTextProps
-  } = slots || {};
-
   return {
-    textAreaFieldAttributes,
-    switchFieldAttributes,
-    buttonProps,
-    buttonGridItemProps,
-    switchGridItemProps,
-    avatarAndTextProps
+    ...slots
   };
 };
 

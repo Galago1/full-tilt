@@ -96,11 +96,13 @@ const Content = ({
           id={headline.id}
           onClick={headline.onClick}
           status={statusMap[headline.status]}
+          type={headline.type}
           priority={headline.priority}
           title={headline.title}
           icon={headline.icon ?? <Announcement01Icon />}
           index={index}
           listLength={headlines.length}
+          useType={true}
         />
       ))}
     </Grid>

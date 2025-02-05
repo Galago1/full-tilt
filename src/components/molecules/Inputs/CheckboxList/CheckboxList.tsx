@@ -29,6 +29,7 @@ export interface CheckboxListProps {
   orientation?: Orientation;
   slots?: {
     horizontalInput?: HorizontalInputProps;
+    itemProps?: GridProps;
   };
 }
 
@@ -41,9 +42,10 @@ const CheckboxList = ({
   checkboxInputs,
   containerProps,
   TheField = Field,
+  slots,
   ...props
 }: CheckboxListProps) => {
-  const { horizontalInput } = props.slots || {};
+  const { horizontalInput, itemProps } = slots || {};
   if (orientation === 'horizontal')
     return (
       <HorizontalInput
@@ -54,7 +56,7 @@ const CheckboxList = ({
       >
         <Grid container gap={2} sx={{ width: '100%' }} {...containerProps}>
           {checkboxInputs.map((checkboxInput, index) => (
-            <Grid item key={index} flexGrow={1}>
+            <Grid item key={index} flexGrow={1} {...itemProps}>
               <TheField component={CheckboxInputBase} {...checkboxInput} />
             </Grid>
           ))}
@@ -66,7 +68,7 @@ const CheckboxList = ({
       {labelProps && <Typography {...labelProps} />}
       <Grid container gap={2} sx={{ width: '100%' }} {...containerProps}>
         {checkboxInputs.map((checkboxInput, index) => (
-          <Grid item key={index} flexGrow={1}>
+          <Grid item key={index} flexGrow={1} {...itemProps}>
             <TheField component={CheckboxInputBase} {...checkboxInput} />
           </Grid>
         ))}

@@ -22,6 +22,7 @@ import {
   ChevronRightIcon,
   RockIcon,
   ThumbsUpIcon,
+  UserIcon,
   Users01Icon
 } from 'src/components/particles/theme/overrides/CustomIcons';
 import { responsiveSpacing } from 'src/components/particles/theme/spacing';
@@ -30,17 +31,20 @@ import RockStatusForm, { RockStatus } from './RockStatusForm/RockStatusForm';
 import ListPopover, { useListPopover } from './ListPopover/ListPopover';
 import { SelectOption } from 'src/components/atoms/InputBase/SelectInputBase/SelectInputBase';
 
-// const rockTypeOptions: SelectOption[] = [
-//   { label: { value: labelMap.company }, value: 'company' },
-//   { label: { value: labelMap.individual }, value: 'individual' }
-// ];
-
 // completed on_track off_track
 const rockStatusOptions: SelectOption[] = [
   { label: { value: 'Off-Track' }, value: RockStatus.OFF_TRACK },
   { label: { value: 'On-Track' }, value: RockStatus.ON_TRACK },
   { label: { value: 'Completed' }, value: RockStatus.COMPLETED }
 ];
+const rockTypeOptions: any = {
+  individual: <UserIcon sx={{ color: (theme) => theme.palette.grey[400] }} />,
+  company: <Users01Icon sx={{ color: (theme) => theme.palette.grey[400] }} />
+};
+const rockTypeLabel: any = {
+  individual: 'Individual',
+  company: 'Company'
+};
 
 const rockStatusIconMap = {
   [RockStatus.COMPLETED]: <CheckCircleIcon sx={{ color: 'success.500' }} />,
@@ -115,11 +119,11 @@ const RockCardItem = ({ index, rock, loading, rocks }: RockCardItemProps) => {
                     <Grid item display={'flex'} gap={1} alignItems={'center'}>
                       <CalendarIcon sx={{ color: theme.palette.grey[400] }} />
                       <Typography variant="textSmMedium">
-                        Quarter {capitalize(rock.quarter || '')}
+                        Quarter {capitalize(rock.quarter || 'q1')}
                       </Typography>
-                      <Users01Icon sx={{ color: theme.palette.grey[400] }} />
+                      {rockTypeOptions[rock.rockType!]}
                       <Typography variant="textSmMedium">
-                        {rock.people}
+                        {rockTypeLabel[rock.rockType!]}
                       </Typography>
                     </Grid>
                   </Grid>

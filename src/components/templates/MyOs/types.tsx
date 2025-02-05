@@ -53,7 +53,8 @@ export interface Okr {
   id: string;
   title: string;
   quarter: string;
-  people: string;
+  okrType: string;
+  // people: string;
   percentage: number;
   onClick: MouseEventHandler<HTMLDivElement> | undefined;
 }
@@ -62,7 +63,8 @@ export interface Rock {
   id: string;
   title: string;
   quarter: string;
-  people: string;
+  rockType: string;
+  // people: string;
   onClick: MouseEventHandler<HTMLDivElement> | undefined;
   onChangeRockStatus: (values: { id: string; newValue: RockStatus }) => void;
   rockStatus: RockStatus;

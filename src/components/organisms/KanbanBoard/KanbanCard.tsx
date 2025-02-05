@@ -127,9 +127,9 @@ const KanbanCard = ({
         cursor: 'pointer',
         opacity,
         width: 'auto',
-        // position: 'relative', // Add this
-        // zIndex: theme.zIndex.appBar, // Add this
-        // margin: '2px', // Add this to give space for shadow
+        position: 'relative', // Add this
+        zIndex: 1, // Add this
+        margin: '2px', // Add this for hover space
         ...(greyMegaHoverStyle as any),
         ...sx
       }}

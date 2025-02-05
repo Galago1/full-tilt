@@ -53,7 +53,6 @@ const BoxSelect = ({
             {...button}
             sx={
               {
-                // borderRadius: (theme: Theme) => theme.borderRadius.md,
                 width: '100%',
                 buttonProps: {
                   color: selected === index ? selectedColor : unselectedColor

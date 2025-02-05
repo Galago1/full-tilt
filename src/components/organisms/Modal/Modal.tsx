@@ -64,6 +64,10 @@ export interface ModalProps extends Omit<MuiModalProps, 'slots'> {
      */
     hideActionsBoxProps?: BoxProps;
     /**
+     * The modal hide header box props
+     */
+    hideHeaderBoxProps?: BoxProps;
+    /**
      * The modal children box props
      */
     childrenBoxProps?: BoxProps;
@@ -72,6 +76,10 @@ export interface ModalProps extends Omit<MuiModalProps, 'slots'> {
    * Option to show or hide the actions
    */
   showActions?: boolean;
+  /**
+   * Option to show or hide the header
+   */
+  showHeader?: boolean;
 }
 const Modal = ({
   showActions = true,
@@ -79,6 +87,7 @@ const Modal = ({
   showClose = true,
   useBackdropClick = true,
   onClose,
+  showHeader = true,
   slots,
   ...props
 }: ModalProps) => {
@@ -88,6 +97,7 @@ const Modal = ({
     modalActionsProps,
     boxProps,
     hideActionsBoxProps,
+    hideHeaderBoxProps,
     childrenBoxProps
   } = slots || {};
   return (
@@ -100,11 +110,15 @@ const Modal = ({
       }}
     >
       <Box sx={styles.boxSx} {...boxProps}>
-        <ModalHeader
-          onHide={onClose}
-          showClose={showClose ?? modalHeaderProps?.showClose}
-          {...modalHeaderProps}
-        />
+        {showHeader ? (
+          <ModalHeader
+            onHide={onClose}
+            showClose={showClose ?? modalHeaderProps?.showClose}
+            {...modalHeaderProps}
+          />
+        ) : (
+          <Box sx={{ pt: responsiveSpacing }} {...hideHeaderBoxProps} />
+        )}
         <Box sx={styles.childrenBoxSx} {...childrenBoxProps}>
           {children}
         </Box>

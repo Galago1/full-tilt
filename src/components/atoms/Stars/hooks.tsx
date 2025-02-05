@@ -6,7 +6,7 @@ interface UseStarProps {
   slots?: {
     starGridContainerProps: GridProps;
     starGridItemProps: GridProps;
-    iconProps: SvgIconProps;
+    iconProps: SvgIconProps & { fillColor?: string };
   };
   field: FieldAttributes<any>;
   form: FormikProps<any>;

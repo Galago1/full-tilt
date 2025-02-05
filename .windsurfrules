@@ -1,0 +1,124 @@
+// .windsurfrules
+
+// Project Identity & Scope
+I am a React Atomic Design design system application built with the following characteristics and requirements.
+
+// Technology Stack Definition
+TECHNOLOGY_STACK {
+  framework: {
+    runtime: "Node.js 18.x",
+    packageManager: "yarn 4.x"
+  },
+  core: {
+    language: "TypeScript 5.x",
+    styling: "MUI v6",
+    stateManagement: "React Context ",
+    formHandling: "Formik"
+  },
+  testing: {
+    unit: "Jest",
+    e2e: "Cypress",
+    componentTesting: "Testing Library"
+  },
+  infrastructure: {
+    deployment: "Vercel",
+    database: "Mongo + PostgreSQL"
+  }
+}
+
+// Version Control & API Management
+VERSION_CONTROL {
+  react: "^18.2.0",
+  typescript: "^5.3.3",
+  node: "18.x",
+  restrictions: {
+    preventOutdatedAPIs: true,
+    enforceStrictMode: true,
+    requireTypeSafety: true
+  }
+}
+
+// Project Architecture
+PROJECT_STRUCTURE {
+  root: {
+    src: {
+      components: {
+        atoms: "Smallest Reusable UI components",
+        molecules: "Smaller Reusable UI components",
+        organisms: "Larger Reusable UI components",
+        templates: "Most complex Reusable UI components",
+        pages: "Page components"
+      },
+    },
+    tests: {
+      unit: "Unit tests",
+      integration: "Integration tests",
+      e2e: "End-to-end tests"
+    }
+  }
+}
+
+// Rules for AI
+RULES {
+  // Code Generation
+  1. Always use TypeScript with strict mode enabled
+  2. Implement error boundaries and proper error handling
+  3. Use proper loading and error states for data fetching
+  4. Follow React Server Components best practices
+  5. Implement proper SEO optimization when relevant
+
+  // Prevention Rules
+  1. No duplicate component creation - check existing components first
+  2. No outdated React patterns (avoid class components)
+  3. No direct DOM manipulation
+  4. No use of deprecated React features like classes
+  5. No mixing of Client and Server Components patterns
+  6. Never use tailwind styles
+  7. Never use plain html elements, only use existing and new components
+  8. Never use the Mui Box element, always use the Mui Grid element instead
+  9. Never use Translations(t)
+  10. Always start with a Mui Grid container when starting a layout
+  11. Never use margin or padding to separate elements, use the Mui Grid gap property instead
+  12. Only use marging when absolutely necessary, use the Mui Grid flexbox as much as possible
+  13. Never use the FC type, always add the type to the destructured object args
+
+  // Performance Rules
+  1. Implement proper code splitting
+  2. Never write infinite loops without a maxRetries
+  3. Optimize for Core Web Vitals
+  4. Implement proper caching strategies
+  5. Use proper lazy loading patterns
+
+  // Security Rules
+  1. Implement proper input validation
+  2. Use proper authentication checks
+  3. Sanitize user inputs
+  4. Follow OWASP security guidelines
+  5. Implement proper CORS policies
+
+  // Quality Assurance
+  1. Write tests for critical functionality
+  2. Implement proper logging
+  3. Use proper TypeScript types
+  4. Follow accessibility guidelines
+  5. Document complex logic
+  6. Use composeStories as much as possible, try not to test the component directly
+}
+
+// Error Prevention
+ERROR_HANDLING {
+  maxRetries: 3,
+  preventInfiniteLoops: true,
+  requireErrorBoundaries: true,
+  validateInputs: true,
+  logErrors: true
+}
+
+// Context Awareness
+CONTEXT {
+  environmentAware: true,
+  strictTypeSafety: true,
+  performanceOptimized: true,
+  accessibilityFocused: true,
+  seoOptimized: true
+}

@@ -12,7 +12,9 @@ import { responsiveSpacing } from 'src/components/particles/theme/spacing';
 
 const buttonListButtons = (
   cancelButtonLabel: string,
-  saveButtonLabel: string
+  saveButtonLabel: string,
+  cancelButtonProps: ButtonListButton,
+  saveButtonProps: ButtonListButton
 ): ButtonListButton[] => {
   return [
     {
@@ -20,21 +22,25 @@ const buttonListButtons = (
       variant: 'outlined',
       label: cancelButtonLabel ?? 'Cancel',
       fullWidth: true,
-      itemprops: { xs: 12, sm: 12, md: 6, order: { xs: 2, sm: 2, md: 1 } }
+      itemprops: { xs: 12, sm: 12, md: 6, order: { xs: 2, sm: 2, md: 1 } },
+      ...cancelButtonProps
     },
     {
       color: 'primary',
       variant: 'contained',
       label: saveButtonLabel ?? 'Save',
       fullWidth: true,
-      itemprops: { xs: 12, sm: 12, md: 6, order: { xs: 1, sm: 1, md: 1 } }
+      itemprops: { xs: 12, sm: 12, md: 6, order: { xs: 1, sm: 1, md: 1 } },
+      ...saveButtonProps
     }
   ];
 };
 
 const destructiveButtonListButtons = (
   cancelButtonLabel: string,
-  saveButtonLabel: string
+  saveButtonLabel: string,
+  cancelButtonProps: ButtonListButton,
+  saveButtonProps: ButtonListButton
 ): ButtonListButton[] => {
   return [
     {
@@ -42,14 +48,16 @@ const destructiveButtonListButtons = (
       variant: 'outlined',
       label: cancelButtonLabel ?? 'Cancel',
       fullWidth: true,
-      itemprops: { xs: 12, sm: 12, md: 6, order: { xs: 2, sm: 2, md: 1 } }
+      itemprops: { xs: 12, sm: 12, md: 6, order: { xs: 2, sm: 2, md: 1 } },
+      ...cancelButtonProps
     },
     {
       color: 'error',
       variant: 'contained',
       label: saveButtonLabel ?? 'Delete',
       fullWidth: true,
-      itemprops: { xs: 12, sm: 12, md: 6, order: { xs: 1, sm: 1, md: 2 } }
+      itemprops: { xs: 12, sm: 12, md: 6, order: { xs: 1, sm: 1, md: 2 } },
+      ...saveButtonProps
     }
   ];
 };
@@ -87,18 +95,38 @@ interface ActionsProps extends Omit<ButtonListProps, 'buttons'> {
    * the save button label
    */
   saveButtonLabel?: string;
+  /**
+   * the cancel button props
+   */
+  cancelButtonProps?: ButtonListButton;
+  /**
+   * the save button props
+   */
+  saveButtonProps?: ButtonListButton;
 }
 const Actions = ({
   hideButtons,
   destructiveButton,
   cancelButtonLabel,
   saveButtonLabel,
+  cancelButtonProps,
+  saveButtonProps,
   ...props
 }: ActionsProps) => {
   if (hideButtons) return null;
   const finalButtons = destructiveButton
-    ? destructiveButtonListButtons(cancelButtonLabel!, saveButtonLabel!)
-    : buttonListButtons(cancelButtonLabel!, saveButtonLabel!);
+    ? destructiveButtonListButtons(
+        cancelButtonLabel!,
+        saveButtonLabel!,
+        cancelButtonProps!,
+        saveButtonProps!
+      )
+    : buttonListButtons(
+        cancelButtonLabel!,
+        saveButtonLabel!,
+        cancelButtonProps!,
+        saveButtonProps!
+      );
 
   return <ButtonList buttons={finalButtons} {...props} />;
 };

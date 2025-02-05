@@ -88,6 +88,7 @@ const DropdownUncontrolled = ({
   anchorComponent,
   ...props
 }: DropdownUncontrolledProps) => {
+  console.log('DropdowdropdownMenuPropsnUncontrolled', dropdownMenuProps);
   return (
     <Box {...boxProps} {...props}>
       <DropdownAnchor
@@ -104,9 +105,9 @@ const DropdownUncontrolled = ({
           id="account-menu"
           onClose={handleClose}
           onClick={handleClose}
-          {...dropdownMenuProps}
           transformOrigin={{ horizontal: 'right', vertical: 'top' }}
           anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+          {...dropdownMenuProps}
           avatarAndTextProps={avatarAndTextProps}
           dropdownListItems={dropdownListItems}
           gridItemProps={gridItemProps}

@@ -4,7 +4,8 @@ import {
   RadioProps as MuiRadioButtonProps,
   useTheme
 } from '@mui/material';
-import type { JSXElementConstructor, ReactElement, Ref } from 'react';
+import type { Ref } from 'react';
+import React from 'react';
 import type { ColorSchema } from 'src/components/particles/theme/palette';
 
 export interface RadioButtonProps extends MuiRadioButtonProps {
@@ -27,9 +28,7 @@ export interface RadioButtonProps extends MuiRadioButtonProps {
   /**
    * The icon to display when the component is checked.
    */
-  checkedIcon?:
-    | ReactElement<any, string | JSXElementConstructor<any>>
-    | undefined;
+  checkedIcon?: JSX.Element | React.ReactNode | undefined;
   /**
    * If true, the ripple effect is disabled.
    */
@@ -37,7 +36,7 @@ export interface RadioButtonProps extends MuiRadioButtonProps {
   /**
    * The icon to display when the component is unchecked.
    */
-  icon?: ReactElement<any, string | JSXElementConstructor<any>> | undefined;
+  icon?: JSX.Element | React.ReactNode | undefined;
   /**
    * The id of the input element.
    */

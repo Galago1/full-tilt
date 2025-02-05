@@ -6,6 +6,8 @@ export interface StarProps {
   hovered: boolean;
   activeColor: string;
   inactiveColor: string;
+  hoverFillColor: string;
+  fillColor: string;
 }
 
 // TODO: Add types for this styled component
@@ -14,12 +16,31 @@ export const Star: any = styled(StarIcon, {
     prop !== 'active' &&
     prop !== 'hovered' &&
     prop !== 'activeColor' &&
-    prop !== 'inactiveColor'
-})<StarProps>(({ active, hovered, activeColor, inactiveColor }) => ({
-  color: active || hovered ? activeColor : inactiveColor,
-  cursor: 'pointer',
-  width: '100%',
-  height: '100%',
-  transition: 'color 0.2s ease-in-out',
-  'data-testid': 'star-icon'
-}));
+    prop !== 'inactiveColor' &&
+    prop !== 'fillColor' &&
+    prop !== 'hoverFillColor'
+})<StarProps>(
+  ({
+    active,
+    hovered,
+    activeColor,
+    inactiveColor,
+    fillColor,
+    hoverFillColor
+  }) => ({
+    color: active || hovered ? activeColor : inactiveColor,
+    cursor: 'pointer',
+    width: '100%',
+    height: '100%',
+    transition: 'all 0.2s ease-in-out',
+    fill: active || hovered ? fillColor || activeColor : 'transparent',
+    stroke: 'none',
+    strokeWidth: '0',
+    '&:hover': {
+      color: activeColor,
+      fill: hoverFillColor || activeColor,
+      stroke: activeColor,
+      strokeWidth: '1px'
+    }
+  })
+);

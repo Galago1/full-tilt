@@ -581,12 +581,36 @@ export const DraggableHeaderCell = ({
   );
 };
 
-export const getQuarterSpan = (quarter: Quarter): string => {
-  const quarterSpans: Record<Quarter, string> = {
-    q1: 'Jan-Mar',
-    q2: 'Apr-Jun',
-    q3: 'Jul-Sep',
-    q4: 'Oct-Dec'
+export const getQuarterSpan = (quarter: Quarter, fiscalYear: Date): string => {
+  // Get the starting month of the fiscal year (0-11)
+  const fiscalYearStartMonth = fiscalYear.getMonth();
+
+  // Calculate the start month for each quarter based on fiscal year start
+  const quarterMonths: Record<Quarter, [number, number]> = {
+    q1: [fiscalYearStartMonth, (fiscalYearStartMonth + 2) % 12],
+    q2: [(fiscalYearStartMonth + 3) % 12, (fiscalYearStartMonth + 5) % 12],
+    q3: [(fiscalYearStartMonth + 6) % 12, (fiscalYearStartMonth + 8) % 12],
+    q4: [(fiscalYearStartMonth + 9) % 12, (fiscalYearStartMonth + 11) % 12]
   };
-  return quarterSpans[quarter];
+
+  // Get month range for the requested quarter
+  const [startMonth, endMonth] = quarterMonths[quarter];
+
+  // Convert month numbers to abbreviated month names
+  const monthNames = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec'
+  ];
+
+  return `${monthNames[startMonth]}-${monthNames[endMonth]}`;
 };

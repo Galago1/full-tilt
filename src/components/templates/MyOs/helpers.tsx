@@ -25,6 +25,100 @@ const dateNavigatorInputProps: DateNavigatorInputProps = {
   // dateLabelFn: () => '',
 };
 
+export const scorecardsCardProps = {
+  onClickEmptyState: () => {},
+  onHeaderClick: () => {},
+  scorecardsContentProps: [
+    {
+      title: 'Daily',
+      onClickEmptyState: () => {},
+      scorecards: [
+        {
+          id: '1',
+          title: 'Design wireframes for Wave',
+          goal: '> 1',
+          value: 0,
+          onSave,
+          slots: { dateNavigatorInputProps },
+          backgroundColor: getColorByValue(GoalCondition.GREATER_THAN, '1', 0),
+          date: 'Jul 13',
+          measurableMetricId: '1'
+        },
+        {
+          id: '2',
+          title: 'Create a style guide for the new project',
+          goal: '= 100',
+          value: 70,
+          onSave,
+          slots: { dateNavigatorInputProps },
+          backgroundColor: getColorByValue(GoalCondition.EQUAL_TO, '100', 70),
+          date: 'Jul 13',
+          measurableMetricId: '1'
+        },
+        {
+          id: '3',
+          title: 'Develop high-fidelity mockups for the homepage',
+          goal: '> 10',
+          value: 99,
+          onSave,
+          slots: { dateNavigatorInputProps },
+          backgroundColor: getColorByValue(
+            GoalCondition.GREATER_THAN,
+            '10',
+            99
+          ),
+          date: 'Jul 13',
+          measurableMetricId: '1'
+        },
+        {
+          id: '4',
+          title: 'Conduct a usability test on the current prototype',
+          goal: '= 100',
+          value: 20,
+          onSave,
+          slots: { dateNavigatorInputProps },
+          backgroundColor: getColorByValue(GoalCondition.EQUAL_TO, '100', 20),
+          date: 'Jul 13',
+          measurableMetricId: '1'
+        }
+      ]
+    },
+    {
+      title: 'Weekly',
+      onClickEmptyState: () => {},
+      scorecards: [
+        {
+          id: '5',
+          title: 'Design wireframes for Wave',
+          goal: '= 100',
+          value: 50,
+          onSave,
+          slots: { dateNavigatorInputProps },
+          backgroundColor: getColorByValue(GoalCondition.EQUAL_TO, '100', 50),
+          date: 'Jul 13',
+          measurableMetricId: '1'
+        },
+        {
+          id: '6',
+          title: 'Create a style guide for the new project',
+          goal: '< 100',
+          value: 70,
+          onSave,
+          slots: { dateNavigatorInputProps },
+          backgroundColor: getColorByValue(GoalCondition.LESS_THAN, '100', 70),
+          date: 'Jul 13',
+          measurableMetricId: '1'
+        }
+      ]
+    },
+    {
+      title: 'Monthly',
+      onClickEmptyState: () => {},
+      scorecards: []
+    }
+  ]
+};
+
 export const DefaultArgs: Partial<MyOsProps> | undefined = {
   today: (() => {
     const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -133,119 +227,7 @@ export const DefaultArgs: Partial<MyOsProps> | undefined = {
     todosCardProps: {
       onHeaderClick: () => {}
     },
-    scorecardsCardProps: {
-      onClickEmptyState: () => {},
-      onHeaderClick: () => {},
-      scorecardsContentProps: [
-        {
-          title: 'Daily',
-          onClickEmptyState: () => {},
-          scorecards: [
-            {
-              id: '1',
-              title: 'Design wireframes for Wave',
-              goal: '> 1',
-              value: 0,
-              onSave,
-              slots: { dateNavigatorInputProps },
-              backgroundColor: getColorByValue(
-                GoalCondition.GREATER_THAN,
-                '1',
-                0
-              ),
-              date: 'Jul 13',
-              measurableMetricId: '1'
-            },
-            {
-              id: '2',
-              title: 'Create a style guide for the new project',
-              goal: '= 100',
-              value: 70,
-              onSave,
-              slots: { dateNavigatorInputProps },
-              backgroundColor: getColorByValue(
-                GoalCondition.EQUAL_TO,
-                '100',
-                70
-              ),
-              date: 'Jul 13',
-              measurableMetricId: '1'
-            },
-            {
-              id: '3',
-              title: 'Develop high-fidelity mockups for the homepage',
-              goal: '> 10',
-              value: 99,
-              onSave,
-              slots: { dateNavigatorInputProps },
-              backgroundColor: getColorByValue(
-                GoalCondition.GREATER_THAN,
-                '10',
-                99
-              ),
-              date: 'Jul 13',
-              measurableMetricId: '1'
-            },
-            {
-              id: '4',
-              title: 'Conduct a usability test on the current prototype',
-              goal: '= 100',
-              value: 20,
-              onSave,
-              slots: { dateNavigatorInputProps },
-              backgroundColor: getColorByValue(
-                GoalCondition.EQUAL_TO,
-                '100',
-                20
-              ),
-              date: 'Jul 13',
-              measurableMetricId: '1'
-            }
-          ]
-        },
-        {
-          title: 'Weekly',
-          onClickEmptyState: () => {},
-          scorecards: [
-            {
-              id: '5',
-              title: 'Design wireframes for Wave',
-              goal: '= 100',
-              value: 50,
-              onSave,
-              slots: { dateNavigatorInputProps },
-              backgroundColor: getColorByValue(
-                GoalCondition.EQUAL_TO,
-                '100',
-                50
-              ),
-              date: 'Jul 13',
-              measurableMetricId: '1'
-            },
-            {
-              id: '6',
-              title: 'Create a style guide for the new project',
-              goal: '< 100',
-              value: 70,
-              onSave,
-              slots: { dateNavigatorInputProps },
-              backgroundColor: getColorByValue(
-                GoalCondition.LESS_THAN,
-                '100',
-                70
-              ),
-              date: 'Jul 13',
-              measurableMetricId: '1'
-            }
-          ]
-        },
-        {
-          title: 'Monthly',
-          onClickEmptyState: () => {},
-          scorecards: []
-        }
-      ]
-    }
+    scorecardsCardProps
   },
   digest: [
     {
@@ -278,7 +260,7 @@ export const DefaultArgs: Partial<MyOsProps> | undefined = {
       id: '1',
       title: 'Design wireframes for Wave',
       quarter: '1',
-      people: 'Org Wide',
+      okrType: 'individual',
       percentage: 50,
       onClick: () => {}
     },
@@ -286,7 +268,7 @@ export const DefaultArgs: Partial<MyOsProps> | undefined = {
       id: '2',
       title: 'Create a style guide for the new project',
       quarter: '3',
-      people: 'Design',
+      okrType: 'company',
       percentage: 70,
       onClick: () => {}
     },
@@ -294,7 +276,7 @@ export const DefaultArgs: Partial<MyOsProps> | undefined = {
       id: '3',
       title: 'Develop high-fidelity mockups for the homepage',
       quarter: '2',
-      people: 'Engineering',
+      okrType: 'individual',
       percentage: 99,
       onClick: () => {}
     },
@@ -302,7 +284,7 @@ export const DefaultArgs: Partial<MyOsProps> | undefined = {
       id: '4',
       title: 'Conduct a usability test on the current prototype',
       quarter: '4',
-      people: 'Design',
+      okrType: 'company',
       percentage: 20,
       onClick: () => {}
     }
@@ -312,7 +294,7 @@ export const DefaultArgs: Partial<MyOsProps> | undefined = {
       id: '1',
       title: 'Design wireframes for Wave',
       quarter: '1',
-      people: 'Org Wide',
+      rockType: 'company',
       onClick: () => {},
       rockStatus: RockStatus.COMPLETED,
       onChangeRockStatus: () => {}
@@ -321,7 +303,7 @@ export const DefaultArgs: Partial<MyOsProps> | undefined = {
       id: '2',
       title: 'Create a style guide for the new project',
       quarter: '3',
-      people: 'Design',
+      rockType: 'company',
       onClick: () => {},
       rockStatus: RockStatus.ON_TRACK,
       onChangeRockStatus: () => {}
@@ -330,7 +312,7 @@ export const DefaultArgs: Partial<MyOsProps> | undefined = {
       id: '3',
       title: 'Develop high-fidelity mockups for the homepage',
       quarter: '2',
-      people: 'Engineering',
+      rockType: 'individual',
       onClick: () => {},
       rockStatus: RockStatus.ON_TRACK,
       onChangeRockStatus: () => {}
@@ -339,7 +321,7 @@ export const DefaultArgs: Partial<MyOsProps> | undefined = {
       id: '4',
       title: 'Conduct a usability test on the current prototype',
       quarter: '4',
-      people: 'Design',
+      rockType: 'company',
       onClick: () => {},
       rockStatus: RockStatus.OFF_TRACK,
       onChangeRockStatus: () => {}

@@ -85,13 +85,17 @@ export const useOverviewCard = ({
     });
   }, []);
 
-  const quarters: Quarter[] = ['q1', 'q2', 'q3', 'q4'];
-  const currentQuarterIndex = quarters.indexOf(selectedQuarter);
-
   const handleQuarterChange = (direction: 'left' | 'right') => {
-    const newIndex =
-      direction === 'left' ? currentQuarterIndex - 1 : currentQuarterIndex + 1;
-    onQuarterChange(quarters[newIndex]);
+    const quarters: Quarter[] = ['q1', 'q2', 'q3', 'q4'];
+    const currentIndex = quarters.indexOf(selectedQuarter);
+    
+    if (direction === 'left') {
+      const nextQuarter = currentIndex === 0 ? quarters[3] : quarters[currentIndex - 1];
+      onQuarterChange(nextQuarter);
+    } else {
+      const nextQuarter = currentIndex === 3 ? quarters[0] : quarters[currentIndex + 1];
+      onQuarterChange(nextQuarter);
+    }
   };
 
   return {
@@ -103,8 +107,6 @@ export const useOverviewCard = ({
     moveRow,
     moveColumn,
     handleQuarterChange,
-    currentQuarterIndex,
-    quarters,
     theme,
     tableContainerProps
   };

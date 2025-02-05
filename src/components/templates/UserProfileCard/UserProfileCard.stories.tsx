@@ -27,7 +27,7 @@ const testData = {
 };
 
 export default {
-  title: 'Components/UserProfileCard',
+  title: 'Templates/UserProfileCard',
   component: UserProfileCard
 };
 
@@ -39,10 +39,12 @@ const Template: Story<UserProfileCardProps> = (args) => (
 
 export const Default = Template.bind({});
 Default.args = {
+  isOpen: true,
   data: testData
 };
 export const EmptyState = Template.bind({});
 EmptyState.args = {
+  isOpen: true,
   data: {
     ...testData,
     birthdate: '',

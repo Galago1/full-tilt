@@ -19,6 +19,8 @@ export interface SharedListCardContentProps extends GridProps {
     checkDoneFormProps?: CheckDoneFormProps;
   };
   useType?: boolean;
+  leftComponent?: JSX.Element;
+  subtitle?: JSX.Element;
 }
 
 const SharedListCardContent = ({
@@ -33,6 +35,8 @@ const SharedListCardContent = ({
   onClick,
   slots,
   useType = false,
+  leftComponent,
+  subtitle,
   ...props
 }: SharedListCardContentProps) => {
   const { chipProps, checkDoneFormProps } = slots || {};
@@ -57,7 +61,11 @@ const SharedListCardContent = ({
           <AvatarAndText
             gap={1}
             flexWrap="nowrap"
-            leftComponent={<CheckDoneForm id={id!} {...checkDoneFormProps!} />}
+            leftComponent={
+              leftComponent || (
+                <CheckDoneForm id={id!} {...checkDoneFormProps!} />
+              )
+            }
             leftComponentItemSx={{
               alignSelf: 'flex-start'
             }}
@@ -67,33 +75,35 @@ const SharedListCardContent = ({
               sx: { display: 'flex', alignItems: 'center' }
             }}
             subtitle={
-              <Grid container alignItems="center" gap={0.5}>
-                <Grid item>
-                  <Chip {...chipProps} label={status} />
-                </Grid>
-                <Grid
-                  item
-                  display={'flex'}
-                  alignItems={'center'}
-                  color={'trext.secondary'}
-                  sx={{
-                    '&': {
-                      // color: 'text.secondary'
-                      color: (theme) =>
-                        `${theme.palette.text.secondary} !important`
-                    }
-                  }}
-                >
-                  {icon}
-                  <Typography
-                    variant="textSmMedium"
-                    sx={{ ml: 1 }}
-                    color={'text.secondary'}
+              subtitle || (
+                <Grid container alignItems="center" gap={0.5}>
+                  <Grid item>
+                    <Chip {...chipProps} label={status} />
+                  </Grid>
+                  <Grid
+                    item
+                    display={'flex'}
+                    alignItems={'center'}
+                    color={'trext.secondary'}
+                    sx={{
+                      '&': {
+                        // color: 'text.secondary'
+                        color: (theme) =>
+                          ` ${theme.palette.text.secondary} !important`
+                      }
+                    }}
                   >
-                    {useType ? type : priority}
-                  </Typography>
+                    {icon}
+                    <Typography
+                      variant="textSmMedium"
+                      sx={{ ml: 1 }}
+                      color={'text.secondary'}
+                    >
+                      {useType ? type : priority}
+                    </Typography>
+                  </Grid>
                 </Grid>
-              </Grid>
+              )
             }
             subtitleTypography={{
               variant: 'textSmRegular'

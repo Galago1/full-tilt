@@ -48,6 +48,10 @@ declare module '@mui/material/Typography' {
     textXsSemibold: true;
     textXsMedium: true;
     textXsRegular: true;
+    textXXsBold: true;
+    textXXsSemibold: true;
+    textXXsMedium: true;
+    textXXsRegular: true;
   }
 }
 const FONT_PRIMARY = 'Inter, Public Sans, sans-serif'; // Google Font
@@ -413,6 +417,26 @@ const typography = {
     fontWeight: fontWeightRegular,
     lineHeight: '1.125rem',
     fontSize: pxToRem(12)
+  },
+  textXXsBold: {
+    fontWeight: fontWeightBold,
+    lineHeight: '1.125rem',
+    fontSize: pxToRem(10)
+  },
+  textXXsSemibold: {
+    fontWeight: fontWeightSemibold,
+    lineHeight: '1.125rem',
+    fontSize: pxToRem(10)
+  },
+  textXXsMedium: {
+    fontWeight: fontWeightMedium,
+    lineHeight: '1.125rem',
+    fontSize: pxToRem(10)
+  },
+  textXXsRegular: {
+    fontWeight: fontWeightRegular,
+    lineHeight: '1.125rem',
+    fontSize: pxToRem(10)
   }
 } as const;
 

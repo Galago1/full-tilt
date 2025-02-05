@@ -91,13 +91,15 @@ export enum GoalCondition {
 export const getColorByValue = (
   goalCondition: GoalCondition,
   goalValue: string,
-  value: number | undefined
+  value: number | undefined,
+  isEmpty: boolean = false
 ): string => {
   console.log({ goalCondition, goalValue, value: value });
   // Guard against invalid inputs
   if (value === undefined || goalValue === undefined) {
     return 'neutral.100';
   }
+  if (isEmpty) return 'white';
 
   // const value = +preValue || 0;
 

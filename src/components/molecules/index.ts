@@ -66,6 +66,7 @@ export { default as DateNavigatorInput } from './Inputs/DateNavigatorInput';
 export { default as DatePickerInput } from './Inputs/DatePickerInput';
 export { default as DateRangePickerInput } from './Inputs/DateRangePickerInput';
 export { default as DollarInput } from './Inputs/DollarInput';
+export { default as HorizontalInput } from './Inputs/HorizontalInput';
 export { default as NumberInputBase } from './Inputs/NumberInputBase';
 export { default as PasswordInput } from './Inputs/PasswordInput';
 export { default as PatternInputBase } from './Inputs/PatternInputBase';

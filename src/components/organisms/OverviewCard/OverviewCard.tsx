@@ -36,12 +36,85 @@ import {
 } from './helpers';
 import { useOverviewCard } from './useOverviewCard';
 
-const quarterLabel: Record<Quarter, string> = {
-  q1: 'Q1',
-  q2: 'Q2',
-  q3: 'Q3',
-  q4: 'Q4'
+interface QuarterInfo {
+  label: string;
+}
+
+const QUARTERS: Record<Quarter, QuarterInfo> = {
+  q1: { label: 'Q1' },
+  q2: { label: 'Q2' },
+  q3: { label: 'Q3' },
+  q4: { label: 'Q4' }
 };
+
+interface QuarterSelectorProps {
+  selectedQuarter: Quarter;
+  year: number;
+  fiscalYearStartDate: Date;
+  onQuarterChange: (direction: 'left' | 'right') => void;
+  middleButtonProps?: ButtonProps;
+}
+
+const formatQuarterLabel = (
+  quarter: Quarter | undefined,
+  year: number | undefined,
+  fiscalYearStartDate: Date | undefined
+): string => {
+  if (!quarter || !year || !fiscalYearStartDate) {
+    return 'Select Quarter';
+  }
+
+  const quarterInfo = QUARTERS[quarter];
+  if (!quarterInfo) {
+    return 'Invalid Quarter';
+  }
+
+  try {
+    // Create a new date for this year but keeping the fiscal month/day
+    const fiscalYear = new Date(
+      year,
+      fiscalYearStartDate.getMonth(),
+      fiscalYearStartDate.getDate()
+    );
+    return `${quarterInfo.label} ${year} (${getQuarterSpan(
+      quarter,
+      fiscalYear
+    )})`;
+  } catch (error) {
+    return `${quarterInfo.label} ${year}`;
+  }
+};
+
+const QuarterSelector = ({
+  selectedQuarter,
+  year,
+  fiscalYearStartDate,
+  onQuarterChange,
+  middleButtonProps
+}: QuarterSelectorProps) => (
+  <ButtonGroup
+    customVariant="roundedEdges"
+    buttons={[
+      {
+        endIcon: <ChevronLeftIcon />,
+        onClick: () => onQuarterChange('left'),
+        disabled: false
+      },
+      {
+        startIcon: <CalendarIcon />,
+        label: formatQuarterLabel(selectedQuarter, year, fiscalYearStartDate),
+        disabled: true,
+        sx: { '&': { py: 9 / 8 } },
+        ...middleButtonProps
+      },
+      {
+        endIcon: <ChevronRightIcon />,
+        onClick: () => onQuarterChange('right'),
+        disabled: false
+      }
+    ]}
+  />
+);
 
 export interface OverviewCardProps extends Omit<CardProps, 'slots'> {
   /**
@@ -55,17 +128,16 @@ export interface OverviewCardProps extends Omit<CardProps, 'slots'> {
   /**
    * The currently selected quarter
    */
-  selectedQuarter: Quarter;
+  selectedQuarter?: Quarter;
   /**
    * Function to call when the quarter is changed
-   * @param quarter
-   * @returns
+   * @param direction - 'left' for previous quarter, 'right' for next quarter
    */
-  onQuarterChange: (quarter: Quarter) => void;
+  onQuarterChange?: (quarter: Quarter) => void;
   /**
    * Props for the middle button
    */
-  middleButtonProps: ButtonProps;
+  middleButtonProps?: ButtonProps;
   /**
    * Whether dragging of rows and columns is disabled
    */
@@ -76,32 +148,41 @@ export interface OverviewCardProps extends Omit<CardProps, 'slots'> {
   };
 
   cardSlots?: CardProps['slots'];
+  /**
+   * The year to display, defaults to current year
+   */
+  year?: number;
+  /**
+   * The fiscal year start date (e.g., new Date(2025, 6, 1) for July 1st fiscal year)
+   * Defaults to January 1st of the current year
+   */
+  fiscalYearStartDate?: Date;
 }
 
 const OverviewCard = ({
   data,
   showSwitches,
-  selectedQuarter,
-  onQuarterChange,
+  selectedQuarter = 'q1',
+  onQuarterChange = () => {},
   middleButtonProps,
-  disableDragging = false, // default is false, enabling dragging
+  disableDragging = false,
   slots,
   cardSlots,
+  year = new Date().getFullYear(),
+  fiscalYearStartDate = new Date(new Date().getFullYear(), 0, 1),
   ...props
 }: OverviewCardProps) => {
   const {
     currentData,
     teamNames,
     categories,
+    handleQuarterChange,
     handleVerticalIconClick,
     handleHorizontalIconClick,
     moveRow,
     moveColumn,
-    handleQuarterChange,
-    currentQuarterIndex,
-    quarters,
-    tableContainerProps,
-    theme
+    theme,
+    tableContainerProps
   } = useOverviewCard({
     data,
     selectedQuarter,
@@ -130,31 +211,12 @@ const OverviewCard = ({
             </Typography>
           </Grid>
           <Grid item>
-            <ButtonGroup
-              customVariant="roundedEdges"
-              buttons={[
-                {
-                  endIcon: <ChevronLeftIcon />,
-                  onClick: () => handleQuarterChange('left'),
-                  disabled: currentQuarterIndex === 0
-                },
-                {
-                  startIcon: <CalendarIcon />,
-                  label: `${
-                    quarterLabel[selectedQuarter]
-                  } ${new Date().getFullYear()} (${getQuarterSpan(
-                    selectedQuarter
-                  )})`,
-                  disabled: true,
-                  sx: { '&': { py: 9 / 8 } },
-                  ...middleButtonProps
-                },
-                {
-                  endIcon: <ChevronRightIcon />,
-                  onClick: () => handleQuarterChange('right'),
-                  disabled: currentQuarterIndex === quarters.length - 1
-                }
-              ]}
+            <QuarterSelector
+              selectedQuarter={selectedQuarter}
+              year={year}
+              fiscalYearStartDate={fiscalYearStartDate}
+              onQuarterChange={handleQuarterChange}
+              middleButtonProps={middleButtonProps}
             />
           </Grid>
         </Grid>

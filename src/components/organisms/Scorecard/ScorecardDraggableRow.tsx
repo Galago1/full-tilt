@@ -6,7 +6,7 @@ import {
   useTheme
 } from '@mui/material';
 import { FormikHelpers } from 'formik';
-import { last, round } from 'lodash';
+import { isEmpty, last, round } from 'lodash';
 import { useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import Dropdown, {
@@ -35,7 +35,8 @@ export interface ScorecardDraggableRowProps {
   getColorByValue?: (
     goalCondition: GoalCondition,
     goalValue: string,
-    trend: number | undefined
+    trend: number | undefined,
+    isEmpty: boolean
   ) => string;
   showCheckbox?: boolean;
   showDotsIcon?: boolean;
@@ -121,6 +122,11 @@ const ScorecardDraggableRow = ({
 
   const opacity = isDragging ? 0.5 : 1;
 
+  // console.log('isEmpty(row?.data)', isEmpty(row?.data), row?.data);
+  const isCompletelyEmpty =
+    !row?.data ||
+    !row?.data.length ||
+    row.data.every((item: any) => [undefined, null].includes(item.value));
   return (
     <Grid
       ref={ref}
@@ -193,7 +199,8 @@ const ScorecardDraggableRow = ({
         bgcolor={getColorByValue!(
           row?.goalCondition!,
           last(row!.goal.split(' ')) as string,
-          row!.trend
+          row!.trend,
+          isCompletelyEmpty!
         )}
         onSave={async (a, b, c) => await onSave!(a, b, c, row!)}
         component={NumberInputBase}
@@ -213,7 +220,8 @@ const ScorecardDraggableRow = ({
           bgcolor={getColorByValue!(
             row?.goalCondition!,
             last(row!.goal.split(' ')) as string,
-            data.value as number
+            data.value as number,
+            false
           )}
           onSave={async (a, b, c) => await onSave!(a, b, c, row!)}
           component={dataComponent}

@@ -5,13 +5,15 @@ import { IdeasCard, IdeasCardProps } from './IdeasCard';
 import { IssuesCard, IssuesCardProps } from './IssuesCard';
 import { LatestDigestCard, LatestDigestCardProps } from './LatestDigestCard';
 import MeetingsCard, { MeetingsCardProps } from './MeetingsCard/MeetingsCard';
-import { OkrsCard, OkrsCardProps } from './OkrsCard';
+import OkrsCard, { OkrsCardProps } from './OkrsCard/OkrsCard';
 import {
   PendingSurveysCard,
   PendingSurveysCardProps
 } from './PendingSurveysCard';
 import RocksCard, { RocksCardProps } from './RocksCard/RocksCard';
-import { ScorecardsCard, ScorecardsCardProps } from './ScorecardsCard';
+import ScorecardsCard, {
+  ScorecardsCardProps
+} from './ScorecardsCard/ScorecardsCard';
 import { TodosCard, TodosCardProps } from './TodosCard';
 import {
   Digest,

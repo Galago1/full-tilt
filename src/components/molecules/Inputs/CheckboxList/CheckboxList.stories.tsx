@@ -55,5 +55,10 @@ TwoCheckboxes.args = {
       checkbox: true,
       labelProps: { ...one.labelProps, label: `Checkbox ${index}` }
     };
-  })
+  }),
+  slots: {
+    itemProps: {
+      xs: 12
+    }
+  }
 };

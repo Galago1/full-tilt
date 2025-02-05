@@ -114,10 +114,10 @@ const KanbanColumn = ({
         border: theme.border.outlinedButton,
         backgroundColor: 'grey.50',
         opacity,
-        overflow: 'hidden',
+        overflow: 'visible', // Changed from 'hidden' to allow hover effects
         display: 'flex',
-        height: '100%', // Changed from minHeight to height
-        maxHeight: '100vh', // Added maxHeight
+        height: '100%',
+        maxHeight: '100vh',
         flexWrap: 'nowrap',
         pb: 14,
         p: 2
@@ -137,11 +137,7 @@ const KanbanColumn = ({
             minHeight: 0,
             height: 740,
             minWidth: 240,
-            // px: 2, // Add horizontal padding
-            // pt: 2, // Add top padding
-            // pb: 4, // Add bottom padding
-            // mx: -2, // Negative margin to offset parent padding
-            // mt: -2, // Negative margin to offset parent padding
+            pt: 1, // Add top padding for first card's hover effect
             ...columnCardsGridSx
           }}
           gap={2}

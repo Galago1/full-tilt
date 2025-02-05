@@ -10,7 +10,7 @@ export interface SelectWithTextProps extends GridProps {
   /**
    * Switch label
    */
-  title: string;
+  title?: string;
   /**
    * Switch description
    */

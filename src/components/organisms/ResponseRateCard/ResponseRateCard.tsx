@@ -19,6 +19,62 @@ import ResponseRateTopCard from './ResponseRateTopCard';
 import ResponseRateTopCardChange from './ResponseRateTopCardChange';
 import { useResponseRateCard } from './hooks';
 
+interface CircularProgressWithLabelProps {
+  avgResponseRate: number;
+  theme: Theme;
+}
+const CircularProgressWithLabel = ({
+  avgResponseRate,
+  theme
+}: CircularProgressWithLabelProps) => {
+  return (
+    <Grid container position="relative" display="inline-flex">
+      <CircularProgress
+        variant="determinate"
+        value={100}
+        size={200}
+        thickness={2}
+        style={{ color: theme.palette.grey[200] }}
+      />
+
+      <CircularProgress
+        variant="determinate"
+        value={avgResponseRate}
+        size={200}
+        thickness={2}
+        sx={{
+          '& .MuiCircularProgress': {
+            borderRadius: '8px'
+          },
+          color: '#06AED4'
+        }}
+        style={{
+          position: 'absolute',
+          left: 0
+        }}
+      />
+      <Grid
+        container
+        position="absolute"
+        top={0}
+        left={0}
+        bottom={0}
+        right={0}
+        alignItems="center"
+        justifyContent="center"
+      >
+        <Typography
+          variant="displayMdSemibold"
+          component="div"
+          color="text.secondary"
+        >
+          {avgResponseRate}%
+        </Typography>
+      </Grid>
+    </Grid>
+  );
+};
+
 const cardSx = {
   border: (theme: Theme) => theme.border.basicBox,
   borderRadius: (theme: Theme) => theme.borderRadius.md,
@@ -129,7 +185,7 @@ const ResponseRateCard = ({
             alignItems={'center'}
             flexWrap={{ xs: 'wrap', sm: 'wrap', md: 'nowrap' }}
           >
-            <Grid item sm={12} md={4}>
+            <Grid item xs={12} sm={12} md={4}>
               <Grid
                 container
                 direction="column"
@@ -137,50 +193,10 @@ const ResponseRateCard = ({
                 gap={responsiveSpacing}
               >
                 <Grid item>
-                  <Grid container position="relative" display="inline-flex">
-                    <CircularProgress
-                      variant="determinate"
-                      value={100}
-                      size={200}
-                      thickness={2}
-                      style={{ color: theme.palette.grey[200] }}
-                    />
-
-                    <CircularProgress
-                      variant="determinate"
-                      value={avgResponseRate}
-                      size={200}
-                      thickness={2}
-                      sx={{
-                        '& .MuiCircularProgress': {
-                          borderRadius: '8px'
-                        },
-                        color: '#06AED4'
-                      }}
-                      style={{
-                        position: 'absolute',
-                        left: 0
-                      }}
-                    />
-                    <Grid
-                      container
-                      position="absolute"
-                      top={0}
-                      left={0}
-                      bottom={0}
-                      right={0}
-                      alignItems="center"
-                      justifyContent="center"
-                    >
-                      <Typography
-                        variant="displayMdSemibold"
-                        component="div"
-                        color="text.secondary"
-                      >
-                        {avgResponseRate}%
-                      </Typography>
-                    </Grid>
-                  </Grid>
+                  <CircularProgressWithLabel
+                    avgResponseRate={avgResponseRate}
+                    theme={theme}
+                  />
                 </Grid>
                 <Grid item>
                   <Typography variant="textMdSemibold" mt={1}>
@@ -196,7 +212,7 @@ const ResponseRateCard = ({
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item sm={12} md={8}>
+            <Grid item xs={12} sm={12} md={8}>
               <Box
                 sx={{
                   overflowX: 'auto',

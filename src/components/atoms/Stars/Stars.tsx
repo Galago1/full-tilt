@@ -1,12 +1,11 @@
-import { Grid, GridProps, SvgIconProps } from '@mui/material';
+import { Grid, GridProps, SvgIconProps, useTheme } from '@mui/material';
 import { FieldInputProps, FieldProps, FormikProps } from 'formik';
-import { Star } from './helpers';
+import { StarIcon } from 'src/components/particles/theme/overrides/CustomIcons';
 import { useStar } from './hooks';
 
 export interface StarsProps extends FieldProps {
   totalStars: number;
-  activeColor?: string;
-  inactiveColor?: string;
+
   slots?: {
     starGridContainerProps: GridProps;
     starGridItemProps: GridProps;
@@ -19,22 +18,8 @@ export interface StarsProps extends FieldProps {
   ) => void;
 }
 
-const Stars = ({
-  totalStars,
-  // TODO: Fix this
-  // activeColor = 'primary.500',
-  // inactiveColor = 'gray.300',
-  activeColor = '#FFA500',
-  inactiveColor = '#E0E0E0',
-  field,
-  form,
-  slots,
-  onChange
-}: StarsProps) => {
+const Stars = ({ totalStars, field, form, slots, onChange }: StarsProps) => {
   const {
-    starGridContainerProps,
-    starGridItemProps,
-    iconProps,
     rating,
     handleClick,
     hoveredRating,
@@ -46,37 +31,52 @@ const Stars = ({
     slots,
     onChange
   });
+  const theme = useTheme();
 
   return (
     <Grid
-      display="flex"
+      container
+      spacing={2}
       justifyContent="center"
-      width="100%"
-      height="100%"
+      alignItems="center"
       onMouseLeave={handleMouseLeave}
-      {...starGridContainerProps}
     >
       {[...Array(totalStars)].map((_, index) => (
         <Grid
           key={index}
+          item
           role="button"
           onMouseEnter={() => handleMouseEnter(index)}
           onClick={() => handleClick(index + 1)}
           sx={{
-            flexGrow: 1,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            maxWidth: `${100 / totalStars}%`
+            '& .MuiSvgIcon-root': {
+              transition: 'transform 0.2s ease', // Optional: smooth hover effect
+              '&:hover': {
+                transform: 'translateY(-2px)'
+              }
+            }
           }}
-          {...starGridItemProps}
         >
-          <Star
-            active={index < rating}
-            hovered={index < hoveredRating}
-            activeColor={activeColor}
-            inactiveColor={inactiveColor}
-            {...iconProps}
+          <StarIcon
+            sx={{
+              fontSize: 56,
+              '& path:first-of-type': {
+                stroke:
+                  hoveredRating === index + 1
+                    ? theme.palette.cyan[300]
+                    : 'transparent',
+                strokeWidth: 4
+              },
+              '& path:last-child': {
+                // Inner star
+                stroke: theme.palette.cyan[500],
+                strokeWidth: 0.75,
+                fill:
+                  index < rating || index < hoveredRating
+                    ? theme.palette.cyan[100]
+                    : 'transparent'
+              }
+            }}
           />
         </Grid>
       ))}

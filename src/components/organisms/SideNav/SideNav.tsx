@@ -10,6 +10,8 @@ import {
   ListProps,
   Slide,
   SlideProps,
+  SxProps,
+  Theme,
   Toolbar,
   ToolbarProps
 } from '@mui/material';
@@ -157,6 +159,16 @@ export interface SideNavProps extends DrawerProps {
    * Props for the content container grid item.
    */
   contentContainerGridItemProps?: GridProps;
+  /**
+   * The sx prop for the right column grid item.
+   */
+  rightColumnSx?: SxProps<Theme>;
+  /**
+   * If true, a divider will be used below the secondary toolbar
+   * @default
+   * true
+   */
+  showSecondaryToolbarDivider?: boolean;
 }
 const SideNav = ({
   toolbarProps,
@@ -177,66 +189,159 @@ const SideNav = ({
   sideNavListItemIconsBottomDivider,
   belowAllDivider,
   contentContainerGridItemProps,
+  rightColumnSx,
+  showSecondaryToolbarDivider,
   ...props
 }: SideNavProps) => {
-  const containerRef = useRef(null);
+  // const containerRef = useRef(null);
   return (
-    <Drawer ref={containerRef} variant="permanent" anchor="left" {...props}>
-      <Toolbar {...toolbarProps} />
-      {useTopContentDivider && <Divider />}
-
+    <Drawer {...props} open variant="permanent">
       <Grid
         container
-        flexGrow={1}
-        flexWrap={'nowrap'}
-        sx={{ overflow: 'hidden', height: '100%', overflowY: 'scroll' }}
-        {...contentContainerGridItemProps}
+        flexDirection={'column'}
+        sx={{
+          height: '100%',
+          backgroundColor: (theme) => theme.palette.background.paper
+        }}
       >
         <Grid
           item
-          sx={{ height: '100%' }}
-          flexGrow={slide ? 0 : 1}
-          {...leftGridItemProps}
+          sx={{
+            position: 'relative',
+            zIndex: 1,
+            backgroundColor: (theme) => theme.palette.background.paper
+          }}
         >
-          <Content
-            {...{
-              sideNavListItemIcons,
-              sideNavListItemIconsBottom,
-              sideNavItemBelowAll,
-              contentContainerProps,
-              sideNavListItemIconsListProps,
-              sideNavListItemIconsBottomListProps,
-              sideNavListItemIconsBottomDivider:
-                sideNavListItemIconsBottomDivider!,
-              belowAllDivider: belowAllDivider!
-            }}
-          />
+          <Toolbar {...toolbarProps} />
         </Grid>
-
-        <Slide
-          in={slide}
-          direction={'left'}
-          timeout={{ enter: 500, exit: 500 }}
-          mountOnEnter
-          unmountOnExit
-          {...slideProps}
+        <Grid
+          item
+          flexGrow={1}
+          sx={{
+            height: 'calc(100% - 48px)',
+            position: 'relative',
+            overflow: 'hidden'
+          }}
         >
-          <Grid item flexGrow={slide ? 1 : 0} className={slide ? '' : 'hidden'}>
-            <Box {...boxProps}>
-              {secondaryToolbarProps && (
-                <>
-                  <Toolbar {...secondaryToolbarProps} />
-                  <Divider />
-                </>
-              )}
-              <List {...sideNavListItemsListProps}>
-                {(sideNavListItems || []).map((sideNavListItem, index) => (
-                  <SideNavListItem key={index} {...sideNavListItem} />
-                ))}
-              </List>
-            </Box>
-          </Grid>
-        </Slide>
+          <Box
+            sx={{
+              height: '100%',
+              display: 'flex',
+              flexDirection: 'column'
+            }}
+          >
+            {useTopContentDivider && <Divider />}
+            <Grid
+              container
+              flexGrow={1}
+              flexWrap={'nowrap'}
+              sx={{ height: '100%', overflow: 'hidden' }}
+              {...contentContainerGridItemProps}
+            >
+              <Grid
+                item
+                sx={{ height: '100%', overflow: 'auto' }}
+                flexGrow={slide ? 0 : 1}
+                {...leftGridItemProps}
+              >
+                <Content
+                  {...{
+                    sideNavListItemIcons,
+                    sideNavListItemIconsBottom,
+                    sideNavItemBelowAll,
+                    contentContainerProps,
+                    sideNavListItemIconsListProps: {
+                      sx: {
+                        display: 'flex',
+                        flexDirection: 'column',
+                        overflow: 'visible'
+                      },
+                      ...sideNavListItemIconsListProps
+                    },
+                    sideNavListItemIconsBottomListProps,
+                    sideNavListItemIconsBottomDivider:
+                      sideNavListItemIconsBottomDivider!,
+                    belowAllDivider: belowAllDivider!
+                  }}
+                />
+              </Grid>
+
+              <Slide
+                in={slide}
+                direction={'left'}
+                timeout={{ enter: 500, exit: 500 }}
+                mountOnEnter
+                unmountOnExit
+                {...slideProps}
+              >
+                <Grid
+                  item
+                  flexGrow={slide ? 1 : 0}
+                  className={slide ? '' : 'hidden'}
+                  sx={{
+                    height: '100%',
+                    overflow: 'hidden',
+                    ...rightColumnSx
+                  }}
+                >
+                  <Box
+                    {...boxProps}
+                    sx={{
+                      height: '100%',
+                      overflow: 'auto'
+                    }}
+                  >
+                    <Grid
+                      container
+                      flexDirection="column"
+                      sx={{
+                        height: '100%',
+                        position: 'relative'
+                      }}
+                    >
+                      {secondaryToolbarProps && (
+                        <Grid
+                          item
+                          sx={{
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            zIndex: 1,
+                            backgroundColor: (theme) =>
+                              theme.palette.background.paper
+                          }}
+                        >
+                          <Toolbar {...secondaryToolbarProps} />
+                          {showSecondaryToolbarDivider && <Divider />}
+                        </Grid>
+                      )}
+                      <Grid
+                        item
+                        sx={{
+                          height: '100%',
+                          pt: secondaryToolbarProps ? '48px' : 0,
+                          overflow: 'auto'
+                        }}
+                      >
+                        <List {...sideNavListItemsListProps}>
+                          {(sideNavListItems || []).map(
+                            (sideNavListItem, index) => (
+                              <SideNavListItem
+                                key={index}
+                                {...sideNavListItem}
+                              />
+                            )
+                          )}
+                        </List>
+                      </Grid>
+                    </Grid>
+                  </Box>
+                </Grid>
+              </Slide>
+            </Grid>
+          </Box>
+        </Grid>
       </Grid>
     </Drawer>
   );

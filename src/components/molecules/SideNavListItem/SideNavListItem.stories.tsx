@@ -31,7 +31,7 @@ TextAndIcon.args = {
       alignItems: 'center'
     }
   },
-  listItemIcon: <ShieldZapIcon />,
+  listItemIcon: <ShieldZapIcon sx={{ '&': { fontSize: '24px !important' } }} />,
   boxProps: {
     sx: {
       display: 'flex',
@@ -58,7 +58,7 @@ TextAndIconFlex1.args = {
       alignItems: 'center'
     }
   },
-  listItemIcon: <ShieldZapIcon />,
+  listItemIcon: <ShieldZapIcon sx={{ '&': { fontSize: '24px !important' } }} />,
   containingBoxProps: {
     sx: { flex: 1 }
   },
@@ -87,7 +87,7 @@ TextAndIconActive.args = {
       alignItems: 'center'
     }
   },
-  listItemIcon: <ShieldZapIcon />,
+  listItemIcon: <ShieldZapIcon sx={{ '&': { fontSize: '24px !important' } }} />,
   containingBoxProps: {
     sx: { flex: 1 }
   },
@@ -104,31 +104,96 @@ TextAndIconActive.args = {
   }
 };
 
-export const IconOnly = Template.bind({});
-IconOnly.args = {
+export const IconOnlyNoScale = Template.bind({});
+IconOnlyNoScale.args = {
   listItemIconProps: {
     sx: {
       minWidth: 'auto',
       minHeight: (theme) => theme.spacing(3.5),
-      alignItems: 'center'
+      alignItems: 'center',
+      borderRadius: 1,
+      padding: 1,
+      // transition: 'background-color 0.2s ease, transform 0.2s ease',
+      '&': { mr: 0 }
     }
   },
-  listItemIcon: <ShieldZapIcon />,
+  listItemIcon: <ShieldZapIcon sx={{ '&': { fontSize: '24px !important' } }} />,
   containingBoxProps: {
     sx: { flex: 1 }
   },
   boxProps: {
     sx: {
       display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
       flexGrow: 1,
       p: 0.5,
-      height: 40,
+      height: 'auto',
       width: 48,
       justifyContent: 'center'
     }
   },
   listItemButtonProps: {
-    sx: { py: 0.5 }
+    sx: {
+      py: 0.5,
+      flexDirection: 'column',
+      '&:hover': {
+        backgroundColor: 'transparent'
+      }
+    }
+  }
+};
+export const IconOnly = Template.bind({});
+IconOnly.args = {
+  listItemIconProps: {
+    sx: {
+      minWidth: 'auto',
+      minHeight: (theme) => theme.spacing(3.5),
+      alignItems: 'center',
+      borderRadius: 1,
+      padding: 1,
+      // transition: 'background-color 0.2s ease, transform 0.2s ease',
+      '&': { mr: 0 }
+    }
+  },
+  listItemIcon: <ShieldZapIcon sx={{ '&': { fontSize: '24px !important' } }} />,
+  containingBoxProps: {
+    sx: { flex: 1 }
+  },
+  boxProps: {
+    sx: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      flexGrow: 1,
+      p: 0.5,
+      height: 'auto',
+      width: 48,
+      justifyContent: 'center'
+    }
+  },
+  listItemButtonProps: {
+    sx: {
+      py: 0.5,
+      flexDirection: 'column',
+      '&:hover': {
+        backgroundColor: 'transparent',
+        '& .MuiListItemIcon-root': {
+          transform: 'scale(1.125)'
+        }
+      }
+    }
+  }
+};
+
+export const IconBottomLabel = Template.bind({});
+IconBottomLabel.args = {
+  ...IconOnly.args,
+  listItemTextProps: {
+    primary: 'Knowledge',
+    primaryTypographyProps: {
+      variant: 'textXXsMedium'
+    }
   }
 };
 export const IconOnlyActive = Template.bind({});
@@ -137,26 +202,49 @@ IconOnlyActive.args = {
     sx: {
       minWidth: 'auto',
       minHeight: (theme) => theme.spacing(3.5),
-      alignItems: 'center'
+      alignItems: 'center',
+      backgroundColor: (theme) => theme.palette.primary.main,
+      borderRadius: 1,
+      padding: 1,
+      color: 'white',
+      transition: 'background-color 0.2s ease, transform 0.2s ease',
+      '&': { mr: 0 }
     }
   },
-  listItemIcon: <ShieldZapIcon />,
+  listItemIcon: <ShieldZapIcon sx={{ '&': { fontSize: '24px !important' } }} />,
+  listItemTextProps: {
+    primary: 'Label',
+    primaryTypographyProps: {
+      variant: 'textXXsMedium'
+    }
+  },
   containingBoxProps: {
     sx: { flex: 1 }
   },
   boxProps: {
     sx: {
       display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
       flexGrow: 1,
       p: 0.5,
-      backgroundColor: 'grey.100',
-      height: 40,
+      height: 'auto',
       width: 48,
       justifyContent: 'center'
     }
   },
   listItemButtonProps: {
-    sx: { py: 0.5 }
+    sx: {
+      py: 0.5,
+      flexDirection: 'column',
+      '&:hover': {
+        backgroundColor: 'transparent',
+        '& .MuiListItemIcon-root': {
+          backgroundColor: (theme) => theme.palette.primary.dark,
+          transform: 'scale(1.125)'
+        }
+      }
+    }
   }
 };
 

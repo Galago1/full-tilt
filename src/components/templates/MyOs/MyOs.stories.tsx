@@ -3,34 +3,14 @@ import { FieldInputProps, FormikHelpers, FormikProps } from 'formik';
 import { useState } from 'react';
 import { DateNavigatorInterval } from 'src/components/atoms/DateNavigator/DateNavigator';
 import { DateNavigatorInputProps } from 'src/components/molecules/Inputs/DateNavigatorInput/DateNavigatorInput';
-import {
-  getColorByValue,
-  GoalCondition
-} from 'src/components/organisms/Scorecard/helpers';
 import { InlineFormikProps } from 'src/components/organisms/Scorecard/ScorecardInlineEditCell';
-import { ZapIcon } from 'src/components/particles/theme/overrides/CustomIcons';
+import { ThemeProvider } from 'src/components/particles';
+import { DateFormat } from 'src/types/dateFns';
 import { formatDate, parseDate } from 'src/utils/date';
-import { WorkScheduleStatus } from './DailyStandupCard';
+import { DefaultArgs, EmptyArgs } from './helpers';
 import { MyOs, MyOsProps } from './MyOs';
 import { ScorecardsContentProps } from './ScorecardsCard';
 import { Scorecard } from './types';
-import { DateFormat } from 'src/types/dateFns';
-import { ThemeProvider } from 'src/components/particles';
-import { DefaultArgs, EmptyArgs } from './helpers';
-
-const onSave: any = (
-  values: InlineFormikProps,
-  form: FormikHelpers<InlineFormikProps>,
-  onCloseEditor: () => void
-) => {};
-
-const dateNavigatorInputProps: DateNavigatorInputProps = {
-  interval: DateNavigatorInterval.DAILY,
-  onPreviousChange: () => {},
-  onNextChange: () => {},
-  sx: { '&': { display: 'flex' }, width: '100%' }
-  // dateLabelFn: () => '',
-};
 
 export default {
   title: 'Templates/MyOs',

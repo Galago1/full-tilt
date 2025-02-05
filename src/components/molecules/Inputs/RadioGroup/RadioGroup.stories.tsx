@@ -1,6 +1,12 @@
-import type { Story, ComponentMeta } from '@storybook/react';
+import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
+import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
+import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
+import Grid from '@mui/material/Grid';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import type { ComponentMeta, Story } from '@storybook/react';
+import { Field, Formik } from 'formik';
 import RadioButton from 'src/components/atoms/RadioButton/RadioButton';
-import { Formik, Field } from 'formik';
 import type { RadioGroupProps } from './RadioGroup';
 import RadioGroup from './RadioGroup';
 
@@ -52,6 +58,181 @@ TwoOptions.args = {
       description:
         'The collection will only be avaliable through private link.',
       sx: { mt: 1 }
+    }
+  ]
+};
+
+export const StyledCardOptions = Template.bind({});
+StyledCardOptions.args = {
+  defaultValue: 'diversity',
+  radios: [
+    {
+      children: (
+        <Grid
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            width: '100%',
+            bgcolor: 'background.paper',
+            borderRadius: 2,
+            border: 1,
+            borderColor: 'grey.200',
+            '&:hover': {
+              borderColor: 'primary.600',
+              bgcolor: 'primary.50'
+            }
+          }}
+        >
+          <Grid
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              p: 2,
+              pb: 1
+            }}
+          >
+            <IconButton
+              sx={{
+                bgcolor: 'grey.100',
+                width: 40,
+                height: 40,
+                '&:hover': { bgcolor: 'grey.100' }
+              }}
+            >
+              <SentimentSatisfiedAltIcon sx={{ color: 'grey.500' }} />
+            </IconButton>
+            <RadioButton
+              value="diversity"
+              variant="purple"
+              checkedIcon={
+                <RadioButtonCheckedIcon
+                  sx={{
+                    color: 'primary.600',
+                    width: 24,
+                    height: 24,
+                    '& circle': {
+                      strokeWidth: 1
+                    }
+                  }}
+                />
+              }
+              icon={
+                <RadioButtonUncheckedIcon
+                  sx={{
+                    color: 'grey.300',
+                    width: 24,
+                    height: 24,
+                    '& circle': {
+                      strokeWidth: 1
+                    }
+                  }}
+                />
+              }
+              sx={{
+                padding: 0,
+                '&:hover': {
+                  bgcolor: 'transparent'
+                }
+              }}
+            />
+          </Grid>
+          <Grid sx={{ px: 2, pb: 2 }}>
+            <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 1 }}>
+              Diversity, Equity, Inclusion, and Belonging
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididun...
+            </Typography>
+          </Grid>
+        </Grid>
+      ),
+      sx: { mb: 2 }
+    },
+    {
+      children: (
+        <Grid
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            width: '100%',
+            bgcolor: 'background.paper',
+            borderRadius: 2,
+            border: 1,
+            borderColor: 'grey.200',
+            '&:hover': {
+              borderColor: 'primary.600',
+              bgcolor: 'primary.50'
+            }
+          }}
+        >
+          <Grid
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              p: 2,
+              pb: 1
+            }}
+          >
+            <IconButton
+              sx={{
+                bgcolor: 'grey.100',
+                width: 40,
+                height: 40,
+                '&:hover': { bgcolor: 'grey.100' }
+              }}
+            >
+              <SentimentSatisfiedAltIcon sx={{ color: 'grey.500' }} />
+            </IconButton>
+            <RadioButton
+              value="performance"
+              variant="purple"
+              checkedIcon={
+                <RadioButtonCheckedIcon
+                  sx={{
+                    color: 'primary.600',
+                    width: 24,
+                    height: 24,
+                    '& circle': {
+                      strokeWidth: 1
+                    }
+                  }}
+                />
+              }
+              icon={
+                <RadioButtonUncheckedIcon
+                  sx={{
+                    color: 'grey.300',
+                    width: 24,
+                    height: 24,
+                    '& circle': {
+                      strokeWidth: 1
+                    }
+                  }}
+                />
+              }
+              sx={{
+                padding: 0,
+                '&:hover': {
+                  bgcolor: 'transparent'
+                }
+              }}
+            />
+          </Grid>
+          <Grid sx={{ px: 2, pb: 2 }}>
+            <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 1 }}>
+              Continuous Performance Feedback
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididun...
+            </Typography>
+          </Grid>
+        </Grid>
+      ),
+      sx: { mb: 2 }
     }
   ]
 };

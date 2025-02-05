@@ -2,6 +2,9 @@ import { FormControl, FormControlLabel, RadioGroup } from '@mui/material';
 import type { ComponentMeta, Story } from '@storybook/react';
 import type { RadioButtonProps } from './RadioButton';
 import RadioButton from './RadioButton';
+import { Box } from '@mui/material';
+import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
+import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -40,3 +43,115 @@ Basic.args = {
     value: 'radioThree'
   }
 };
+const TemplateCustomRadio: Story<{
+  checkedIcon: React.ReactNode;
+  icon: React.ReactNode;
+  sx: object;
+}> = ({ checkedIcon, icon, sx }) => {
+  return <RadioButton checkedIcon={checkedIcon} icon={icon} sx={sx} />;
+};
+
+export const CustomRadio = TemplateCustomRadio.bind({});
+CustomRadio.args = {
+  checkedIcon: (
+    <RadioButtonCheckedIcon
+      sx={{
+        color: 'primary.600',
+        width: 24,
+        height: 24,
+        '& circle': {
+          strokeWidth: 1
+        }
+      }}
+    />
+  ),
+  icon: (
+    <RadioButtonUncheckedIcon
+      sx={{
+        color: 'grey.300',
+        width: 24,
+        height: 24,
+        '& circle': {
+          strokeWidth: 1
+        }
+      }}
+    />
+  ),
+  sx: {
+    padding: 0,
+    '&:hover': {
+      bgcolor: 'transparent'
+    }
+  }
+};
+
+export const CustomRadioGroup = () => (
+  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+    <RadioButton
+      checked={true}
+      checkedIcon={
+        <RadioButtonCheckedIcon
+          sx={{
+            color: 'primary.600',
+            width: 24,
+            height: 24,
+            '& circle': {
+              strokeWidth: 1
+            }
+          }}
+        />
+      }
+      icon={
+        <RadioButtonUncheckedIcon
+          sx={{
+            color: 'grey.300',
+            width: 24,
+            height: 24,
+            '& circle': {
+              strokeWidth: 1
+            }
+          }}
+        />
+      }
+      sx={{
+        padding: 0,
+        '&:hover': {
+          bgcolor: 'transparent'
+        }
+      }}
+    />
+    <RadioButton
+      checked={false}
+      checkedIcon={
+        <RadioButtonCheckedIcon
+          sx={{
+            color: 'primary.600',
+            width: 24,
+            height: 24,
+            '& circle': {
+              strokeWidth: 1
+            }
+          }}
+        />
+      }
+      icon={
+        <RadioButtonUncheckedIcon
+          sx={{
+            color: 'grey.300',
+            width: 24,
+            height: 24,
+            '& circle': {
+              strokeWidth: 1
+            }
+          }}
+        />
+      }
+      sx={{
+        padding: 0,
+        '&:hover': {
+          bgcolor: 'transparent'
+        }
+      }}
+    />
+  </Box>
+);

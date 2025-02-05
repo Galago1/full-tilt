@@ -1,4 +1,4 @@
-import { ListItemIcon, Typography } from '@mui/material';
+import { Grid, ListItemIcon, Typography } from '@mui/material';
 import type { Story, ComponentMeta } from '@storybook/react';
 import Avatar from 'src/components/atoms/Avatar/Avatar';
 import {
@@ -43,7 +43,13 @@ const TwoColWithMenuItemsAndDividerArgs = {
 };
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: Story<DropdownProps> = (args) => <Dropdown {...args} />;
+const Template: Story<DropdownProps> = (args) => (
+  <Grid container>
+    <Grid item xs={12} display={'flex'} justifyContent={'center'}>
+      <Dropdown {...args} />
+    </Grid>
+  </Grid>
+);
 
 export const ButtonWithIcon = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
@@ -81,7 +87,17 @@ ButtonWithIconTwoCol.args = {
 
   gridItemProps: { xs: 12, sm: 12, md: 6 },
   gridContainerProps: { flexDirection: 'row' },
-  dropdownListItems: TwoColWithMenuItemsAndDividerArgs.dropdownListItems
+  dropdownListItems: TwoColWithMenuItemsAndDividerArgs.dropdownListItems,
+  dropdownMenuProps: {
+    anchorOrigin: {
+      vertical: 'bottom',
+      horizontal: 'left'
+    },
+    transformOrigin: {
+      vertical: 'top',
+      horizontal: 'left'
+    }
+  }
 };
 
 export const ManuallyOpen = Template.bind({});
