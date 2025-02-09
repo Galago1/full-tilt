@@ -1,7 +1,7 @@
 import type { ComponentMeta, Story } from '@storybook/react';
+import { ShieldZapIcon } from 'src/components/particles/theme/icons/Security/shield-zap';
 import type { SideNavListItemProps } from './SideNavListItem';
 import SideNavListItem from './SideNavListItem';
-import { ShieldZapIcon } from 'src/components/particles/theme/overrides/CustomIcons';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -156,7 +156,11 @@ IconOnly.args = {
       '&': { mr: 0 }
     }
   },
-  listItemIcon: <ShieldZapIcon sx={{ '&': { fontSize: '24px !important' } }} />,
+  listItemIcon: (
+    <ShieldZapIcon
+      sx={{ '&': { fontSize: '24px !important', color: 'white' } }}
+    />
+  ),
   containingBoxProps: {
     sx: { flex: 1 }
   },

@@ -1,5 +1,5 @@
 import { styled } from '@mui/material';
-import { StarIcon } from 'src/components/particles/theme/overrides/CustomIcons';
+import { Star01Icon } from 'src/components/particles/theme/icons/Shapes/star-01';
 
 export interface StarProps {
   active: boolean;
@@ -11,7 +11,7 @@ export interface StarProps {
 }
 
 // TODO: Add types for this styled component
-export const Star: any = styled(StarIcon, {
+export const Star: any = styled(Star01Icon, {
   shouldForwardProp: (prop) =>
     prop !== 'active' &&
     prop !== 'hovered' &&

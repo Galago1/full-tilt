@@ -2,7 +2,7 @@ import { composeStories } from '@storybook/testing-react';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { act, useState } from 'react';
 import * as HeaderStories from './DropdownUncontrolled.stories'; //👈  Our stories imported here
-import { DotsVerticalIcon } from 'src/components/particles/theme/overrides/CustomIcons';
+import { DotsVerticalIcon } from 'src/components/particles/theme/icons/General/dots-vertical';
 //👇 composeStories will process all information related to the component (e.g., args)
 const { IconButtonWithIcon } = composeStories(HeaderStories);
 

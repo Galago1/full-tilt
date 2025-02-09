@@ -1,17 +1,15 @@
 import { Theme } from '@mui/material';
 import type { Story, ComponentMeta } from '@storybook/react';
 import { IconButtonWithAvatar } from 'src/components/molecules/Dropdown/Dropdown.stories';
-import {
-  BellIcon,
-  SettingsIcon,
-  CatalogFullIcon,
-  ChevronRightIcon,
-  ArrowLeftIcon
-} from 'src/components/particles/theme/overrides/CustomIcons';
 import type { TopNavProps } from './TopNav';
 import TopNav from './TopNav';
 import Breadcrumbs from 'src/components/molecules/Breadcrumbs/Breadcrumbs';
 import Button from 'src/components/atoms/Button/Button';
+import { ArrowLeftIcon } from '@mui/x-date-pickers';
+import { Bell01Icon } from 'src/components/particles/theme/icons/AlertsAndFeedback/bell-01';
+import { ChevronRightIcon } from 'src/components/particles/theme/icons/Arrows/chevron-right';
+import { Settings01Icon } from 'src/components/particles/theme/icons/General/settings-01';
+import { GalagoFullIcon } from 'src/components/particles/theme/overrides/CustomIcons';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -29,7 +27,7 @@ const Template: Story<TopNavProps> = (args) => <TopNav {...args} />;
 export const TwoIcons = Template.bind({});
 TwoIcons.args = {
   logo: (
-    <CatalogFullIcon
+    <GalagoFullIcon
       // Use overflow="visible" + chrome tools to get the viewbox dimentions
       // svg widthXheight need to roughly match the viewbox dimentions
 
@@ -45,13 +43,13 @@ TwoIcons.args = {
         label: '',
         color: 'secondary',
         variant: 'text',
-        endIcon: <SettingsIcon />
+        endIcon: <Settings01Icon />
       },
       {
         label: '',
         color: 'secondary',
         variant: 'text',
-        endIcon: <BellIcon />
+        endIcon: <Bell01Icon />
       }
     ]
   },
@@ -61,7 +59,7 @@ TwoIcons.args = {
 export const ThreeButtons = Template.bind({});
 ThreeButtons.args = {
   logo: (
-    <CatalogFullIcon
+    <GalagoFullIcon
       // Use overflow="visible" + chrome tools to get the viewbox dimentions
       // svg widthXheight need to roughly match the viewbox dimentions
       viewBox="0 0 160 48"
@@ -77,19 +75,19 @@ ThreeButtons.args = {
         label: 'Upgrade Now',
         color: 'secondary',
         variant: 'outlined',
-        startIcon: <SettingsIcon />,
+        startIcon: <Settings01Icon />,
         sx: { mr: (theme: Theme) => theme.spacing(1.5) }
       },
       {
         label: '',
         color: 'secondary',
         variant: 'text',
-        endIcon: <SettingsIcon />
+        endIcon: <Settings01Icon />
       },
       {
         label: '',
         color: 'secondary',
-        endIcon: <BellIcon />
+        endIcon: <Bell01Icon />
       }
     ],
     buttonSpacing: 0.5
@@ -100,7 +98,7 @@ ThreeButtons.args = {
 export const Loggedout = Template.bind({});
 Loggedout.args = {
   logo: (
-    <CatalogFullIcon
+    <GalagoFullIcon
       // Use overflow="visible" + chrome tools to get the viewbox dimentions
       // svg widthXheight need to roughly match the viewbox dimentions
       viewBox="0 0 160 48"

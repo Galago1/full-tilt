@@ -1,10 +1,8 @@
 import { Theme } from '@mui/material';
-import type { Story, ComponentMeta } from '@storybook/react';
-import {
-  BellIcon,
-  SettingsIcon,
-  CatalogLogoIcon
-} from 'src/components/particles/theme/overrides/CustomIcons';
+import type { ComponentMeta, Story } from '@storybook/react';
+import { Bell01Icon } from 'src/components/particles/theme/icons/AlertsAndFeedback/bell-01';
+import { Settings01Icon } from 'src/components/particles/theme/icons/General/settings-01';
+import { CatalogLogoIcon } from 'src/components/particles/theme/icons/Logos/catalog-logo';
 import type { FooterProps } from './Footer';
 import Footer from './Footer';
 
@@ -39,13 +37,13 @@ TwoIcons.args = {
         label: '',
         color: 'secondary',
         variant: 'text',
-        endIcon: <SettingsIcon />
+        endIcon: <Settings01Icon />
       },
       {
         label: '',
         color: 'secondary',
         variant: 'text',
-        endIcon: <BellIcon />
+        endIcon: <Bell01Icon />
       }
     ]
   }
@@ -70,19 +68,19 @@ ThreeButtons.args = {
         label: 'Upgrade Now',
         color: 'secondary',
         variant: 'outlined',
-        startIcon: <SettingsIcon />,
+        startIcon: <Settings01Icon />,
         sx: { mr: (theme: Theme) => theme.spacing(1.5) }
       },
       {
         label: '',
         color: 'secondary',
         variant: 'text',
-        endIcon: <SettingsIcon />
+        endIcon: <Settings01Icon />
       },
       {
         label: '',
         color: 'secondary',
-        endIcon: <BellIcon />
+        endIcon: <Bell01Icon />
       }
     ],
     buttonSpacing: 0.5

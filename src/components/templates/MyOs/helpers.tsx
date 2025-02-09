@@ -6,10 +6,10 @@ import {
   GoalCondition
 } from 'src/components/organisms/Scorecard/helpers';
 import { InlineFormikProps } from 'src/components/organisms/Scorecard/ScorecardInlineEditCell';
-import { ZapIcon } from 'src/components/particles/theme/overrides/CustomIcons';
 import { WorkScheduleStatus } from './DailyStandupCard';
 import { MyOsProps } from './MyOs';
 import { RockStatus } from './RocksCard/RockStatusForm/RockStatusForm';
+import { ZapIcon } from 'src/components/particles/theme/icons/General/zap';
 
 const onSave: any = (
   values: InlineFormikProps,

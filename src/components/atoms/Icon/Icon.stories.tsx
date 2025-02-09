@@ -1,6 +1,6 @@
 import { SvgIcon } from '@mui/material';
 import type { ComponentStory, ComponentMeta } from '@storybook/react';
-import { CheckCircleIcon } from 'src/components/particles/theme/overrides/CustomIcons';
+import { CheckCircleIcon } from 'src/components/particles/theme/icons/General/check-circle';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {

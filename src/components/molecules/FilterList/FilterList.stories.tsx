@@ -1,13 +1,13 @@
-import type { Story, ComponentMeta } from '@storybook/react';
+import { Grid } from '@mui/material';
+import type { ComponentMeta, Story } from '@storybook/react';
+import { FieldProps, Form, Formik, FormikProps } from 'formik';
+import { useState } from 'react';
+import Button from 'src/components/atoms/Button/Button';
+import { ArrowDownIcon } from 'src/components/particles/theme/icons/Arrows/arrow-down';
+import AvatarAndText from '../AvatarAndText/AvatarAndText';
+import CheckboxInputBase from '../Inputs/CheckboxInputBase/CheckboxInputBase';
 import type { FilterListProps } from './FilterList';
 import FilterList from './FilterList';
-import { Grid } from '@mui/material';
-import AvatarAndText from '../AvatarAndText/AvatarAndText';
-import { ArrowDownIcon } from 'src/components/particles/theme/overrides/CustomIcons';
-import Button from 'src/components/atoms/Button/Button';
-import { FieldProps, Form, Formik, FormikProps } from 'formik';
-import CheckboxInputBase from '../Inputs/CheckboxInputBase/CheckboxInputBase';
-import { useState } from 'react';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {

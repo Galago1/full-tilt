@@ -2,9 +2,9 @@ import { Box, ListItemIcon, Typography } from '@mui/material';
 import type { ComponentMeta, Story } from '@storybook/react';
 import { useLayoutEffect, useRef, useState } from 'react';
 import type { AvatarAndTextProps } from 'src/components/molecules/AvatarAndText/AvatarAndText';
-import { FaceSmileIcon } from 'src/components/particles/theme/overrides/CustomIcons';
 import type { DropdownMenuProps } from './DropdownMenu';
 import { DropdownMenu } from './DropdownMenu';
+import { FaceSmileIcon } from 'src/components/particles/theme/icons/Users/face-smile';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {

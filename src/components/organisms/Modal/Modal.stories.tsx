@@ -6,7 +6,7 @@ import Button from 'src/components/atoms/Button/Button';
 import { Dual } from 'src/components/atoms/FeaturedIcon/FeaturedIcon.stories';
 import { TextInput } from 'src/components/molecules';
 import EmptyState from 'src/components/molecules/EmptyState/EmptyState';
-import { SearchLgIcon } from 'src/components/particles/theme/overrides/CustomIcons';
+import { SearchLgIcon } from 'src/components/particles/theme/icons/General/search-lg';
 import type { ModalProps } from './Modal';
 import Modal from './Modal';
 

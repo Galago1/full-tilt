@@ -1,5 +1,5 @@
 import type { ComponentMeta, Story } from '@storybook/react';
-import { UserIcon } from 'src/components/particles/theme/overrides/CustomIcons';
+import { User01Icon } from 'src/components/particles/theme/icons/Users/user-01';
 import type { FabProps } from './Fab';
 import Fab from './Fab';
 
@@ -26,7 +26,7 @@ Basic.args = {
 
 export const FabBaseIcon = Template.bind({});
 FabBaseIcon.args = {
-  children: <UserIcon />,
+  children: <User01Icon />,
   color: 'default'
 };
 
@@ -34,7 +34,7 @@ export const FabBaseIconLabel = Template.bind({});
 FabBaseIconLabel.args = {
   children: (
     <>
-      <UserIcon />
+      <User01Icon />
       Disabled
     </>
   ),
@@ -44,7 +44,7 @@ FabBaseIconLabel.args = {
 
 export const FabSize = Template.bind({});
 FabSize.args = {
-  children: <UserIcon />,
+  children: <User01Icon />,
   color: 'info',
   size: 'large'
 };
@@ -53,7 +53,7 @@ export const FabSizeSmallExtended = Template.bind({});
 FabSizeSmallExtended.args = {
   children: (
     <>
-      <UserIcon />
+      <User01Icon />
       Wake up
     </>
   ),
@@ -64,7 +64,7 @@ FabSizeSmallExtended.args = {
 
 export const FabColors = Template.bind({});
 FabColors.args = {
-  children: <UserIcon />,
+  children: <User01Icon />,
   color: 'warning'
 };
 
@@ -73,7 +73,7 @@ FabColorsExtended.args = {
   variant: 'extended',
   children: (
     <>
-      <UserIcon />
+      <User01Icon />
       Wake up
     </>
   ),

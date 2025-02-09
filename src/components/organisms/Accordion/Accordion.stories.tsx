@@ -4,7 +4,7 @@ import { Formik } from 'formik';
 import { useState } from 'react';
 import Divider from 'src/components/atoms/Divider/Divider';
 import { CheckboxList } from 'src/components/molecules';
-import { ChevronDownIcon } from 'src/components/particles/theme/overrides/CustomIcons';
+import { ChevronDownIcon } from 'src/components/particles/theme/icons/Arrows/chevron-down';
 import type { AccordionProps } from './Accordion';
 import Accordion from './Accordion';
 

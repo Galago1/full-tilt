@@ -1,7 +1,7 @@
 import { Typography } from '@mui/material';
 import type { Story, ComponentMeta } from '@storybook/react';
 import Breadcrumbs from 'src/components/molecules/Breadcrumbs/Breadcrumbs';
-import { ChevronRightIcon } from 'src/components/particles/theme/overrides/CustomIcons';
+import { ChevronRightIcon } from 'src/components/particles/theme/icons/Arrows/chevron-right';
 import type { PageHeaderProps } from './PageHeader';
 import PageHeader from './PageHeader';
 

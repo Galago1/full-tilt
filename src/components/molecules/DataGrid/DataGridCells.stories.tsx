@@ -2,10 +2,8 @@ import { Box } from '@mui/material';
 import type { ComponentMeta, Story } from '@storybook/react';
 import { DataGrid } from 'src/components/organisms';
 import { DataGridProps } from 'src/components/organisms/DataGrid/DataGrid';
-import {
-  Edit05Icon,
-  TrashIcon
-} from 'src/components/particles/theme/overrides/CustomIcons';
+import { Edit05Icon } from 'src/components/particles/theme/icons/General/edit-05';
+import { Trash01Icon } from 'src/components/particles/theme/icons/General/trash-01';
 import renderAvatarGroupCell from 'src/renderFunctions/renderAvatarGroupCell';
 import renderButtonListCell from 'src/renderFunctions/renderButtonListCell';
 import renderCheckboxCell from 'src/renderFunctions/renderCheckboxCell';
@@ -15,7 +13,6 @@ import renderRadioCell from 'src/renderFunctions/renderRadioCell';
 import renderRatingCell from 'src/renderFunctions/renderRatingCell';
 import renderSwitchCell from 'src/renderFunctions/renderSwitchCell';
 import renderTextCell from 'src/renderFunctions/renderTextCell';
-// import DataGrid, { DataGridProps } from './DataGrid';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -312,7 +309,7 @@ WithButtonIconList.args = {
         cellOptions: {
           buttonListProps: {
             buttons: [
-              { label: <TrashIcon />, color: 'primary', variant: 'text' },
+              { label: <Trash01Icon />, color: 'primary', variant: 'text' },
               { label: <Edit05Icon />, color: 'secondary', variant: 'text' }
             ]
           }

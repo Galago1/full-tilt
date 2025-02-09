@@ -1,7 +1,7 @@
 import type { IconButtonProps } from '@mui/material';
 import { IconButton } from '@mui/material';
 import type { Story, ComponentMeta } from '@storybook/react';
-import { PlusIcon } from 'src/components/particles/theme/overrides/CustomIcons';
+import { PlusIcon } from 'src/components/particles/theme/icons/General/plus';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {

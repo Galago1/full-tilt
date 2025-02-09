@@ -1,9 +1,7 @@
 import { ListItemIcon, Typography } from '@mui/material';
 import type { ComponentMeta, Story } from '@storybook/react';
-import {
-  DotsVerticalIcon,
-  FaceSmileIcon
-} from 'src/components/particles/theme/overrides/CustomIcons';
+import { DotsVerticalIcon } from 'src/components/particles/theme/icons/General/dots-vertical';
+import { FaceSmileIcon } from 'src/components/particles/theme/icons/Users/face-smile';
 import DropdownUncontrolled, {
   DropdownUncontrolledProps
 } from './DropdownUncontrolled';

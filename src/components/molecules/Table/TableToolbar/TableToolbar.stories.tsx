@@ -1,9 +1,7 @@
 import { IconButton } from '@mui/material';
 import type { ComponentMeta, Story } from '@storybook/react';
-import {
-  MenuIcon,
-  PlusIcon
-} from 'src/components/particles/theme/overrides/CustomIcons';
+import { Menu01Icon } from 'src/components/particles/theme/icons/General/menu-01';
+import { PlusIcon } from 'src/components/particles/theme/icons/General/plus';
 import type { TableToolbarProps } from './TableToolbar';
 import TableToolbar from './TableToolbar';
 
@@ -34,7 +32,7 @@ DefaultTableToolbar.args = {
     title: 'Filter List',
     children: (
       <IconButton>
-        <MenuIcon />
+        <Menu01Icon />
       </IconButton>
     )
   }

@@ -1,7 +1,7 @@
 import { Grid, GridProps, SxProps, Theme } from '@mui/material';
 import Button from 'src/components/atoms/Button';
 import { ButtonProps } from 'src/components/atoms/Button/Button';
-import { XCloseIcon } from 'src/components/particles/theme/overrides/CustomIcons';
+import { XCloseIcon } from 'src/components/particles/theme/icons/General/x-close';
 
 export interface CloseButtonProps extends GridProps {
   /**

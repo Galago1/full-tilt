@@ -1,6 +1,6 @@
 import type { ComponentMeta, Story } from '@storybook/react';
 import image from 'src/assets/images/blurbackground.png';
-import { UserIcon } from 'src/components/particles/theme/overrides/CustomIcons';
+import { User01Icon } from 'src/components/particles/theme/icons/Users/user-01';
 import type { AvatarProps } from './Avatar';
 import Avatar from './Avatar';
 
@@ -37,13 +37,13 @@ LetterAvatars.args = {
 
 export const IconAvatars = Template.bind({});
 IconAvatars.args = {
-  children: <UserIcon />,
+  children: <User01Icon />,
   sx: { bgcolor: '#00AB55', color: 'white' }
 };
 
 export const VariantAvatars = Template.bind({});
 VariantAvatars.args = {
-  children: <UserIcon />,
+  children: <User01Icon />,
   sx: { bgcolor: '#00AB55', color: 'white' },
   variant: 'rounded'
 };

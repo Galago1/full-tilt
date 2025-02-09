@@ -1,11 +1,9 @@
 import { SxProps, Theme } from '@mui/material';
-import {
-  ChevronLeftIcon,
-  ChevronRightIcon
-} from 'src/components/particles/theme/overrides/CustomIcons';
+import { FieldInputProps, FormikProps } from 'formik';
+import { ChevronLeftIcon } from 'src/components/particles/theme/icons/Arrows/chevron-left';
+import { ChevronRightIcon } from 'src/components/particles/theme/icons/Arrows/chevron-right';
 import { ButtonGroupProps } from '../../molecules/ButtonGroup/ButtonGroup';
 import { DateNavigatorInterval } from './DateNavigator';
-import { FieldInputProps, FieldProps, FormikProps } from 'formik';
 
 export const buttonListProps = (
   date: string,

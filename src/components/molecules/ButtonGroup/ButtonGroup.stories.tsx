@@ -1,5 +1,5 @@
 import type { ComponentMeta, Story } from '@storybook/react';
-import { CheckCircleIcon } from 'src/components/particles/theme/overrides/CustomIcons';
+import { CheckCircleIcon } from 'src/components/particles/theme/icons/General/check-circle';
 import type { ButtonGroupProps } from './ButtonGroup';
 import ButtonGroup from './ButtonGroup';
 import { ThemeProvider } from 'src/components/particles';

@@ -1,13 +1,13 @@
+import { Theme } from '@mui/material';
 import type { ComponentMeta, Story } from '@storybook/react';
+import Button from 'src/components/atoms/Button/Button';
+import { ChevronLeftIcon } from 'src/components/particles/theme/icons/Arrows/chevron-left';
+import {
+  GalagoFullIcon,
+  GalagoLogoIcon
+} from 'src/components/particles/theme/overrides/CustomIcons';
 import type { LoggedInLayoutProps } from './LoggedInLayout';
 import LoggedInLayout from './LoggedInLayout';
-import {
-  GalagoLogoIcon,
-  ChevronLeftIcon,
-  GalagoFullIcon
-} from 'src/components/particles/theme/overrides/CustomIcons';
-import { Theme } from '@mui/material';
-import Button from 'src/components/atoms/Button/Button';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {

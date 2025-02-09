@@ -14,7 +14,7 @@ import { Image, ImageProps } from 'src/components/atoms/Image/Image';
 import AvatarAndText, {
   AvatarAndTextProps
 } from 'src/components/molecules/AvatarAndText/AvatarAndText';
-import { UploadCloudIcon } from 'src/components/particles/theme/overrides/CustomIcons';
+import { UploadCloud02Icon } from 'src/components/particles/theme/icons/General/upload-cloud-02';
 
 const defaultTertiaryTitleAvatarAndTextProps: GridProps = {
   sx: {
@@ -166,7 +166,7 @@ const FileUploadBase = ({
           <AvatarAndText
             title={
               showTitleIcon ? (
-                <UploadCloudIcon
+                <UploadCloud02Icon
                   sx={{
                     color: theme.palette.grey[600],
                     cursor: 'pointer',

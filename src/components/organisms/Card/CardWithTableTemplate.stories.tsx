@@ -2,7 +2,7 @@ import { Box, InputAdornment } from '@mui/material';
 import { ComponentMeta, Story } from '@storybook/react';
 import { Formik } from 'formik';
 import TextInput from 'src/components/molecules/Inputs/TextInput';
-import { SearchMdIcon } from 'src/components/particles/theme/overrides/CustomIcons';
+import { SearchMdIcon } from 'src/components/particles/theme/icons/General/search-md';
 import useCardTableHeaderProps, {
   UseCardTableHeaderPropsProps
 } from '../../../hooks/Card/Header/useCardTableHeaderProps';

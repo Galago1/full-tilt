@@ -5,7 +5,7 @@ import { useRef } from 'react';
 import Chip from 'src/components/atoms/Chip/Chip';
 import { AvatarAndText, SelectInput } from 'src/components/molecules';
 import { DropdownListItem } from 'src/components/molecules/Dropdown/DropdownList/DropdownList';
-import { PlusIcon } from 'src/components/particles/theme/overrides/CustomIcons';
+import { PlusIcon } from 'src/components/particles/theme/icons/General/plus';
 import { DataGridProps } from '../DataGrid/DataGrid';
 import KanbanBoard, { KanbanBoardProps } from './KanbanBoard';
 

@@ -1,9 +1,7 @@
 import { Theme } from '@mui/material';
-import type { Story, ComponentMeta } from '@storybook/react';
-import {
-  XCloseIcon,
-  ImageIcon
-} from 'src/components/particles/theme/overrides/CustomIcons';
+import type { ComponentMeta, Story } from '@storybook/react';
+import { XCloseIcon } from 'src/components/particles/theme/icons/General/x-close';
+import { Image01Icon } from 'src/components/particles/theme/icons/Images/image-01';
 import type { AvatarAndTextProps } from './AvatarAndText';
 import AvatarAndText from './AvatarAndText';
 
@@ -55,7 +53,7 @@ export const WithChildren = Template.bind({});
 WithChildren.args = {
   title: 'Olivia Rhye',
   subtitle: 'olivia@rhye.com',
-  children: <ImageIcon color={'secondary'} />
+  children: <Image01Icon color={'secondary'} />
 };
 
 export const WithClosebutton = Template.bind({});

@@ -1,11 +1,8 @@
 import type { Theme } from '@mui/material/styles';
-//
+import { AlertCircleIcon } from '../icons/AlertsAndFeedback/alert-circle';
+import { AlertTriangleIcon } from '../icons/AlertsAndFeedback/alert-triangle';
+import { CheckCircleIcon } from '../icons/General/check-circle';
 import type { ColorSchema } from '../palette';
-import {
-  AlertCircleIcon,
-  CheckCircleIcon,
-  AlertTriangleIcon
-} from './CustomIcons';
 
 // ----------------------------------------------------------------------
 const Alert = (theme: Theme) => {

@@ -1,6 +1,8 @@
 import type { Theme } from '@mui/material/styles';
+import { MinusSquareIcon } from '../icons/General/minus-square';
+import { PlusSquareIcon } from '../icons/General/plus-square';
+import { XSquareIcon } from '../icons/General/x-square';
 //
-import { PlusSquareIcon, MinusSquareIcon, XSquareIcon } from './CustomIcons';
 
 // ----------------------------------------------------------------------
 const TreeView: any = (theme: Theme) => {

@@ -1,9 +1,7 @@
 import { Grid, IconButton, Theme, useTheme } from '@mui/material';
-import {
-  AlertTriangleIcon,
-  CheckCircleIcon,
-  ThumbsUpIcon
-} from 'src/components/particles/theme/overrides/CustomIcons';
+import { AlertTriangleIcon } from 'src/components/particles/theme/icons/AlertsAndFeedback/alert-triangle';
+import { ThumbsUpIcon } from 'src/components/particles/theme/icons/AlertsAndFeedback/thumbs-up';
+import { CheckCircleIcon } from 'src/components/particles/theme/icons/General/check-circle';
 
 export enum RockStatus {
   COMPLETED = 'completed',

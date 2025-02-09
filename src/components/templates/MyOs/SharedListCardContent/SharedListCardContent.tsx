@@ -2,7 +2,7 @@ import { Grid, GridProps, Typography } from '@mui/material';
 import { Chip, Divider } from 'src/components/atoms';
 import { ChipProps } from 'src/components/atoms/Chip/Chip';
 import { AvatarAndText } from 'src/components/molecules';
-import { ArrowUpRightIcon } from 'src/components/particles/theme/overrides/CustomIcons';
+import { ArrowUpRightIcon } from 'src/components/particles/theme/icons/Arrows/arrow-up-right';
 import CheckDoneForm, { CheckDoneFormProps } from '../CheckDoneForm';
 
 export interface SharedListCardContentProps extends GridProps {

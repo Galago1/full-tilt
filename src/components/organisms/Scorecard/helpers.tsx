@@ -1,10 +1,8 @@
 import { ListItemIcon, Typography } from '@mui/material';
 import { DropdownProps } from 'src/components/molecules/Dropdown/Dropdown';
-import {
-  ArchiveIcon,
-  DotsVerticalIcon,
-  Edit04Icon
-} from 'src/components/particles/theme/overrides/CustomIcons';
+import { ArchiveIcon } from 'src/components/particles/theme/icons/General/archive';
+import { DotsVerticalIcon } from 'src/components/particles/theme/icons/General/dots-vertical';
+import { Edit04Icon } from 'src/components/particles/theme/icons/General/edit-04';
 
 export const scorecardDropdown = (): DropdownProps => {
   const edit = {

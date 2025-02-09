@@ -1,4 +1,3 @@
-import { CalendarIcon } from 'src/components/particles/theme/overrides/CustomIcons';
 import Button from '../../Button/Button';
 import {
   DatePicker,
@@ -6,6 +5,7 @@ import {
   LocalizationProvider
 } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { CalendarIcon } from 'src/components/particles/theme/icons/Time/calendar';
 
 const ButtonField = (props: any = { InputProps: { ref: null } }) => {
   const { setOpen, id, disabled, onOpen } = props;

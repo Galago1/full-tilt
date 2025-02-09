@@ -6,10 +6,8 @@ import {
 import { Pagination, PaginationItem } from '@mui/material';
 import type { ButtonProps } from 'src/components/atoms/Button/Button';
 import Button from 'src/components/atoms/Button/Button';
-import {
-  ArrowLeftIcon,
-  ArrowRightIcon
-} from 'src/components/particles/theme/overrides/CustomIcons';
+import { ArrowLeftIcon } from 'src/components/particles/theme/icons/Arrows/arrow-left';
+import { ArrowRightIcon } from 'src/components/particles/theme/icons/Arrows/arrow-right';
 
 export interface TablePaginationProps extends MuiPaginationProps {
   /**

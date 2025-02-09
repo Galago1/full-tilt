@@ -6,30 +6,28 @@ import {
   Typography,
   useTheme
 } from '@mui/material';
+import { CalendarIcon } from '@mui/x-date-pickers';
 import { isEmpty } from 'lodash';
 import { Fragment } from 'react/jsx-runtime';
 import Button from 'src/components/atoms/Button/Button';
 import Divider from 'src/components/atoms/Divider/Divider';
+import { SelectOption } from 'src/components/atoms/InputBase/SelectInputBase/SelectInputBase';
 import AvatarAndText from 'src/components/molecules/AvatarAndText/AvatarAndText';
 import BasicEmptyState from 'src/components/molecules/BasicEmptyState';
 import LoadingIndicator from 'src/components/molecules/LoadingIndicator/LoadingIndicator';
 import Card, { CardProps } from 'src/components/organisms/Card/Card';
-import {
-  AlertTriangleIcon,
-  ArrowUpRightIcon,
-  CalendarIcon,
-  CheckCircleIcon,
-  ChevronRightIcon,
-  RockIcon,
-  ThumbsUpIcon,
-  UserIcon,
-  Users01Icon
-} from 'src/components/particles/theme/overrides/CustomIcons';
+import { AlertTriangleIcon } from 'src/components/particles/theme/icons/AlertsAndFeedback/alert-triangle';
+import { ThumbsUpIcon } from 'src/components/particles/theme/icons/AlertsAndFeedback/thumbs-up';
+import { ArrowUpRightIcon } from 'src/components/particles/theme/icons/Arrows/arrow-up-right';
+import { ChevronRightIcon } from 'src/components/particles/theme/icons/Arrows/chevron-right';
+import { CheckCircleIcon } from 'src/components/particles/theme/icons/General/check-circle';
+import { User01Icon } from 'src/components/particles/theme/icons/Users/user-01';
+import { Users01Icon } from 'src/components/particles/theme/icons/Users/users-01';
+import { RockIcon } from 'src/components/particles/theme/overrides/CustomIcons';
 import { responsiveSpacing } from 'src/components/particles/theme/spacing';
 import { Rock } from '../types';
-import RockStatusForm, { RockStatus } from './RockStatusForm/RockStatusForm';
 import ListPopover, { useListPopover } from './ListPopover/ListPopover';
-import { SelectOption } from 'src/components/atoms/InputBase/SelectInputBase/SelectInputBase';
+import RockStatusForm, { RockStatus } from './RockStatusForm/RockStatusForm';
 
 // completed on_track off_track
 const rockStatusOptions: SelectOption[] = [
@@ -38,7 +36,7 @@ const rockStatusOptions: SelectOption[] = [
   { label: { value: 'Completed' }, value: RockStatus.COMPLETED }
 ];
 const rockTypeOptions: any = {
-  individual: <UserIcon sx={{ color: (theme) => theme.palette.grey[400] }} />,
+  individual: <User01Icon sx={{ color: (theme) => theme.palette.grey[400] }} />,
   company: <Users01Icon sx={{ color: (theme) => theme.palette.grey[400] }} />
 };
 const rockTypeLabel: any = {

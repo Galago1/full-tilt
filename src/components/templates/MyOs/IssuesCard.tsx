@@ -4,10 +4,8 @@ import AvatarAndText from 'src/components/molecules/AvatarAndText/AvatarAndText'
 import BasicEmptyState from 'src/components/molecules/BasicEmptyState/BasicEmptyState';
 import LoadingIndicator from 'src/components/molecules/LoadingIndicator/LoadingIndicator';
 import Card, { CardProps } from 'src/components/organisms/Card/Card';
-import {
-  AlertCircleIcon,
-  ChevronRightIcon
-} from 'src/components/particles/theme/overrides/CustomIcons';
+import { AlertCircleIcon } from 'src/components/particles/theme/icons/AlertsAndFeedback/alert-circle';
+import { ChevronRightIcon } from 'src/components/particles/theme/icons/Arrows/chevron-right';
 import { responsiveSpacing } from 'src/components/particles/theme/spacing';
 import SharedListCardContent, {
   SharedListCardContentProps

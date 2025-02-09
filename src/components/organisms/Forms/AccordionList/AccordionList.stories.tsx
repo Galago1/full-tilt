@@ -2,12 +2,12 @@ import { Grid, Theme } from '@mui/material';
 import type { ComponentMeta, Story } from '@storybook/react';
 import { FastField, Formik } from 'formik';
 import { useState } from 'react';
+import { Divider } from 'src/components/atoms';
 import { CheckboxList } from 'src/components/molecules';
-import { ChevronDownIcon } from 'src/components/particles/theme/overrides/CustomIcons';
+import { ChevronDownIcon } from 'src/components/particles/theme/icons/Arrows/chevron-down';
+import Accordion from '../../Accordion/Accordion';
 import type { AccordionListProps } from './AccordionList';
 import AccordionList from './AccordionList';
-import Accordion from '../../Accordion/Accordion';
-import { Divider } from 'src/components/atoms';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {

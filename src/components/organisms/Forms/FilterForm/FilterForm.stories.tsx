@@ -1,17 +1,15 @@
 import { Grid, Theme, Typography } from '@mui/material';
+import { ArrowRightIcon } from '@mui/x-date-pickers';
 import type { ComponentMeta, Story } from '@storybook/react';
 import { FieldProps, Form, Formik, FormikProps } from 'formik';
+import { useEffect, useState } from 'react';
 import Button from 'src/components/atoms/Button/Button';
 import { AvatarAndText, CheckboxInputBase } from 'src/components/molecules';
 import FilterList from 'src/components/molecules/FilterList/FilterList';
-import {
-  ArrowDownIcon,
-  ArrowRightIcon,
-  ChevronDownIcon
-} from 'src/components/particles/theme/overrides/CustomIcons';
+import { ArrowDownIcon } from 'src/components/particles/theme/icons/Arrows/arrow-down';
+import { ChevronDownIcon } from 'src/components/particles/theme/icons/Arrows/chevron-down';
 import type { FilterFormProps } from './FilterForm';
 import FilterForm from './FilterForm';
-import { useEffect, useState } from 'react';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {

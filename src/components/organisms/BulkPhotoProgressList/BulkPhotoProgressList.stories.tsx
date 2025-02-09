@@ -1,11 +1,11 @@
 /* eslint-disable react/no-children-prop */
 import { Theme } from '@mui/material';
-import type { Story, ComponentMeta } from '@storybook/react';
+import type { ComponentMeta, Story } from '@storybook/react';
+import { XCloseIcon } from 'src/components/particles/theme/icons/General/x-close';
 import {
   Completed,
   Default as PropgressBlockDefault
 } from '../../molecules/ProgressBlock/ProgressBlock.stories';
-import { XCloseIcon } from '../../particles/theme/overrides/CustomIcons';
 import type { BulkPhotoProgressListProps } from './BulkPhotoProgressList';
 import BulkPhotoProgressList from './BulkPhotoProgressList';
 

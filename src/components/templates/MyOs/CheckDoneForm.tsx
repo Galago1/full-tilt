@@ -1,10 +1,8 @@
 import { Grid, IconButton, Theme, useTheme } from '@mui/material';
 import { Form, Formik, FormikHelpers } from 'formik';
 import { useMemo, useState } from 'react';
-import {
-  CheckIcon,
-  PlusIcon
-} from 'src/components/particles/theme/overrides/CustomIcons';
+import { CheckIcon } from 'src/components/particles/theme/icons/General/check';
+import { PlusIcon } from 'src/components/particles/theme/icons/General/plus';
 
 const determineCheckedSxProps = (theme: Theme, isTransitioningRow: boolean) => {
   const baseSx = {

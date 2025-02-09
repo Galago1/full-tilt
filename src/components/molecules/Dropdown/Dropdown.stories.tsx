@@ -1,11 +1,9 @@
 import { Grid, ListItemIcon, Typography } from '@mui/material';
-import type { Story, ComponentMeta } from '@storybook/react';
+import type { ComponentMeta, Story } from '@storybook/react';
 import Avatar from 'src/components/atoms/Avatar/Avatar';
-import {
-  ChevronDownIcon,
-  DotsVerticalIcon,
-  FaceSmileIcon
-} from 'src/components/particles/theme/overrides/CustomIcons';
+import { ChevronDownIcon } from 'src/components/particles/theme/icons/Arrows/chevron-down';
+import { DotsVerticalIcon } from 'src/components/particles/theme/icons/General/dots-vertical';
+import { FaceSmileIcon } from 'src/components/particles/theme/icons/Users/face-smile';
 import type { DropdownProps } from './Dropdown';
 import Dropdown from './Dropdown';
 
@@ -32,11 +30,18 @@ const menuItem = {
   }
 };
 
-const divider = {
+const dividerItem = {
   dividerProps: { sx: { mb: (theme: any) => theme.spacing(0.5) } }
 };
 const WithMenuItemsAndDividerArgs = {
-  dropdownListItems: [divider, menuItem, menuItem, menuItem, divider, menuItem]
+  dropdownListItems: [
+    dividerItem,
+    menuItem,
+    menuItem,
+    menuItem,
+    dividerItem,
+    menuItem
+  ]
 };
 const TwoColWithMenuItemsAndDividerArgs = {
   dropdownListItems: [menuItem, menuItem, menuItem, menuItem]
@@ -63,7 +68,7 @@ ButtonWithIcon.args = {
 
   avatarAndTextProps: {
     avatarProps: {
-      children: <> HR</>,
+      children: <>HR</>,
       sx: { width: 40, height: 40 }
     },
     title: 'Olivia Rhye',
@@ -113,7 +118,7 @@ ManuallyOpen.args = {
 
   avatarAndTextProps: {
     avatarProps: {
-      children: <> HR</>,
+      children: <>HR</>,
       sx: { width: 40, height: 40 }
     },
     title: 'Olivia Rhye',
@@ -162,7 +167,7 @@ IconButtonWithIcon.args = {
 
   avatarAndTextProps: {
     avatarProps: {
-      children: <> HR</>,
+      children: <>HR</>,
       sx: { width: 40, height: 40 }
     },
     title: 'Olivia Rhye',
@@ -187,7 +192,7 @@ IconButtonWithAvatar.args = {
 
   avatarAndTextProps: {
     avatarProps: {
-      children: <> HR</>,
+      children: <>HR</>,
       sx: { width: 40, height: 40 }
     },
     title: 'Olivia Rhye',

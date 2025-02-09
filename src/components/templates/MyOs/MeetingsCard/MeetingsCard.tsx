@@ -21,14 +21,12 @@ import AvatarAndText from 'src/components/molecules/AvatarAndText/AvatarAndText'
 import BasicEmptyState from 'src/components/molecules/BasicEmptyState/BasicEmptyState';
 import LoadingIndicator from 'src/components/molecules/LoadingIndicator/LoadingIndicator';
 import Card, { CardProps } from 'src/components/organisms/Card/Card';
-import {
-  ArrowRightIcon2,
-  CalendarIcon,
-  Expand01Icon
-} from 'src/components/particles/theme/overrides/CustomIcons';
 import { responsiveSpacing } from 'src/components/particles/theme/spacing';
 import { useMeetingsCard } from '../hooks';
 import { Meeting } from '../types';
+import { CalendarIcon } from 'src/components/particles/theme/icons/Time/calendar';
+import { Expand01Icon } from 'src/components/particles/theme/icons/Arrows/expand-01';
+import { ArrowRightIcon } from 'src/components/particles/theme/icons/Arrows/arrow-right';
 
 interface ContentProps {
   currentDate: Date;
@@ -133,7 +131,7 @@ const Content = ({
                     >
                       {meeting.startTime}
                     </Typography>
-                    <ArrowRightIcon2
+                    <ArrowRightIcon
                       sx={{
                         color: theme.palette.grey[600],
                         width: 16,

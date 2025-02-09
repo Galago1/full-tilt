@@ -2,14 +2,8 @@ import type { TypographyProps } from '@mui/material';
 import { Grid, Typography } from '@mui/material';
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import BlockContainer from 'src/components/organisms/BlockContainer/BlockContainer';
-import {
-  CatalogFullIcon,
-  CatalogLogoIcon,
-  CommandRFullIcon,
-  CommandRLogoIcon,
-  HourglassFullIcon,
-  HourglassLogoIcon
-} from '../theme/overrides/CustomIcons';
+import { CatalogLogoIcon } from '../theme/icons/Logos/catalog-logo';
+import { CatalogIcon } from '../theme/icons/Logos/catalog';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -26,12 +20,8 @@ export default {
   // }
 } as ComponentMeta<typeof Typography>;
 
-const mainList = [{ full: CatalogFullIcon, logo: CatalogLogoIcon }];
-const placeholders = [
-  { full: CatalogFullIcon, logo: CatalogLogoIcon },
-  { full: HourglassFullIcon, logo: HourglassLogoIcon },
-  { full: CommandRFullIcon, logo: CommandRLogoIcon }
-];
+const mainList = [{ full: CatalogIcon, logo: CatalogLogoIcon }];
+const placeholders: any[] = mainList;
 
 const Template: ComponentStory<typeof Typography> = (args: TypographyProps) => {
   return (

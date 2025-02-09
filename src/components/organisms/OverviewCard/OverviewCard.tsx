@@ -14,13 +14,6 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import { ButtonProps } from 'src/components/atoms/Button/Button';
 import ButtonGroup from 'src/components/molecules/ButtonGroup/ButtonGroup';
 import Card, { CardProps } from 'src/components/organisms/Card/Card';
-import {
-  CalendarIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  SwitchHorizontal01Icon,
-  SwitchVertical02Icon
-} from 'src/components/particles/theme/overrides/CustomIcons';
 import { Quarter } from 'src/types/other';
 import Divider from '../../atoms/Divider';
 import {
@@ -35,6 +28,11 @@ import {
   TeamHeaderCell
 } from './helpers';
 import { useOverviewCard } from './useOverviewCard';
+import { CalendarIcon } from 'src/components/particles/theme/icons/Time/calendar';
+import { ChevronLeftIcon } from 'src/components/particles/theme/icons/Arrows/chevron-left';
+import { ChevronRightIcon } from 'src/components/particles/theme/icons/Arrows/chevron-right';
+import { SwitchVertical02Icon } from 'src/components/particles/theme/icons/Arrows/switch-vertical-02';
+import { SwitchHorizontal01Icon } from 'src/components/particles/theme/icons/Arrows/switch-horizontal-01';
 
 interface QuarterInfo {
   label: string;

@@ -1,14 +1,7 @@
 import { ComponentMeta, Story } from '@storybook/react';
-import {
-  CheckCircleIcon,
-  XCloseIcon
-} from 'src/components/particles/theme/overrides/CustomIcons';
+import { CheckCircleIcon } from 'src/components/particles/theme/icons/General/check-circle';
+import { XCloseIcon } from 'src/components/particles/theme/icons/General/x-close';
 import Button, { ButtonProps } from './Button';
-
-// import {
-//   XCloseIcon
-// } from 'src/components/particles/theme/overrides/CustomIcons';
-// // import { CircularProgress } from '../CircularProgress/CircularProgress';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {

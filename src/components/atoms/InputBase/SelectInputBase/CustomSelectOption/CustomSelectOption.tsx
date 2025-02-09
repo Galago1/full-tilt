@@ -1,7 +1,6 @@
 import type { GridProps, SxProps, Theme } from '@mui/material';
-import { Typography } from '@mui/material';
-import { Grid } from '@mui/material';
-import { CheckIcon } from 'src/components/particles/theme/overrides/CustomIcons';
+import { Grid, Typography } from '@mui/material';
+import { CheckIcon } from 'src/components/particles/theme/icons/General/check';
 
 export interface CustomSelectOptionProps {
   /**

@@ -4,7 +4,7 @@ import { Formik } from 'formik';
 import TextInput from 'src/components/molecules/Inputs/TextInput';
 import Tabs from 'src/components/molecules/Tabs';
 import { FullWidthAndBorder } from 'src/components/molecules/Tabs/Tabs.stories';
-import { SearchMdIcon } from 'src/components/particles/theme/overrides/CustomIcons';
+import { SearchMdIcon } from 'src/components/particles/theme/icons/General/search-md';
 import useCardSectionHeaderProps, {
   UseCardSectionHeaderProps
 } from '../../../hooks/Card/Header/useCardSectionHeaderProps';

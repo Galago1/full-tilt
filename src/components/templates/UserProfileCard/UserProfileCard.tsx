@@ -8,20 +8,17 @@ import {
 } from '@mui/material';
 import { filter } from 'lodash';
 import { useState } from 'react';
-// import { Button, Chip, Divider } from 'src/components/atoms';
 import Button, { ButtonProps } from 'src/components/atoms/Button/Button';
 import Chip from 'src/components/atoms/Chip/Chip';
 import Divider from 'src/components/atoms/Divider/Divider';
 import AvatarAndText from 'src/components/molecules/AvatarAndText/AvatarAndText';
 import { Drawer } from 'src/components/organisms';
-import {
-  Mail01Icon,
-  MarkerPinIcon,
-  PhoneIcon,
-  TrendUp01Icon,
-  UsersIcon,
-  XCloseIcon
-} from 'src/components/particles/theme/overrides/CustomIcons';
+import { TrendUp01Icon } from 'src/components/particles/theme/icons/Charts/trend-up-01';
+import { Mail01Icon } from 'src/components/particles/theme/icons/Communication/mail-01';
+import { XCloseIcon } from 'src/components/particles/theme/icons/General/x-close';
+import { MarkerPin01Icon } from 'src/components/particles/theme/icons/MapsAndTravel/marker-pin-01';
+import { Phone01Icon } from 'src/components/particles/theme/icons/MediaAndDevices/phone-01';
+import { Users01Icon } from 'src/components/particles/theme/icons/Users/users-01';
 import { responsiveSpacing } from 'src/components/particles/theme/spacing';
 import { rowInitials } from 'src/utils/users/initials';
 
@@ -183,7 +180,7 @@ const UserProfileCard = ({
                 }}
                 onClick={phoneIconClick}
               >
-                <PhoneIcon />
+                <Phone01Icon />
               </IconButton>
             )}
             {fullProfileButtonProps && <Button {...fullProfileButtonProps} />}
@@ -212,7 +209,7 @@ const UserProfileCard = ({
             <Grid item>
               <Chip
                 label={data.group || 'NA'}
-                icon={<UsersIcon />}
+                icon={<Users01Icon />}
                 variant={'outlined'}
                 color={'secondary'}
               />
@@ -223,7 +220,7 @@ const UserProfileCard = ({
                   filter([data.address.city, data.address.state]).join(', ') ||
                   'NA'
                 }
-                icon={<MarkerPinIcon />}
+                icon={<MarkerPin01Icon />}
                 variant={'outlined'}
                 color={'secondary'}
               />

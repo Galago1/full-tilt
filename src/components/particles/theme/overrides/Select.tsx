@@ -1,6 +1,6 @@
 import type { Theme } from '@mui/material/styles';
+import { ChevronDownIcon } from '../icons/Arrows/chevron-down';
 //
-import { ChevronDownIcon } from './CustomIcons';
 
 // ----------------------------------------------------------------------
 const Select = (theme: Theme) => {

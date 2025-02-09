@@ -1,6 +1,6 @@
 import type { Story, ComponentMeta } from '@storybook/react';
 import Avatar from 'src/components/atoms/Avatar/Avatar';
-import { UserIcon } from 'src/components/particles/theme/overrides/CustomIcons';
+import { User01Icon } from 'src/components/particles/theme/icons/Users/user-01';
 import type { CustomSelectOptionProps } from './CustomSelectOption';
 import { CustomSelectOption } from './CustomSelectOption';
 const image = 'https://robohash.org/WTN.png?set=set1';
@@ -38,7 +38,7 @@ export const WithIcon = Template.bind({});
 WithIcon.args = {
   value: 'Some value',
   subvalue: 'Some other val',
-  icon: <UserIcon />
+  icon: <User01Icon />
 };
 
 export const WithAvatar = Template.bind({});

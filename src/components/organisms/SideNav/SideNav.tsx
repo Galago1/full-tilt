@@ -6,6 +6,7 @@ import {
   DrawerProps,
   Grid,
   GridProps,
+  Grow,
   List,
   ListProps,
   Slide,
@@ -15,7 +16,7 @@ import {
   Toolbar,
   ToolbarProps
 } from '@mui/material';
-import { useRef } from 'react';
+import { isEmpty } from 'lodash';
 import SideNavListItem, {
   SideNavListItemProps
 } from 'src/components/molecules/SideNavListItem/SideNavListItem';
@@ -169,6 +170,10 @@ export interface SideNavProps extends DrawerProps {
    * true
    */
   showSecondaryToolbarDivider?: boolean;
+  /**
+   * The sx prop for the sidebar container.
+   */
+  sidebarContainerSx?: SxProps<Theme>;
 }
 const SideNav = ({
   toolbarProps,
@@ -191,9 +196,10 @@ const SideNav = ({
   contentContainerGridItemProps,
   rightColumnSx,
   showSecondaryToolbarDivider,
+  sidebarContainerSx,
   ...props
 }: SideNavProps) => {
-  // const containerRef = useRef(null);
+  const { position } = (toolbarProps?.sx as any) || {};
   return (
     <Drawer {...props} open variant="permanent">
       <Grid
@@ -201,7 +207,8 @@ const SideNav = ({
         flexDirection={'column'}
         sx={{
           height: '100%',
-          backgroundColor: (theme) => theme.palette.background.paper
+          flexWrap: 'nowrap',
+          ...sidebarContainerSx
         }}
       >
         <Grid
@@ -209,7 +216,11 @@ const SideNav = ({
           sx={{
             position: 'relative',
             zIndex: 1,
-            backgroundColor: (theme) => theme.palette.background.paper
+            height: position === 'fixed' ? 0 : 'auto',
+            minHeight: position === 'fixed' ? 0 : 'auto',
+            '& .MuiToolbar-root': {
+              position: position || 'relative'
+            }
           }}
         >
           <Toolbar {...toolbarProps} />
@@ -218,9 +229,10 @@ const SideNav = ({
           item
           flexGrow={1}
           sx={{
-            height: 'calc(100% - 48px)',
+            height: position === 'fixed' ? '100%' : 'calc(100% - 48px)',
             position: 'relative',
-            overflow: 'hidden'
+            overflow: 'hidden',
+            marginTop: position === 'fixed' ? 0 : 'auto'
           }}
         >
           <Box
@@ -268,7 +280,7 @@ const SideNav = ({
 
               <Slide
                 in={slide}
-                direction={'left'}
+                direction={'right'}
                 timeout={{ enter: 500, exit: 500 }}
                 mountOnEnter
                 unmountOnExit
@@ -298,43 +310,46 @@ const SideNav = ({
                         height: '100%',
                         position: 'relative'
                       }}
+                      flexWrap="nowrap"
                     >
                       {secondaryToolbarProps && (
+                        <Grow
+                          in={Boolean(secondaryToolbarProps)}
+                          timeout={300}
+                          style={{ transformOrigin: '0 0 0' }}
+                        >
+                          <Grid width={'100%'}>
+                            <Toolbar {...secondaryToolbarProps} />
+                            {showSecondaryToolbarDivider && <Divider />}
+                          </Grid>
+                        </Grow>
+                      )}
+                      {!isEmpty(sideNavListItemsListProps) && (
                         <Grid
                           item
                           sx={{
-                            position: 'absolute',
-                            top: 0,
-                            left: 0,
-                            right: 0,
-                            zIndex: 1,
-                            backgroundColor: (theme) =>
-                              theme.palette.background.paper
+                            height: '100%',
+                            overflow: 'auto'
                           }}
                         >
-                          <Toolbar {...secondaryToolbarProps} />
-                          {showSecondaryToolbarDivider && <Divider />}
+                          <List {...sideNavListItemsListProps}>
+                            {(sideNavListItems || []).map(
+                              (sideNavListItem, index) => (
+                                <Grow
+                                  key={index}
+                                  in={true}
+                                  timeout={300 + index * 100}
+                                  style={{ transformOrigin: '0 0 0' }}
+                                >
+                                  <Grid>
+                                    <SideNavListItem {...sideNavListItem} />
+                                  </Grid>
+                                </Grow>
+                              )
+                            )}
+                          </List>
                         </Grid>
                       )}
-                      <Grid
-                        item
-                        sx={{
-                          height: '100%',
-                          pt: secondaryToolbarProps ? '48px' : 0,
-                          overflow: 'auto'
-                        }}
-                      >
-                        <List {...sideNavListItemsListProps}>
-                          {(sideNavListItems || []).map(
-                            (sideNavListItem, index) => (
-                              <SideNavListItem
-                                key={index}
-                                {...sideNavListItem}
-                              />
-                            )
-                          )}
-                        </List>
-                      </Grid>
                     </Grid>
                   </Box>
                 </Grid>

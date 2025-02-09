@@ -1,6 +1,6 @@
 import { Typography } from '@mui/material';
 import Link from 'src/components/atoms/Link/Link';
-import { HomeOutlineIcon } from 'src/components/particles/theme/overrides/CustomIcons';
+import { Home02Icon } from 'src/components/particles/theme/icons/General/home-02';
 import { Breadcrumb } from './Breadcrumbs';
 
 const homeLink = (breadcrumb: Breadcrumb, large: boolean) => {
@@ -17,7 +17,7 @@ const homeLink = (breadcrumb: Breadcrumb, large: boolean) => {
         {breadcrumb.children}
       </Typography>
     ) : (
-      <HomeOutlineIcon />
+      <Home02Icon />
     ),
     onClick: breadcrumb.onClick,
     ...href,

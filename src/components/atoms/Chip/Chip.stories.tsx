@@ -1,12 +1,10 @@
-import type { Story, ComponentMeta } from '@storybook/react';
+import { Avatar } from '@mui/material';
+import type { ComponentMeta, Story } from '@storybook/react';
+import { CheckIcon } from 'src/components/particles/theme/icons/General/check';
+import { XCloseIcon } from 'src/components/particles/theme/icons/General/x-close';
+import { FaceSmileIcon } from 'src/components/particles/theme/icons/Users/face-smile';
 import type { ChipProps } from './Chip';
 import Chip from './Chip';
-import { Avatar } from '@mui/material';
-import {
-  CheckIcon,
-  FaceSmileIcon,
-  XCloseIcon
-} from 'src/components/particles/theme/overrides/CustomIcons';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {

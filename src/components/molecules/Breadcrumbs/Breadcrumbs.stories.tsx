@@ -1,8 +1,6 @@
 import type { ComponentMeta, Story } from '@storybook/react';
-import {
-  ChevronRightIcon,
-  SlashDividerIcon
-} from 'src/components/particles/theme/overrides/CustomIcons';
+import { ChevronRightIcon } from 'src/components/particles/theme/icons/Arrows/chevron-right';
+import { SlashDividerIcon } from 'src/components/particles/theme/icons/General/slash-divider';
 import type { BreadcrumbsProps } from './Breadcrumbs';
 import Breadcrumbs from './Breadcrumbs';
 

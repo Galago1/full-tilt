@@ -1,13 +1,13 @@
 import {
-  Card,
-  Typography,
-  LinearProgress,
-  Grid,
   Box,
+  Card,
+  Grid,
+  LinearProgress,
+  Typography,
   useTheme
 } from '@mui/material';
 import { Link } from 'src/components/atoms';
-import { ArrowUpRightIcon } from 'src/components/particles/theme/overrides/CustomIcons';
+import { ArrowUpRightIcon } from 'src/components/particles/theme/icons/Arrows/arrow-up-right';
 
 export interface ColorfulCardProps {
   backgroundColor?: string;

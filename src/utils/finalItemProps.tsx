@@ -3,10 +3,8 @@ import { isEmpty } from 'lodash';
 import { ReactNode } from 'react';
 import { TooltipProps } from 'src/components/atoms/Tooltip/Tooltip';
 import { SideNavListItemProps } from 'src/components/molecules/SideNavListItem/SideNavListItem';
-import {
-  ChevronDownIcon,
-  ChevronUpIcon
-} from 'src/components/particles/theme/overrides/CustomIcons';
+import { ChevronDownIcon } from 'src/components/particles/theme/icons/Arrows/chevron-down';
+import { ChevronUpIcon } from 'src/components/particles/theme/icons/Arrows/chevron-up';
 
 export interface SideNavItemProps {
   icon?: ReactNode;

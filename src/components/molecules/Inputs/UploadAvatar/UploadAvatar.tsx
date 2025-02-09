@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import Avatar, { AvatarProps } from 'src/components/atoms/Avatar/Avatar';
 import Badge, { BadgeProps } from 'src/components/atoms/Badge/Badge';
 import FileInput from 'src/components/atoms/FileInput/FileInput';
-import { EditIcon } from 'src/components/particles/theme/overrides/CustomIcons';
+import { Edit02Icon } from 'src/components/particles/theme/icons/General/edit-02';
 
 export interface UploadAvatarProps {
   /**
@@ -95,7 +95,7 @@ const UploadAvatar = ({
           <Avatar
             // eslint-disable-next-line react/no-children-prop
             children={
-              <EditIcon
+              <Edit02Icon
                 sx={{
                   width: (theme: Theme) => theme.spacing(1.5),
                   height: (theme: Theme) => theme.spacing(1.5)

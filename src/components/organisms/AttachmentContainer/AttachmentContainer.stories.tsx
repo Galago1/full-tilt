@@ -3,14 +3,12 @@ import type { AttachmentContainerProps } from './AttachmentContainer';
 import AttachmentContainer from './AttachmentContainer';
 import { FileUploadBaseTemplate } from '../FileUploadBase/FileUploadBase.stories';
 import { FileUploadBaseProps } from '../FileUploadBase/FileUploadBase';
-import {
-  FileIcon,
-  TrashIcon,
-  UploadCloudIcon
-} from 'src/components/particles/theme/overrides/CustomIcons';
 import { Theme } from '@mui/material';
 import LinearProgressIndicator from 'src/components/molecules/LinearProgressIndicator';
 import { DisplayValueTop } from 'src/components/molecules/LinearProgressIndicator/LinearProgressIndicator.stories';
+import { File04Icon } from 'src/components/particles/theme/icons/Files/file-04';
+import { Trash01Icon } from 'src/components/particles/theme/icons/General/trash-01';
+import { UploadCloud02Icon } from 'src/components/particles/theme/icons/General/upload-cloud-02';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -49,7 +47,7 @@ Default.args = {
     showTitleIcon: false,
     avatarAndTextProps: {
       featuredIconProps: {
-        children: <UploadCloudIcon />
+        children: <UploadCloud02Icon />
       },
       featuredIconItemSx: {
         // pt: '0 !important'
@@ -137,7 +135,7 @@ IconLeft.args = {
         />
       ),
       featuredIconProps: {
-        children: <FileIcon />,
+        children: <File04Icon />,
         dual: true
       },
       featuredIconItemSx: {
@@ -148,7 +146,7 @@ IconLeft.args = {
     buttonListProps: {
       buttons: [
         {
-          endIcon: <TrashIcon />,
+          endIcon: <Trash01Icon />,
           color: 'primary',
           variant: 'text'
         }

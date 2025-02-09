@@ -1,8 +1,10 @@
 import type { Theme } from '@mui/material/styles';
+import { CheckSquareIcon } from '../icons/General/check-square';
+import { MinusSquareIcon } from '../icons/General/minus-square';
+import { SquareIcon } from '../icons/Shapes/square';
 import type { ColorSchema } from '../palette';
 import { elementBoxShadow } from '../shadows';
 //
-import { SquareIcon, CheckSquareIcon, MinusSquareIcon } from './CustomIcons';
 
 const checkboxPallet = (color: ColorSchema, theme: Theme) => {
   return {

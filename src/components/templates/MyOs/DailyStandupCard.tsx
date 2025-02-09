@@ -1,25 +1,21 @@
 import { Grid, SxProps, Theme, Typography, useTheme } from '@mui/material';
-import { isEmpty } from 'lodash';
+import { get, isEmpty } from 'lodash';
 import { MouseEventHandler } from 'react';
-import Button from 'src/components/atoms/Button/Button';
 import Tooltip from 'src/components/atoms/Tooltip/Tooltip';
 import AvatarAndText from 'src/components/molecules/AvatarAndText/AvatarAndText';
 import BasicEmptyState from 'src/components/molecules/BasicEmptyState/BasicEmptyState';
 import LoadingIndicator from 'src/components/molecules/LoadingIndicator/LoadingIndicator';
 import Card, { CardProps } from 'src/components/organisms/Card/Card';
-import {
-  CalendarMinus01Icon,
-  CheckCircleIcon,
-  ChevronRightIcon,
-  CircleIcon,
-  SlashCircle01Icon,
-  XCircleIcon,
-  ZapIcon
-} from 'src/components/particles/theme/overrides/CustomIcons';
+import { ChevronRightIcon } from 'src/components/particles/theme/icons/Arrows/chevron-right';
+import { CheckCircleIcon } from 'src/components/particles/theme/icons/General/check-circle';
+import { SlashCircle01Icon } from 'src/components/particles/theme/icons/General/slash-circle-01';
+import { XCircleIcon } from 'src/components/particles/theme/icons/General/x-circle';
+import { ZapIcon } from 'src/components/particles/theme/icons/General/zap';
+import { CircleIcon } from 'src/components/particles/theme/icons/Shapes/circle';
+import { CalendarMinus01Icon } from 'src/components/particles/theme/icons/Time/calendar-minus-01';
 import { responsiveSpacing } from 'src/components/particles/theme/spacing';
 import pluralize from 'src/utils/inflector/pluralize';
 import { Standup } from './types';
-import { get } from 'lodash';
 
 interface DayOfWeekAction {
   [key: string]: {

@@ -1,13 +1,13 @@
-import type { Story, ComponentMeta } from '@storybook/react';
+import { AutocompleteRenderGroupParams, Box, Typography } from '@mui/material';
+import type { ComponentMeta, Story } from '@storybook/react';
 import { Field, Formik } from 'formik';
+import { Fragment } from 'react/jsx-runtime';
+import { Divider } from 'src/components/atoms';
+import Avatar from 'src/components/atoms/Avatar';
+import Chip, { ChipProps } from 'src/components/atoms/Chip/Chip';
+import { SearchLgIcon } from 'src/components/particles/theme/icons/General/search-lg';
 import type { AutocompleteProps } from './Autocomplete';
 import Autocomplete from './Autocomplete';
-import Chip, { ChipProps } from 'src/components/atoms/Chip/Chip';
-import Avatar from 'src/components/atoms/Avatar';
-import { Box, Typography, AutocompleteRenderGroupParams } from '@mui/material';
-import { Fragment } from 'react/jsx-runtime';
-import { SearchLgIcon } from 'src/components/particles/theme/overrides/CustomIcons';
-import { Divider } from 'src/components/atoms';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {

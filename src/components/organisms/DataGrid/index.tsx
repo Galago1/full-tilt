@@ -14,7 +14,7 @@ import { Box } from '@mui/material';
 import { GridCellParams, GridToolbar } from '@mui/x-data-grid-premium';
 import LinearProgressIndicator from '../../molecules/LinearProgressIndicator';
 import { LinearProgressIndicatorProps } from '../../molecules/LinearProgressIndicator/LinearProgressIndicator';
-import { ChevronRightIcon } from 'src/components/particles/theme/overrides/CustomIcons';
+import { ChevronRightIcon } from 'src/components/particles/theme/icons/Arrows/chevron-right';
 
 export interface RenderLinearProgressProps {
   value: number;

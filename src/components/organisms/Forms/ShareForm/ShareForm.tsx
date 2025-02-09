@@ -1,16 +1,13 @@
 import { Grid, IconButton } from '@mui/material';
+import type { FormikProps } from 'formik';
+import { Field, Form, Formik } from 'formik';
 import ButtonList from 'src/components/molecules/ButtonList/ButtonList';
 import EmptyState, {
   EmptyStateProps
 } from 'src/components/molecules/EmptyState/EmptyState';
 import TextInput from 'src/components/molecules/Inputs/TextInput/TextInput';
-import {
-  CheckIcon,
-  CopyIcon
-} from 'src/components/particles/theme/overrides/CustomIcons';
-import type { FormikProps } from 'formik';
-import { Formik, Form, Field } from 'formik';
-// import shareLink from 'src/utils/collections/shareLink';
+import { CheckIcon } from 'src/components/particles/theme/icons/General/check';
+import { Copy01Icon } from 'src/components/particles/theme/icons/General/copy-01';
 import writeToClipboard from 'src/utils/writeToClipboard';
 
 export interface ShareFormProps {
@@ -86,7 +83,7 @@ const ShareForm = ({
                         color="secondary"
                         onClick={() => handleSubmit()}
                       >
-                        <CopyIcon />
+                        <Copy01Icon />
                       </IconButton>
                     </Grid>
                   </Grid>

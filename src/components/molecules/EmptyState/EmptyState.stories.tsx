@@ -1,9 +1,7 @@
-import type { Story, ComponentMeta } from '@storybook/react';
+import type { ComponentMeta, Story } from '@storybook/react';
 import { Dual } from 'src/components/atoms/FeaturedIcon/FeaturedIcon.stories';
-import {
-  PlusIcon,
-  SearchLgIcon
-} from 'src/components/particles/theme/overrides/CustomIcons';
+import { PlusIcon } from 'src/components/particles/theme/icons/General/plus';
+import { SearchLgIcon } from 'src/components/particles/theme/icons/General/search-lg';
 import type { EmptyStateProps } from './EmptyState';
 import EmptyState from './EmptyState';
 

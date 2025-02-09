@@ -1,8 +1,8 @@
-import type { Story, ComponentMeta } from '@storybook/react';
+import type { ComponentMeta, Story } from '@storybook/react';
+import { Field, Formik } from 'formik';
+import { HeartIcon } from 'src/components/particles/theme/icons/General/heart';
 import type { CheckboxProps } from './Checkbox';
 import Checkbox from './Checkbox';
-import { HeartIcon } from 'src/components/particles/theme/overrides/CustomIcons';
-import { Field, Formik } from 'formik';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {

@@ -1,10 +1,8 @@
 import { Box, Grid, GridProps, IconButton, Typography } from '@mui/material';
-import {
-  PauseSquareIcon,
-  PlaySquareIcon,
-  SkipBackIcon,
-  SkipForwardIcon
-} from 'src/components/particles/theme/overrides/CustomIcons';
+import { PauseSquareIcon } from 'src/components/particles/theme/icons/MediaAndDevices/pause-square';
+import { PlaySquareIcon } from 'src/components/particles/theme/icons/MediaAndDevices/play-square';
+import { SkipBackIcon } from 'src/components/particles/theme/icons/MediaAndDevices/skip-back';
+import { SkipForwardIcon } from 'src/components/particles/theme/icons/MediaAndDevices/skip-forward';
 
 export interface MeetingTimeHeaderProps extends GridProps {
   handleBack?: () => void;

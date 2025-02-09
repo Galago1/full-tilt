@@ -3,12 +3,10 @@
 //Icons
 import { SxProps, Theme } from '@mui/material';
 import Button from 'src/components/atoms/Button/Button';
-import {
-  ArrowAllIcon,
-  CartIcon,
-  CheckIcon,
-  TagIcon
-} from 'src/components/particles/theme/overrides/CustomIcons';
+import { Expand05Icon } from 'src/components/particles/theme/icons/Arrows/expand-05';
+import { ShoppingCart01Icon } from 'src/components/particles/theme/icons/FinanceAndCommerce/shopping-cart-01';
+import { Tag01Icon } from 'src/components/particles/theme/icons/FinanceAndCommerce/tag-01';
+import { CheckIcon } from 'src/components/particles/theme/icons/General/check';
 
 export interface ImageDetailProps {
   pillValue: 0 | 1 | 2 | 3;
@@ -28,17 +26,17 @@ export const ImageDetail = ({
   ...props
 }: ImageDetailProps) => {
   if (variant === 'selected') {
-    icon = pillValue === 0 ? <ArrowAllIcon /> : <CheckIcon />;
+    icon = pillValue === 0 ? <Expand05Icon /> : <CheckIcon />;
     backgroundSx = {
       padding: (theme: Theme) => theme.spacing(1.625) // 13px
     };
   } else if (variant === 'added') {
-    icon = <CartIcon />;
+    icon = <ShoppingCart01Icon />;
     backgroundSx = {
       padding: (theme: Theme) => theme.spacing(1.625) // 13px
     };
   } else {
-    icon = <TagIcon />;
+    icon = <Tag01Icon />;
     backgroundSx = {
       padding: 0,
       maxHeight: 48,

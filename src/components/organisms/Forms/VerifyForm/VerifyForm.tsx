@@ -7,13 +7,12 @@ import {
   FormikHelpers,
   FormikProps
 } from 'formik';
-
 import { PatternFormat } from 'react-number-format';
 import Button from 'src/components/atoms/Button/Button';
 import CircularProgress from 'src/components/atoms/CircularProgress/CircularProgress';
 import AvatarAndText from 'src/components/molecules/AvatarAndText/AvatarAndText';
 import VerificationInput from 'src/components/molecules/Inputs/VerificationInput/VerificationInput';
-import { ArrowLeftIcon } from 'src/components/particles/theme/overrides/CustomIcons';
+import { ArrowLeftIcon } from 'src/components/particles/theme/icons/Arrows/arrow-left';
 import yup from 'src/lib/yupLocal';
 import isSubmitDisabled from 'src/utils/form/isSubmitDisabled';
 import { LoginFormFormProps } from '../LoginForm/LoginForm';

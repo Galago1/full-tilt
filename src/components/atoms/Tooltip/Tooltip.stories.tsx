@@ -8,10 +8,8 @@ import {
   Zoom
 } from '@mui/material';
 import type { ComponentMeta, Story } from '@storybook/react';
-import {
-  PlusCircleIcon,
-  TrashIcon
-} from 'src/components/particles/theme/overrides/CustomIcons';
+import { PlusCircleIcon } from 'src/components/particles/theme/icons/General/plus-circle';
+import { Trash01Icon } from 'src/components/particles/theme/icons/General/trash-01';
 import type { TooltipProps } from './Tooltip';
 import Tooltip from './Tooltip';
 
@@ -37,7 +35,7 @@ Basic.args = {
   open: true,
   children: (
     <IconButton>
-      <TrashIcon />
+      <Trash01Icon />
     </IconButton>
   )
 };
@@ -68,7 +66,7 @@ Simple.args = {
     title: 'Delete',
     children: (
       <IconButton>
-        <TrashIcon />
+        <Trash01Icon />
       </IconButton>
     )
   },
@@ -84,7 +82,7 @@ Simple.args = {
     title: 'Delete',
     children: (
       <IconButton>
-        <TrashIcon sx={{ color: '#1890FF' }} />
+        <Trash01Icon sx={{ color: '#1890FF' }} />
       </IconButton>
     )
   },

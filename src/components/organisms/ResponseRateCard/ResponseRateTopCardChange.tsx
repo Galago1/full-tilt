@@ -1,8 +1,6 @@
 import { Typography } from '@mui/material';
-import {
-  ArrowDownIcon,
-  ArrowUpIcon
-} from 'src/components/particles/theme/overrides/CustomIcons';
+import { ArrowDownIcon } from 'src/components/particles/theme/icons/Arrows/arrow-down';
+import { ArrowUpIcon } from 'src/components/particles/theme/icons/Arrows/arrow-up';
 
 interface ResponseRateTopCardChangeProps {
   rateChange: number;

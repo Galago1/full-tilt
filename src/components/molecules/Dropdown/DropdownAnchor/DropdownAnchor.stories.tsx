@@ -1,9 +1,7 @@
-import type { Story, ComponentMeta } from '@storybook/react';
+import type { ComponentMeta, Story } from '@storybook/react';
 import Avatar from 'src/components/atoms/Avatar/Avatar';
-import {
-  ChevronDownIcon,
-  DotsVerticalIcon
-} from 'src/components/particles/theme/overrides/CustomIcons';
+import { ChevronDownIcon } from 'src/components/particles/theme/icons/Arrows/chevron-down';
+import { DotsVerticalIcon } from 'src/components/particles/theme/icons/General/dots-vertical';
 import type { DropdownAnchorProps } from './DropdownAnchor';
 import { DropdownAnchor } from './DropdownAnchor';
 

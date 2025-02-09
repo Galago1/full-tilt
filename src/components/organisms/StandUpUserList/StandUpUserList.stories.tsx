@@ -9,7 +9,7 @@ import {
 import { Story } from '@storybook/react';
 import { SelectOption } from 'src/components/atoms/InputBase/SelectInputBase/SelectInputBase';
 import { ThemeProvider } from 'src/components/particles';
-import { Edit05Icon } from 'src/components/particles/theme/overrides/CustomIcons';
+import { Edit05Icon } from 'src/components/particles/theme/icons/General/edit-05';
 import { DateFormat } from 'src/types/dateFns';
 import { formatDate } from 'src/utils/date';
 import StandUpUserList, {

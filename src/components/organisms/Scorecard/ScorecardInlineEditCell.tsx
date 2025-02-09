@@ -8,7 +8,7 @@ import {
 } from '@mui/material';
 import { Field, Form, Formik, FormikHelpers } from 'formik';
 import { useCallback, useState } from 'react';
-import { PlusIcon } from 'src/components/particles/theme/overrides/CustomIcons';
+import { PlusIcon } from 'src/components/particles/theme/icons/General/plus';
 import { RowDataObject } from './useScorecard';
 import LoadingOverlay from 'src/components/molecules/LoadingOverlay/LoadingOverlay';
 

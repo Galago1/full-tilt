@@ -1,5 +1,5 @@
 import { ComponentMeta, Story } from '@storybook/react';
-import { UserIcon } from 'src/components/particles/theme/overrides/CustomIcons';
+import { User01Icon } from 'src/components/particles/theme/icons/Users/user-01';
 import FileInputButton, { FileInputButtonProps } from './FileInputButton';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -50,7 +50,7 @@ ButtonAudioFile.args = {
 
 export const ButtonIconVideoFile = Template.bind({});
 ButtonIconVideoFile.args = {
-  children: <UserIcon />,
+  children: <User01Icon />,
   inputButtonType: 'buttonIcon',
   accept: 'video/*',
   color: 'primary',
@@ -59,7 +59,7 @@ ButtonIconVideoFile.args = {
 
 export const ButtonIconImageFile = Template.bind({});
 ButtonIconImageFile.args = {
-  children: <UserIcon />,
+  children: <User01Icon />,
   inputButtonType: 'buttonIcon',
   accept: 'image/*',
   color: 'success',
@@ -68,7 +68,7 @@ ButtonIconImageFile.args = {
 
 export const ButtonIconAudioFile = Template.bind({});
 ButtonIconAudioFile.args = {
-  children: <UserIcon />,
+  children: <User01Icon />,
   inputButtonType: 'buttonIcon',
   accept: 'audio/*',
   color: 'success',

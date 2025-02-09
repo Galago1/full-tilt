@@ -9,9 +9,9 @@ import {
   SnackbarCloseReason,
   Theme
 } from '@mui/material';
-import { XCloseIcon } from '../../particles/theme/overrides/CustomIcons';
 import LinearProgressBar from 'src/components/atoms/LinearProgressBar/LinearProgressBar';
 import useToast from 'src/hooks/useToast';
+import { XCloseIcon } from 'src/components/particles/theme/icons/General/x-close';
 
 // Icons
 

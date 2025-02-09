@@ -3,10 +3,8 @@ import { Box, SvgIconProps, SxProps, Theme } from '@mui/material';
 
 //Custom
 import Button, { ButtonProps } from 'src/components/atoms/Button/Button';
-import {
-  ChevronLeftIcon,
-  ChevronRightIcon
-} from 'src/components/particles/theme/overrides/CustomIcons';
+import { ChevronLeftIcon } from 'src/components/particles/theme/icons/Arrows/chevron-left';
+import { ChevronRightIcon } from 'src/components/particles/theme/icons/Arrows/chevron-right';
 
 //Icons
 

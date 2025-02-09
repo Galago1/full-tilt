@@ -1,5 +1,5 @@
 import type { Story, ComponentMeta } from '@storybook/react';
-import { CheckCircleIcon } from 'src/components/particles/theme/overrides/CustomIcons';
+import { CheckCircleIcon } from 'src/components/particles/theme/icons/General/check-circle';
 import type { RatingProps } from './Rating';
 import Rating from './Rating';
 

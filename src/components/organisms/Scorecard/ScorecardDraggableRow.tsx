@@ -6,17 +6,15 @@ import {
   useTheme
 } from '@mui/material';
 import { FormikHelpers } from 'formik';
-import { isEmpty, last, round } from 'lodash';
+import { last, round } from 'lodash';
 import { useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import Dropdown, {
   DropdownProps
 } from 'src/components/molecules/Dropdown/Dropdown';
 import NumberInputBase from 'src/components/molecules/Inputs/NumberInputBase/NumberInputBase';
-import {
-  DotsGrid06Icon,
-  LayoutRightIcon
-} from 'src/components/particles/theme/overrides/CustomIcons';
+import { LayoutRightIcon } from 'src/components/particles/theme/icons/Layout/layout-right';
+import { DotsGrid06Icon } from 'src/components/particles/theme/overrides/CustomIcons';
 import Avatar from '../../atoms/Avatar/Avatar';
 import { GoalCondition } from './helpers';
 import ScorecardCell from './ScorecardCell';

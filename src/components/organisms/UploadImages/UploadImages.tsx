@@ -4,12 +4,10 @@ import { FormikProps } from 'formik';
 import SkeletonImage, {
   SkeletonImageProps
 } from 'src/components/molecules/SkeletonImage/SkeletonImage';
-import {
-  PlusIcon,
-  XCloseIcon
-} from 'src/components/particles/theme/overrides/CustomIcons';
 import useIsSize from 'src/hooks/useIsSize';
 import FileInputButton from '../../atoms/FileInputButton/FileInputButton';
+import { PlusIcon } from 'src/components/particles/theme/icons/General/plus';
+import { XCloseIcon } from 'src/components/particles/theme/icons/General/x-close';
 
 export interface UploadedImg {
   src: string;

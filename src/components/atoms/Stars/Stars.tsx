@@ -1,6 +1,6 @@
 import { Grid, GridProps, SvgIconProps, useTheme } from '@mui/material';
 import { FieldInputProps, FieldProps, FormikProps } from 'formik';
-import { StarIcon } from 'src/components/particles/theme/overrides/CustomIcons';
+import { Star01Icon } from 'src/components/particles/theme/icons/Shapes/star-01';
 import { useStar } from './hooks';
 
 export interface StarsProps extends FieldProps {
@@ -57,7 +57,7 @@ const Stars = ({ totalStars, field, form, slots, onChange }: StarsProps) => {
             }
           }}
         >
-          <StarIcon
+          <Star01Icon
             sx={{
               fontSize: 56,
               '& path:first-of-type': {

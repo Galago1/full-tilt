@@ -7,16 +7,14 @@ import AvatarAndText from 'src/components/molecules/AvatarAndText/AvatarAndText'
 import BasicEmptyState from 'src/components/molecules/BasicEmptyState/BasicEmptyState';
 import LoadingIndicator from 'src/components/molecules/LoadingIndicator/LoadingIndicator';
 import Card, { CardProps } from 'src/components/organisms/Card/Card';
-import {
-  ArrowUpRightIcon,
-  BookOpenIcon,
-  CalendarIcon,
-  ChevronRightIcon,
-  Headphones01Icon,
-  ZapIcon
-} from 'src/components/particles/theme/overrides/CustomIcons';
 import { responsiveSpacing } from 'src/components/particles/theme/spacing';
 import { Digest } from './types';
+import { CalendarIcon } from 'src/components/particles/theme/icons/Time/calendar';
+import { ArrowUpRightIcon } from 'src/components/particles/theme/icons/Arrows/arrow-up-right';
+import { ChevronRightIcon } from 'src/components/particles/theme/icons/Arrows/chevron-right';
+import { BookOpen01Icon } from 'src/components/particles/theme/icons/Education/book-open-01';
+import { ZapIcon } from 'src/components/particles/theme/icons/General/zap';
+import { Headphones01Icon } from 'src/components/particles/theme/icons/MediaAndDevices/headphones-01';
 
 interface ContentProps {
   digest: Digest[];
@@ -148,7 +146,7 @@ const Content = ({
                     <Grid item>
                       <AvatarAndText
                         gap={1}
-                        leftIcon={<BookOpenIcon />}
+                        leftIcon={<BookOpen01Icon />}
                         title={`${story.readLength} read`}
                         titleTypography={{ variant: 'textSmRegular' }}
                       />

@@ -1,6 +1,6 @@
 import type { Theme } from '@mui/material/styles';
+import { Star01Icon } from '../icons/Shapes/star-01';
 //
-import { StarIcon } from './CustomIcons';
 
 // ----------------------------------------------------------------------
 
@@ -10,7 +10,7 @@ const Rating = (theme: Theme) => {
   return {
     MuiRating: {
       defaultProps: {
-        emptyIcon: <StarIcon />
+        emptyIcon: <Star01Icon />
         // icon: <StarIcon />
       },
 

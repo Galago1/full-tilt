@@ -1,8 +1,8 @@
+import { IconButton } from '@mui/material';
 import type { ComponentMeta, Story } from '@storybook/react';
-import { InfoCircleIcon } from 'src/components/particles/theme/overrides/CustomIcons';
+import { InfoCircleIcon } from 'src/components/particles/theme/icons/General/info-circle';
 import type { IconWithTooltipProps } from './IconWithTooltip';
 import IconWithTooltip from './IconWithTooltip';
-import { IconButton } from '@mui/material';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {

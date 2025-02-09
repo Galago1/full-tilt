@@ -1,7 +1,6 @@
-import { ListItemIcon } from '@mui/material';
-import { Typography } from '@mui/material';
-import type { Story, ComponentMeta } from '@storybook/react';
-import { FaceSmileIcon } from 'src/components/particles/theme/overrides/CustomIcons';
+import { ListItemIcon, Typography } from '@mui/material';
+import type { ComponentMeta, Story } from '@storybook/react';
+import { FaceSmileIcon } from 'src/components/particles/theme/icons/Users/face-smile';
 import type { DropdownListProps } from './DropdownList';
 import { DropdownList } from './DropdownList';
 

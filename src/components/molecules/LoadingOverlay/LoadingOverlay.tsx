@@ -1,6 +1,6 @@
 import { Fade, Grid } from '@mui/material';
 import CircularProgress from 'src/components/atoms/CircularProgress/CircularProgress';
-import { CheckCircleIcon } from 'src/components/particles/theme/overrides/CustomIcons';
+import { CheckCircleIcon } from 'src/components/particles/theme/icons/General/check-circle';
 
 export interface LoadingOverlayProps {
   isLoading: boolean;

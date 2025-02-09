@@ -2,10 +2,8 @@ import { ButtonProps } from 'src/components/atoms/Button/Button';
 import ButtonGroup, {
   ButtonGroupProps
 } from 'src/components/molecules/ButtonGroup/ButtonGroup';
-import {
-  ChevronLeftIcon,
-  ChevronRightIcon
-} from 'src/components/particles/theme/overrides/CustomIcons';
+import { ChevronLeftIcon } from 'src/components/particles/theme/icons/Arrows/chevron-left';
+import { ChevronRightIcon } from 'src/components/particles/theme/icons/Arrows/chevron-right';
 import { DateFormat } from 'src/types/dateFns';
 import { formatDate } from 'src/utils/date';
 

@@ -1,10 +1,8 @@
 import { SxProps, TabProps, Theme } from '@mui/material';
 import Divider from 'src/components/atoms/Divider/Divider';
-import {
-  ArrowAllIcon,
-  Edit05Icon,
-  TrashIcon
-} from 'src/components/particles/theme/overrides/CustomIcons';
+import { Expand05Icon } from 'src/components/particles/theme/icons/Arrows/expand-05';
+import { Edit05Icon } from 'src/components/particles/theme/icons/General/edit-05';
+import { Trash01Icon } from 'src/components/particles/theme/icons/General/trash-01';
 
 interface PillTabs {
   theme: Theme;
@@ -25,7 +23,7 @@ const pillTabs = ({
   handleChange
 }: PillTabs): TabProps[] => {
   const moveTab = {
-    icon: <ArrowAllIcon />,
+    icon: <Expand05Icon />,
     label: 'Move',
     sx: {
       height: 40,
@@ -67,7 +65,7 @@ const pillTabs = ({
     disabled: true
   } as TabProps;
   const removeTab = {
-    icon: <TrashIcon />,
+    icon: <Trash01Icon />,
     label: 'Remove',
     sx: {
       height: 40,

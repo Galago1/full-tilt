@@ -1,11 +1,9 @@
 /* eslint-disable react/no-children-prop */
 import { Theme } from '@mui/material';
-import type { Story, ComponentMeta } from '@storybook/react';
+import type { ComponentMeta, Story } from '@storybook/react';
+import { CheckCircleIcon } from 'src/components/particles/theme/icons/General/check-circle';
+import { Image03Icon } from 'src/components/particles/theme/icons/Images/image-03';
 import FeaturedIcon from '../../atoms/FeaturedIcon/FeaturedIcon';
-import {
-  CheckCircleIcon,
-  ImageBgIcon
-} from '../../particles/theme/overrides/CustomIcons';
 import type { ProgressBlockProps } from './ProgressBlock';
 import ProgressBlock from './ProgressBlock';
 
@@ -36,7 +34,7 @@ Default.args = {
         <FeaturedIcon
           color={'primary'}
           dual={true}
-          children={<ImageBgIcon />}
+          children={<Image03Icon />}
         />
       )
     }
@@ -63,7 +61,7 @@ Completed.args = {
         <FeaturedIcon
           color={'primary'}
           dual={true}
-          children={<ImageBgIcon />}
+          children={<Image03Icon />}
         />
       )
     }

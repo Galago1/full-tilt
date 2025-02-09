@@ -175,11 +175,15 @@ Second.args = {
   sx: {
     width: 280,
     '& .MuiDrawer-paper': {
-      width: 280
+      width: 280,
+      backgroundColor: 'transparent'
     }
   },
   PaperProps: {
     sx: { overflow: 'hidden' }
+  },
+  sidebarContainerSx: {
+    backgroundColor: (theme) => theme.palette.grey[900]
   },
   toolbarProps: {
     sx: {
@@ -203,8 +207,7 @@ Second.args = {
         <Grid
           item
           sx={{
-            height: '100%',
-            backgroundColor: (theme) => theme.palette.background.paper
+            height: '100%'
           }}
         >
           <SideNavListItem
@@ -237,17 +240,24 @@ Second.args = {
   secondaryToolbarProps: {
     sx: {
       minHeight: { xs: 56 },
-      px: 2
+      px: 2,
+      color: (theme) => theme.palette.common.white
     },
     children: (
       <AvatarAndText
         title="Untitled UI3"
-        titleTypography={{ variant: 'textMdSemibold' }}
+        titleTypography={{ 
+          variant: 'textMdSemibold',
+          sx: { color: (theme) => theme.palette.common.white }
+        }}
       />
     )
   },
   showSecondaryToolbarDivider: false,
-  rightColumnSx: { borderLeft: (theme) => theme.border.basicBox },
+  rightColumnSx: { 
+    borderLeft: (theme) => theme.border.basicBox,
+    backgroundColor: (theme) => theme.palette.grey[900]
+  },
   sideNavListItemIconsBottom: [
     IconOnly.args as SideNavListItemProps,
     IconOnly.args as SideNavListItemProps
@@ -263,5 +273,11 @@ Second.args = {
     IconOnly.args as SideNavListItemProps,
     IconOnly.args as SideNavListItemProps
   ],
-  sideNavListItems: []
+  sideNavListItems: [],
+  sideNavListItemsListProps: {
+    sx: {
+      backgroundColor: (theme) => theme.palette.grey[900],
+      color: (theme) => theme.palette.common.white
+    }
+  }
 };

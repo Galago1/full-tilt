@@ -14,7 +14,7 @@ import {
 import type { ComponentMeta, Story } from '@storybook/react';
 import type { ReactNode } from 'react';
 import { Fragment } from 'react';
-import { SettingsIcon } from 'src/components/particles/theme/overrides/CustomIcons';
+import { Settings01Icon } from 'src/components/particles/theme/icons/General/settings-01';
 import useStepper from 'src/hooks/useStepper';
 import type { StepperProps } from './Stepper';
 import Stepper from './Stepper';
@@ -259,9 +259,9 @@ const ColorlibStepIcon = (props: StepIconProps) => {
   const { active, completed, className } = props;
 
   const icons: { [index: string]: React.ReactElement } = {
-    1: <SettingsIcon />,
-    2: <SettingsIcon />,
-    3: <SettingsIcon />
+    1: <Settings01Icon />,
+    2: <Settings01Icon />,
+    3: <Settings01Icon />
   };
 
   return (

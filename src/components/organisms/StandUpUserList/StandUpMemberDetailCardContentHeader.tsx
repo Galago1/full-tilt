@@ -1,14 +1,12 @@
 import { Grid, Theme, Typography } from '@mui/material';
 import Avatar from 'src/components/atoms/Avatar/Avatar';
 import Button, { ButtonProps } from 'src/components/atoms/Button/Button';
-import {
-  SkipBackIcon,
-  SkipForwardIcon,
-  VerifiedTickIcon
-} from 'src/components/particles/theme/overrides/CustomIcons';
+import Chip from 'src/components/atoms/Chip/Chip';
+import { SkipBackIcon } from 'src/components/particles/theme/icons/MediaAndDevices/skip-back';
+import { SkipForwardIcon } from 'src/components/particles/theme/icons/MediaAndDevices/skip-forward';
+import { VerifiedTickIcon } from 'src/components/particles/theme/overrides/CustomIcons';
 import { rowInitials } from 'src/utils/users/initials';
 import { TeamMember } from './StandUpUserList';
-import Chip from 'src/components/atoms/Chip/Chip';
 
 interface StandUpMemberDetailCardContentHeaderProps {
   member: TeamMember;

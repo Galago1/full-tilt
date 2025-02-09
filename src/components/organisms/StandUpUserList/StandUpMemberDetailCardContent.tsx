@@ -3,10 +3,8 @@ import { isEmpty } from 'lodash';
 import { Divider, FeaturedIcon } from 'src/components/atoms';
 import Button, { ButtonProps } from 'src/components/atoms/Button/Button';
 import EmptyState from 'src/components/molecules/EmptyState/EmptyState';
-import {
-  InfoCircleIcon,
-  XCloseIcon
-} from 'src/components/particles/theme/overrides/CustomIcons';
+import { InfoCircleIcon } from 'src/components/particles/theme/icons/General/info-circle';
+import { XCloseIcon } from 'src/components/particles/theme/icons/General/x-close';
 import { responsiveSpacing } from 'src/components/particles/theme/spacing';
 import StandUpMemberDetailCardContentHeader from './StandUpMemberDetailCardContentHeader';
 import { TeamMember } from './StandUpUserList';

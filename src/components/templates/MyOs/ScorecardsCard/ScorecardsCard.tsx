@@ -15,12 +15,10 @@ import LoadingIndicator from 'src/components/molecules/LoadingIndicator/LoadingI
 import ScorecardInlineEditCell, {
   InlineFormikProps
 } from 'src/components/organisms/Scorecard/ScorecardInlineEditCell';
-import {
-  ChevronDownIcon,
-  ChevronRightIcon,
-  ChevronUpIcon,
-  LayoutGrid02Icon
-} from 'src/components/particles/theme/overrides/CustomIcons';
+import { ChevronDownIcon } from 'src/components/particles/theme/icons/Arrows/chevron-down';
+import { ChevronRightIcon } from 'src/components/particles/theme/icons/Arrows/chevron-right';
+import { ChevronUpIcon } from 'src/components/particles/theme/icons/Arrows/chevron-up';
+import { LayoutGrid02Icon } from 'src/components/particles/theme/icons/Layout/layout-grid-02';
 import { responsiveSpacing } from 'src/components/particles/theme/spacing';
 import { Scorecard } from '../types';
 

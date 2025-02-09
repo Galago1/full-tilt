@@ -12,21 +12,19 @@ import { ButtonProps } from 'src/components/atoms/Button/Button';
 import { ChipProps } from 'src/components/atoms/Chip/Chip';
 import { ButtonGroup, Dropdown } from 'src/components/molecules';
 import { ButtonGroupProps } from 'src/components/molecules/ButtonGroup/ButtonGroup';
-import {
-  ColumnsIcon,
-  FilterLinesIcon,
-  ListIcon,
-  PlusIcon
-} from 'src/components/particles/theme/overrides/CustomIcons';
 import { KanbanData } from './KanbanBoard';
 import { KanbanListType } from './KanbanDndContent';
+import { FilterLinesIcon } from 'src/components/particles/theme/icons/General/filter-lines';
+import { PlusIcon } from 'src/components/particles/theme/icons/General/plus';
+import { Columns03Icon } from 'src/components/particles/theme/icons/Layout/columns-03';
+import { ListIcon } from 'src/components/particles/theme/icons/Layout/list';
 
 const buttonGroupFn = (
   initialView: KanbanListType,
   currentView: KanbanListType,
   handleViewChange: (view: KanbanListType) => void,
   firstStartIcon: ReactNode = <ListIcon />,
-  secondStartIcon: ReactNode = <ColumnsIcon />
+  secondStartIcon: ReactNode = <Columns03Icon />
 ): Array<ButtonProps & { selected: boolean }> => {
   const listType =
     initialView === KanbanListType.DATAGRID

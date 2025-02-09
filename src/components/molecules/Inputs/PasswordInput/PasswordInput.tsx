@@ -9,10 +9,8 @@ import {
 import { useState } from 'react';
 import type { TextInputBaseProps } from 'src/components/atoms/InputBase/TextInputBase/TextInputBase';
 import TextInputBase from 'src/components/atoms/InputBase/TextInputBase/TextInputBase';
-import {
-  EyeIcon,
-  EyeOffIcon
-} from 'src/components/particles/theme/overrides/CustomIcons';
+import { EyeIcon } from 'src/components/particles/theme/icons/General/eye';
+import { EyeOffIcon } from 'src/components/particles/theme/icons/General/eye-off';
 import { Orientation } from 'src/types/other';
 import HorizontalInput, {
   HorizontalInputProps

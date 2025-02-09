@@ -4,7 +4,7 @@ import image from 'src/assets/images/blurbackground.png';
 import type { AvatarProps } from 'src/components/atoms/Avatar/Avatar';
 import Avatar from 'src/components/atoms/Avatar/Avatar';
 import Badge from 'src/components/atoms/Badge/Badge';
-import { UserIcon } from '../particles/theme/overrides/CustomIcons';
+import { User01Icon } from '../particles/theme/icons/Users/user-01';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -137,7 +137,7 @@ BadgeAvatars.args = {
     src: image as unknown as string
   },
   avatarThree: {
-    children: <UserIcon />,
+    children: <User01Icon />,
     sx: {
       bgcolor: 'white',
       color: '#FFC107',
@@ -146,7 +146,7 @@ BadgeAvatars.args = {
     }
   },
   avatarFour: {
-    children: <UserIcon />,
+    children: <User01Icon />,
     sx: {
       bgcolor: 'white',
       color: '#FF4842',

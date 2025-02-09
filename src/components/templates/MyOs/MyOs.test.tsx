@@ -1,10 +1,9 @@
 import { render, screen } from '@testing-library/react';
-import { ZapIcon } from 'src/components/particles/theme/overrides/CustomIcons';
-
 import { composeStories } from '@storybook/testing-react';
 import * as MyOsStories from './MyOs.stories'; //👈  Our stories imported here
 import { MyOsProps } from './MyOs';
 import { WorkScheduleStatus } from './DailyStandupCard';
+import { ZapIcon } from 'src/components/particles/theme/icons/General/zap';
 //👇 composeStories will process all information related to the component (e.g., args)
 const { Default } = composeStories(MyOsStories);
 

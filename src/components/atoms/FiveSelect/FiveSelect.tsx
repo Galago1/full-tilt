@@ -1,5 +1,6 @@
 import { IconButton } from '@mui/material';
 import { FieldProps } from 'formik';
+import { CheckIcon } from 'src/components/particles/theme/icons/General/check';
 import {
   FiveSelectCircle,
   FiveSelectCircleContainer,
@@ -11,7 +12,6 @@ import {
   FiveSelectSelectedInnerCircle,
   FiveSelectSelectedOuterCircle
 } from './helpers';
-import { CheckIcon } from 'src/components/particles/theme/overrides/CustomIcons';
 
 const defaultIconMap = {
   1: <CheckIcon sx={{ color: '#fff', fontSize: 'clamp(16px, 4vw, 32px)' }} />,

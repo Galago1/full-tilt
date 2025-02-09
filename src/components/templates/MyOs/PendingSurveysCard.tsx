@@ -1,17 +1,14 @@
 import { Grid, GridProps, Typography, useTheme } from '@mui/material';
-import Button from 'src/components/atoms/Button/Button';
 import AvatarAndText from 'src/components/molecules/AvatarAndText/AvatarAndText';
 import BasicEmptyState from 'src/components/molecules/BasicEmptyState/BasicEmptyState';
 import CircularProgressIndicator, {
   CircularProgressIndicatorSize
 } from 'src/components/molecules/CircularProgressIndicator/CircularProgressIndicator';
 import LoadingIndicator from 'src/components/molecules/LoadingIndicator/LoadingIndicator';
-import {
-  AlertTriangleIcon,
-  CheckVerifiedIcon,
-  ChevronRightIcon,
-  MessageQuestionCircleIcon
-} from 'src/components/particles/theme/overrides/CustomIcons';
+import { AlertTriangleIcon } from 'src/components/particles/theme/icons/AlertsAndFeedback/alert-triangle';
+import { ChevronRightIcon } from 'src/components/particles/theme/icons/Arrows/chevron-right';
+import { MessageQuestionCircleIcon } from 'src/components/particles/theme/icons/Communication/message-question-circle';
+import { CheckVerified01Icon } from 'src/components/particles/theme/icons/General/check-verified-01';
 import { responsiveSpacing } from 'src/components/particles/theme/spacing';
 import { Survey } from './types';
 
@@ -70,7 +67,7 @@ const Content = ({
   if (survey.completed)
     return (
       <BasicEmptyState
-        icon={loading ? null : <CheckVerifiedIcon />}
+        icon={loading ? null : <CheckVerified01Icon />}
         subtitle={`Your all caught up! ${survey.nextSurveySubtitle}`}
         emptyStateHeight={'auto'}
         sx={{

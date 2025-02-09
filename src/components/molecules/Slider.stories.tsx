@@ -1,13 +1,12 @@
 import { Box, Grid, Stack } from '@mui/material';
 import type { ComponentMeta, Story } from '@storybook/react';
+import { useEffect, useState } from 'react';
 import type { SliderProps } from 'src/components/atoms/Slider/Slider';
 import Slider from 'src/components/atoms/Slider/Slider';
-import {
-  VolumeMaxIcon,
-  VolumeMinIcon
-} from 'src/components/particles/theme/overrides/CustomIcons';
-import { useEffect, useState } from 'react';
+import { VolumeMaxIcon } from '../particles/theme/icons/MediaAndDevices/volume-max';
+import { VolumeMinIcon } from '../particles/theme/icons/MediaAndDevices/volume-min';
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
+
 export default {
   title: 'Molecules/Slider',
   component: Slider

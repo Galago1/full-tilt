@@ -27,20 +27,6 @@ import {
 import { AvatarAndTextProps } from 'src/components/molecules/AvatarAndText/AvatarAndText';
 import EmptyState from 'src/components/molecules/EmptyState/EmptyState';
 import { LinearProgressIndicatorProps } from 'src/components/molecules/LinearProgressIndicator/LinearProgressIndicator';
-import {
-  ArrowUpRightIcon,
-  BookOpenIcon,
-  BusinessModelIcon,
-  CalendarIcon,
-  ChartUpIcon,
-  ChevronRightIcon,
-  MoonIcon,
-  PlusIcon,
-  SearchLgIcon,
-  SunIcon,
-  SunMoonIcon,
-  UsersIcon
-} from 'src/components/particles/theme/overrides/CustomIcons';
 import { responsiveSpacing } from 'src/components/particles/theme/spacing';
 import ColorPicker, { COLOR_PICKER_COLORS } from '../ColorPicker';
 import DataGrid from '../DataGrid';
@@ -48,6 +34,20 @@ import { DataGridProps } from '../DataGrid/DataGrid';
 import { MembersDataGrid } from '../DataGrid/DataGrid.stories';
 import type { CardProps } from './Card';
 import Card from './Card';
+import { ArrowUpRightIcon } from 'src/components/particles/theme/icons/Arrows/arrow-up-right';
+import { ChevronRightIcon } from 'src/components/particles/theme/icons/Arrows/chevron-right';
+import { PlusIcon } from 'src/components/particles/theme/icons/General/plus';
+import { SearchLgIcon } from 'src/components/particles/theme/icons/General/search-lg';
+import { CalendarIcon } from 'src/components/particles/theme/icons/Time/calendar';
+import {
+  BusinessModelIcon,
+  ChartUpIcon,
+  MoonIcon,
+  SunIcon,
+  SunMoonIcon
+} from 'src/components/particles/theme/overrides/CustomIcons';
+import { BookOpen01Icon } from 'src/components/particles/theme/icons/Education/book-open-01';
+import { Users01Icon } from 'src/components/particles/theme/icons/Users/users-01';
 
 export default {
   title: 'Organisms/Card',
@@ -1012,7 +1012,7 @@ export const PulseCard: Story = (args, context) => {
                 >
                   March 27, 2024
                 </Typography>
-                <BookOpenIcon
+                <BookOpen01Icon
                   sx={{
                     marginLeft: 2.5,
                     color: (theme: Theme) => theme.palette.grey[400],
@@ -1284,7 +1284,7 @@ export const OKRCard: Story = (args, context) => {
                 >
                   Quarter 1
                 </Typography>
-                <UsersIcon
+                <Users01Icon
                   sx={{ marginRight: 0.5, color: theme.palette.grey[400] }}
                 />
                 <Typography variant="textXsRegular" color="secondary">

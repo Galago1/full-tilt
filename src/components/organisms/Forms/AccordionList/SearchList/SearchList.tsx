@@ -5,7 +5,7 @@ import Button, { ButtonProps } from 'src/components/atoms/Button/Button';
 import { CheckboxList, EmptyState, TextInput } from 'src/components/molecules';
 import { EmptyStateProps } from 'src/components/molecules/EmptyState/EmptyState';
 import { CheckboxListProps } from 'src/components/molecules/Inputs/CheckboxList/CheckboxList';
-import { SearchMdIcon } from 'src/components/particles/theme/overrides/CustomIcons';
+import { SearchMdIcon } from 'src/components/particles/theme/icons/General/search-md';
 
 export interface SearchListProps extends GridProps {
   /**

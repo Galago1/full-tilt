@@ -12,20 +12,18 @@ import { styled } from '@mui/system';
 import { useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import Divider from 'src/components/atoms/Divider/Divider';
-import {
-  CheckVerifiedIcon,
-  FaceSmileIcon,
-  HeartIcon,
-  LayersTwo01Icon,
-  ListIcon,
-  MessageSmileCircleIcon,
-  PaletteIcon,
-  RouteIcon,
-  RulerIcon,
-  Target04Icon,
-  TrendUp01Icon,
-  Users03Icon
-} from 'src/components/particles/theme/overrides/CustomIcons';
+import { TrendUp01Icon } from 'src/components/particles/theme/icons/Charts/trend-up-01';
+import { MessageSmileCircleIcon } from 'src/components/particles/theme/icons/Communication/message-smile-circle';
+import { PaletteIcon } from 'src/components/particles/theme/icons/Editor/palette';
+import { RulerIcon } from 'src/components/particles/theme/icons/Education/ruler';
+import { CheckVerified01Icon } from 'src/components/particles/theme/icons/General/check-verified-01';
+import { HeartIcon } from 'src/components/particles/theme/icons/General/heart';
+import { Target04Icon } from 'src/components/particles/theme/icons/General/target-04';
+import { LayersTwo01Icon } from 'src/components/particles/theme/icons/Layout/layers-two-01';
+import { ListIcon } from 'src/components/particles/theme/icons/Layout/list';
+import { RouteIcon } from 'src/components/particles/theme/icons/MapsAndTravel/route';
+import { FaceSmileIcon } from 'src/components/particles/theme/icons/Users/face-smile';
+import { Users03Icon } from 'src/components/particles/theme/icons/Users/users-03';
 import { Quarter } from 'src/types/other';
 
 export const mockData = {
@@ -500,7 +498,7 @@ export const DraggableRow = ({
 };
 
 const categoryIcons = {
-  'Productivity & Focus': CheckVerifiedIcon,
+  'Productivity & Focus': CheckVerified01Icon,
   'Company Collaboration': Users03Icon,
   'Project Management': ListIcon,
   'Employee Engagement': MessageSmileCircleIcon,

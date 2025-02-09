@@ -1,14 +1,14 @@
+import { Theme } from '@mui/material';
 import type { ComponentMeta, Story } from '@storybook/react';
-import type { LoggedOutLayoutProps } from './LoggedOutLayout';
-import LoggedOutLayout from './LoggedOutLayout';
 import image from 'src/assets/images/testbg.png';
+import { Menu01Icon } from 'src/components/particles/theme/icons/General/menu-01';
 import {
   GalagoFullIcon,
-  GalagoLogoIcon,
-  MenuIcon
+  GalagoLogoIcon
 } from 'src/components/particles/theme/overrides/CustomIcons';
-import { Theme } from '@mui/material';
 import { LoggedOutListItems } from 'src/utils/users/menu';
+import type { LoggedOutLayoutProps } from './LoggedOutLayout';
+import LoggedOutLayout from './LoggedOutLayout';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -71,7 +71,7 @@ LoggedOutLayoutMobileTemplate.args = {
       iconButtonProps: {
         size: 'small'
       },
-      label: <MenuIcon />,
+      label: <Menu01Icon />,
       dropdownListItems: [
         ...LoggedOutListItems({
           login: () => {},

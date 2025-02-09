@@ -14,9 +14,9 @@ import {
   TextOnly,
   TextOnlyActive
 } from 'src/components/molecules/SideNavListItem/SideNavListItem.stories';
-import { ArrowLeftIcon } from 'src/components/particles/theme/overrides/CustomIcons';
 import type { SideNavProps } from './SideNav';
 import SideNav from './SideNav';
+import { ArrowLeftIcon } from 'src/components/particles/theme/icons/Arrows/arrow-left';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {

@@ -1,7 +1,7 @@
 import { Grid, GridProps, Typography } from '@mui/material';
-import EmptyState from 'src/components/molecules/EmptyState/EmptyState';
-import { ArrowLeftIcon } from 'src/components/particles/theme/overrides/CustomIcons';
 import Image from 'src/components/atoms/Image/Image';
+import EmptyState from 'src/components/molecules/EmptyState/EmptyState';
+import { ArrowLeftIcon } from 'src/components/particles/theme/icons/Arrows/arrow-left';
 import { responsiveSpacing } from 'src/components/particles/theme/spacing';
 
 export interface NotFoundProps extends GridProps {

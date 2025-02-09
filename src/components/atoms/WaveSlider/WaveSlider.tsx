@@ -1,8 +1,7 @@
-import { Grid, SvgIconProps, Typography } from '@mui/material';
+import { Grid, GridProps, SvgIconProps, Typography } from '@mui/material';
 import { FieldInputProps, FieldProps, FormikProps } from 'formik';
+import { ChevronRightIcon } from 'src/components/particles/theme/icons/Arrows/chevron-right';
 import { ChangeType, useWaveSlider } from './hooks';
-import { ChevronRightIcon } from 'src/components/particles/theme/overrides/CustomIcons';
-import { GridProps } from '@mui/material';
 
 export interface WaveSliderProps extends FieldProps {
   min?: number;

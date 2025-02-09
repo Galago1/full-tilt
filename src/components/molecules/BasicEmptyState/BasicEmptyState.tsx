@@ -8,7 +8,7 @@ import {
 } from '@mui/material';
 import { AvatarProps } from 'src/components/atoms/Avatar/Avatar';
 import Button, { ButtonProps } from 'src/components/atoms/Button/Button';
-import { Lightning01Icon } from 'src/components/particles/theme/overrides/CustomIcons';
+import { Lightning01Icon } from 'src/components/particles/theme/icons/Weather/lightning-01';
 import EmptyState, { EmptyStateProps } from '../EmptyState/EmptyState';
 
 export interface BasicEmptyStateProps extends EmptyStateProps {

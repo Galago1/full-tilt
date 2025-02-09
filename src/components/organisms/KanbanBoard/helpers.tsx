@@ -5,12 +5,10 @@ import { Avatar, Chip } from 'src/components/atoms';
 import Dropdown from 'src/components/molecules/Dropdown/Dropdown';
 import { DropdownListItem } from 'src/components/molecules/Dropdown/DropdownList/DropdownList';
 import { HeadCell } from 'src/components/molecules/Table/TableHeader/TableHeader';
-import {
-  BatteryFullIcon,
-  BatteryLowIcon,
-  BatteryMidIcon,
-  DotsVerticalIcon
-} from 'src/components/particles/theme/overrides/CustomIcons';
+import { DotsVerticalIcon } from 'src/components/particles/theme/icons/General/dots-vertical';
+import { BatteryFullIcon } from 'src/components/particles/theme/icons/MediaAndDevices/battery-full';
+import { BatteryLowIcon } from 'src/components/particles/theme/icons/MediaAndDevices/battery-low';
+import { BatteryMidIcon } from 'src/components/particles/theme/icons/MediaAndDevices/battery-mid';
 import { rowInitials } from 'src/utils/users/initials';
 
 const statuses: any = {

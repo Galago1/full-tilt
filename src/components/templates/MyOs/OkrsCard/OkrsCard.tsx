@@ -6,10 +6,8 @@ import {
   Typography,
   useTheme
 } from '@mui/material';
+import { CalendarIcon } from '@mui/x-date-pickers';
 import { isEmpty } from 'lodash';
-import { Fragment } from 'react/jsx-runtime';
-import Button from 'src/components/atoms/Button/Button';
-import Divider from 'src/components/atoms/Divider/Divider';
 import AvatarAndText from 'src/components/molecules/AvatarAndText/AvatarAndText';
 import BasicEmptyState from 'src/components/molecules/BasicEmptyState';
 import CircularProgressIndicator, {
@@ -17,20 +15,16 @@ import CircularProgressIndicator, {
 } from 'src/components/molecules/CircularProgressIndicator/CircularProgressIndicator';
 import LoadingIndicator from 'src/components/molecules/LoadingIndicator/LoadingIndicator';
 import Card, { CardProps } from 'src/components/organisms/Card/Card';
-import {
-  ArrowUpRightIcon,
-  CalendarIcon,
-  ChevronRightIcon,
-  TriangleIcon,
-  UserIcon,
-  Users01Icon
-} from 'src/components/particles/theme/overrides/CustomIcons';
+import { ChevronRightIcon } from 'src/components/particles/theme/icons/Arrows/chevron-right';
+import { TriangleIcon } from 'src/components/particles/theme/icons/Shapes/triangle';
+import { User01Icon } from 'src/components/particles/theme/icons/Users/user-01';
+import { Users01Icon } from 'src/components/particles/theme/icons/Users/users-01';
 import { responsiveSpacing } from 'src/components/particles/theme/spacing';
-import { Okr } from '../types';
 import SharedListCardContent from '../SharedListCardContent/SharedListCardContent';
+import { Okr } from '../types';
 
 const okrTypeOptions: any = {
-  individual: <UserIcon sx={{ color: (theme) => theme.palette.grey[400] }} />,
+  individual: <User01Icon sx={{ color: (theme) => theme.palette.grey[400] }} />,
   company: <Users01Icon sx={{ color: (theme) => theme.palette.grey[400] }} />
 };
 

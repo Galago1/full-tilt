@@ -12,11 +12,9 @@ import type { ComponentMeta, Story } from '@storybook/react';
 import Chip from 'src/components/atoms/Chip/Chip';
 import type { DividerProps } from 'src/components/atoms/Divider/Divider';
 import Divider from 'src/components/atoms/Divider/Divider';
-import {
-  ImageIcon,
-  UmbrellaIcon,
-  WorkIcon
-} from 'src/components/particles/theme/overrides/CustomIcons';
+import { Image01Icon } from '../particles/theme/icons/Images/image-01';
+import { Umbrella03Icon } from '../particles/theme/icons/Weather/umbrella-03';
+import { Briefcase01Icon } from '../particles/theme/icons/Education/briefcase-01';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -41,7 +39,7 @@ const TemplateInsetDividers: Story<DividerProps> = (args) => {
       <ListItem>
         <ListItemAvatar>
           <Avatar>
-            <ImageIcon />
+            <Image01Icon />
           </Avatar>
         </ListItemAvatar>
         <ListItemText primary="Photos" secondary="Jan 9, 2014" />
@@ -50,7 +48,7 @@ const TemplateInsetDividers: Story<DividerProps> = (args) => {
       <ListItem>
         <ListItemAvatar>
           <Avatar>
-            <WorkIcon />
+            <Briefcase01Icon />
           </Avatar>
         </ListItemAvatar>
         <ListItemText primary="Work" secondary="Jan 7, 2014" />
@@ -59,7 +57,7 @@ const TemplateInsetDividers: Story<DividerProps> = (args) => {
       <ListItem>
         <ListItemAvatar>
           <Avatar>
-            <UmbrellaIcon />
+            <Umbrella03Icon />
           </Avatar>
         </ListItemAvatar>
         <ListItemText primary="Vacation" secondary="July 20, 2014" />
