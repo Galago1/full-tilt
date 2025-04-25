@@ -4,8 +4,8 @@ import type { DividerProps } from 'src/components/atoms/Divider/Divider';
 import Divider from 'src/components/atoms/Divider/Divider';
 
 export interface DropdownListItem {
-  menuItemProps?: MenuItemProps;
-  dividerProps?: DividerProps;
+  menuItemProps?: MenuItemProps & { gridItemProps?: GridProps };
+  dividerProps?: DividerProps & { gridItemProps?: GridProps };
 }
 
 export interface DropdownListProps {
@@ -32,12 +32,21 @@ export const DropdownList = ({
       {dropdownListItems.map((dropdownListItem, index) => {
         if (dropdownListItem.menuItemProps)
           return (
-            <Grid item key={`menu-item-item-[${index}]`} {...gridItemProps}>
+            <Grid
+              item
+              key={`menu-item-item-[${index}]`}
+              {...(dropdownListItem.menuItemProps.gridItemProps ||
+                gridItemProps)}
+            >
               <MenuItem {...dropdownListItem.menuItemProps} />
             </Grid>
           );
         return (
-          <Grid item key={`divider-item-[${index}]`} {...gridItemProps}>
+          <Grid
+            item
+            key={`divider-item-[${index}]`}
+            {...(dropdownListItem.dividerProps?.gridItemProps || gridItemProps)}
+          >
             <Divider {...dropdownListItem.dividerProps} />
           </Grid>
         );

@@ -10,7 +10,7 @@ import AvatarAndText from 'src/components/molecules/AvatarAndText/AvatarAndText'
 import TablePaginationWave, {
   TablePaginationWaveProps
 } from 'src/components/molecules/Table/TablePaginationWave/TablePaginationWave';
-import Card from 'src/components/organisms/Card/Card';
+import Card, { CardProps } from 'src/components/organisms/Card/Card';
 import DataGrid, {
   DataGridProps
 } from 'src/components/organisms/DataGrid/DataGrid';
@@ -75,13 +75,7 @@ const CircularProgressWithLabel = ({
   );
 };
 
-const cardSx = {
-  border: (theme: Theme) => theme.border.basicBox,
-  borderRadius: (theme: Theme) => theme.borderRadius.md,
-  boxShadow: (theme: Theme) => theme.customShadows.xs
-};
-
-export interface ResponseRateCardProps {
+export interface ResponseRateCardProps extends Omit<CardProps, 'slots'> {
   totalStandUps: number;
   totalStandUpsChange: number;
   onTrackRate: number;
@@ -91,6 +85,7 @@ export interface ResponseRateCardProps {
   avgResponseRate: number;
   avgResponseRateChange: number;
   lineChartComp: JSX.Element;
+  cardSlots?: CardProps['slots'];
   slots: {
     dataGridProps: DataGridProps;
     dataGridGridItemProps?: GridProps;
@@ -98,6 +93,7 @@ export interface ResponseRateCardProps {
   };
   responseCardDateForm: JSX.Element;
   showChange?: boolean;
+  showHeader?: boolean;
 }
 
 const ResponseRateCard = ({
@@ -112,7 +108,10 @@ const ResponseRateCard = ({
   responseCardDateForm,
   lineChartComp,
   showChange,
-  slots
+  showHeader = true,
+  cardSlots,
+  slots,
+  ...props
 }: ResponseRateCardProps) => {
   const {
     dataGridProps,
@@ -124,26 +123,28 @@ const ResponseRateCard = ({
   });
 
   return (
-    <Card showActions={false} sx={cardSx}>
+    <Card showActions={false} slots={cardSlots} {...props}>
       <Grid container flexDirection={'column'} gap={responsiveSpacing}>
         <Grid item container gap={responsiveSpacing}>
-          <Grid
-            container
-            justifyContent="space-between"
-            alignItems="center"
-            gap={responsiveSpacing}
-          >
-            <Grid item display={'flex'} alignItems={'flex-start'}>
-              <Typography variant="textLgSemibold">
-                Response Rate Overview
-              </Typography>
-            </Grid>
-            {responseCardDateForm && (
-              <Grid item alignItems={'center'}>
-                {responseCardDateForm}
+          {showHeader && (
+            <Grid
+              container
+              justifyContent="space-between"
+              alignItems="center"
+              gap={responsiveSpacing}
+            >
+              <Grid item display={'flex'} alignItems={'flex-start'}>
+                <Typography variant="textLgSemibold">
+                  Response Rate Overview
+                </Typography>
               </Grid>
-            )}
-          </Grid>
+              {responseCardDateForm && (
+                <Grid item alignItems={'center'}>
+                  {responseCardDateForm}
+                </Grid>
+              )}
+            </Grid>
+          )}
 
           <Grid container spacing={3} mb={0}>
             <Grid item xs={12} sm={4}>

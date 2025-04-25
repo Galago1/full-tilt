@@ -1,30 +1,21 @@
-import {
-  Grid,
-  Paper,
-  PaperProps,
-  // styled,
-  TableCell,
-  TableRow,
-  Theme,
-  Typography
-} from '@mui/material';
+import { Paper, PaperProps, TableCell, TableRow, Theme } from '@mui/material';
 import { styled } from '@mui/system';
 import { useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
-import Divider from 'src/components/atoms/Divider/Divider';
-import { TrendUp01Icon } from 'src/components/particles/theme/icons/Charts/trend-up-01';
-import { MessageSmileCircleIcon } from 'src/components/particles/theme/icons/Communication/message-smile-circle';
-import { PaletteIcon } from 'src/components/particles/theme/icons/Editor/palette';
-import { RulerIcon } from 'src/components/particles/theme/icons/Education/ruler';
-import { CheckVerified01Icon } from 'src/components/particles/theme/icons/General/check-verified-01';
-import { HeartIcon } from 'src/components/particles/theme/icons/General/heart';
-import { Target04Icon } from 'src/components/particles/theme/icons/General/target-04';
-import { LayersTwo01Icon } from 'src/components/particles/theme/icons/Layout/layers-two-01';
-import { ListIcon } from 'src/components/particles/theme/icons/Layout/list';
-import { RouteIcon } from 'src/components/particles/theme/icons/MapsAndTravel/route';
-import { FaceSmileIcon } from 'src/components/particles/theme/icons/Users/face-smile';
-import { Users03Icon } from 'src/components/particles/theme/icons/Users/users-03';
-import { Quarter } from 'src/types/other';
+import Avatar from 'src/components/atoms/Avatar/Avatar';
+import Tooltip from 'src/components/atoms/Tooltip/Tooltip';
+// import { TrendUp01Icon } from 'src/components/particles/theme/icons/Charts/trend-up-01';
+// import { MessageSmileCircleIcon } from 'src/components/particles/theme/icons/Communication/message-smile-circle';
+// import { PaletteIcon } from 'src/components/particles/theme/icons/Editor/palette';
+// import { RulerIcon } from 'src/components/particles/theme/icons/Education/ruler';
+// import { CheckVerified01Icon } from 'src/components/particles/theme/icons/General/check-verified-01';
+// import { HeartIcon } from 'src/components/particles/theme/icons/General/heart';
+// import { Target04Icon } from 'src/components/particles/theme/icons/General/target-04';
+// import { LayersTwo01Icon } from 'src/components/particles/theme/icons/Layout/layers-two-01';
+// import { ListIcon } from 'src/components/particles/theme/icons/Layout/list';
+// import { RouteIcon } from 'src/components/particles/theme/icons/MapsAndTravel/route';
+// import { FaceSmileIcon } from 'src/components/particles/theme/icons/Users/face-smile';
+// import { Users03Icon } from 'src/components/particles/theme/icons/Users/users-03';
 
 export const mockData = {
   q1: {
@@ -335,36 +326,69 @@ type TeamData = Record<Category, Score>;
 
 export type SurveyData = Record<string, TeamData>;
 
-const RotatedTypography = styled(Typography)(({ theme }) => ({
-  writingMode: 'vertical-rl',
-  textOrientation: 'mixed',
-  transform: 'rotate(180deg)',
-  whiteSpace: 'nowrap',
-  variant: 'textSmMedium',
-  [theme.breakpoints.down('sm')]: {
-    writingMode: 'horizontal-tb',
-    transform: 'none'
-  }
-}));
+export enum FeedbackName {
+  PRODUCTIVITY_AND_FOCUS = 'productivity_and_focus',
+  COMPANY_COLLABORATION = 'company_collaboration',
+  PROJECT_MANAGEMENT = 'project_management',
+  EMPLOYEE_ENGAGEMENT = 'employee_engagement',
+  TRAINING_AND_DEVELOPMENT = 'training_and_development',
+  INNOVATION_AND_CREATIVITY = 'innovation_and_creativity',
+  CUSTOMER_INSIGHTS = 'customer_insights',
+  PROCESS_IMPROVEMENT = 'process_improvement',
+  LEADERSHIP_AND_MANAGEMENT = 'leadership_and_management',
+  COMPANY_CULTURE = 'company_culture',
+  ROADMAP_AND_STRATEGY = 'roadmap_and_strategy',
+  CUSTOMER_TESTING_AND_FEEDBACK = 'customer_testing_and_feedback'
+}
 
-const IconWrapper = styled(Grid)({
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  height: '24px'
-});
+export const feedbackNamesEmoji = {
+  [FeedbackName.PRODUCTIVITY_AND_FOCUS]: '🎯',
+  [FeedbackName.COMPANY_COLLABORATION]: '🤝',
+  [FeedbackName.PROJECT_MANAGEMENT]: '📋',
+  [FeedbackName.EMPLOYEE_ENGAGEMENT]: '⚡️',
+  [FeedbackName.TRAINING_AND_DEVELOPMENT]: '🎓',
+  [FeedbackName.INNOVATION_AND_CREATIVITY]: '💡',
+  [FeedbackName.CUSTOMER_INSIGHTS]: '🔍',
+  [FeedbackName.PROCESS_IMPROVEMENT]: '🔧',
+  [FeedbackName.LEADERSHIP_AND_MANAGEMENT]: '🧑‍💼',
+  [FeedbackName.COMPANY_CULTURE]: '🏢',
+  [FeedbackName.ROADMAP_AND_STRATEGY]: '🗺️',
+  [FeedbackName.CUSTOMER_TESTING_AND_FEEDBACK]: '📣'
+};
 
-export const CellBox = styled(Paper)<PaperProps>(({ theme }: any) => ({
+// prettier-ignore
+export const capitalizedNameToFeedbackName: Record<string, FeedbackName> = {
+  ['Productivity & Focus']: FeedbackName.PRODUCTIVITY_AND_FOCUS,
+  ['Company Collaboration']: FeedbackName.COMPANY_COLLABORATION,
+  ['Project Management']: FeedbackName.PROJECT_MANAGEMENT,
+  ['Employee Engagement']: FeedbackName.EMPLOYEE_ENGAGEMENT,
+  ['Training & Development']: FeedbackName.TRAINING_AND_DEVELOPMENT,
+  ['Innovation & Creativity']: FeedbackName.INNOVATION_AND_CREATIVITY,
+  ['Customer Insights']: FeedbackName.CUSTOMER_INSIGHTS,
+  ['Process Improvement']: FeedbackName.PROCESS_IMPROVEMENT,
+  ['Leadership & Management']: FeedbackName.LEADERSHIP_AND_MANAGEMENT,
+  ['Company Culture']: FeedbackName.COMPANY_CULTURE,
+  ['Roadmap & Strategy']: FeedbackName.ROADMAP_AND_STRATEGY,
+  ['Customer Testing & Feedback']: FeedbackName.CUSTOMER_TESTING_AND_FEEDBACK
+}
+
+export const CellBox = styled(Paper)<
+  PaperProps & { isLastRow?: boolean; isFirstColumn?: boolean }
+>(({ theme, isLastRow, isFirstColumn }: any) => ({
   padding: `${theme.spacing(1)} ${theme.spacing(2)}`,
-  textAlign: 'center',
-  height: '44px',
+  textAlign: isFirstColumn ? 'left' : 'center',
+  height: '48px',
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
-  alignItems: 'center',
-  border: theme.border.basicBox,
-  borderRadius: theme.borderRadius.md,
-  boxShadow: 'none'
+  alignItems: isFirstColumn ? 'flex-start' : 'center',
+  border: 'none',
+  borderRight: `1px solid ${theme.palette.grey[300]}`,
+  borderBottom: isLastRow ? 'none' : `1px solid ${theme.palette.grey[300]}`,
+  borderRadius: 0,
+  boxShadow: 'none',
+  width: isFirstColumn ? '260px' : 'auto', // Set width for first column
+  minWidth: isFirstColumn ? '260px' : 'auto'
 }));
 
 const RotatedCellBox = styled(Paper)(({ theme }: any) => ({
@@ -375,37 +399,43 @@ const RotatedCellBox = styled(Paper)(({ theme }: any) => ({
   flexDirection: 'column',
   justifyContent: 'flex-end',
   alignItems: 'center',
-  border: theme.border.basicBox,
-  borderRadius: theme.borderRadius.md,
+  border: 'none',
+  borderRadius: 0,
   boxShadow: 'none'
 }));
 
-const HeaderCell = styled(TableCell)({
-  padding: 4,
-  borderBottom: 'none',
-  height: '44px'
-});
-
-const RotatedHeaderCell = styled(TableCell)({
-  padding: 4,
-  borderBottom: 'none',
-  height: '200px'
-});
-
-// Add VerticalDivider component
-const VerticalDivider = styled(Divider)(({ theme }) => ({
-  height: 1,
-  margin: `${theme.spacing(1)} 0 ${theme.spacing(0.5)} 0`,
-  backgroundColor: theme.palette.grey[300]
+const HeaderCell = styled(TableCell)(({ theme }: any) => ({
+  padding: 0,
+  borderBottom: `1px solid ${theme.palette.grey[300]}`,
+  borderRight: 'none',
+  height: '40px'
 }));
 
-export const DataCell = styled(TableCell)({
-  padding: 4,
-  borderBottom: 'none',
-  height: '44px'
-});
+const RotatedHeaderCell = styled(TableCell)(({ theme }: any) => ({
+  padding: 0,
+  borderBottom: `1px solid ${theme.palette.grey[300]}`,
+  borderRight: 'none',
+  height: '40px'
+}));
 
-export const TeamHeaderCell = styled(HeaderCell)(({ theme }) => ({
+export const DataCell = styled(TableCell)<{ isLastRow?: boolean }>(
+  ({ theme, isLastRow }: any) => ({
+    padding: 0,
+    borderBottom: 'none',
+    borderRight: 'none',
+    height: '48px'
+  })
+);
+
+export const TeamHeaderCell = styled(HeaderCell)(({ theme }: any) => ({
+  minWidth: '260px', // Always maintain a minimum width of 200px
+  width: '260px', // Fix the width at 200px
+  '@media (max-width: 1499px)': {
+    position: 'sticky',
+    left: 0,
+    zIndex: 3,
+    backgroundColor: theme.palette.background.paper
+  },
   '& > div': {
     display: 'flex',
     flexDirection: 'row',
@@ -414,20 +444,47 @@ export const TeamHeaderCell = styled(HeaderCell)(({ theme }) => ({
     textAlign: 'left',
     width: '100%',
     padding: `0 ${theme.spacing(1)}`,
-    paddingTop: theme.spacing(2)
+    paddingTop: theme.spacing(2),
+    height: '40px'
   }
 }));
 
-export const TeamDataCell = styled(DataCell)({
+export const TeamDataCell = styled(DataCell)(({ theme, isLastRow }: any) => ({
+  minWidth: '260px', // Always maintain a minimum width of 200px
+  width: '260px', // Fix the width at 200px
+  '@media (max-width: 1499px)': {
+    position: 'sticky',
+    left: 0,
+    zIndex: 2,
+    backgroundColor: theme.palette.background.paper
+  },
+  borderRight: `1px solid ${theme.palette.grey[300]}`,
   '& > div': {
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
     textAlign: 'left',
     whiteSpace: 'nowrap',
     overflow: 'hidden',
-    textOverflow: 'ellipsis'
+    textOverflow: 'ellipsis',
+    borderRight: 'none',
+    borderBottom: isLastRow ? 'none' : `1px solid ${theme.palette.grey[300]}`
   }
-});
+}));
+
+export const ShadowOverlay = styled('div')(({ theme }: any) => ({
+  display: 'none', // Hide by default
+  '@media (max-width: 1499px)': {
+    display: 'block', // Only show below 1500px
+    position: 'absolute',
+    top: '40px', // Below the header
+    left: '300px', // Exactly after the first column's fixed width
+    bottom: 0,
+    width: '8px',
+    background: `linear-gradient(to right, ${theme.palette.grey[300]}33, transparent)`,
+    pointerEvents: 'none',
+    zIndex: 1
+  }
+}));
 
 const DraggableTableRow = styled(TableRow)<{ dragEnabled: boolean }>(
   ({ dragEnabled }) => ({
@@ -451,13 +508,15 @@ interface DraggableRowProps {
   index: number;
   moveRow?: (dragIndex: number, hoverIndex: number) => void;
   children: React.ReactNode;
+  isLastRow?: boolean;
 }
 
 export const DraggableRow = ({
   dragEnabled = true,
   index,
   moveRow,
-  children
+  children,
+  isLastRow = false
 }: DraggableRowProps) => {
   const ref = useRef<HTMLTableRowElement>(null);
   const [, drop] = useDrop({
@@ -495,21 +554,6 @@ export const DraggableRow = ({
       {children}
     </DraggableTableRow>
   );
-};
-
-const categoryIcons = {
-  'Productivity & Focus': CheckVerified01Icon,
-  'Company Collaboration': Users03Icon,
-  'Project Management': ListIcon,
-  'Employee Engagement': MessageSmileCircleIcon,
-  'Training & Development': TrendUp01Icon,
-  'Roadmap & Strategy': Target04Icon,
-  'Innovation & Creativity': PaletteIcon,
-  'Customer Insights': FaceSmileIcon,
-  'Process Improvement': RouteIcon,
-  'Leadership & Management': LayersTwo01Icon,
-  'Customer Testing & Feedback': RulerIcon,
-  'Company Culture': HeartIcon
 };
 
 interface DraggableHeaderCellProps {
@@ -552,63 +596,17 @@ export const DraggableHeaderCell = ({
 
   drag(drop(ref));
 
-  const IconComponent = categoryIcons[category] || Users03Icon;
+  const icon: any = feedbackNamesEmoji[capitalizedNameToFeedbackName[category]];
 
   return (
     <RotatedHeaderCell ref={ref} style={{ opacity: isDragging ? 0.5 : 1 }}>
       <RotatedCellBox sx={{ gap: 1 }}>
-        <RotatedTypography
-          variant="body2"
-          sx={{ color: theme.palette.grey[900] }}
-        >
-          {category}
-        </RotatedTypography>
-        <VerticalDivider orientation="vertical" flexItem />
-        <IconWrapper>
-          <IconComponent
-            sx={{
-              color: theme.palette.grey[500],
-              fontSize: '24px', // Slightly smaller icon
-              marginTop: 0.75,
-              marginBottom: 1
-            }}
-          />
-        </IconWrapper>
+        <Tooltip title={category}>
+          <Avatar sx={{ width: 24, height: 24, bgcolor: 'transparent' }}>
+            {icon}
+          </Avatar>
+        </Tooltip>
       </RotatedCellBox>
     </RotatedHeaderCell>
   );
-};
-
-export const getQuarterSpan = (quarter: Quarter, fiscalYear: Date): string => {
-  // Get the starting month of the fiscal year (0-11)
-  const fiscalYearStartMonth = fiscalYear.getMonth();
-
-  // Calculate the start month for each quarter based on fiscal year start
-  const quarterMonths: Record<Quarter, [number, number]> = {
-    q1: [fiscalYearStartMonth, (fiscalYearStartMonth + 2) % 12],
-    q2: [(fiscalYearStartMonth + 3) % 12, (fiscalYearStartMonth + 5) % 12],
-    q3: [(fiscalYearStartMonth + 6) % 12, (fiscalYearStartMonth + 8) % 12],
-    q4: [(fiscalYearStartMonth + 9) % 12, (fiscalYearStartMonth + 11) % 12]
-  };
-
-  // Get month range for the requested quarter
-  const [startMonth, endMonth] = quarterMonths[quarter];
-
-  // Convert month numbers to abbreviated month names
-  const monthNames = [
-    'Jan',
-    'Feb',
-    'Mar',
-    'Apr',
-    'May',
-    'Jun',
-    'Jul',
-    'Aug',
-    'Sep',
-    'Oct',
-    'Nov',
-    'Dec'
-  ];
-
-  return `${monthNames[startMonth]}-${monthNames[endMonth]}`;
 };

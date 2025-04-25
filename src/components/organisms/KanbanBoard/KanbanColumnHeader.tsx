@@ -1,14 +1,61 @@
 import { Grid, useTheme } from '@mui/material';
+import { sum } from 'lodash';
+import { useMemo, useState } from 'react';
+import { Tooltip } from 'src/components/atoms';
 import Chip from 'src/components/atoms/Chip/Chip';
 import { AvatarAndText } from 'src/components/molecules';
-import { IndividualKanbanColumn } from './types';
+import { Hash01Icon } from 'src/components/particles/theme/icons/General/hash-01';
+import { EstimateIcon } from 'src/components/particles/theme/overrides/CustomIcons';
+import { IndividualKanbanColumn } from '../Kanban/types';
 
 export interface KanbanColumnHeaderProps {
-  column?: IndividualKanbanColumn;
+  column: IndividualKanbanColumn;
 }
 
 const KanbanColumnHeader = ({ column }: KanbanColumnHeaderProps) => {
+  // Support multiple count modes (dynamic chip)
+  const countModes =
+    column?.countModes && column.countModes.length > 0
+      ? column.countModes
+      : [
+          {
+            field: 'estimate',
+            label: column.subsequentNoun + ' count',
+            icon: <EstimateIcon />,
+            type: 'sum' as const,
+            noun: column.subsequentNoun
+          },
+          {
+            field: '',
+            label: column.initialNoun + ' count',
+            icon: <Hash01Icon />,
+            type: 'count' as const,
+            noun: column.initialNoun
+          }
+        ];
+
+  const [modeIndex, setModeIndex] = useState(0);
   const theme = useTheme();
+
+  // Calculate value for current mode
+  const mode = countModes[modeIndex];
+  const value = useMemo(() => {
+    if (mode.type === 'sum' && mode.field) {
+      const list = column.cards.map((card) => {
+        const v = card[mode.field as keyof typeof card];
+        return typeof v === 'number' ? v : 0;
+      });
+      return sum(list) || 0;
+    }
+    if (mode.type === 'count') {
+      return column.cards.length;
+    }
+    return 0;
+  }, [column.cards, mode]);
+
+  const toggleMode = () => {
+    setModeIndex((prev) => (prev + 1) % countModes.length);
+  };
 
   return (
     <Grid
@@ -17,8 +64,7 @@ const KanbanColumnHeader = ({ column }: KanbanColumnHeaderProps) => {
         border: theme.border.appearanceCardHover,
         borderRadius: theme.borderRadius.sm,
         backgroundColor: theme.palette.common.white,
-        // m: 2,
-        padding: theme.spacing(2, 12 / 8),
+        padding: theme.spacing(5 / 8, 4 / 8),
         alignItems: 'center',
         width: 'auto'
       }}
@@ -27,7 +73,7 @@ const KanbanColumnHeader = ({ column }: KanbanColumnHeaderProps) => {
       <Grid item flex={1}>
         <Grid
           container
-          gap={2}
+          gap={1}
           alignItems="center"
           {...column?.headerContainerGridItemProps}
         >
@@ -46,10 +92,10 @@ const KanbanColumnHeader = ({ column }: KanbanColumnHeaderProps) => {
           {column?.title && (
             <Grid item>
               <AvatarAndText
+                alignItems={'center'}
                 title={column?.title}
                 titleTypography={{
-                  variant: 'textSmSemibold',
-                  color: 'grey.700'
+                  variant: 'textSmMedium'
                 }}
                 sx={{
                   overflow: 'hidden',
@@ -60,9 +106,19 @@ const KanbanColumnHeader = ({ column }: KanbanColumnHeaderProps) => {
               />
             </Grid>
           )}
-          <Grid item>
-            <Chip variant="outlined" label={column?.cards.length} />
-          </Grid>
+          {column?.includeHeaderChip && (
+            <Grid item>
+              <Tooltip title={mode.label}>
+                <Chip
+                  variant="outlined"
+                  icon={mode.icon as any}
+                  label={String(value)}
+                  onClick={toggleMode}
+                  data-testid="kanban-column-header-chip"
+                />
+              </Tooltip>
+            </Grid>
+          )}
         </Grid>
       </Grid>
 

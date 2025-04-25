@@ -24,6 +24,7 @@ export interface RowDataObject {
 export interface RowData {
   id?: string;
   owner: string;
+  slug: string;
   avatar?: string;
   title: string;
   goal: string;

@@ -1,10 +1,11 @@
 import type { GridProps, IconButtonProps } from '@mui/material';
 import type { AvatarAndTextProps } from '../../AvatarAndText/AvatarAndText';
-import { Box, BoxProps } from '@mui/material';
+import { Box, BoxProps, Grid } from '@mui/material';
 import { ButtonProps } from 'src/components/atoms/Button/Button';
 import { DropdownMenu, DropdownMenuProps } from '../DropdownMenu/DropdownMenu';
 import { DropdownAnchor } from '../DropdownAnchor/DropdownAnchor';
 import { DropdownListItem } from '../DropdownList/DropdownList';
+import Tooltip, { TooltipProps } from 'src/components/atoms/Tooltip/Tooltip';
 
 export interface DropdownUncontrolledProps extends BoxProps {
   /**
@@ -70,6 +71,10 @@ export interface DropdownUncontrolledProps extends BoxProps {
    * The anchor component
    */
   anchorComponent?: React.ReactNode;
+  /**
+   * The tooltip props
+   */
+  tooltipProps?: TooltipProps;
 }
 const DropdownUncontrolled = ({
   label,
@@ -86,35 +91,54 @@ const DropdownUncontrolled = ({
   handleClose,
   open,
   anchorComponent,
+  tooltipProps,
   ...props
 }: DropdownUncontrolledProps) => {
-  console.log('DropdowdropdownMenuPropsnUncontrolled', dropdownMenuProps);
   return (
     <Box {...boxProps} {...props}>
-      <DropdownAnchor
-        label={label}
-        onClick={handleClick}
-        buttonProps={buttonProps}
-        iconButtonProps={iconButtonProps}
-        isOpen={open}
-        anchorComponent={anchorComponent}
+      <Tooltip {...tooltipProps!}>
+        <Grid>
+          <DropdownAnchor
+            label={label}
+            onClick={handleClick}
+            buttonProps={buttonProps}
+            iconButtonProps={iconButtonProps}
+            isOpen={open}
+            anchorComponent={anchorComponent}
+          />
+        </Grid>
+      </Tooltip>
+      <DropdownMenu
+        anchorEl={anchorEl}
+        id="account-menu"
+        onClose={handleClose}
+        onClick={handleClose}
+        transformOrigin={
+          dropdownMenuProps?.transformOrigin || {
+            horizontal: 'right',
+            vertical: 'top'
+          }
+        }
+        anchorOrigin={
+          dropdownMenuProps?.anchorOrigin || {
+            horizontal: 'right',
+            vertical: 'bottom'
+          }
+        }
+        avatarAndTextProps={avatarAndTextProps}
+        dropdownListItems={dropdownListItems}
+        gridItemProps={gridItemProps}
+        gridContainerProps={gridContainerProps}
+        open={open}
+        TransitionProps={{
+          mountOnEnter: true,
+          unmountOnExit: true,
+          onExited: () => {
+            // Additional cleanup if needed after animation
+          }
+        }}
+        {...dropdownMenuProps}
       />
-      {anchorEl && (
-        <DropdownMenu
-          anchorEl={anchorEl}
-          id="account-menu"
-          onClose={handleClose}
-          onClick={handleClose}
-          transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-          anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-          {...dropdownMenuProps}
-          avatarAndTextProps={avatarAndTextProps}
-          dropdownListItems={dropdownListItems}
-          gridItemProps={gridItemProps}
-          gridContainerProps={gridContainerProps}
-          open={open}
-        />
-      )}
     </Box>
   );
 };

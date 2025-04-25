@@ -7,6 +7,8 @@ import { SkipForwardIcon } from 'src/components/particles/theme/icons/MediaAndDe
 import { VerifiedTickIcon } from 'src/components/particles/theme/overrides/CustomIcons';
 import { rowInitials } from 'src/utils/users/initials';
 import { TeamMember } from './StandUpUserList';
+import { EscapeChar } from 'src/components/particles/theme/spacing';
+import { attachmentIconSx } from 'src/constants/spacing';
 
 interface StandUpMemberDetailCardContentHeaderProps {
   member: TeamMember;
@@ -26,35 +28,46 @@ const StandUpMemberDetailCardContentHeader = ({
   canGoNext,
   theme,
   showEditButton,
-  editButtonProps
+  editButtonProps,
+  ...props
 }: StandUpMemberDetailCardContentHeaderProps) => {
   const grey700 = theme.palette.grey[800];
   return (
     <Grid
       container
       sx={{
-        alignItems: 'center',
-        mb: 2
+        alignItems: 'center'
+        // mb: 0
+        // minHeight: 48
       }}
       gap={2}
+      {...props}
     >
       <Grid item flex={1} display={'flex'}>
-        <Grid container gap={2} flexWrap={'nowrap'}>
+        <Grid container gap={1} alignItems={'center'} flexWrap={'nowrap'}>
           <Grid item>
             <Avatar
               alt={member.name}
-              sx={{ width: 56, height: 56 }}
+              sx={{ width: 28, height: 28 }}
               src={member.imageUrl}
             >
-              {rowInitials({ name: member.name })}
+              {rowInitials({ name: member.name }, true)}
             </Avatar>
           </Grid>
 
           <Grid item flex={1}>
-            <Grid display={'flex'} gap={2} alignItems={'center'}>
-              <Typography variant="displayXsRegular" noWrap>
+            <Grid display={'flex'} gap={1} alignItems={'center'}>
+              <Typography variant="textMdRegular" noWrap>
                 {member.name}
               </Typography>
+              {member.team && (
+                <>
+                  {EscapeChar.MIDDOT}
+                  <Typography variant="textSmRegular" color="text.primary">
+                    {member.team}
+                  </Typography>
+                </>
+              )}
               {member.standUpCompletedAt && (
                 <Chip
                   label={
@@ -69,14 +82,15 @@ const StandUpMemberDetailCardContentHeader = ({
                   variant={'outlined'}
                   sx={{
                     backgroundColor: 'transparent',
-                    borderRadius: theme.borderRadius.sm
+                    borderRadius: theme.borderRadius.xs,
+                    '&:hover': {
+                      backgroundColor: 'transparent'
+                    },
+                    lineHeight: 1.25
                   }}
                 />
               )}
             </Grid>
-            <Typography variant="textSmRegular" color="text.secondary">
-              {member.team}
-            </Typography>
           </Grid>
         </Grid>
       </Grid>
@@ -93,21 +107,23 @@ const StandUpMemberDetailCardContentHeader = ({
               <Button
                 color="secondary"
                 onClick={onBack}
-                startIcon={<SkipBackIcon />}
+                startIcon={<SkipBackIcon sx={attachmentIconSx} />}
                 disabled={!canGoBack}
                 variant={'outlined'}
+                size="xs"
                 label="Back"
               />
             </Grid>
           )}
           {canGoNext && (
-            <Grid item width={100}>
+            <Grid item>
               <Button
                 color="secondary"
                 onClick={onNext}
-                endIcon={<SkipForwardIcon />}
+                endIcon={<SkipForwardIcon sx={attachmentIconSx} />}
                 disabled={!canGoNext}
                 variant={'outlined'}
+                size="xs"
                 label="Next"
               />
             </Grid>

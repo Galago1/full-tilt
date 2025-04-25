@@ -21,7 +21,8 @@ const Template: Story<StandUpSlideoutProps> = (args) => {
 
 export const Default = Template.bind({});
 Default.args = {
-  date: '04/20/2022',
+  // date: '04/20/2022',
+  date: new Date('2022-04-20'),
   slots: {
     standUpSlideoutContentProps: {
       slots: {

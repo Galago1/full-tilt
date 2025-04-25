@@ -1,10 +1,228 @@
-import { Avatar } from '@mui/material';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
+import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
+import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
+import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
+import { Avatar, Box, IconButton, styled, Typography } from '@mui/material';
 import type { ComponentMeta, Story } from '@storybook/react';
 import { CheckIcon } from 'src/components/particles/theme/icons/General/check';
 import { XCloseIcon } from 'src/components/particles/theme/icons/General/x-close';
 import { FaceSmileIcon } from 'src/components/particles/theme/icons/Users/face-smile';
 import type { ChipProps } from './Chip';
 import Chip from './Chip';
+
+// Custom styled components
+const SectionHeader = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  padding: theme.spacing(1, 2),
+  backgroundColor: theme.palette.background.default,
+  borderRadius: theme.shape.borderRadius,
+  marginBottom: theme.spacing(0.5),
+  '&:hover': {
+    backgroundColor: theme.palette.action.hover
+  }
+}));
+
+const TaskRow = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  padding: theme.spacing(1, 2),
+  borderBottom: `1px solid ${theme.palette.divider}`,
+  '&:hover': {
+    backgroundColor: theme.palette.action.hover
+  }
+}));
+
+const DragHandle = styled(Box)({
+  display: 'flex',
+  alignItems: 'center',
+  color: '#aaa',
+  marginRight: 8
+});
+
+const TaskInfo = styled(Box)({
+  display: 'flex',
+  alignItems: 'center',
+  flexGrow: 1
+});
+
+const DateInfo = styled(Typography)({
+  fontSize: '0.875rem',
+  color: '#888'
+});
+
+const TaskChip = styled(Chip)({
+  marginLeft: 8,
+  height: 24,
+  fontSize: '0.75rem'
+});
+
+function TaskList() {
+  return (
+    <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
+      {/* Todo Section */}
+      <SectionHeader>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <CircleOutlinedIcon sx={{ mr: 1, color: 'text.secondary' }} />
+          <Typography variant="subtitle1" component="div">
+            Todo
+          </Typography>
+          <Typography
+            variant="subtitle2"
+            component="span"
+            sx={{ ml: 1, color: 'text.secondary' }}
+          >
+            1
+          </Typography>
+        </Box>
+        <IconButton size="small">
+          <AddCircleOutlineIcon />
+        </IconButton>
+      </SectionHeader>
+
+      <TaskRow>
+        <TaskInfo>
+          <DragHandle>
+            <DragIndicatorIcon fontSize="small" />
+          </DragHandle>
+          <Typography sx={{ fontSize: '0.875rem', color: 'text.secondary' }}>
+            NL-5
+          </Typography>
+          <CircleOutlinedIcon
+            sx={{ mx: 1, fontSize: 20, color: 'text.secondary' }}
+          />
+          <Typography>trsdgf</Typography>
+        </TaskInfo>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <TaskChip label="Test" size="small" variant="outlined" />
+          <DateInfo sx={{ ml: 1 }}>Feb 25</DateInfo>
+          <IconButton size="small" sx={{ ml: 1 }}>
+            <PersonOutlineIcon fontSize="small" />
+          </IconButton>
+        </Box>
+      </TaskRow>
+
+      {/* Canceled Section */}
+      <SectionHeader sx={{ mt: 2 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <CancelOutlinedIcon sx={{ mr: 1, color: 'text.secondary' }} />
+          <Typography variant="subtitle1" component="div">
+            Canceled
+          </Typography>
+          <Typography
+            variant="subtitle2"
+            component="span"
+            sx={{ ml: 1, color: 'text.secondary' }}
+          >
+            4
+          </Typography>
+        </Box>
+        <IconButton size="small">
+          <AddCircleOutlineIcon />
+        </IconButton>
+      </SectionHeader>
+
+      <TaskRow>
+        <TaskInfo>
+          <DragHandle>
+            <DragIndicatorIcon fontSize="small" />
+          </DragHandle>
+          <Typography sx={{ fontSize: '0.875rem', color: 'text.secondary' }}>
+            NL-4
+          </Typography>
+          <CancelOutlinedIcon
+            sx={{ mx: 1, fontSize: 20, color: 'text.secondary' }}
+          />
+          <Typography>tes</Typography>
+        </TaskInfo>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <DateInfo>Feb 20</DateInfo>
+          <IconButton size="small" sx={{ ml: 1 }}>
+            <PersonOutlineIcon fontSize="small" />
+          </IconButton>
+        </Box>
+      </TaskRow>
+
+      <TaskRow>
+        <TaskInfo>
+          <DragHandle>
+            <DragIndicatorIcon fontSize="small" />
+          </DragHandle>
+          <Typography sx={{ fontSize: '0.875rem', color: 'text.secondary' }}>
+            NL-3
+          </Typography>
+          <CancelOutlinedIcon
+            sx={{ mx: 1, fontSize: 20, color: 'text.secondary' }}
+          />
+          <Typography>medium</Typography>
+        </TaskInfo>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <DateInfo>Feb 17</DateInfo>
+          <IconButton size="small" sx={{ ml: 1 }}>
+            <PersonOutlineIcon fontSize="small" />
+          </IconButton>
+        </Box>
+      </TaskRow>
+
+      <TaskRow>
+        <TaskInfo>
+          <DragHandle>
+            <DragIndicatorIcon fontSize="small" />
+          </DragHandle>
+          <Typography sx={{ fontSize: '0.875rem', color: 'text.secondary' }}>
+            NL-2
+          </Typography>
+          <CancelOutlinedIcon
+            sx={{ mx: 1, fontSize: 20, color: 'text.secondary' }}
+          />
+          <Typography>high</Typography>
+        </TaskInfo>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <TaskChip label="Test" size="small" variant="outlined" />
+          <DateInfo sx={{ ml: 1 }}>Feb 11</DateInfo>
+          <Avatar
+            sx={{
+              ml: 1,
+              width: 24,
+              height: 24,
+              fontSize: '0.75rem',
+              bgcolor: 'orange'
+            }}
+          >
+            MK
+          </Avatar>
+        </Box>
+      </TaskRow>
+
+      <TaskRow>
+        <TaskInfo>
+          <DragHandle>
+            <DragIndicatorIcon fontSize="small" />
+          </DragHandle>
+          <Typography sx={{ fontSize: '0.875rem', color: 'text.secondary' }}>
+            NL-1
+          </Typography>
+          <CancelOutlinedIcon
+            sx={{ mx: 1, fontSize: 20, color: 'text.secondary' }}
+          />
+          <Typography>New issue</Typography>
+        </TaskInfo>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <DateInfo>Feb 10</DateInfo>
+          <IconButton size="small" sx={{ ml: 1 }}>
+            <PersonOutlineIcon fontSize="small" />
+          </IconButton>
+        </Box>
+      </TaskRow>
+    </Box>
+  );
+}
+
+// export default TaskList;
+// export default MultiSectionDataGrid;
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -18,7 +236,8 @@ export default {
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 const Template: Story<ChipProps> = (args) => {
-  return <Chip {...args} />;
+  // return <Chip {...args} />;
+  return <TaskList />;
 };
 
 // Filled Base
@@ -64,7 +283,7 @@ export const BaseFilledClickableLink = Template.bind({});
 BaseFilledClickableLink.args = {
   label: 'Clickable Link',
   component: 'a',
-  href: '#basic-chip',
+  // href: '#basic-chip',
   onDelete: undefined,
   clickable: true
 };
@@ -155,7 +374,7 @@ export const BaseOutlinedClickableLink = Template.bind({});
 BaseOutlinedClickableLink.args = {
   label: 'Clickable Link',
   component: 'a',
-  href: '#basic-chip',
+  // href: '#basic-chip',
   onDelete: undefined,
   clickable: true,
   variant: 'outlined'

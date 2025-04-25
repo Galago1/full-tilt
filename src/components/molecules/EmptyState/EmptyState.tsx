@@ -62,7 +62,7 @@ const EmptyState = ({
 }: EmptyStateProps) => {
   const { isDesktop, isLarge } = useIsSize();
   return (
-    <Grid container spacing={0} flexDirection={'column'} {...props}>
+    <Grid container gap={1} flexDirection={'column'} {...props}>
       {featuredIconProps && (
         <Grid item {...featuredIconItemProps}>
           <FeaturedIcon

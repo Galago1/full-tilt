@@ -92,7 +92,6 @@ export const getColorByValue = (
   value: number | undefined,
   isEmpty: boolean = false
 ): string => {
-  console.log({ goalCondition, goalValue, value: value });
   // Guard against invalid inputs
   if (value === undefined || goalValue === undefined) {
     return 'neutral.100';

@@ -1,8 +1,6 @@
 import { Grid } from '@mui/material';
 import { DailyStandupCard, DailyStandupCardProps } from './DailyStandupCard';
 import { HeadlinesCard, HeadlinesCardProps } from './HeadlinesCard';
-import { IdeasCard, IdeasCardProps } from './IdeasCard';
-import { IssuesCard, IssuesCardProps } from './IssuesCard';
 import { LatestDigestCard, LatestDigestCardProps } from './LatestDigestCard';
 import MeetingsCard, { MeetingsCardProps } from './MeetingsCard/MeetingsCard';
 import OkrsCard, { OkrsCardProps } from './OkrsCard/OkrsCard';
@@ -14,19 +12,7 @@ import RocksCard, { RocksCardProps } from './RocksCard/RocksCard';
 import ScorecardsCard, {
   ScorecardsCardProps
 } from './ScorecardsCard/ScorecardsCard';
-import { TodosCard, TodosCardProps } from './TodosCard';
-import {
-  Digest,
-  Headline,
-  Idea,
-  Issue,
-  Meeting,
-  Okr,
-  Rock,
-  Standup,
-  Survey,
-  Todo
-} from './types';
+import { Digest, Headline, Meeting, Okr, Rock, Standup, Survey } from './types';
 
 export interface MyOsProps {
   standups: Record<string, boolean>;
@@ -38,9 +24,6 @@ export interface MyOsProps {
   rocks: Rock[];
   headlines: Headline[];
   meetings: Meeting[];
-  issues: Issue[];
-  ideas: Idea[];
-  todos: Todo[];
   slots?: {
     dailyStandupCardProps?: DailyStandupCardProps;
     pendingSurveysCard?: PendingSurveysCardProps;
@@ -48,9 +31,6 @@ export interface MyOsProps {
     okrsCardProps?: OkrsCardProps;
     scorecardsCardProps?: ScorecardsCardProps;
     meetingsCardProps?: MeetingsCardProps;
-    issuesCardProps?: IssuesCardProps;
-    ideasCardProps?: IdeasCardProps;
-    todosCardProps?: TodosCardProps;
     headlinesCardProps?: HeadlinesCardProps;
     rocksCardProps?: RocksCardProps;
   };
@@ -67,9 +47,6 @@ export const MyOs = ({
   rocks,
   headlines,
   meetings,
-  issues,
-  ideas,
-  todos,
   slots,
   useRocks
 }: MyOsProps) => {
@@ -80,9 +57,6 @@ export const MyOs = ({
     okrsCardProps,
     scorecardsCardProps,
     meetingsCardProps,
-    issuesCardProps,
-    ideasCardProps,
-    todosCardProps,
     headlinesCardProps,
     rocksCardProps
   } = slots ?? {};
@@ -132,45 +106,6 @@ export const MyOs = ({
         ) : (
           <OkrsCard {...okrsCardProps!} okrs={okrs} />
         )}
-      </Grid>
-      <Grid
-        item
-        xs={12}
-        lg={6}
-        sx={{
-          mb: {
-            xs: 0
-          }
-        }}
-        width={'100%'}
-      >
-        <IssuesCard {...issuesCardProps!} issues={issues} />
-      </Grid>
-      <Grid
-        item
-        xs={12}
-        lg={6}
-        sx={{
-          mb: {
-            xs: 0
-          }
-        }}
-        width={'100%'}
-      >
-        <TodosCard {...todosCardProps!} todos={todos} />
-      </Grid>
-      <Grid
-        item
-        xs={12}
-        lg={6}
-        sx={{
-          mb: {
-            xs: 0
-          }
-        }}
-        width={'100%'}
-      >
-        <IdeasCard {...ideasCardProps!} ideas={ideas} />
       </Grid>
     </Grid>
   );

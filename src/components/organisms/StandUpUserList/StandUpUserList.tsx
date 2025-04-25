@@ -1,11 +1,15 @@
-import { Grid, useTheme } from '@mui/material';
+import { Grid, GridProps, useTheme } from '@mui/material';
 import { isBefore, parseISO, startOfToday } from 'date-fns';
 import { forwardRef, useImperativeHandle, useMemo } from 'react';
 import { ButtonProps } from 'src/components/atoms/Button/Button';
 import { SelectOption } from 'src/components/atoms/InputBase/SelectInputBase/SelectInputBase';
 import { useStandUpUserList } from './hooks';
-import StandUpMemberDetail from './StandUpMemberDetail';
-import StandUpUserListTeamMembers from './StandUpUserListTeamMembers';
+import StandUpMemberDetail, {
+  StandUpMemberDetailProps
+} from './StandUpMemberDetail';
+import StandUpUserListTeamMembers, {
+  StandUpUserListTeamMembersProps
+} from './StandUpUserListTeamMembers';
 
 const determineShowEdit = (
   hideShowEditButton: boolean,
@@ -40,7 +44,7 @@ export interface TeamMember {
   lastSeen: string;
 }
 
-export interface StandUpUserListProps {
+export interface StandUpUserListProps extends GridProps {
   teamMembers: TeamMember[];
   tipVisibleInitial?: boolean;
   currentMember: TeamMember;
@@ -55,6 +59,8 @@ export interface StandUpUserListProps {
   slots?: {
     editButtonProps?: ButtonProps;
     standUpMemberDetailContent?: React.ReactNode;
+    standUpUserListTeamMembersProps?: StandUpUserListTeamMembersProps;
+    standUpMemberDetailProps?: Partial<StandUpMemberDetailProps>;
   };
   hideShowEditButton?: boolean;
   showTeamSelect?: boolean;
@@ -83,7 +89,12 @@ const StandUpUserList = forwardRef(
     }: StandUpUserListProps,
     ref: any
   ) => {
-    const { editButtonProps, standUpMemberDetailContent } = slots || {};
+    const {
+      editButtonProps,
+      standUpMemberDetailContent,
+      standUpUserListTeamMembersProps,
+      standUpMemberDetailProps
+    } = slots || {};
 
     const theme = useTheme();
     const {
@@ -146,11 +157,27 @@ const StandUpUserList = forwardRef(
     return (
       <Grid
         container
-        spacing={2}
+        spacing={0}
         sx={{ height: '100%', paddingBottom: 2 }}
+        alignItems="stretch"
         {...props}
       >
-        <Grid item xs={12} sm={12} md={12} lg={3} sx={{ height: '100%' }}>
+        <Grid
+          item
+          flexBasis={{
+            xs: '100%',
+            sm: '100%',
+            md: '25%',
+            lg: '25%'
+          }}
+          flexWrap={{
+            xs: 'wrap',
+            sm: 'wrap',
+            md: 'nowrap',
+            lg: 'nowrap'
+          }}
+          sx={{ height: '100%' }}
+        >
           <StandUpUserListTeamMembers
             selectedIndex={selectedIndex}
             teamsOptions={teamsOptions}
@@ -165,9 +192,10 @@ const StandUpUserList = forwardRef(
             handleDateChange={handleDateChange}
             selectedTeam={selectedTeam}
             setSelectedIndex={setSelectedIndex}
+            {...standUpUserListTeamMembersProps}
           />
         </Grid>
-        <Grid item xs={12} sm={12} md={12} lg={9}>
+        <Grid item flex={1}>
           {selectedIndex !== null && (
             <StandUpMemberDetail
               member={filteredMembers[selectedIndex]}
@@ -183,7 +211,8 @@ const StandUpUserList = forwardRef(
               standUpMemberDetailContent={standUpMemberDetailContent}
               currentMember={currentMember}
               memberButtonProps={memberButtonProps}
-            ></StandUpMemberDetail>
+              {...standUpMemberDetailProps}
+            />
           )}
         </Grid>
       </Grid>

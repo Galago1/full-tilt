@@ -66,25 +66,34 @@ const StandUpMemberDetailCardContent = ({
       </Grid>
     );
   return (
-    <>
-      <StandUpMemberDetailCardContentHeader
-        member={member}
-        onBack={onBack}
-        onNext={onNext}
-        canGoBack={canGoBack}
-        canGoNext={canGoNext}
-        theme={theme}
-        showEditButton={showEditButton}
-        editButtonProps={editButtonProps}
-      />
+    <Grid container flexDirection={'column'} flexWrap={'nowrap'} gap={2}>
       <Grid item>
-        <Divider sx={{ mb: responsiveSpacing }} />
+        {/* 1 minus 10 for 9 / 8 */}
+        <Grid container flexDirection={'column'} gap={9 / 8}>
+          <Grid item>
+            <StandUpMemberDetailCardContentHeader
+              member={member}
+              onBack={onBack}
+              onNext={onNext}
+              canGoBack={canGoBack}
+              canGoNext={canGoNext}
+              theme={theme}
+              showEditButton={showEditButton}
+              editButtonProps={editButtonProps}
+            />
+          </Grid>
+
+          <Grid item>
+            <Divider sx={{ my: 0, py: 0 }} />
+          </Grid>
+        </Grid>
       </Grid>
       {isEmpty(member.standUpCompletedAt) && (
         <Grid
           container
           flex={1}
           sx={{
+            minHeight: 320,
             justifyContent: 'center',
             alignItems: 'center',
             justifyItems: 'center'
@@ -93,7 +102,8 @@ const StandUpMemberDetailCardContent = ({
           <Grid item>
             <EmptyState
               featuredIconProps={{
-                children: <InfoCircleIcon />
+                size: 'md',
+                children: <InfoCircleIcon sx={{ fontSize: '1.25rem' }} />
               }}
               featuredIconItemProps={{
                 display: 'flex',
@@ -103,9 +113,15 @@ const StandUpMemberDetailCardContent = ({
                 gap: 1.5,
                 flexDirection: 'column',
                 title: 'Stand Up Not Completed',
+                titleTypography: {
+                  variant: 'textLgSemibold'
+                },
                 subtitle: `${
                   isMember ? 'You' : member.name
                 } did not complete the Stand Up for this day.`,
+                subtitleTypography: {
+                  variant: 'textMdRegular'
+                },
                 alignItems: 'center',
                 textContainerGridItemProps: {
                   alignItems: 'center'
@@ -172,7 +188,7 @@ const StandUpMemberDetailCardContent = ({
           </IconButton>
         </Grid>
       )}
-    </>
+    </Grid>
   );
 };
 export default StandUpMemberDetailCardContent;

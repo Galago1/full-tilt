@@ -174,6 +174,22 @@ export interface SideNavProps extends DrawerProps {
    * The sx prop for the sidebar container.
    */
   sidebarContainerSx?: SxProps<Theme>;
+  /**
+   * Props for the other list items list props.
+   */
+  sideNavListItemsOtherProps?: ListProps;
+  /**
+   * Props for the other list items.
+   */
+  sideNavListOtherItems?: SideNavListItemProps[];
+  /**
+   * Props for the other list items grid item.
+   */
+  sideNavListItemsGridItemProps?: GridProps;
+  /**
+   * Props for the other list items grid item.
+   */
+  sideNavListItemsOtherGridItemProps?: GridProps;
 }
 const SideNav = ({
   toolbarProps,
@@ -197,6 +213,10 @@ const SideNav = ({
   rightColumnSx,
   showSecondaryToolbarDivider,
   sidebarContainerSx,
+  sideNavListItemsOtherProps,
+  sideNavListOtherItems,
+  sideNavListItemsGridItemProps,
+  sideNavListItemsOtherGridItemProps,
   ...props
 }: SideNavProps) => {
   const { position } = (toolbarProps?.sx as any) || {};
@@ -331,9 +351,37 @@ const SideNav = ({
                             height: '100%',
                             overflow: 'auto'
                           }}
+                          {...sideNavListItemsGridItemProps}
                         >
                           <List {...sideNavListItemsListProps}>
                             {(sideNavListItems || []).map(
+                              (sideNavListItem, index) => (
+                                <Grow
+                                  key={index}
+                                  in={true}
+                                  timeout={300 + index * 100}
+                                  style={{ transformOrigin: '0 0 0' }}
+                                >
+                                  <Grid>
+                                    <SideNavListItem {...sideNavListItem} />
+                                  </Grid>
+                                </Grow>
+                              )
+                            )}
+                          </List>
+                        </Grid>
+                      )}
+                      {!isEmpty(sideNavListItemsOtherProps) && (
+                        <Grid
+                          item
+                          sx={{
+                            height: '100%',
+                            overflow: 'auto'
+                          }}
+                          {...sideNavListItemsOtherGridItemProps}
+                        >
+                          <List {...sideNavListItemsOtherProps}>
+                            {(sideNavListOtherItems || []).map(
                               (sideNavListItem, index) => (
                                 <Grow
                                   key={index}

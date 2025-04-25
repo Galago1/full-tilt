@@ -47,7 +47,7 @@ declare module '@mui/material/styles' {
 }
 
 const border: CustomBorderOptions = {
-  outlinedButton: `1px solid ${palette.light.grey[200]}`,
+  outlinedButton: `1px solid ${palette.light.grey[300]}`,
   basicBox: `1px solid rgba(0, 0, 0, 0.23)`,
   userProfile: `1px solid ${palette.light.grey[300]}`,
   userProfileAvatar: `3px solid ${palette.light.common.white}`,

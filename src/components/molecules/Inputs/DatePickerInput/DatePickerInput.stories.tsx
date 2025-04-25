@@ -16,7 +16,7 @@ export default {
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 const Template: Story<DatePickerInputProps> = (args) => {
   return (
-    <Formik initialValues={{ name: '' }} onSubmit={(v) => {}}>
+    <Formik initialValues={{ name: null }} onSubmit={(v) => {}}>
       <Field component={DatePickerInput} name="name" {...args} />
     </Formik>
   );

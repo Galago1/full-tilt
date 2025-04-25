@@ -351,3 +351,66 @@ export const VerifiedTickIcon = (props: SvgIconProps): JSX.Element => {
     </SvgIcon>
   );
 };
+
+export const NoEstimateIcon = (props: SvgIconProps): JSX.Element => {
+  return (
+    <SvgIcon {...props}>
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 16 16"
+        fill="currentColor"
+        role="img"
+        focusable="false"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          fill="currentColor"
+          fillRule="evenodd"
+          d="M8.666 3.77a.75.75 0 0 0-1.329 0L6.033 6.26l-1.329-.696 1.305-2.49c.842-1.609 3.144-1.609 3.986 0l1.305 2.49-1.33.696-1.304-2.49ZM9.545 13v1.5h2.717c1.691 0 2.778-1.795 1.993-3.293l-1.304-2.49-1.329.695 1.305 2.49a.75.75 0 0 1-.665 1.099H9.545ZM4.382 9.413l-1.33-.696-1.304 2.49c-.785 1.499.302 3.295 1.993 3.295H6.46V13H3.74a.75.75 0 0 1-.664-1.098l1.305-2.49Z"
+          clipRule="evenodd"
+        ></path>
+      </svg>
+    </SvgIcon>
+  );
+};
+
+export const EstimateIcon = (props: SvgIconProps): JSX.Element => {
+  return (
+    <SvgIcon {...props}>
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 16 16"
+        fill="currentColor"
+        role="img"
+        focusable="false"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          fillRule="evenodd"
+          d="M3.741 14.5h8.521c1.691 0 2.778-1.795 1.993-3.293l-4.26-8.134c-.842-1.608-3.144-1.608-3.986 0l-4.26 8.134C.962 12.705 2.05 14.5 3.74 14.5ZM8 3.368a.742.742 0 0 0-.663.402l-4.26 8.134A.75.75 0 0 0 3.741 13H8V3.367Z"
+          clipRule="evenodd"
+        ></path>
+      </svg>
+    </SvgIcon>
+  );
+};
+
+export const DotIcon = (props: SvgIconProps): JSX.Element => {
+  return (
+    <SvgIcon {...props}>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="8"
+        height="8"
+        viewBox="0 0 8 8"
+        fill="none"
+      >
+        <circle cx="4" cy="4" r="3" fill={props.fill || '#17B26A'} />
+      </svg>
+    </SvgIcon>
+  );
+};

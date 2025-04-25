@@ -5,12 +5,13 @@ export const greyMegaHoverStyle: SxProps<Theme> = {
   color: 'text.primary',
   cursor: 'pointer',
 
-  transition: 'transform 0.3s ease-in-out',
+  transition: 'all 0.2s ease-in-out',
   '&:hover': {
     boxShadow: (theme: Theme) => fullBoxShadow(theme.palette.grey[200]),
     transform: 'translateY(-2px)'
   },
-  '&:focus': {
+  '&:focus-visible': {
+    outline: 'none',
     boxShadow: (theme: Theme) => fullBoxShadow(theme.palette.grey[200]),
     transform: 'translateY(-2px)'
   }

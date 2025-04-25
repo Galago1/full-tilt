@@ -196,6 +196,10 @@ Third.args = {
   sideNavListItems: [
     TextOnlyActive.args as SideNavListItemProps,
     TextOnly.args as SideNavListItemProps
+  ],
+  sideNavListOtherItems: [
+    // TextAndIconActive.args as SideNavListItemProps,
+    TextAndIconFlex1.args as SideNavListItemProps
   ]
 };
 

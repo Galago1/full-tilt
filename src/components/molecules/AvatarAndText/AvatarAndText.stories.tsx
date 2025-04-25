@@ -71,3 +71,17 @@ WithClosebutton.args = {
     startIcon: <XCloseIcon color={'secondary'} />
   }
 };
+
+export const WithLeftButtonTooltip = Template.bind({});
+WithLeftButtonTooltip.args = {
+  title: 'Olivia Rhye',
+  subtitle: 'olivia@rhye.com',
+  leftButtonTooltipProps: {
+    title: 'Delete'
+  },
+  leftButtonProps: {
+    variant: 'text',
+    color: 'secondary',
+    startIcon: <XCloseIcon color={'secondary'} />
+  }
+};

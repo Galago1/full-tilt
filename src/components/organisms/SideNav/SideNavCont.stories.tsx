@@ -23,6 +23,10 @@ export default {
   // }
 } as ComponentMeta<typeof SideNav>;
 
+const initialWidth = 80;
+const expandedWidth = 280;
+const transitionDuration = 200;
+
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 const generateRandomList = (count: number): SideNavListItemProps[] => {
   return Array(count)
@@ -37,8 +41,6 @@ const generateRandomList = (count: number): SideNavListItemProps[] => {
 };
 
 const originalList = [
-  TextOnly.args as SideNavListItemProps,
-  TextOnly.args as SideNavListItemProps,
   TextOnly.args as SideNavListItemProps,
   TextOnly.args as SideNavListItemProps,
   TextOnly.args as SideNavListItemProps,
@@ -148,6 +150,52 @@ const Template: Story<SideNavProps> = (args) => {
   const finalArgs: SideNavProps = useMemo(
     () => ({
       ...args,
+      sx: {
+        ...args.sx,
+        width: isHovered ? expandedWidth : initialWidth,
+        transition: (theme) =>
+          theme.transitions.create(['width'], {
+            duration: transitionDuration
+          }),
+        '& .MuiDrawer-paper': {
+          width: isHovered ? expandedWidth : initialWidth,
+          backgroundColor: 'transparent',
+          transition: (theme) =>
+            theme.transitions.create(['width'], {
+              duration: transitionDuration
+            })
+        }
+      },
+      slide: isHovered,
+      leftGridItemProps: {
+        sx: {
+          width: initialWidth,
+          flexShrink: 0,
+          position: 'relative',
+          zIndex: 2,
+          backgroundColor: (theme) => theme.palette.grey[900],
+          height: '100%'
+        }
+      },
+      sideNavListItemIconsListProps: {
+        sx: {
+          display: 'flex',
+          flexDirection: 'column',
+          overflow: 'visible',
+          width: initialWidth,
+          backgroundColor: (theme) => theme.palette.grey[900]
+        }
+      },
+      rightColumnSx: {
+        position: 'absolute',
+        left: initialWidth,
+        top: 0,
+        height: '100%',
+        backgroundColor: (theme) => theme.palette.grey[900],
+        borderLeft: (theme) => theme.border.basicBox,
+        width: expandedWidth - initialWidth,
+        overflow: 'hidden'
+      },
       sideNavListItemIcons: args.sideNavListItemIcons.map((icon, index) => ({
         ...icon,
         listItemButtonProps: {
@@ -156,13 +204,18 @@ const Template: Story<SideNavProps> = (args) => {
           onMouseLeave: handleMouseLeave
         }
       })),
-      sideNavListItems: isHovered ? randomList : originalList,
+      sideNavListItems: isHovered ? randomList : [],
       sideNavListItemsListProps: {
         ...args.sideNavListItemsListProps,
-        onMouseLeave: handleMouseLeave
+        onMouseLeave: handleMouseLeave,
+        sx: {
+          ...(args.sideNavListItemsListProps?.sx || {}),
+          backgroundColor: (theme) => theme.palette.grey[900],
+          color: (theme) => theme.palette.common.white
+        }
       }
     }),
-    [args, isHovered, randomList, originalList]
+    [args, isHovered, randomList, handleMouseLeave]
   );
 
   return <SideNav {...finalArgs} />;
@@ -171,27 +224,38 @@ const Template: Story<SideNavProps> = (args) => {
 export const Second = Template.bind({});
 Second.args = {
   useTopContentDivider: false,
-  slide: true,
   sx: {
-    width: 280,
+    width: initialWidth,
     '& .MuiDrawer-paper': {
-      width: 280,
-      backgroundColor: 'transparent'
+      width: initialWidth,
+      backgroundColor: 'transparent',
+      overflow: 'visible'
     }
   },
   PaperProps: {
-    sx: { overflow: 'hidden' }
+    sx: { overflow: 'visible' }
+  },
+  contentContainerGridItemProps: {
+    sx: {
+      position: 'relative',
+      overflow: 'hidden',
+      backgroundColor: (theme) => theme.palette.grey[900],
+      marginTop: '48px' // Add space for the fixed toolbar
+    }
   },
   sidebarContainerSx: {
-    backgroundColor: (theme) => theme.palette.grey[900]
+    backgroundColor: (theme) => theme.palette.grey[900],
+    position: 'relative',
+    overflow: 'visible'
   },
   toolbarProps: {
     sx: {
       minHeight: { xs: 48 },
       position: 'fixed',
       top: 0,
-      width: 280,
-      zIndex: 1
+      width: initialWidth,
+      zIndex: 3,
+      backgroundColor: (theme) => theme.palette.grey[900]
     },
     disableGutters: true,
     children: (
@@ -201,13 +265,15 @@ Second.args = {
         flexWrap={'nowrap'}
         sx={{
           height: '100%',
-          minHeight: 48
+          minHeight: 48,
+          backgroundColor: (theme) => theme.palette.grey[900]
         }}
       >
         <Grid
           item
           sx={{
-            height: '100%'
+            height: '100%',
+            backgroundColor: (theme) => theme.palette.grey[900]
           }}
         >
           <SideNavListItem
@@ -246,7 +312,7 @@ Second.args = {
     children: (
       <AvatarAndText
         title="Untitled UI3"
-        titleTypography={{ 
+        titleTypography={{
           variant: 'textMdSemibold',
           sx: { color: (theme) => theme.palette.common.white }
         }}
@@ -254,10 +320,6 @@ Second.args = {
     )
   },
   showSecondaryToolbarDivider: false,
-  rightColumnSx: { 
-    borderLeft: (theme) => theme.border.basicBox,
-    backgroundColor: (theme) => theme.palette.grey[900]
-  },
   sideNavListItemIconsBottom: [
     IconOnly.args as SideNavListItemProps,
     IconOnly.args as SideNavListItemProps

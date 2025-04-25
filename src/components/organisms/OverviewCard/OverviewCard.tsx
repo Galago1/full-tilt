@@ -12,109 +12,24 @@ import {
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { ButtonProps } from 'src/components/atoms/Button/Button';
-import ButtonGroup from 'src/components/molecules/ButtonGroup/ButtonGroup';
-import Card, { CardProps } from 'src/components/organisms/Card/Card';
+import { CardProps } from 'src/components/organisms/Card/Card';
+import { SwitchHorizontal01Icon } from 'src/components/particles/theme/icons/Arrows/switch-horizontal-01';
+import { SwitchVertical02Icon } from 'src/components/particles/theme/icons/Arrows/switch-vertical-02';
 import { Quarter } from 'src/types/other';
-import Divider from '../../atoms/Divider';
 import {
   CellBox,
   DataCell,
   DraggableHeaderCell,
   DraggableRow,
-  getQuarterSpan,
   getScoreColor,
+  ShadowOverlay,
   SurveyData,
   TeamDataCell,
   TeamHeaderCell
 } from './helpers';
 import { useOverviewCard } from './useOverviewCard';
-import { CalendarIcon } from 'src/components/particles/theme/icons/Time/calendar';
-import { ChevronLeftIcon } from 'src/components/particles/theme/icons/Arrows/chevron-left';
-import { ChevronRightIcon } from 'src/components/particles/theme/icons/Arrows/chevron-right';
-import { SwitchVertical02Icon } from 'src/components/particles/theme/icons/Arrows/switch-vertical-02';
-import { SwitchHorizontal01Icon } from 'src/components/particles/theme/icons/Arrows/switch-horizontal-01';
 
-interface QuarterInfo {
-  label: string;
-}
-
-const QUARTERS: Record<Quarter, QuarterInfo> = {
-  q1: { label: 'Q1' },
-  q2: { label: 'Q2' },
-  q3: { label: 'Q3' },
-  q4: { label: 'Q4' }
-};
-
-interface QuarterSelectorProps {
-  selectedQuarter: Quarter;
-  year: number;
-  fiscalYearStartDate: Date;
-  onQuarterChange: (direction: 'left' | 'right') => void;
-  middleButtonProps?: ButtonProps;
-}
-
-const formatQuarterLabel = (
-  quarter: Quarter | undefined,
-  year: number | undefined,
-  fiscalYearStartDate: Date | undefined
-): string => {
-  if (!quarter || !year || !fiscalYearStartDate) {
-    return 'Select Quarter';
-  }
-
-  const quarterInfo = QUARTERS[quarter];
-  if (!quarterInfo) {
-    return 'Invalid Quarter';
-  }
-
-  try {
-    // Create a new date for this year but keeping the fiscal month/day
-    const fiscalYear = new Date(
-      year,
-      fiscalYearStartDate.getMonth(),
-      fiscalYearStartDate.getDate()
-    );
-    return `${quarterInfo.label} ${year} (${getQuarterSpan(
-      quarter,
-      fiscalYear
-    )})`;
-  } catch (error) {
-    return `${quarterInfo.label} ${year}`;
-  }
-};
-
-const QuarterSelector = ({
-  selectedQuarter,
-  year,
-  fiscalYearStartDate,
-  onQuarterChange,
-  middleButtonProps
-}: QuarterSelectorProps) => (
-  <ButtonGroup
-    customVariant="roundedEdges"
-    buttons={[
-      {
-        endIcon: <ChevronLeftIcon />,
-        onClick: () => onQuarterChange('left'),
-        disabled: false
-      },
-      {
-        startIcon: <CalendarIcon />,
-        label: formatQuarterLabel(selectedQuarter, year, fiscalYearStartDate),
-        disabled: true,
-        sx: { '&': { py: 9 / 8 } },
-        ...middleButtonProps
-      },
-      {
-        endIcon: <ChevronRightIcon />,
-        onClick: () => onQuarterChange('right'),
-        disabled: false
-      }
-    ]}
-  />
-);
-
-export interface OverviewCardProps extends Omit<CardProps, 'slots'> {
+export interface OverviewCardProps {
   /**
    * Data for the survey overview card
    */
@@ -155,6 +70,10 @@ export interface OverviewCardProps extends Omit<CardProps, 'slots'> {
    * Defaults to January 1st of the current year
    */
   fiscalYearStartDate?: Date;
+  /**
+   * Whether to show the header
+   */
+  showHeader?: boolean;
 }
 
 const OverviewCard = ({
@@ -168,7 +87,7 @@ const OverviewCard = ({
   cardSlots,
   year = new Date().getFullYear(),
   fiscalYearStartDate = new Date(new Date().getFullYear(), 0, 1),
-  ...props
+  showHeader = true
 }: OverviewCardProps) => {
   const {
     currentData,
@@ -189,146 +108,176 @@ const OverviewCard = ({
   });
 
   return (
-    <Card
-      sx={{
-        width: '100%',
-        overflowX: 'auto',
-        border: theme.border.basicBox,
-        borderRadius: theme.borderRadius.lg,
-        ...props.sx
-      }}
-      showActions={false}
-      slots={cardSlots}
-      {...props}
-    >
-      <>
-        <Grid container alignItems="center" mb={2}>
-          <Grid item flex={1}>
-            <Typography variant="textLgSemibold" noWrap>
-              Feedback Overview
-            </Typography>
-          </Grid>
-          <Grid item>
-            <QuarterSelector
-              selectedQuarter={selectedQuarter}
-              year={year}
-              fiscalYearStartDate={fiscalYearStartDate}
-              onQuarterChange={handleQuarterChange}
-              middleButtonProps={middleButtonProps}
-            />
-          </Grid>
-        </Grid>
-        <Divider sx={{ my: theme.spacing(2.5) }} />
-        <DndProvider backend={HTML5Backend}>
-          <TableContainer
-            component={Paper}
-            elevation={0}
-            {...tableContainerProps}
+    <DndProvider backend={HTML5Backend}>
+      <Grid sx={{ position: 'relative', overflow: 'hidden' }}>
+        <TableContainer
+          component={Paper}
+          elevation={0}
+          sx={{
+            position: 'relative',
+            overflow: 'hidden',
+            '& .MuiTable-root': {
+              borderCollapse: 'collapse',
+              // Only apply scroll behavior below 1500px
+              '@media (max-width: 1499px)': {
+                display: 'block',
+                overflowX: 'auto'
+              },
+              // Above 1500px, maintain normal table layout
+              '@media (min-width: 1500px)': {
+                display: 'table',
+                overflowX: 'visible'
+              }
+            }
+          }}
+          {...tableContainerProps}
+        >
+          <Table
+            size="small"
+            sx={{
+              tableLayout: 'fixed',
+              '@media (max-width: 1499px)': {
+                minWidth: '1100px', // Force horizontal scrolling below 1500px
+                // This calculation ensures content after the first column is at least 900px
+                // so 200px (first column) + 900px = 1100px minimum total width
+                '& td:not(:first-child), & th:not(:first-child)': {
+                  minWidth: '100px' // Set minimum width for non-first columns
+                },
+                '& td:first-child, & th:first-child': {
+                  width: '260px',
+                  minWidth: '260px'
+                }
+              },
+              '@media (min-width: 1500px)': {
+                width: '100%', // Full width above 1500px
+                '& td:first-child, & th:first-child': {
+                  width: '260px',
+                  minWidth: '260px'
+                }
+              }
+            }}
           >
-            <Table size="small">
-              <TableHead>
-                <TableRow>
-                  <TeamHeaderCell>
+            <TableHead
+              sx={{
+                position: 'sticky',
+                top: 0,
+                zIndex: 2,
+                backgroundColor: (theme) => theme.palette.background.paper
+              }}
+            >
+              <TableRow>
+                <TeamHeaderCell>
+                  <Grid
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'flex-end',
+                      width: '100%',
+                      height: '100%',
+                      border: 'unset',
+                      borderRadius: 'unset'
+                    }}
+                  >
                     <Grid
+                      display={'flex'}
+                      width={'100%'}
+                      justifyContent={'space-between'}
+                      p={1}
+                      sx={{ pl: 2 }}
+                    >
+                      <Typography
+                        variant="textSmRegular"
+                        color="text.secondary"
+                        fontWeight={500}
+                      >
+                        Team Results
+                      </Typography>
+                      {showSwitches && (
+                        <Grid display={'flex'}>
+                          <SwitchVertical02Icon
+                            onClick={handleVerticalIconClick}
+                            style={{
+                              cursor: 'pointer',
+                              width: '24px',
+                              height: '24px',
+                              marginRight: theme.spacing(1)
+                            }}
+                          />
+                          <SwitchHorizontal01Icon
+                            onClick={handleHorizontalIconClick}
+                            style={{
+                              cursor: 'pointer',
+                              width: '24px',
+                              height: '24px'
+                            }}
+                          />
+                        </Grid>
+                      )}
+                    </Grid>
+                  </Grid>
+                </TeamHeaderCell>
+                {categories.map((category, index) => (
+                  <DraggableHeaderCell
+                    key={category}
+                    category={category}
+                    index={index}
+                    moveColumn={disableDragging ? undefined : moveColumn}
+                    theme={theme}
+                  />
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {teamNames.map((teamName, index) => (
+                <DraggableRow
+                  key={teamName}
+                  index={index}
+                  moveRow={disableDragging ? undefined : moveRow}
+                  dragEnabled={!disableDragging}
+                  isLastRow={index === teamNames.length - 1}
+                >
+                  <TeamDataCell isLastRow={index === teamNames.length - 1}>
+                    <CellBox
                       sx={{
                         display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'flex-end',
-                        width: '100%',
-                        height: '100%',
-                        border: theme.border.basicBox,
-                        borderRadius: theme.borderRadius.md
+                        flexDirection: 'column',
+                        justifyContent: 'center !important',
+                        pl: 3
                       }}
                     >
-                      <Grid
-                        display={'flex'}
-                        width={'100%'}
-                        justifyContent={'space-between'}
-                        p={1}
-                      >
-                        <Typography variant="textSmMedium">Teams</Typography>
-                        {showSwitches && (
-                          <Grid display={'flex'}>
-                            <SwitchVertical02Icon
-                              onClick={handleVerticalIconClick}
-                              style={{
-                                cursor: 'pointer',
-                                width: '24px',
-                                height: '24px',
-                                marginRight: theme.spacing(1)
-                              }}
-                            />
-                            <SwitchHorizontal01Icon
-                              onClick={handleHorizontalIconClick}
-                              style={{
-                                cursor: 'pointer',
-                                width: '24px',
-                                height: '24px'
-                              }}
-                            />
-                          </Grid>
-                        )}
-                      </Grid>
-                    </Grid>
-                  </TeamHeaderCell>
-                  {categories.map((category, index) => (
-                    <DraggableHeaderCell
+                      <Typography variant="textSmMedium">{teamName}</Typography>
+                    </CellBox>
+                  </TeamDataCell>
+                  {categories.map((category) => (
+                    <DataCell
                       key={category}
-                      category={category}
-                      index={index}
-                      moveColumn={disableDragging ? undefined : moveColumn}
-                      theme={theme}
-                    />
-                  ))}
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {teamNames.map((teamName, index) => (
-                  <DraggableRow
-                    key={teamName}
-                    index={index}
-                    moveRow={disableDragging ? undefined : moveRow}
-                    dragEnabled={!disableDragging}
-                  >
-                    <TeamDataCell>
+                      isLastRow={index === teamNames.length - 1}
+                    >
                       <CellBox
-                        sx={{
-                          display: 'flex',
-                          flexDirection: 'column',
-                          justifyContent: 'center !important'
+                        style={{
+                          backgroundColor: getScoreColor(
+                            currentData[teamName][category],
+                            theme
+                          )
                         }}
+                        isLastRow={index === teamNames.length - 1}
                       >
-                        <Typography variant="textSmMedium">
-                          {teamName}
+                        <Typography variant="textSmRegular">
+                          {!currentData[teamName][category]
+                            ? 'NA'
+                            : currentData[teamName][category]}
                         </Typography>
                       </CellBox>
-                    </TeamDataCell>
-                    {categories.map((category) => (
-                      <DataCell key={category}>
-                        <CellBox
-                          style={{
-                            backgroundColor: getScoreColor(
-                              currentData[teamName][category],
-                              theme
-                            )
-                          }}
-                        >
-                          <Typography variant="textSmRegular">
-                            {!currentData[teamName][category]
-                              ? 'NA'
-                              : currentData[teamName][category]}
-                          </Typography>
-                        </CellBox>
-                      </DataCell>
-                    ))}
-                  </DraggableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </DndProvider>
-      </>
-    </Card>
+                    </DataCell>
+                  ))}
+                </DraggableRow>
+              ))}
+            </TableBody>
+          </Table>
+          <ShadowOverlay theme={theme} />
+        </TableContainer>
+      </Grid>
+    </DndProvider>
   );
 };
 

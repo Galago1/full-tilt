@@ -1,14 +1,16 @@
 import {
+  Grid,
   Button as MuiButton,
   ButtonProps as MuiButtonProps
 } from '@mui/material';
-import type { Theme } from '@mui/material';
-import { forwardRef } from 'react';
+import type { GridProps, Theme } from '@mui/material';
+import { forwardRef, useMemo } from 'react';
 
 type ButtonSize = 'xs' | 'small' | 'medium' | 'large' | 'xl' | 'xxl';
 
 export interface ButtonProps
   extends Omit<MuiButtonProps, 'onClick' | 'component'> {
+  'data-testid'?: string;
   component?: any;
   /**
    * Button contents
@@ -22,6 +24,18 @@ export interface ButtonProps
    * onClick
    */
   onClick?: (a: any, b: any) => void;
+  /**
+   * slots
+   */
+  slots?: {
+    labelGridProps?: GridProps;
+  };
+  /**
+   * Use square styles
+   */
+  useSquareStyles?: boolean;
+  // size?: OverridableStringUnion<'small' | 'medium' | 'large', ButtonPropsSizeOverrides>;
+  size?: ButtonSize;
 }
 const onlyIconSizeHeightWidth = {
   xs: {
@@ -80,17 +94,26 @@ const Button = forwardRef(
       sx,
       children,
       onClick,
+      useSquareStyles = true,
+      slots,
       ...props
     }: ButtonProps,
     ref: any
   ) => {
+    const { labelGridProps } = slots || {};
+
+    const styles = useMemo(() => squareStyles(size), [size]);
     return (
       <MuiButton
         ref={ref}
         className={`${hideBoxshadow ? 'hide-boxshadow' : ''}`}
         sx={{
           ...sx,
-          ...((startIcon || endIcon) && !label ? squareStyles(size) : {})
+          ...((startIcon || endIcon) && !label
+            ? useSquareStyles
+              ? styles
+              : {}
+            : {})
         }}
         startIcon={startIcon}
         endIcon={endIcon}
@@ -99,7 +122,9 @@ const Button = forwardRef(
         {...props}
       >
         {children}
-        {label}
+        <Grid display={'flex'} {...labelGridProps}>
+          {label}
+        </Grid>
       </MuiButton>
     );
   }

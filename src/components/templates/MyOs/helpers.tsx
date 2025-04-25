@@ -209,12 +209,6 @@ export const DefaultArgs: Partial<MyOsProps> | undefined = {
         }
       }
     },
-    ideasCardProps: {
-      onHeaderClick: () => {}
-    },
-    issuesCardProps: {
-      onHeaderClick: () => {}
-    },
     okrsCardProps: {
       okrName: 'OKR',
       onHeaderClick: () => {}
@@ -222,9 +216,6 @@ export const DefaultArgs: Partial<MyOsProps> | undefined = {
     latestDigestCardProps: {
       onClickEmptyState: () => {},
       firstDigestSubtitle: 'First Digest at 9:00AM 08/13',
-      onHeaderClick: () => {}
-    },
-    todosCardProps: {
       onHeaderClick: () => {}
     },
     scorecardsCardProps
@@ -430,39 +421,6 @@ export const DefaultArgs: Partial<MyOsProps> | undefined = {
       icon: <ZapIcon />,
       onClick: () => {}
     }
-  ],
-  issues: [
-    {
-      id: '1',
-      status: 'In Progress',
-      title:
-        'Take time to review the wireframes before the next review meeting',
-      priority: 'Low',
-      icon: <ZapIcon />,
-      onClick: () => {}
-    }
-  ],
-  ideas: [
-    {
-      id: '1',
-      status: 'In Progress',
-      title:
-        'Take time to review the wireframes before the next review meeting',
-      priority: 'Medium',
-      icon: <ZapIcon />,
-      onClick: () => {}
-    }
-  ],
-  todos: [
-    {
-      id: '1',
-      status: 'In Progress',
-      title:
-        'Take time to review the wireframes before the next review meeting',
-      priority: 'Medium',
-      icon: <ZapIcon />,
-      onClick: () => {}
-    }
   ]
 };
 
@@ -503,12 +461,6 @@ export const EmptyArgs: Partial<MyOsProps> | undefined = {
       onHeaderClick: () => {},
       emptyStateSubtitle: 'No Pending Surveys'
     },
-    ideasCardProps: {
-      onHeaderClick: () => {}
-    },
-    issuesCardProps: {
-      onHeaderClick: () => {}
-    },
     okrsCardProps: {
       okrName: 'OKR',
       onHeaderClick: () => {}
@@ -516,9 +468,6 @@ export const EmptyArgs: Partial<MyOsProps> | undefined = {
     latestDigestCardProps: {
       onClickEmptyState: () => {},
       firstDigestSubtitle: 'First Digest at 9:00AM 08/13',
-      onHeaderClick: () => {}
-    },
-    todosCardProps: {
       onHeaderClick: () => {}
     },
     scorecardsCardProps: {
@@ -529,8 +478,5 @@ export const EmptyArgs: Partial<MyOsProps> | undefined = {
   },
   digest: [],
   okrs: [],
-  meetings: [],
-  issues: [],
-  ideas: [],
-  todos: []
+  meetings: []
 };

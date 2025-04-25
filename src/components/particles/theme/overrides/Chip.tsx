@@ -17,7 +17,7 @@ const deleteIcoBase = {
 const smallChipStyles = (ownerState: ChipProps, theme: Theme) => {
   if (ownerState.size !== 'small') return {};
   return {
-    padding: theme.spacing(0.25, 1),
+    padding: theme.spacing(0.375, 1),
     ...((!!ownerState.avatar || !!ownerState.icon) && {
       paddingLeft: theme.spacing(0.375),
       '& .MuiAvatar-root, .MuiChip-icon': {
@@ -35,7 +35,7 @@ const smallChipStyles = (ownerState: ChipProps, theme: Theme) => {
       }
     }),
     ...(!ownerState.label && {
-      padding: theme.spacing(0.5),
+      padding: theme.spacing(0.25),
       '& .MuiAvatar-root, .MuiChip-icon': {
         marginLeft: 0,
         marginRight: theme.spacing(-0.125),
@@ -48,7 +48,7 @@ const smallChipStyles = (ownerState: ChipProps, theme: Theme) => {
 const mediumChipStyles = (ownerState: ChipProps, theme: Theme) => {
   if (ownerState.size !== 'medium') return {};
   return {
-    padding: theme.spacing(0.25, 1.25),
+    padding: theme.spacing(0.375, 1.25),
     ...((!!ownerState.avatar || !!ownerState.icon) && {
       paddingLeft: theme.spacing(0.5),
       '& .MuiAvatar-root, .MuiChip-icon': {
@@ -66,7 +66,7 @@ const mediumChipStyles = (ownerState: ChipProps, theme: Theme) => {
       }
     }),
     ...(!ownerState.label && {
-      padding: theme.spacing(0.5),
+      padding: theme.spacing(0.375),
       '& .MuiAvatar-root, .MuiChip-icon': {
         marginLeft: 0,
         marginRight: 0,
@@ -79,7 +79,7 @@ const mediumChipStyles = (ownerState: ChipProps, theme: Theme) => {
 const largeChipStyles = (ownerState: ChipProps, theme: Theme) => {
   if (ownerState.size !== 'large') return {};
   return {
-    padding: theme.spacing(0.5, 1.5),
+    padding: theme.spacing(0.375, 1.5),
     ...((!!ownerState.avatar || !!ownerState.icon) && {
       paddingLeft: theme.spacing(0.75),
       '& .MuiAvatar-root, .MuiChip-icon': {
@@ -194,6 +194,21 @@ const Chip: any = (theme: Theme) => {
             backgroundColor: theme.palette.grey[50],
             borderColor: theme.palette.grey[200],
             color: theme.palette.grey[700]
+          }
+        },
+        {
+          props: { variant: 'outlined' },
+          style: {
+            backgroundColor: theme.palette.common.white,
+            color: theme.palette['grey'][700],
+            border: `1px solid ${theme.palette['grey'][300]}`,
+            '&.Mui-disabled': {
+              backgroundColor: theme.palette['grey'][25]
+            },
+            '&:hover': {
+              color: theme.palette['grey'][900],
+              backgroundColor: theme.palette['grey'][100]
+            }
           }
         }
       ],

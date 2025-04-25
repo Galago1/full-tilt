@@ -1,4 +1,4 @@
-import { Theme } from '@mui/material/styles';
+import { Theme } from '@mui/material';
 import { fullBoxShadow } from '../shadows';
 
 declare module '@mui/material/Button' {
@@ -81,43 +81,40 @@ const Button: any = (theme: Theme) => {
     MuiButton: {
       variants: [
         {
+          props: { size: 'xs' },
+          style: {
+            lineHeight: 1,
+            padding: theme.spacing(1 / 8, 1)
+          }
+        },
+        {
           props: { size: 'small' },
           style: {
-            padding: theme.spacing(1, 1.75),
-            ...theme.typography.subtitle2,
-            fontWeight: 600
+            padding: theme.spacing(1, 1.75)
           }
         },
         {
           props: { size: 'medium' },
           style: {
-            padding: theme.spacing(1.25, 2),
-            ...theme.typography.subtitle2,
-            fontWeight: 600
+            padding: theme.spacing(1.25, 2)
           }
         },
         {
           props: { size: 'large' },
           style: {
-            padding: theme.spacing(1.25, 2.25),
-            ...theme.typography.body1,
-            fontWeight: 600
+            padding: theme.spacing(1.25, 2.25)
           }
         },
         {
           props: { size: 'xl' },
           style: {
-            padding: theme.spacing(1.5, 2.5),
-            ...theme.typography.body1,
-            fontWeight: 600
+            padding: theme.spacing(1.5, 2.5)
           }
         },
         {
           props: { size: 'xxl' },
           style: {
-            padding: theme.spacing(2, 3.5),
-            ...theme.typography.button,
-            fontWeight: 600
+            padding: theme.spacing(2, 3.5)
           }
         },
         // colorContained(theme, 'primary'),
@@ -210,6 +207,9 @@ const Button: any = (theme: Theme) => {
           },
           '&.hide-boxshadow:hover': {
             boxShadow: 'none'
+          },
+          '&': {
+            minWidth: 'auto'
           }
         },
         // Contained

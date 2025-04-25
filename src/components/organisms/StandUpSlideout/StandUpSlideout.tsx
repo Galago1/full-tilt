@@ -4,11 +4,18 @@ import Drawer from 'src/components/organisms/Drawer/Drawer';
 import StandUpSlideoutContent, {
   StandUpSlideoutContentProps
 } from './StandUpSlideoutContent';
+import { DateFormat } from 'src/types/dateFns';
+import { formatDate } from 'src/utils/date';
+import { useMemo } from 'react';
 
-const DateTitle = ({ date }: { date: string }) => {
+const DateTitle = ({ date }: { date?: Date }) => {
+  const dateStr = useMemo(
+    () => (date ? formatDate(date, DateFormat.MDY) : ''),
+    [date]
+  );
   return (
     <Typography variant="textMdSemibold" marginBottom={6 / 8}>
-      Edit Daily Standup ({date})
+      Edit Daily Standup ({dateStr})
     </Typography>
   );
 };
@@ -42,7 +49,7 @@ export interface StandUpSlideoutProps {
     values: StandUpSlideoutFormikProps,
     formik: FormikHelpers<StandUpSlideoutFormikProps>
   ) => void;
-  date: string;
+  date?: Date;
   slots?: {
     formikProps?: FormikProps<StandUpSlideoutFormikProps>;
     standUpSlideoutContentProps?: StandUpSlideoutContentProps;

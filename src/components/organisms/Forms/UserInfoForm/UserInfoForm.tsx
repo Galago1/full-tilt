@@ -91,7 +91,6 @@ const UserInfoForm = ({
                   <Grid item xs={12}>
                     <Field name="avatar">
                       {({ field }: FieldAttributes<any>) => {
-                        // console.log(formProps.errors);
                         return (
                           <Grid container>
                             <Grid item xs={12} sm={12} md={6}>

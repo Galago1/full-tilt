@@ -5,7 +5,7 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { EmptyStateProps } from 'src/components/molecules/EmptyState/EmptyState';
 import Card, { CardProps } from 'src/components/organisms/Card/Card';
-import Divider from '../../atoms/Divider/Divider';
+import Divider, { DividerProps } from '../../atoms/Divider/Divider';
 import RowsOrEmptyState, { RowsOrEmptyStateProps } from './RowsOrEmptyState';
 import ScorecardHeadCell from './ScorecardHeadCell';
 import { InlineFormikProps } from './ScorecardInlineEditCell';
@@ -65,6 +65,10 @@ export interface ScorecardProps extends Omit<CardProps, 'slots'> {
      * Slots for the rows or empty state
      */
     rowsOrEmptyStateProps?: RowsOrEmptyStateProps;
+    /**
+     * Slots for the divider
+     */
+    dividerProps?: DividerProps;
   };
   /**
    * Function to handle edit click
@@ -103,8 +107,12 @@ const Scorecard = ({
   onClickDelete,
   ...props
 }: ScorecardProps) => {
-  const { emptyStateProps, avatarAndTextProps, rowsOrEmptyStateProps } =
-    slots || {};
+  const {
+    emptyStateProps,
+    avatarAndTextProps,
+    rowsOrEmptyStateProps,
+    dividerProps
+  } = slots || {};
   const {
     allChecked,
     checked,
@@ -128,7 +136,7 @@ const Scorecard = ({
             {...avatarAndTextProps}
           />
 
-          <Divider sx={{ my: theme.spacing(2.5) }} />
+          <Divider {...dividerProps} />
           <Grid
             container
             flexDirection="column"

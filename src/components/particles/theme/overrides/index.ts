@@ -19,6 +19,7 @@ import DataGrid from './DataGrid';
 import Dialog from './Dialog';
 import Drawer from './Drawer';
 import Fab from './Fab';
+import IconButton from './IconButton';
 import Input from './Input';
 import Link from './Link';
 import Lists from './List';
@@ -68,6 +69,7 @@ const ComponentsOverrides = (theme: Theme) => {
     Dialog(theme),
     Drawer(theme),
     Fab(theme),
+    IconButton(theme),
     Input(theme),
     Link(theme),
     Lists(theme),
@@ -75,7 +77,6 @@ const ComponentsOverrides = (theme: Theme) => {
     Menu(theme),
     Pagination(theme),
     Paper(theme),
-    Snackbar(theme),
     Popover(theme),
     Progress(theme),
     Radio(theme),
@@ -83,6 +84,7 @@ const ComponentsOverrides = (theme: Theme) => {
     Select(theme),
     Skeleton(theme),
     Slider(theme),
+    Snackbar(theme),
     Stepper(theme),
     SvgIcon(theme),
     Switch(theme),

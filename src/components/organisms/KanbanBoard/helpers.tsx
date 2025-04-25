@@ -4,7 +4,6 @@ import { Dispatch, SetStateAction } from 'react';
 import { Avatar, Chip } from 'src/components/atoms';
 import Dropdown from 'src/components/molecules/Dropdown/Dropdown';
 import { DropdownListItem } from 'src/components/molecules/Dropdown/DropdownList/DropdownList';
-import { HeadCell } from 'src/components/molecules/Table/TableHeader/TableHeader';
 import { DotsVerticalIcon } from 'src/components/particles/theme/icons/General/dots-vertical';
 import { BatteryFullIcon } from 'src/components/particles/theme/icons/MediaAndDevices/battery-full';
 import { BatteryLowIcon } from 'src/components/particles/theme/icons/MediaAndDevices/battery-low';
@@ -24,7 +23,8 @@ export const tableRowsFnDefault = (
   isTruncated: boolean,
   setIsTruncated: Dispatch<SetStateAction<boolean>>,
   statusDropdownListItems: DropdownListItem[],
-  handleEditCard: (card: any) => void
+  handleEditCard: (card: any) => void,
+  handleOpenDrawer?: (card: any) => void
 ) => {
   const toggleTruncate = () => {
     setIsTruncated(!isTruncated);
@@ -91,20 +91,7 @@ export const tableRowsFnDefault = (
     ),
     status: (
       <Chip
-        label={
-          // <Box display={'flex'} alignItems={'center'}>
-          //   <Dropdown
-          //     label={card.status}
-          //     buttonProps={{
-          //       endIcon: <ChevronDownIcon sx={{ width: 12, height: 12 }} />,
-          //       variant: 'text'
-          //     }}
-          //     dropdownListItems={statusDropdownListItems}
-          //     dropdownMenuProps={{}}
-          //   />
-          // </Box>
-          statuses[card.status]
-        }
+        label={statuses[card.status]}
         clickable={false}
         sx={{
           backgroundColor:
@@ -158,6 +145,17 @@ export const tableRowsFnDefault = (
             menuItemProps: {
               sx: { padding: (theme) => theme.spacing(1.375, 2) },
               onClick: () => {
+                handleOpenDrawer && handleOpenDrawer(card);
+              },
+              children: (
+                <Typography variant="textSmRegular">Open Drawer</Typography>
+              )
+            }
+          },
+          {
+            menuItemProps: {
+              sx: { padding: (theme) => theme.spacing(1.375, 2) },
+              onClick: () => {
                 handleEditCard(card);
               },
               children: (
@@ -167,7 +165,6 @@ export const tableRowsFnDefault = (
               )
             }
           },
-
           {
             menuItemProps: {
               sx: { padding: (theme) => theme.spacing(1.375, 2) },
@@ -187,102 +184,3 @@ export const tableRowsFnDefault = (
     )
   };
 };
-
-export const statusDropdownListItemsDefault: DropdownListItem[] = [
-  {
-    menuItemProps: {
-      sx: { padding: (theme) => theme.spacing(1.375, 2) },
-      children: <Typography variant="textSmRegular">Soon</Typography>
-    }
-  },
-  {
-    menuItemProps: {
-      sx: { padding: (theme) => theme.spacing(1.375, 2) },
-      children: <Typography variant="textSmRegular">In Progress</Typography>
-    }
-  },
-  {
-    menuItemProps: {
-      sx: { padding: (theme) => theme.spacing(1.375, 2) },
-      children: <Typography variant="textSmRegular">Done</Typography>
-    }
-  },
-  {
-    menuItemProps: {
-      sx: { padding: (theme) => theme.spacing(1.375, 2) },
-      children: <Typography variant="textSmRegular">Blocked</Typography>
-    }
-  }
-];
-
-export const tableHeadCellsDefault: readonly HeadCell<{
-  summary: JSX.Element;
-  assignee: JSX.Element;
-  priority: JSX.Element;
-  status: JSX.Element;
-  dueDate: JSX.Element;
-  updated: JSX.Element;
-  created: JSX.Element;
-  options: JSX.Element;
-}>[] = [
-  {
-    id: 'summary',
-    label: 'Summary',
-    disablePadding: false,
-    alignRight: false
-  },
-  {
-    id: 'assignee',
-    label: 'Assignee',
-    disablePadding: false,
-    alignRight: false
-  },
-  {
-    id: 'priority',
-    label: 'Priority',
-
-    disablePadding: false,
-    alignRight: false
-  },
-  {
-    id: 'status',
-    label: 'Status',
-    disablePadding: false,
-    alignRight: false
-  },
-  {
-    id: 'dueDate',
-    label: 'Due Date',
-    disablePadding: false,
-    alignRight: false
-  },
-  {
-    id: 'updated',
-    label: 'Updated',
-    disablePadding: false,
-    alignRight: false
-  },
-  {
-    id: 'created',
-    label: 'Created',
-    disablePadding: false,
-    alignRight: false
-  },
-  {
-    id: 'options',
-    label: '',
-    disablePadding: false,
-    alignRight: false
-  }
-];
-
-export const rowValuesDefault = [
-  'summary',
-  'assignee',
-  'priority',
-  'status',
-  'dueDate',
-  'updated',
-  'created',
-  'options'
-];

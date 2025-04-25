@@ -5,12 +5,12 @@ import { SelectOption } from 'src/components/atoms/InputBase/SelectInputBase/Sel
 import { SelectInput } from 'src/components/molecules';
 
 interface StandUpUserTeamSelectProps {
-  teamOptions: SelectOption[];
-  handleTeamChange: (event: SelectChangeEvent<string>) => void;
-  value: string;
+  teamOptions?: SelectOption[];
+  handleTeamChange?: (event: SelectChangeEvent<string>) => void;
+  value?: string;
 }
 const StandUpUserTeamSelect = ({
-  teamOptions,
+  teamOptions = [],
   handleTeamChange,
   value
 }: StandUpUserTeamSelectProps) => {

@@ -5,8 +5,6 @@ import {
   FormLabelProps,
   Grid,
   GridProps,
-  InputLabel,
-  InputLabelProps,
   SxProps,
   Theme
 } from '@mui/material';

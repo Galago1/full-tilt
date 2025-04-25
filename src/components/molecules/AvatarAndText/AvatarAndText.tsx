@@ -10,6 +10,7 @@ import FeaturedIcon, {
   FeaturedIconProps
 } from 'src/components/atoms/FeaturedIcon/FeaturedIcon';
 import { ReactNode, forwardRef } from 'react';
+import Tooltip, { TooltipProps } from 'src/components/atoms/Tooltip/Tooltip';
 
 interface UserTextItem {
   title?: string | JSX.Element | undefined;
@@ -66,6 +67,14 @@ export interface AvatarAndTextProps extends Omit<GridProps, 'title'> {
    * End button
    */
   buttonProps?: ButtonProps & { gridProps?: SxProps<Theme> };
+  /**
+   * Left button tooltip props
+   */
+  leftButtonTooltipProps?: TooltipProps;
+  /**
+   * Right button tooltip props
+   */
+  rightButtonTooltipProps?: TooltipProps;
   /**
    * Left button
    */
@@ -167,6 +176,8 @@ const AvatarAndText = forwardRef(
       sx,
       textSx,
       buttonProps,
+      leftButtonTooltipProps,
+      rightButtonTooltipProps,
       leftButtonProps,
       leftButtonItemSx,
       titleTypography = { variant: 'textLgSemibold' },
@@ -231,7 +242,9 @@ const AvatarAndText = forwardRef(
               ...leftButtonItemSx
             }}
           >
-            <Button {...leftButtonProps} />
+            <Tooltip {...leftButtonTooltipProps!}>
+              <Button {...leftButtonProps} />
+            </Tooltip>
           </Grid>
         )}
         {leftIcon && (
@@ -311,7 +324,9 @@ const AvatarAndText = forwardRef(
         )}
         {buttonProps && (
           <Grid item sx={gridProps}>
-            <Button {...restButtonProps} />
+            <Tooltip {...rightButtonTooltipProps!}>
+              <Button {...restButtonProps} />
+            </Tooltip>
           </Grid>
         )}
         {children && (

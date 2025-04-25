@@ -3,11 +3,11 @@ import { composeStories } from '@storybook/testing-react';
 import { render, screen, within } from '@testing-library/react';
 import * as HeaderStories from './Dropdown.stories'; //👈  Our stories imported here
 //👇 composeStories will process all information related to the component (e.g., args)
-const { IconButtonWithAvatar } = composeStories(HeaderStories);
+const { Default } = composeStories(HeaderStories);
 
 describe('Dropdown', () => {
   test('opens the menu', () => {
-    render(<IconButtonWithAvatar />);
+    render(<Default />);
     const element = screen.getByRole('button');
     act(() => {
       element.click();
@@ -16,7 +16,7 @@ describe('Dropdown', () => {
     expect(menu).toBeInTheDocument();
   });
   test('closes the menu', () => {
-    render(<IconButtonWithAvatar />);
+    render(<Default />);
     const element = screen.getByRole('button');
     act(() => {
       element.click();

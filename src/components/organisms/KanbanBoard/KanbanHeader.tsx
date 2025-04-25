@@ -13,16 +13,16 @@ import { ChipProps } from 'src/components/atoms/Chip/Chip';
 import { ButtonGroup, Dropdown } from 'src/components/molecules';
 import { ButtonGroupProps } from 'src/components/molecules/ButtonGroup/ButtonGroup';
 import { KanbanData } from './KanbanBoard';
-import { KanbanListType } from './KanbanDndContent';
 import { FilterLinesIcon } from 'src/components/particles/theme/icons/General/filter-lines';
 import { PlusIcon } from 'src/components/particles/theme/icons/General/plus';
 import { Columns03Icon } from 'src/components/particles/theme/icons/Layout/columns-03';
 import { ListIcon } from 'src/components/particles/theme/icons/Layout/list';
+import { KanbanListType } from '../Kanban/KanbanDndContent';
 
 const buttonGroupFn = (
   initialView: KanbanListType,
   currentView: KanbanListType,
-  handleViewChange: (view: KanbanListType) => void,
+  handleViewChange: (view: KanbanListType | ((prev: KanbanListType) => KanbanListType)) => void,
   firstStartIcon: ReactNode = <ListIcon />,
   secondStartIcon: ReactNode = <Columns03Icon />
 ): Array<ButtonProps & { selected: boolean }> => {
@@ -60,13 +60,16 @@ export interface KanbanHeaderProps {
   showFilters?: boolean;
   filteredCards?: any[];
   sortByOptions?: {
+    teams?: string[];
+    types?: string[];
+  } | Array<{
     value: string;
     label: string;
-  }[];
+  }>;
   anyComp?: ReactNode;
 
   handleTypeChange?: (type: string) => void;
-  handleViewChange?: (view: KanbanListType) => void;
+  handleViewChange?: (view: KanbanListType | ((prev: KanbanListType) => KanbanListType)) => void;
   view?: KanbanListType;
   initialView?: KanbanListType;
   toggleDrawer?: () => void;
@@ -109,9 +112,26 @@ const KanbanHeader = ({
         firstStartIcon!,
         secondStartIcon!
       ),
-    [initialView, view, handleViewChange]
+    [initialView, view, handleViewChange, firstStartIcon, secondStartIcon]
   );
   const theme = useTheme();
+
+  // Convert sortByOptions to dropdown format
+  const dropdownOptions = useMemo(() => {
+    if (!sortByOptions) return [];
+    
+    // Check if sortByOptions is an array (old format) or object (new format)
+    if (Array.isArray(sortByOptions)) {
+      // Old format: Array of { value, label }
+      return sortByOptions;
+    } else {
+      // New format: { teams, types }
+      return sortByOptions.types?.map(type => ({
+        value: type,
+        label: type
+      })) || [];
+    }
+  }, [sortByOptions]);
 
   return (
     <Grid sx={{ flexGrow: 1 }}>
@@ -124,13 +144,13 @@ const KanbanHeader = ({
         <Grid item flex={1}>
           <Grid container alignItems="center" flexWrap={'nowrap'} gap={1}>
             <Typography variant="textLgSemibold" noWrap>
-              {data!.title}
+              {data?.title || ''}
             </Typography>
             {includeChip && (
               <Chip
                 variant="outlined"
                 sx={{ borderRadius: theme.borderRadius.xl }}
-                label={filteredCards!.length || '0'}
+                label={filteredCards?.length || '0'}
                 {...chipProps}
               />
             )}
@@ -148,7 +168,7 @@ const KanbanHeader = ({
               </Grid>
             )}
 
-            {showFilters && (
+            {showFilters && dropdownOptions.length > 0 && (
               <Grid item>
                 <Dropdown
                   label="Sort By"
@@ -164,17 +184,17 @@ const KanbanHeader = ({
                       padding: theme.spacing(10 / 8, 14 / 8)
                     }
                   }}
-                  dropdownListItems={sortByOptions!.map((option) => ({
+                  dropdownListItems={dropdownOptions.map((option) => ({
                     menuItemProps: {
                       sx: {
                         padding: (theme: Theme) => theme.spacing(1.375, 2)
                       },
-                      onClick: () => handleTypeChange!(option.value),
+                      onClick: () => handleTypeChange && handleTypeChange(option.value),
                       children: (
                         <Typography
                           variant="textSmRegular"
-                          onSelect={() => handleTypeChange!(option.value)}
-                          onClick={() => handleTypeChange!(option.value)}
+                          onSelect={() => handleTypeChange && handleTypeChange(option.value)}
+                          onClick={() => handleTypeChange && handleTypeChange(option.value)}
                         >
                           {option.label}
                         </Typography>

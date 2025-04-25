@@ -3,11 +3,12 @@ import { ButtonProps } from 'src/components/atoms/Button/Button';
 import { responsiveSpacing } from 'src/components/particles/theme/spacing';
 import StandUpMemberDetailCardContent from './StandUpMemberDetailCardContent';
 import { TeamMember } from './StandUpUserList';
+import { CardProps } from '../Card/Card';
 
 const currentTimestamp = new Date();
 currentTimestamp.setMinutes(currentTimestamp.getMinutes() - 6);
 
-interface StandUpMemberDetailProps {
+export interface StandUpMemberDetailProps extends CardProps {
   member: TeamMember;
   onBack: () => void;
   onNext: () => void;
@@ -36,10 +37,12 @@ const StandUpMemberDetail = ({
   editButtonProps,
   memberButtonProps,
   standUpMemberDetailContent,
-  currentMember
+  currentMember,
+  ...props
 }: StandUpMemberDetailProps) => {
   return (
     <Card
+      {...props}
       sx={{
         display: 'flex',
         flexDirection: 'column',
@@ -47,7 +50,8 @@ const StandUpMemberDetail = ({
         padding: responsiveSpacing,
         border: theme.border.outlinedButton,
         borderRadius: theme.borderRadius.md,
-        boxShadow: theme.customShadows.xs
+        boxShadow: theme.customShadows.xs,
+        ...props.sx
       }}
     >
       <StandUpMemberDetailCardContent

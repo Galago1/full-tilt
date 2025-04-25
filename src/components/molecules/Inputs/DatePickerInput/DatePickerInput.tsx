@@ -21,6 +21,7 @@ export interface DatePickerInputProps extends DatePickerInputBaseProps {
   sx?: SxProps<Theme>;
   onChange?: (value: any) => void;
   orient?: Orientation;
+  'data-testid'?: string;
   slots?: {
     horizontalInput?: HorizontalInputProps;
     labelProps?: FormControlLabelProps;
@@ -34,6 +35,7 @@ const DatePickerInput = ({
   orient,
   label,
   labelSx,
+  'data-testid': dataTestId,
   ...props
 }: DatePickerInputProps) => {
   const { horizontalInput, labelProps } = props.slots || {};
@@ -43,6 +45,7 @@ const DatePickerInput = ({
         label={label}
         labelSx={labelSx}
         orientation={orient}
+        data-testid={dataTestId}
         {...horizontalInput}
       >
         <DatePickerInputBase {...props} />
@@ -53,6 +56,7 @@ const DatePickerInput = ({
       control={<DatePickerInputBase {...props} />}
       label={label}
       labelPlacement={'top'}
+      data-testid={dataTestId}
       sx={{
         ...labelSx
       }}

@@ -4,43 +4,27 @@ import {
   forwardRef,
   Ref,
   SetStateAction,
-  useImperativeHandle
+  useImperativeHandle,
+  useRef,
+  useState,
+  useEffect
 } from 'react';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
 import { Divider } from 'src/components/atoms';
 import { DropdownListItem } from 'src/components/molecules/Dropdown/DropdownList/DropdownList';
 import { HeadCell } from 'src/components/molecules/Table/TableHeader/TableHeader';
 import { TablePaginationWaveProps } from 'src/components/molecules/Table/TablePaginationWave/TablePaginationWave';
-import { DataGridProps } from '../DataGrid/DataGrid';
-import AddCardDrawer, { AddCardDrawerProps } from './AddCardDrawer';
-import EditCardDrawer from './EditCardDrawer';
-import {
-  rowValuesDefault,
-  statusDropdownListItemsDefault,
-  tableHeadCellsDefault,
-  tableRowsFnDefault
-} from './helpers';
-import {
-  useKanbanActions,
-  useKanbanColumns,
-  useKanbanData,
-  useKanbanView
-} from './hooks';
-import DndContent, { KanbanListType } from './KanbanDndContent';
-import KanbanHeader, { KanbanHeaderProps } from './KanbanHeader';
-import { IndividualKanbanColumn } from './types';
 import { responsiveSpacing } from 'src/components/particles/theme/spacing';
+import { DataGridProps } from '../DataGrid/DataGrid';
+import Kanban, { KanbanData } from '../Kanban/Kanban';
+import { KanbanListType } from '../Kanban/KanbanDndContent';
+import KanbanHeader, { KanbanHeaderProps } from './KanbanHeader';
+import { tableRowsFnDefault } from './helpers';
 
 export interface KanbanBoardProps extends GridProps {
   data: KanbanData;
   showAdd?: boolean;
   disableMoveColumn?: boolean;
   disableReduceColumns?: boolean;
-  isDrawerOpen?: boolean;
-  setDrawerOpen?: (open: boolean) => void;
-  isEditDrawerOpen?: boolean;
-  setEditDrawerOpen?: (open: boolean) => void;
   toggleDrawer?: () => void;
   toggleEditDrawer?: (card: any) => void;
   moveCard?: (
@@ -69,14 +53,19 @@ export interface KanbanBoardProps extends GridProps {
     isTruncated: boolean,
     setIsTruncated: Dispatch<SetStateAction<boolean>>,
     statusDropdownListItems: DropdownListItem[],
-    handleEditCard: (card: any) => void
-  ) => void;
+    handleEditCard: (card: any) => void,
+    handleOpenDrawer?: (card: any) => void
+  ) => any;
   initialView?: KanbanListType;
   controlledView?: KanbanListType;
-  controlledHandleViewChange?: Dispatch<SetStateAction<KanbanListType>>;
+  controlledHandleViewChange?: (
+    newView: KanbanListType | ((prev: KanbanListType) => KanbanListType)
+  ) => void;
   onEditSubmit: (card: any) => void;
+  showDivider?: boolean;
+  showHeader?: boolean;
   slots?: {
-    addCardDrawerProps?: AddCardDrawerProps;
+    // addCardDrawerProps?: AddCardDrawerProps;
     dataGridProps?: Omit<DataGridProps, 'rows'>;
     dataGridBoxProps?: GridProps;
     tablePaginationWaveProps?: TablePaginationWaveProps;
@@ -84,10 +73,7 @@ export interface KanbanBoardProps extends GridProps {
   };
 }
 
-export interface KanbanData {
-  title: string;
-  columns: IndividualKanbanColumn[];
-}
+export type { KanbanData };
 
 const KanbanBoard = forwardRef(
   (
@@ -98,93 +84,118 @@ const KanbanBoard = forwardRef(
       disableMoveColumn = false,
       disableReduceColumns = false,
       initialView = KanbanListType.DATAGRID,
-      isDrawerOpen: propIsDrawerOpen,
-      isEditDrawerOpen: propIsEditDrawerOpen,
       moveCard: propMoveCard,
       moveColumn: propMoveColumn,
-      onEditSubmit,
-      rowValues = rowValuesDefault,
-      setDrawerOpen: propSetDrawerOpen,
-      setEditDrawerOpen: propSetEditDrawerOpen,
+      rowValues,
       showAdd = true,
-      statusDropdownListItems = statusDropdownListItemsDefault,
-      tableHeadCells = tableHeadCellsDefault,
+      statusDropdownListItems,
+      tableHeadCells,
       tableRowsFn = tableRowsFnDefault,
       selectedTeamFilter,
       toggleDrawer: propToggleDrawer,
       toggleEditDrawer: propToggleEditDrawer,
       slots,
       sx,
+      showDivider = true,
+      showHeader = true,
       ...props
     }: KanbanBoardProps,
     ref: Ref<any>
   ) => {
     const {
-      addCardDrawerProps,
       dataGridProps,
       dataGridBoxProps,
       tablePaginationWaveProps,
       kanbanHeaderProps
     } = slots || {};
     const theme = useTheme();
-    const { columns, moveCard, moveColumn } = useKanbanColumns(
-      data.columns,
-      propMoveCard,
-      propMoveColumn,
-      disableMoveColumn
-    );
-    const { view, handleViewChange } = useKanbanView(
-      initialView,
-      controlledView,
-      controlledHandleViewChange
-    );
 
-    const {
-      selectedTeam,
-      selectedType,
-      sortBy,
-      isDrawerOpen,
-      isEditDrawerOpen,
-      selectedCard,
-      toggleDrawer,
-      toggleEditDrawer,
-      handleTeamChange,
-      handleTypeChange,
-      handleEditCard
-    } = useKanbanActions(
-      propIsDrawerOpen,
-      propSetDrawerOpen,
-      propIsEditDrawerOpen,
-      propSetEditDrawerOpen,
-      propToggleDrawer,
-      propToggleEditDrawer
-    );
+    // Manage view state at the KanbanBoard level
+    const [boardView, setBoardView] = useState<KanbanListType>(initialView);
+    const [filteredCards, setFilteredCards] = useState<any[]>([]);
+    const [sortByOptions, setSortByOptions] = useState<any>({
+      teams: [],
+      types: []
+    });
+    const [handleTypeChange, setHandleTypeChange] = useState<any>(null);
 
-    const {
-      filteredColumns,
-      filteredCards,
-      tableRows,
-      dataGridRows,
-      sortByOptions
-    } = useKanbanData(
-      selectedTeam,
-      selectedType,
-      sortBy,
-      columns,
-      statusDropdownListItems,
-      handleEditCard,
-      data,
-      tableRowsFn,
-      disableReduceColumns,
-      selectedTeamFilter
-    );
+    // Reference to the Kanban component
+    const kanbanRef = useRef<any>(null);
+
+    // Handle view changes at the KanbanBoard level
+    const handleViewChange = (
+      newView: KanbanListType | ((prev: KanbanListType) => KanbanListType)
+    ) => {
+      if (controlledHandleViewChange) {
+        controlledHandleViewChange(newView);
+      } else {
+        setBoardView(newView);
+      }
+    };
+
+    // Sync with kanban data when it changes
+    useEffect(() => {
+      if (kanbanRef.current) {
+        const kanbanData = kanbanRef.current.kanbanData();
+        if (kanbanData) {
+          setFilteredCards(kanbanData.filteredCards || []);
+          setSortByOptions(
+            kanbanData.sortByOptions || { teams: [], types: [] }
+          );
+          setHandleTypeChange(kanbanData.handleTypeChange);
+        }
+      }
+    }, [boardView, data]);
 
     useImperativeHandle(ref, () => ({
-      kanbanData: () => ({
-        handleTeamChange,
-        handleTypeChange
-      })
+      kanbanData: () => {
+        if (kanbanRef.current) {
+          return {
+            ...kanbanRef.current.kanbanData(),
+            view: controlledView || boardView,
+            handleViewChange
+          };
+        }
+        return {
+          view: controlledView || boardView,
+          handleViewChange,
+          filteredCards,
+          sortByOptions,
+          handleTypeChange
+        };
+      }
     }));
+
+    const handleEditCard = (card: any) => {
+      propToggleEditDrawer?.(card);
+    };
+
+    const handleOpenDrawer = (card: any) => {
+      propToggleDrawer?.();
+    };
+
+    // Create a custom tableRowsFn that includes the handleOpenDrawer function
+    const customTableRowsFn = (
+      card: any,
+      theme: Theme,
+      isTruncated: boolean,
+      setIsTruncated: Dispatch<SetStateAction<boolean>>,
+      statusDropdownListItems: DropdownListItem[],
+      handleEditCardFn: (card: any) => void
+    ) => {
+      return tableRowsFn(
+        card,
+        theme,
+        isTruncated,
+        setIsTruncated,
+        statusDropdownListItems,
+        handleEditCardFn,
+        handleOpenDrawer
+      );
+    };
+
+    // Use the controlled view if provided, otherwise use the local state
+    const currentView = controlledView || boardView;
 
     return (
       <>
@@ -203,73 +214,67 @@ const KanbanBoard = forwardRef(
           }}
           {...props}
         >
-          <Grid
-            item
-            sx={{
-              padding: 3,
-              width: '100%'
-            }}
-          >
-            <KanbanHeader
-              {...kanbanHeaderProps!}
-              data={data}
-              showAdd={showAdd!}
-              filteredCards={filteredCards}
-              sortByOptions={sortByOptions}
-              handleTypeChange={handleTypeChange}
-              handleViewChange={handleViewChange}
-              view={view}
-              initialView={initialView}
-              toggleDrawer={toggleDrawer}
-            />
-          </Grid>
-          <Grid item width={'100%'}>
-            <Divider
+          {showHeader && (
+            <Grid
+              item
               sx={{
-                margin:
-                  view === 'kanban'
-                    ? theme.spacing(0, 0, 20 / 8, 0)
-                    : theme.spacing(0, 0, 0, 0),
-                mx: view === 'kanban' ? responsiveSpacing : 0
+                padding: 3,
+                width: '100%'
+              }}
+            >
+              <KanbanHeader
+                {...kanbanHeaderProps!}
+                data={data}
+                showAdd={showAdd}
+                filteredCards={filteredCards}
+                sortByOptions={sortByOptions}
+                handleTypeChange={handleTypeChange}
+                handleViewChange={handleViewChange}
+                view={currentView}
+                initialView={initialView}
+                toggleDrawer={propToggleDrawer}
+              />
+            </Grid>
+          )}
+          {showDivider && (
+            <Grid item width={'100%'}>
+              <Divider
+                sx={{
+                  margin:
+                    currentView === 'kanban'
+                      ? theme.spacing(0, 0, 20 / 8, 0)
+                      : theme.spacing(0, 0, 0, 0),
+                  mx: currentView === 'kanban' ? responsiveSpacing : 0
+                }}
+              />
+            </Grid>
+          )}
+          <Grid item width={'100%'} flex={1}>
+            <Kanban
+              ref={kanbanRef}
+              data={data}
+              controlledHandleViewChange={handleViewChange}
+              controlledView={currentView}
+              disableMoveColumn={disableMoveColumn}
+              disableReduceColumns={disableReduceColumns}
+              initialView={initialView}
+              moveCard={propMoveCard}
+              moveColumn={propMoveColumn}
+              onEditCard={handleEditCard}
+              rowValues={rowValues}
+              showAdd={showAdd}
+              statusDropdownListItems={statusDropdownListItems}
+              tableHeadCells={tableHeadCells}
+              tableRowsFn={customTableRowsFn}
+              selectedTeamFilter={selectedTeamFilter}
+              slots={{
+                dataGridProps,
+                dataGridBoxProps,
+                tablePaginationWaveProps
               }}
             />
           </Grid>
-          <Grid item width={'100%'} flex={1}>
-            <DndProvider backend={HTML5Backend}>
-              <DndContent
-                view={view}
-                filteredColumns={filteredColumns}
-                filteredCards={filteredCards}
-                rowValues={rowValues}
-                tableHeadCells={tableHeadCells}
-                tableRows={tableRows}
-                dataGridRows={dataGridRows}
-                moveCard={moveCard}
-                moveColumn={moveColumn}
-                handleEditCard={handleEditCard}
-                disableMoveColumn={disableMoveColumn}
-                slots={{
-                  dataGridProps: dataGridProps!,
-                  dataGridBoxProps: dataGridBoxProps!,
-                  tablePaginationWaveProps: tablePaginationWaveProps!
-                }}
-              />
-            </DndProvider>
-          </Grid>
         </Grid>
-
-        <AddCardDrawer
-          {...addCardDrawerProps!}
-          open={isDrawerOpen}
-          onCloseDrawer={() => toggleDrawer()}
-        />
-        <EditCardDrawer
-          open={isEditDrawerOpen}
-          onClose={() => toggleEditDrawer('')}
-          onSubmit={onEditSubmit}
-          selectedCard={selectedCard}
-          data={data}
-        />
       </>
     );
   }

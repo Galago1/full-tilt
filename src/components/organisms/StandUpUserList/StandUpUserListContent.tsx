@@ -6,15 +6,15 @@ import {
   ListItemText
 } from '@mui/material';
 import { Fragment } from 'react';
-import { Avatar, Badge, Divider } from 'src/components/atoms';
+import { Avatar, Badge } from 'src/components/atoms';
 import { AvatarProps } from 'src/components/atoms/Avatar/Avatar';
 import { VerifiedTickIcon } from 'src/components/particles/theme/overrides/CustomIcons';
 import { TeamMember } from './StandUpUserList';
 
 interface StandUpUserListContentProps {
-  selectedIndex: number | null;
-  filteredMembers: TeamMember[];
-  setSelectedIndex: (index: number) => void;
+  selectedIndex?: number | null;
+  filteredMembers?: TeamMember[];
+  setSelectedIndex?: (index: number) => void;
 }
 
 const StandUpUserListContent = ({
@@ -27,14 +27,16 @@ const StandUpUserListContent = ({
       sx={{
         flex: 1,
         overflowY: 'auto',
-        px: 2
+        py: 0
       }}
     >
-      {filteredMembers.map((member, index) => {
+      {(filteredMembers || []).map((member, index) => {
         const avatarProps: AvatarProps = {
           alt: member.name,
           src: member.imageUrl,
+          sx: { width: 32, height: 32, fontSize: 14 },
           children: member.name
+
             .split(' ')
             .map((n) => n[0])
             .join('')
@@ -45,11 +47,12 @@ const StandUpUserListContent = ({
         return (
           <Fragment key={member.id}>
             <ListItem
-              onClick={() => setSelectedIndex(index)}
+              onClick={() => setSelectedIndex?.(index)}
               sx={{
                 py: 1,
                 px: 0.5,
                 cursor: 'pointer',
+                borderRadius: (theme) => theme.borderRadius.xs,
                 backgroundColor: isSelected ? 'grey.50' : 'transparent',
                 '&:hover': {
                   backgroundColor: 'grey.50'
@@ -63,7 +66,7 @@ const StandUpUserListContent = ({
                       anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                       badgeContent={
                         member.standUpCompletedAt ? (
-                          <VerifiedTickIcon sx={{ width: 20, height: 20 }} />
+                          <VerifiedTickIcon sx={{ width: 16, height: 16 }} />
                         ) : undefined
                       }
                       sx={{
@@ -85,10 +88,15 @@ const StandUpUserListContent = ({
                     primary={member.name}
                     primaryTypographyProps={{
                       noWrap: true,
-                      variant: 'body2',
-                      sx: { fontWeight: 'bold' }
+                      variant: 'textMdRegular',
+                      sx: { fontWeight: 500 }
                     }}
                     secondary={member.team}
+                    secondaryTypographyProps={{
+                      noWrap: true,
+                      variant: 'textMdRegular',
+                      sx: { fontWeight: 500, lineHeight: '16px' }
+                    }}
                     sx={{
                       overflow: 'hidden',
                       textOverflow: 'ellipsis'
@@ -97,7 +105,6 @@ const StandUpUserListContent = ({
                 </Grid>
               </Grid>
             </ListItem>
-            {index !== filteredMembers.length - 1 && <Divider />}
           </Fragment>
         );
       })}

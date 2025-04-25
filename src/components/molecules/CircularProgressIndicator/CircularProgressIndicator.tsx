@@ -47,7 +47,7 @@ export interface CircularProgressIndicatorProps
   /**
    * The label for the value e
    */
-  label?: string;
+  label?: string | JSX.Element;
   /**
    * The size of the component.
    * If using a number, the pixel unit is assumed.

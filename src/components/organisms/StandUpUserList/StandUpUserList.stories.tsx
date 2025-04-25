@@ -4,6 +4,7 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  Theme,
   Typography
 } from '@mui/material';
 import { Story } from '@storybook/react';
@@ -16,6 +17,9 @@ import StandUpUserList, {
   StandUpUserListProps,
   TeamMember
 } from './StandUpUserList';
+import { responsiveSpacingSmall } from 'src/components/particles/theme/spacing';
+import { AvatarAndText } from 'src/components/molecules';
+import { CardHeaderProps } from 'src/components/molecules/Card/CardHeader/CardHeader';
 const image = 'https://robohash.org/WTN.png?set=set1';
 
 export default {
@@ -106,6 +110,8 @@ const teamsOptions: SelectOption[] = [
 
 export const Default = Template.bind({});
 Default.args = {
+  // sx: { border: 'none', boxShadow: 'none' },
+
   teamsOptions: teamsOptions,
   teamMembers: teamMembers,
   currentMember: teamMembers[0],
@@ -117,6 +123,43 @@ Default.args = {
       size: 'small',
       sx: {
         borderRadius: '6px'
+      }
+    },
+    standUpUserListTeamMembersProps: {
+      customHeader: (
+        <AvatarAndText
+          title={'Members'}
+          titleTypography={{ variant: 'textMdSemibold', lineHeight: '28px' }}
+        ></AvatarAndText>
+      ),
+      sx: {
+        border: 'none',
+        boxShadow: 'none',
+        borderRight: {
+          xs: 'none',
+          sm: 'none',
+          md: (theme: Theme) => theme.border.outlinedButton
+        }
+      },
+      cardSlots: {
+        cardContentProps: {
+          sx: { px: 2, py: 0 }
+        },
+        cardHeaderProps: {
+          paddingBottom: { xs: 10 / 8 }
+        } as CardHeaderProps
+      },
+      showTeamMembersHeader: false,
+      showTeamSelect: false
+    },
+    standUpMemberDetailProps: {
+      sx: {
+        border: 'none',
+        boxShadow: 'none',
+        p: responsiveSpacingSmall,
+        '&': {
+          pt: { xs: 10 / 8 }
+        }
       }
     }
   }

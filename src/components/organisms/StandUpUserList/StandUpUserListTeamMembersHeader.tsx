@@ -2,17 +2,16 @@ import { Grid, Theme, Typography, useTheme } from '@mui/material';
 import { Field, Formik } from 'formik';
 import PickerWithButtonField from 'src/components/atoms/InputBase/DatePickerInputBase/PickerWithButtonField';
 import Tooltip from 'src/components/atoms/Tooltip/Tooltip';
-import { responsiveSpacing } from 'src/components/particles/theme/spacing';
 
 const currentTimestamp = new Date();
 currentTimestamp.setMinutes(currentTimestamp.getMinutes() - 6);
 
 interface StandUpUserListTeamMembersHeaderProps {
-  formatSelectedDateMemo: string;
-  completedStandUpsCountMemo: number;
-  open: boolean;
-  setOpen: (value: React.SetStateAction<boolean>) => void;
-  handleDateChange: (date: Date | null) => void;
+  formatSelectedDateMemo?: string;
+  completedStandUpsCountMemo?: number;
+  open?: boolean;
+  setOpen?: (value: React.SetStateAction<boolean>) => void;
+  handleDateChange?: (date: Date | null) => void;
 }
 const StandUpUserListTeamMembersHeader = ({
   formatSelectedDateMemo,
@@ -23,19 +22,8 @@ const StandUpUserListTeamMembersHeader = ({
 }: StandUpUserListTeamMembersHeaderProps) => {
   const theme = useTheme();
   return (
-    <Grid
-      item
-      xs={12}
-      display={'flex'}
-      justifyContent={'space-between'}
-      alignItems={'center'}
-      sx={{
-        px: 2,
-        pt: responsiveSpacing
-      }}
-      gap={1}
-    >
-      <Grid display={'flex'} gap={1} alignItems={'center'}>
+    <Grid container alignItems={'center'}>
+      <Grid item display={'flex'} gap={1} alignItems={'center'} flex={1}>
         <Typography variant={'textLgSemibold'}>
           {formatSelectedDateMemo}
         </Typography>
@@ -62,7 +50,7 @@ const StandUpUserListTeamMembersHeader = ({
         </Grid>
       </Grid>
       <Tooltip title={'Filter Date'}>
-        <Grid sx={{ position: 'relative' }}>
+        <Grid item sx={{ position: 'relative' }}>
           <Formik initialValues={{ date: null }} onSubmit={() => {}}>
             {(formik) => (
               <Field
@@ -76,8 +64,8 @@ const StandUpUserListTeamMembersHeader = ({
                 }}
                 maxDate={new Date()}
                 open={open}
-                onOpen={() => setOpen(true)}
-                onClose={() => setOpen(false)}
+                onOpen={() => setOpen?.(true)}
+                onClose={() => setOpen?.(false)}
                 slotProps={{ field: { setOpen: setOpen } }}
                 setOpen={setOpen}
                 onChange={handleDateChange}

@@ -21,8 +21,12 @@ const ConfettiProvider = ({ init = {}, ...props }: ConfettiProviderProps) => {
   }, []);
 
   const hideConfetti = useCallback(() => {
-    setConfetti({ ...confetti, visible: false });
-  }, [confetti]);
+    setConfetti((prevConfetti) => ({
+      ...prevConfetti,
+      visible: false,
+      duration: 0
+    }));
+  }, []);
 
   return (
     <ConfettiContext.Provider

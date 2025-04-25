@@ -1,5 +1,5 @@
-import type { MenuProps } from '@mui/material/Menu';
 import { Grid, GridProps, Menu } from '@mui/material';
+import type { MenuProps } from '@mui/material/Menu';
 import type { AvatarAndTextProps } from 'src/components/molecules/AvatarAndText/AvatarAndText';
 import AvatarAndText from 'src/components/molecules/AvatarAndText/AvatarAndText';
 import type { DropdownListItem } from '../DropdownList/DropdownList';
@@ -32,10 +32,17 @@ export const DropdownMenu = ({
   dropdownListItems,
   gridContainerProps = { flexDirection: 'column' },
   gridItemProps,
+  TransitionProps,
   ...props
 }: DropdownMenuProps) => {
   return (
-    <Menu {...props}>
+    <Menu
+      TransitionProps={{
+        ...TransitionProps,
+        timeout: 300
+      }}
+      {...props}
+    >
       {avatarAndTextProps && <AvatarAndText {...avatarAndTextProps} />}
       <Grid container {...gridContainerProps}>
         <DropdownList

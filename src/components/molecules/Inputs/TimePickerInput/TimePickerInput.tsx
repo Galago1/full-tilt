@@ -12,6 +12,7 @@ import HorizontalInput from '../HorizontalInput';
 import { HorizontalInputProps } from '../HorizontalInput/HorizontalInput';
 
 export interface TimePickerInputProps extends TimePickerInputBaseProps {
+  'data-testid'?: string;
   label?: string;
   labelSx?: SxProps;
   form?: FormikProps<any>;
@@ -37,6 +38,7 @@ const TimePickerInput = ({
   orient,
   label,
   labelSx,
+  'data-testid': dataTestId,
   ...props
 }: TimePickerInputProps) => {
   const { horizontalInput, labelProps } = props.slots || {};
@@ -46,6 +48,7 @@ const TimePickerInput = ({
         label={label}
         labelSx={labelSx}
         orientation={orient}
+        data-testid={dataTestId}
         {...horizontalInput}
       >
         <TimePickerInputBase {...props} />
@@ -56,6 +59,7 @@ const TimePickerInput = ({
       control={<TimePickerInputBase {...props} />}
       label={label}
       labelPlacement={'top'}
+      data-testid={dataTestId}
       sx={{
         ...labelSx
       }}

@@ -1,4 +1,7 @@
+import { Grid } from '@mui/material';
 import { ComponentMeta, Story } from '@storybook/react';
+import Button from 'src/components/atoms/Button/Button';
+import useConfetti from 'src/hooks/useConfetti';
 import ConfettiProvider from 'src/providers/ConfettiProvider/ConfettiProvider';
 import { useWindowSize } from 'usehooks-ts';
 import ThemeProvider from '../../particles/theme';
@@ -14,6 +17,47 @@ export default {
   // }
 } as ComponentMeta<typeof Confetti>;
 
+const ConfettiControls = () => {
+  const { showConfetti, hideConfetti } = useConfetti();
+  const window = useWindowSize();
+
+  const handleStartConfetti = () => {
+    showConfetti({
+      width: window.width,
+      height: window.height,
+      visible: true,
+      duration: undefined // Set to undefined for continuous confetti
+    });
+  };
+
+  const handleStopConfetti = () => {
+    hideConfetti();
+  };
+
+  return (
+    <Grid container spacing={2} sx={{ marginBottom: 2 }}>
+      <Grid item>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleStartConfetti}
+        >
+          Start Confetti
+        </Button>
+      </Grid>
+      <Grid item>
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={handleStopConfetti}
+        >
+          Stop Confetti
+        </Button>
+      </Grid>
+    </Grid>
+  );
+};
+
 const Template: Story<ConfettiProps> = (args) => {
   const window = useWindowSize();
   return (
@@ -23,10 +67,17 @@ const Template: Story<ConfettiProps> = (args) => {
           duration: undefined,
           width: window.width,
           height: window.height,
-          visible: true
+          visible: false // Changed to false so it doesn't start automatically
         }}
       >
-        <Confetti />
+        <Grid container direction="column">
+          <Grid item>
+            <ConfettiControls />
+          </Grid>
+          <Grid item>
+            <Confetti />
+          </Grid>
+        </Grid>
       </ConfettiProvider>
     </ThemeProvider>
   );

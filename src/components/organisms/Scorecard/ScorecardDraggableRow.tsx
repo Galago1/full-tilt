@@ -120,7 +120,6 @@ const ScorecardDraggableRow = ({
 
   const opacity = isDragging ? 0.5 : 1;
 
-  // console.log('isEmpty(row?.data)', isEmpty(row?.data), row?.data);
   const isCompletelyEmpty =
     !row?.data ||
     !row?.data.length ||

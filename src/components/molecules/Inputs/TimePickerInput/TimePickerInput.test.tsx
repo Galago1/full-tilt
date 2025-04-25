@@ -7,8 +7,12 @@ const { Normal } = composeStories(TimePickerInputStories);
 
 describe('TimePickerInput', () => {
   test('renders the Normal', () => {
-    render(<Normal />);
-    const element = screen.getByText('Custom');
-    expect(element).toBeInTheDocument();
+    render(<Normal data-testid="custom-element-input" />);
+    const labelElement = screen.getByTestId('custom-element-input');
+    expect(labelElement).toBeInTheDocument();
+
+    // Find the input element inside the component
+    const inputElement = labelElement.querySelector('input');
+    expect(inputElement).not.toBeNull();
   });
 });

@@ -29,6 +29,10 @@ export interface DatePickerInputBaseProps extends DatePickerProps<any> {
   form?: FormikProps<any>;
   field?: FieldAttributes<any>;
   meta?: FieldMetaProps<any>;
+  /**
+   * Test ID for testing
+   */
+  'data-testid'?: string;
 }
 
 /**
@@ -40,8 +44,8 @@ const DatePickerInputBase = ({ ...props }: DatePickerInputBaseProps) => {
       <DatePicker
         views={['year', 'month', 'day']}
         openTo="day"
+        value={props.field?.value}
         {...props}
-        value={props.field.value}
       />
     </LocalizationProvider>
   );

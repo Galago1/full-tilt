@@ -1,48 +1,55 @@
 import type { GridProps, IconButtonProps } from '@mui/material';
 import { BoxProps } from '@mui/material';
-import { forwardRef, useImperativeHandle, useState } from 'react';
+import { forwardRef, useImperativeHandle, useState, useEffect } from 'react';
 import { ButtonProps } from 'src/components/atoms/Button/Button';
 import type { AvatarAndTextProps } from '../AvatarAndText/AvatarAndText';
 import type { DropdownListItem } from './DropdownList/DropdownList';
 import { DropdownMenuProps } from './DropdownMenu/DropdownMenu';
 import DropdownUncontrolled from './DropdownUncontrolled';
+import { TooltipProps } from 'src/components/atoms/Tooltip/Tooltip';
 
 const useDropdown = (
   controlledOpen?: boolean,
-  onOpenChange?: (open: boolean, handleClose: () => void) => void
+  onOpenChange?: (open: boolean, event?: React.MouseEvent<HTMLElement>) => void
 ) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [openInternal, setOpenInternal] = useState(false);
+  const [uncontrolledOpen, setUncontrolledOpen] = useState(false);
 
-  // Define 'isOpen' to determine the state of the dropdown
-  const isOpen = controlledOpen !== undefined ? controlledOpen : openInternal;
+  const isControlled = controlledOpen !== undefined;
+  const isOpen = isControlled ? controlledOpen : uncontrolledOpen;
 
-  // Event handler for when the dropdown trigger is clicked
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     event.stopPropagation();
-    setDropdownOpen(true, event);
-  };
 
-  // Event handler for closing the dropdown
-  const handleClose = () => {
-    setDropdownOpen(false);
-  };
+    // Always update anchor element on click
+    setAnchorEl(event.currentTarget);
 
-  // Function to manage the opening and closing of the dropdown
-  const setDropdownOpen = (
-    open: boolean,
-    event?: React.MouseEvent<HTMLElement>
-  ) => {
-    if (controlledOpen === undefined) {
-      setOpenInternal(open); // Manage internal state if not controlled externally
-      if (!open) {
-        setAnchorEl(null); // Reset anchor element when closing
-      } else if (event) {
-        setAnchorEl(event.currentTarget); // Set anchor element when opening
-      }
+    if (!isControlled) {
+      setUncontrolledOpen(true);
     }
-    onOpenChange?.(open, handleClose);
+
+    // Notify parent of open state change with event
+    onOpenChange?.(true, event);
   };
+
+  const handleClose = () => {
+    // Always clear anchor element on close
+    setAnchorEl(null);
+
+    if (!isControlled) {
+      setUncontrolledOpen(false);
+    }
+
+    // Notify parent of close
+    onOpenChange?.(false);
+  };
+
+  // Effect to sync anchorEl with controlled open state
+  useEffect(() => {
+    if (isControlled && !controlledOpen) {
+      setAnchorEl(null);
+    }
+  }, [isControlled, controlledOpen]);
 
   return {
     anchorEl,
@@ -94,14 +101,21 @@ export interface DropdownProps extends BoxProps {
    */
   anchorComponent?: React.ReactNode;
   /**
-   * The open state of the dropdown
+   * The open state of the dropdown. If provided, the component becomes controlled.
    */
   isOpen?: boolean;
   /**
-   * Callback fired when the open state is changed
+   * Callback fired when the open state is changed.
+   * @param open - The new open state
+   * @param event - The triggering event (only provided when opening)
    */
-  onOpenChange?: (open: boolean, handleClose: () => void) => void;
+  onOpenChange?: (open: boolean, event?: React.MouseEvent<HTMLElement>) => void;
+  /**
+   * The tooltip props
+   */
+  tooltipProps?: TooltipProps;
 }
+
 const Dropdown = forwardRef(
   (
     {
@@ -117,6 +131,7 @@ const Dropdown = forwardRef(
       isOpen: controlledOpen,
       onOpenChange,
       anchorComponent,
+      tooltipProps,
       ...props
     }: DropdownProps,
     ref
@@ -145,6 +160,8 @@ const Dropdown = forwardRef(
         handleClose={handleClose}
         open={open}
         anchorComponent={anchorComponent}
+        ref={ref}
+        tooltipProps={tooltipProps}
         {...props}
       />
     );

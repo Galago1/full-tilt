@@ -13,6 +13,7 @@ export { default as Footer } from './Footer';
 export { default as FormikModal } from './FormikModal';
 export { default as ItemList } from './ItemList';
 export { default as KanbanBoard } from './KanbanBoard';
+export { default as Kanban } from './Kanban';
 export { default as LightboxControl } from './SwipeableImage/LightboxControl';
 export { default as LoginSection } from './LoginSection';
 export { default as LogsAndActivity } from './LogsAndActivity';

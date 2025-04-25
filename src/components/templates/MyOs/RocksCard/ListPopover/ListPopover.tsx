@@ -38,7 +38,7 @@ export interface ListPopoverProps {
 const ListPopover = ({
   anchorEl,
   handleClose,
-  options,
+  options = [],
   handleOptionClick,
   iconMap,
   id

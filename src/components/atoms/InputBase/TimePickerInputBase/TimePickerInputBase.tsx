@@ -8,6 +8,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { FieldAttributes, FieldMetaProps, FormikProps } from 'formik';
 
 export interface TimePickerInputBaseProps extends TimePickerProps<any> {
+  'data-testid'?: string;
   /**
    * Input label styles
    */

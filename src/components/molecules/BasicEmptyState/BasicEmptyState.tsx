@@ -29,6 +29,7 @@ export interface BasicEmptyStateProps extends EmptyStateProps {
     gridSx?: SxProps<Theme>;
     gridProps?: GridProps;
   };
+  absCenter?: boolean;
 }
 
 const BasicEmptyState = ({
@@ -47,6 +48,7 @@ const BasicEmptyState = ({
   slots,
   alignItems = 'center',
   justifyContent = 'center',
+  absCenter = false,
   ...props
 }: BasicEmptyStateProps) => {
   const { gridSx, gridProps } = slots || {};
@@ -133,15 +135,23 @@ const BasicEmptyState = ({
             position: image ? 'absolute' : 'relative',
             zIndex: 1,
             color: `${theme.palette.common.white} !important`,
-            bottom:
-              featuredIconBottom ||
-              (buttonGridProps || buttonProps
-                ? image
-                  ? 182
-                  : 0
-                : image
-                ? 152
-                : 0),
+            bottom: !absCenter
+              ? featuredIconBottom ||
+                (buttonGridProps || buttonProps
+                  ? image
+                    ? 182
+                    : 0
+                  : image
+                  ? 152
+                  : 0)
+              : undefined,
+            ...(image && {
+              left: '50%',
+              transform: 'translateX(-50%)',
+              alignSelf: 'center',
+              display: 'flex',
+              justifyContent: 'center'
+            }),
             ...props.avatarAndTextProps?.featuredIconItemSx
           },
           avatarProps: image

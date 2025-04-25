@@ -1,5 +1,6 @@
 import type { ComponentMeta, Story } from '@storybook/react';
 import BasicEmptyState, { BasicEmptyStateProps } from './BasicEmptyState';
+import image from 'src/assets/images/blurbackground.png';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -17,3 +18,8 @@ const Template: Story<BasicEmptyStateProps> = (args) => {
 
 export const Initial = Template.bind({});
 Initial.args = {};
+
+export const ImageIcon = Template.bind({});
+ImageIcon.args = {
+  image
+};

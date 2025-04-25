@@ -24,4 +24,6 @@ const Template: Story<ListPopoverProps> = (args) => (
 );
 
 export const Blank = Template.bind({});
-Blank.args = {};
+Blank.args = {
+  options: []
+};

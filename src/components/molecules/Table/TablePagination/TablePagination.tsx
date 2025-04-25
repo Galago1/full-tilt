@@ -1,9 +1,8 @@
 import {
   PaginationProps as MuiPaginationProps,
-  Theme,
-  useTheme
+  Pagination,
+  PaginationItem
 } from '@mui/material';
-import { Pagination, PaginationItem } from '@mui/material';
 import type { ButtonProps } from 'src/components/atoms/Button/Button';
 import Button from 'src/components/atoms/Button/Button';
 import { ArrowLeftIcon } from 'src/components/particles/theme/icons/Arrows/arrow-left';
@@ -30,7 +29,6 @@ const TablePagination = ({
   page,
   ...props
 }: TablePaginationProps) => {
-  const theme = useTheme();
   return (
     <Pagination
       {...props}
@@ -50,11 +48,8 @@ const TablePagination = ({
                 {...props}
                 {...buttonProps}
                 sx={{
-                  ...buttonProps.sx,
-                  ...theme.typography.body2,
-                  fontSize: (theme: Theme) =>
-                    `${theme.typography.body2.fontSize} !important`,
-                  fontWeight: 'medium'
+                  p: 6 / 8,
+                  ...buttonProps.sx
                 }}
                 endIcon={<ArrowRightIcon />}
                 label={'Next'}
@@ -66,11 +61,8 @@ const TablePagination = ({
                 {...props}
                 {...buttonProps}
                 sx={{
-                  ...buttonProps.sx,
-                  ...theme.typography.body2,
-                  fontSize: (theme: Theme) =>
-                    `${theme.typography.body2.fontSize} !important`,
-                  fontWeight: 'medium'
+                  p: 6 / 8,
+                  ...buttonProps.sx
                 }}
                 startIcon={<ArrowLeftIcon />}
                 label={'Previous'}
