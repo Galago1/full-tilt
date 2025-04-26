@@ -129,7 +129,7 @@ Default.args = {
       customHeader: (
         <AvatarAndText
           title={'Members'}
-          titleTypography={{ variant: 'textMdSemibold', lineHeight: '28px' }}
+          titleTypography={{ variant: 'textMdRegular', lineHeight: '27px' }}
         ></AvatarAndText>
       ),
       sx: {
@@ -146,7 +146,7 @@ Default.args = {
           sx: { px: 2, py: 0 }
         },
         cardHeaderProps: {
-          paddingBottom: { xs: 10 / 8 }
+          paddingBottom: { xs: 8 / 8 }
         } as CardHeaderProps
       },
       showTeamMembersHeader: false,
@@ -158,7 +158,7 @@ Default.args = {
         boxShadow: 'none',
         p: responsiveSpacingSmall,
         '&': {
-          pt: { xs: 10 / 8 }
+          pt: { xs: 8 / 8 }
         }
       }
     }

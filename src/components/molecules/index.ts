@@ -30,6 +30,7 @@ export { default as Stepper } from './Stepper';
 export { default as SurveyFooter } from './SurveyFooter';
 export { default as TabPanel } from './TabPanel';
 export { default as Tabs } from './Tabs';
+export { default as NavigationNextPrev } from './NavigationNextPrev';
 export { default as TransparentCard } from './Cards/TransparentCard';
 
 export { default as GenericMenuList } from './Sidenav/GenericMenuList';

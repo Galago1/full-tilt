@@ -95,7 +95,7 @@ const StandUpUserListTeamMembers = ({
         {customHeader && (
           <>
             {/* 1 minus 10 for 9 / 8 */}
-            <Grid container flexDirection={'column'} gap={9 / 8}>
+            <Grid container flexDirection={'column'} gap={1}>
               <Grid item>{customHeader}</Grid>
               <Grid item>
                 <Divider sx={{ my: 0, py: 0 }} />

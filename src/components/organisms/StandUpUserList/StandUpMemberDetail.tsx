@@ -22,6 +22,8 @@ export interface StandUpMemberDetailProps extends CardProps {
   standUpMemberDetailContent?: React.ReactNode;
   currentMember: TeamMember;
   memberButtonProps: ButtonProps;
+  currentPosition: number;
+  totalCount: number;
 }
 
 const StandUpMemberDetail = ({
@@ -38,6 +40,8 @@ const StandUpMemberDetail = ({
   memberButtonProps,
   standUpMemberDetailContent,
   currentMember,
+  currentPosition,
+  totalCount,
   ...props
 }: StandUpMemberDetailProps) => {
   return (
@@ -67,6 +71,8 @@ const StandUpMemberDetail = ({
         showEditButton={showEditButton}
         editButtonProps={editButtonProps}
         memberButtonProps={memberButtonProps}
+        currentPosition={currentPosition}
+        totalCount={totalCount}
       >
         {member && member.standUpCompletedAt ? (
           standUpMemberDetailContent

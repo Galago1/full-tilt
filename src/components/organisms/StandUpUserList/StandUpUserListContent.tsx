@@ -10,6 +10,7 @@ import { Avatar, Badge } from 'src/components/atoms';
 import { AvatarProps } from 'src/components/atoms/Avatar/Avatar';
 import { VerifiedTickIcon } from 'src/components/particles/theme/overrides/CustomIcons';
 import { TeamMember } from './StandUpUserList';
+import { rowInitials } from 'src/utils/users/initials';
 
 interface StandUpUserListContentProps {
   selectedIndex?: number | null;
@@ -34,12 +35,8 @@ const StandUpUserListContent = ({
         const avatarProps: AvatarProps = {
           alt: member.name,
           src: member.imageUrl,
-          sx: { width: 32, height: 32, fontSize: 14 },
-          children: member.name
-
-            .split(' ')
-            .map((n) => n[0])
-            .join('')
+          sx: { width: 20, height: 20, fontSize: 14 },
+          children: rowInitials({ name: member.name }, true)
         };
 
         const isSelected = selectedIndex === index;
@@ -49,7 +46,7 @@ const StandUpUserListContent = ({
             <ListItem
               onClick={() => setSelectedIndex?.(index)}
               sx={{
-                py: 1,
+                py: 3 / 8,
                 px: 0.5,
                 cursor: 'pointer',
                 borderRadius: (theme) => theme.borderRadius.xs,
@@ -59,7 +56,7 @@ const StandUpUserListContent = ({
                 }
               }}
             >
-              <Grid container alignItems="center" wrap="nowrap" gap={1}>
+              <Grid container alignItems="center" wrap="nowrap">
                 <Grid item sx={{ position: 'relative' }}>
                   <ListItemAvatar>
                     <Badge
@@ -72,9 +69,9 @@ const StandUpUserListContent = ({
                       sx={{
                         '& .MuiBadge-badge': {
                           p: 0,
-                          height: 10,
-                          width: 10,
-                          minWidth: 10,
+                          height: 4,
+                          width: 4,
+                          minWidth: 4,
                           transform: 'none'
                         }
                       }}
@@ -88,14 +85,8 @@ const StandUpUserListContent = ({
                     primary={member.name}
                     primaryTypographyProps={{
                       noWrap: true,
-                      variant: 'textMdRegular',
-                      sx: { fontWeight: 500 }
-                    }}
-                    secondary={member.team}
-                    secondaryTypographyProps={{
-                      noWrap: true,
-                      variant: 'textMdRegular',
-                      sx: { fontWeight: 500, lineHeight: '16px' }
+                      variant: 'textSmRegular',
+                      sx: { fontWeight: 600 }
                     }}
                     sx={{
                       overflow: 'hidden',

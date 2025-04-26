@@ -1,6 +1,6 @@
 {
   "name": "@galago/full-tilt",
-  "version": "0.0.207",
+  "version": "0.0.209",
   "description": "The full-tilt react design system",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",

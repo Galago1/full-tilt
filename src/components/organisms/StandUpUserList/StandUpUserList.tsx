@@ -167,14 +167,12 @@ const StandUpUserList = forwardRef(
           flexBasis={{
             xs: '100%',
             sm: '100%',
-            md: '25%',
-            lg: '25%'
+            md: 300
           }}
           flexWrap={{
             xs: 'wrap',
             sm: 'wrap',
-            md: 'nowrap',
-            lg: 'nowrap'
+            md: 'nowrap'
           }}
           sx={{ height: '100%' }}
         >
@@ -210,6 +208,8 @@ const StandUpUserList = forwardRef(
               showEditButton={showEditButton}
               standUpMemberDetailContent={standUpMemberDetailContent}
               currentMember={currentMember}
+              currentPosition={(selectedIndex || 0) + 1}
+              totalCount={filteredMembers.length}
               memberButtonProps={memberButtonProps}
               {...standUpMemberDetailProps}
             />

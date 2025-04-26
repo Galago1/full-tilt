@@ -5,7 +5,6 @@ import Button, { ButtonProps } from 'src/components/atoms/Button/Button';
 import EmptyState from 'src/components/molecules/EmptyState/EmptyState';
 import { InfoCircleIcon } from 'src/components/particles/theme/icons/General/info-circle';
 import { XCloseIcon } from 'src/components/particles/theme/icons/General/x-close';
-import { responsiveSpacing } from 'src/components/particles/theme/spacing';
 import StandUpMemberDetailCardContentHeader from './StandUpMemberDetailCardContentHeader';
 import { TeamMember } from './StandUpUserList';
 
@@ -23,6 +22,8 @@ interface StandUpMemberDetailCardContentProps {
   editButtonProps: ButtonProps;
   memberButtonProps: ButtonProps;
   children?: React.ReactNode;
+  currentPosition: number;
+  totalCount: number;
 }
 const StandUpMemberDetailCardContent = ({
   isMember,
@@ -37,7 +38,9 @@ const StandUpMemberDetailCardContent = ({
   showEditButton,
   editButtonProps,
   memberButtonProps,
-  children
+  children,
+  currentPosition,
+  totalCount
 }: StandUpMemberDetailCardContentProps) => {
   if (!member)
     return (
@@ -68,8 +71,7 @@ const StandUpMemberDetailCardContent = ({
   return (
     <Grid container flexDirection={'column'} flexWrap={'nowrap'} gap={2}>
       <Grid item>
-        {/* 1 minus 10 for 9 / 8 */}
-        <Grid container flexDirection={'column'} gap={9 / 8}>
+        <Grid container flexDirection={'column'} gap={1}>
           <Grid item>
             <StandUpMemberDetailCardContentHeader
               member={member}
@@ -80,6 +82,8 @@ const StandUpMemberDetailCardContent = ({
               theme={theme}
               showEditButton={showEditButton}
               editButtonProps={editButtonProps}
+              currentPosition={currentPosition}
+              totalCount={totalCount}
             />
           </Grid>
 
