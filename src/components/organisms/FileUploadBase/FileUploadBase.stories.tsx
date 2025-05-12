@@ -1,6 +1,8 @@
 import { ComponentMeta, Story } from '@storybook/react';
 import FileUploadBase, { FileUploadBaseProps } from './FileUploadBase';
 import image from 'src/assets/images/horizontal-test.png';
+import { useState } from 'react';
+import { Grid, Typography } from '@mui/material';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -38,4 +40,41 @@ PreviewImage.args = {
       style: { objectFit: 'fill', borderRadius: '12px' }
     }
   ]
+};
+
+// Story that demonstrates the onChange functionality
+export const WithOnChangeHandler: Story<FileUploadBaseProps> = () => {
+  const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
+  
+  const handleFilesUploaded = (files: File[]) => {
+    setUploadedFiles(files);
+  };
+  
+  return (
+    <Grid container flexDirection="column" gap={2}>
+      <Grid item>
+        <FileUploadBase
+          onFilesUploaded={handleFilesUploaded}
+          acceptedText="Upload any file to see the onChange event in action"
+        />
+      </Grid>
+      
+      {uploadedFiles.length > 0 && (
+        <Grid item>
+          <Grid container flexDirection="column" gap={1}>
+            <Grid item>
+              <Typography variant="textMdSemibold">Uploaded Files:</Typography>
+            </Grid>
+            {uploadedFiles.map((file, index) => (
+              <Grid item key={`file-${index}`}>
+                <Typography variant="textSmRegular">
+                  {file.name} ({Math.round(file.size / 1024)} KB)
+                </Typography>
+              </Grid>
+            ))}
+          </Grid>
+        </Grid>
+      )}
+    </Grid>
+  );
 };

@@ -4,7 +4,7 @@ import { ChevronDownIcon } from 'src/components/particles/theme/icons/Arrows/che
 import { ChevronUpIcon } from 'src/components/particles/theme/icons/Arrows/chevron-up';
 import { attachmentIconSx } from 'src/constants/spacing';
 
-export interface ItemNavigationNextPrevProps {
+export interface NavigationNextPrevProps {
   currentPosition: number;
   totalCount: number;
   goToPrevious: () => void;
@@ -12,14 +12,14 @@ export interface ItemNavigationNextPrevProps {
   hasNext: boolean;
   hasPrevious: boolean;
 }
-const ItemNavigationNextPrev = ({
+const NavigationNextPrev = ({
   currentPosition,
   totalCount,
   goToPrevious,
   goToNext,
   hasNext,
   hasPrevious
-}: ItemNavigationNextPrevProps) => {
+}: NavigationNextPrevProps) => {
   return (
     <Grid container alignItems="center" gap={1}>
       <Grid item>
@@ -28,13 +28,13 @@ const ItemNavigationNextPrev = ({
           color="text.primary"
           component="span"
         >
-          {currentPosition}
+          {currentPosition || '0'}
           <Typography
             variant="textSmRegular"
             color="text.secondary"
             component="span"
           >
-            {` / ${totalCount}`}
+            {` / ${totalCount || '0'}`}
           </Typography>
         </Typography>
       </Grid>
@@ -72,4 +72,4 @@ const ItemNavigationNextPrev = ({
   );
 };
 
-export default ItemNavigationNextPrev;
+export default NavigationNextPrev;

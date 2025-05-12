@@ -1,15 +1,24 @@
-import { Avatar as MuiAvatar } from '@mui/material';
+import { Grid, Avatar as MuiAvatar } from '@mui/material';
 import { AvatarProps as MuiAvatarProps } from '@mui/material';
 import { forwardRef } from 'react';
+import Tooltip, { TooltipProps } from '../Tooltip/Tooltip';
 
-export interface AvatarProps extends MuiAvatarProps {}
+export interface AvatarProps extends MuiAvatarProps {
+  tooltipProps?: TooltipProps;
+}
 
-const Avatar = forwardRef(({ children, ...props }: AvatarProps, ref: any) => {
-  return (
-    <MuiAvatar {...props} ref={ref}>
-      {children}
-    </MuiAvatar>
-  );
-});
+const Avatar = forwardRef(
+  ({ children, tooltipProps, ...props }: AvatarProps, ref: any) => {
+    return (
+      <Tooltip {...tooltipProps!}>
+        <Grid>
+          <MuiAvatar {...props} ref={ref}>
+            {children}
+          </MuiAvatar>
+        </Grid>
+      </Tooltip>
+    );
+  }
+);
 
 export default Avatar;

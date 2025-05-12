@@ -1,11 +1,7 @@
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
-import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
-import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
-import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import { Avatar, Box, IconButton, styled, Typography } from '@mui/material';
 import type { ComponentMeta, Story } from '@storybook/react';
 import { CheckIcon } from 'src/components/particles/theme/icons/General/check';
+import { PlusIcon } from 'src/components/particles/theme/icons/General/plus';
 import { XCloseIcon } from 'src/components/particles/theme/icons/General/x-close';
 import { FaceSmileIcon } from 'src/components/particles/theme/icons/Users/face-smile';
 import type { ChipProps } from './Chip';
@@ -66,7 +62,7 @@ function TaskList() {
       {/* Todo Section */}
       <SectionHeader>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <CircleOutlinedIcon sx={{ mr: 1, color: 'text.secondary' }} />
+          <PlusIcon sx={{ mr: 1, color: 'text.secondary' }} />
           <Typography variant="subtitle1" component="div">
             Todo
           </Typography>
@@ -79,28 +75,26 @@ function TaskList() {
           </Typography>
         </Box>
         <IconButton size="small">
-          <AddCircleOutlineIcon />
+          <PlusIcon />
         </IconButton>
       </SectionHeader>
 
       <TaskRow>
         <TaskInfo>
           <DragHandle>
-            <DragIndicatorIcon fontSize="small" />
+            <PlusIcon fontSize="small" />
           </DragHandle>
           <Typography sx={{ fontSize: '0.875rem', color: 'text.secondary' }}>
             NL-5
           </Typography>
-          <CircleOutlinedIcon
-            sx={{ mx: 1, fontSize: 20, color: 'text.secondary' }}
-          />
+          <PlusIcon sx={{ mx: 1, fontSize: 20, color: 'text.secondary' }} />
           <Typography>trsdgf</Typography>
         </TaskInfo>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <TaskChip label="Test" size="small" variant="outlined" />
           <DateInfo sx={{ ml: 1 }}>Feb 25</DateInfo>
           <IconButton size="small" sx={{ ml: 1 }}>
-            <PersonOutlineIcon fontSize="small" />
+            <PlusIcon fontSize="small" />
           </IconButton>
         </Box>
       </TaskRow>
@@ -108,7 +102,7 @@ function TaskList() {
       {/* Canceled Section */}
       <SectionHeader sx={{ mt: 2 }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <CancelOutlinedIcon sx={{ mr: 1, color: 'text.secondary' }} />
+          <PlusIcon sx={{ mr: 1, color: 'text.secondary' }} />
           <Typography variant="subtitle1" component="div">
             Canceled
           </Typography>
@@ -121,27 +115,25 @@ function TaskList() {
           </Typography>
         </Box>
         <IconButton size="small">
-          <AddCircleOutlineIcon />
+          <PlusIcon />
         </IconButton>
       </SectionHeader>
 
       <TaskRow>
         <TaskInfo>
           <DragHandle>
-            <DragIndicatorIcon fontSize="small" />
+            <PlusIcon fontSize="small" />
           </DragHandle>
           <Typography sx={{ fontSize: '0.875rem', color: 'text.secondary' }}>
             NL-4
           </Typography>
-          <CancelOutlinedIcon
-            sx={{ mx: 1, fontSize: 20, color: 'text.secondary' }}
-          />
+          <PlusIcon sx={{ mx: 1, fontSize: 20, color: 'text.secondary' }} />
           <Typography>tes</Typography>
         </TaskInfo>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <DateInfo>Feb 20</DateInfo>
           <IconButton size="small" sx={{ ml: 1 }}>
-            <PersonOutlineIcon fontSize="small" />
+            <PlusIcon fontSize="small" />
           </IconButton>
         </Box>
       </TaskRow>
@@ -149,20 +141,18 @@ function TaskList() {
       <TaskRow>
         <TaskInfo>
           <DragHandle>
-            <DragIndicatorIcon fontSize="small" />
+            <PlusIcon fontSize="small" />
           </DragHandle>
           <Typography sx={{ fontSize: '0.875rem', color: 'text.secondary' }}>
             NL-3
           </Typography>
-          <CancelOutlinedIcon
-            sx={{ mx: 1, fontSize: 20, color: 'text.secondary' }}
-          />
+          <PlusIcon sx={{ mx: 1, fontSize: 20, color: 'text.secondary' }} />
           <Typography>medium</Typography>
         </TaskInfo>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <DateInfo>Feb 17</DateInfo>
           <IconButton size="small" sx={{ ml: 1 }}>
-            <PersonOutlineIcon fontSize="small" />
+            <PlusIcon fontSize="small" />
           </IconButton>
         </Box>
       </TaskRow>
@@ -170,14 +160,12 @@ function TaskList() {
       <TaskRow>
         <TaskInfo>
           <DragHandle>
-            <DragIndicatorIcon fontSize="small" />
+            <PlusIcon fontSize="small" />
           </DragHandle>
           <Typography sx={{ fontSize: '0.875rem', color: 'text.secondary' }}>
             NL-2
           </Typography>
-          <CancelOutlinedIcon
-            sx={{ mx: 1, fontSize: 20, color: 'text.secondary' }}
-          />
+          <PlusIcon sx={{ mx: 1, fontSize: 20, color: 'text.secondary' }} />
           <Typography>high</Typography>
         </TaskInfo>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -200,20 +188,18 @@ function TaskList() {
       <TaskRow>
         <TaskInfo>
           <DragHandle>
-            <DragIndicatorIcon fontSize="small" />
+            <PlusIcon fontSize="small" />
           </DragHandle>
           <Typography sx={{ fontSize: '0.875rem', color: 'text.secondary' }}>
             NL-1
           </Typography>
-          <CancelOutlinedIcon
-            sx={{ mx: 1, fontSize: 20, color: 'text.secondary' }}
-          />
+          <PlusIcon sx={{ mx: 1, fontSize: 20, color: 'text.secondary' }} />
           <Typography>New issue</Typography>
         </TaskInfo>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <DateInfo>Feb 10</DateInfo>
           <IconButton size="small" sx={{ ml: 1 }}>
-            <PersonOutlineIcon fontSize="small" />
+            <PlusIcon fontSize="small" />
           </IconButton>
         </Box>
       </TaskRow>

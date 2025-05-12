@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material';
+import { Grid, Theme } from '@mui/material';
 import type { ComponentMeta, Story } from '@storybook/react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import AvatarAndText from 'src/components/molecules/AvatarAndText/AvatarAndText';
@@ -131,92 +131,91 @@ const Template: Story<SideNavProps> = (args) => {
   };
 
   const handleMouseLeave = (event: React.MouseEvent<HTMLElement>) => {
-    const relatedTarget = event.relatedTarget as HTMLElement;
-
+    const relatedTarget = event.relatedTarget;
+    // Check if mouse is moving to another navigation element
     if (isNavigationElement(relatedTarget)) {
       return;
     }
-
     resetState();
   };
 
-  // Cleanup on unmount
   useEffect(() => {
     return () => {
       resetState();
     };
   }, [resetState]);
 
-  const finalArgs: SideNavProps = useMemo(
-    () => ({
+  const finalArgs = useMemo(() => {
+    const expanded = isHovered;
+    const width = expanded ? expandedWidth : initialWidth;
+
+    return {
       ...args,
       sx: {
         ...args.sx,
-        width: isHovered ? expandedWidth : initialWidth,
-        transition: (theme) =>
-          theme.transitions.create(['width'], {
+        width,
+        transition: (theme: Theme) =>
+          theme.transitions.create('width', {
+            easing: theme.transitions.easing.sharp,
             duration: transitionDuration
           }),
         '& .MuiDrawer-paper': {
-          width: isHovered ? expandedWidth : initialWidth,
-          backgroundColor: 'transparent',
-          transition: (theme) =>
-            theme.transitions.create(['width'], {
+          ...(args.sx as any)?.['& .MuiDrawer-paper'],
+          width,
+          transition: (theme: Theme) =>
+            theme.transitions.create('width', {
+              easing: theme.transitions.easing.sharp,
               duration: transitionDuration
-            })
+            }),
+          overflow: expanded ? 'auto' : 'visible'
         }
       },
-      slide: isHovered,
       leftGridItemProps: {
+        ...args.leftGridItemProps,
         sx: {
-          width: initialWidth,
-          flexShrink: 0,
-          position: 'relative',
-          zIndex: 2,
-          backgroundColor: (theme) => theme.palette.grey[900],
-          height: '100%'
+          ...args.leftGridItemProps?.sx
+        }
+      },
+      toolbarProps: {
+        ...args.toolbarProps,
+        sx: {
+          ...args.toolbarProps?.sx,
+          backgroundColor: (theme: Theme) => theme.palette.grey[900]
         }
       },
       sideNavListItemIconsListProps: {
+        ...args.sideNavListItemIconsListProps,
+        onMouseLeave: handleMouseLeave,
         sx: {
-          display: 'flex',
-          flexDirection: 'column',
-          overflow: 'visible',
-          width: initialWidth,
-          backgroundColor: (theme) => theme.palette.grey[900]
+          ...args.sideNavListItemIconsListProps?.sx,
+          backgroundColor: (theme: Theme) => theme.palette.grey[900],
+          borderLeft: (theme: Theme) => `3px solid transparent`
         }
       },
-      rightColumnSx: {
-        position: 'absolute',
-        left: initialWidth,
-        top: 0,
-        height: '100%',
-        backgroundColor: (theme) => theme.palette.grey[900],
-        borderLeft: (theme) => theme.border.basicBox,
-        width: expandedWidth - initialWidth,
-        overflow: 'hidden'
-      },
-      sideNavListItemIcons: args.sideNavListItemIcons.map((icon, index) => ({
-        ...icon,
-        listItemButtonProps: {
-          ...icon.listItemButtonProps,
-          onMouseEnter: (e) => handleIconHover(e, `icon-${index}`),
-          onMouseLeave: handleMouseLeave
-        }
-      })),
+      slide: isHovered,
+      sideNavListItemIcons: (args.sideNavListItemIcons || []).map(
+        (icon, index) => ({
+          ...icon,
+          listItemButtonProps: {
+            ...icon.listItemButtonProps,
+            onMouseEnter: (e: React.MouseEvent<HTMLElement>) =>
+              handleIconHover(e, `icon-${index}`),
+            onMouseLeave: handleMouseLeave
+          }
+        })
+      ),
       sideNavListItems: isHovered ? randomList : [],
       sideNavListItemsListProps: {
         ...args.sideNavListItemsListProps,
         onMouseLeave: handleMouseLeave,
         sx: {
           ...(args.sideNavListItemsListProps?.sx || {}),
-          backgroundColor: (theme) => theme.palette.grey[900],
-          color: (theme) => theme.palette.common.white
+          backgroundColor: (theme: Theme) => theme.palette.grey[900],
+          color: (theme: Theme) => theme.palette.common.white
         }
       }
-    }),
-    [args, isHovered, randomList, handleMouseLeave]
-  );
+    };
+  }, [args, isHovered, randomList, handleMouseLeave]);
 
   return <SideNav {...finalArgs} />;
 };
@@ -239,12 +238,12 @@ Second.args = {
     sx: {
       position: 'relative',
       overflow: 'hidden',
-      backgroundColor: (theme) => theme.palette.grey[900],
+      backgroundColor: (theme: Theme) => theme.palette.grey[900],
       marginTop: '48px' // Add space for the fixed toolbar
     }
   },
   sidebarContainerSx: {
-    backgroundColor: (theme) => theme.palette.grey[900],
+    backgroundColor: (theme: Theme) => theme.palette.grey[900],
     position: 'relative',
     overflow: 'visible'
   },
@@ -255,7 +254,7 @@ Second.args = {
       top: 0,
       width: initialWidth,
       zIndex: 3,
-      backgroundColor: (theme) => theme.palette.grey[900]
+      backgroundColor: (theme: Theme) => theme.palette.grey[900]
     },
     disableGutters: true,
     children: (
@@ -266,14 +265,14 @@ Second.args = {
         sx={{
           height: '100%',
           minHeight: 48,
-          backgroundColor: (theme) => theme.palette.grey[900]
+          backgroundColor: (theme: Theme) => theme.palette.grey[900]
         }}
       >
         <Grid
           item
           sx={{
             height: '100%',
-            backgroundColor: (theme) => theme.palette.grey[900]
+            backgroundColor: (theme: Theme) => theme.palette.grey[900]
           }}
         >
           <SideNavListItem
@@ -284,17 +283,17 @@ Second.args = {
             listItemIconProps={{
               sx: {
                 minWidth: 'auto',
-                minHeight: (theme) => theme.spacing(3.5),
+                minHeight: (theme: Theme) => theme.spacing(3.5),
                 alignItems: 'center',
                 justifyContent: 'center',
                 width: 45,
-                backgroundColor: (theme) => theme.palette.grey[800],
+                backgroundColor: (theme: Theme) => theme.palette.grey[800],
                 padding: 10 / 8,
                 borderRadius: '10px',
-                color: (theme) => theme.palette.common.white,
+                color: (theme: Theme) => theme.palette.common.white,
                 '&': { mr: 0 },
                 '&:hover': {
-                  backgroundColor: (theme) => theme.palette.grey[600]
+                  backgroundColor: (theme: Theme) => theme.palette.grey[600]
                 }
               }
             }}
@@ -307,14 +306,14 @@ Second.args = {
     sx: {
       minHeight: { xs: 56 },
       px: 2,
-      color: (theme) => theme.palette.common.white
+      color: (theme: Theme) => theme.palette.common.white
     },
     children: (
       <AvatarAndText
         title="Untitled UI3"
         titleTypography={{
           variant: 'textMdSemibold',
-          sx: { color: (theme) => theme.palette.common.white }
+          sx: { color: (theme: Theme) => theme.palette.common.white }
         }}
       />
     )
@@ -338,8 +337,8 @@ Second.args = {
   sideNavListItems: [],
   sideNavListItemsListProps: {
     sx: {
-      backgroundColor: (theme) => theme.palette.grey[900],
-      color: (theme) => theme.palette.common.white
+      backgroundColor: (theme: Theme) => theme.palette.grey[900],
+      color: (theme: Theme) => theme.palette.common.white
     }
   }
 };

@@ -1,12 +1,10 @@
-import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
-import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
-import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
 import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import type { ComponentMeta, Story } from '@storybook/react';
 import { Field, Formik } from 'formik';
 import RadioButton from 'src/components/atoms/RadioButton/RadioButton';
+import { PlusIcon } from 'src/components/particles/theme/icons/General/plus';
 import type { RadioGroupProps } from './RadioGroup';
 import RadioGroup from './RadioGroup';
 
@@ -100,13 +98,13 @@ StyledCardOptions.args = {
                 '&:hover': { bgcolor: 'grey.100' }
               }}
             >
-              <SentimentSatisfiedAltIcon sx={{ color: 'grey.500' }} />
+              <PlusIcon sx={{ color: 'grey.500' }} />
             </IconButton>
             <RadioButton
               value="diversity"
               variant="purple"
               checkedIcon={
-                <RadioButtonCheckedIcon
+                <PlusIcon
                   sx={{
                     color: 'primary.600',
                     width: 24,
@@ -118,7 +116,7 @@ StyledCardOptions.args = {
                 />
               }
               icon={
-                <RadioButtonUncheckedIcon
+                <PlusIcon
                   sx={{
                     color: 'grey.300',
                     width: 24,
@@ -184,13 +182,13 @@ StyledCardOptions.args = {
                 '&:hover': { bgcolor: 'grey.100' }
               }}
             >
-              <SentimentSatisfiedAltIcon sx={{ color: 'grey.500' }} />
+              <PlusIcon sx={{ color: 'grey.500' }} />
             </IconButton>
             <RadioButton
               value="performance"
               variant="purple"
               checkedIcon={
-                <RadioButtonCheckedIcon
+                <PlusIcon
                   sx={{
                     color: 'primary.600',
                     width: 24,
@@ -202,7 +200,7 @@ StyledCardOptions.args = {
                 />
               }
               icon={
-                <RadioButtonUncheckedIcon
+                <PlusIcon
                   sx={{
                     color: 'grey.300',
                     width: 24,

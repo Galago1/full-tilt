@@ -21,7 +21,7 @@ const Template: Story<SideNavListItemProps> = (args) => {
 export const TextAndIcon = Template.bind({});
 TextAndIcon.args = {
   listItemTextProps: {
-    primary: 'Overview',
+    primary: 'Test 1',
     sx: { ml: 1.75 }
   },
   listItemIconProps: {
@@ -48,7 +48,7 @@ TextAndIcon.args = {
 export const TextAndIconFlex1 = Template.bind({});
 TextAndIconFlex1.args = {
   listItemTextProps: {
-    primary: 'Overview',
+    primary: 'Test 2',
     sx: { ml: 1.75 }
   },
   listItemIconProps: {
@@ -77,7 +77,7 @@ TextAndIconFlex1.args = {
 export const TextAndIconActive = Template.bind({});
 TextAndIconActive.args = {
   listItemTextProps: {
-    primary: 'Overview',
+    primary: 'Test 3',
     sx: { ml: 1.75 }
   },
   listItemIconProps: {

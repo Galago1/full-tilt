@@ -1,25 +1,24 @@
+import { Box } from '@mui/material';
 import type { ComponentMeta, Story } from '@storybook/react';
-import { Formik } from 'formik';
-import ItemNavigationNextPrev, {
-  ItemNavigationNextPrevProps
+import NavigationNextPrev, {
+  NavigationNextPrevProps
 } from './NavigationNextPrev';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: 'Molecules/ItemNavigationNextPrev',
-  component: ItemNavigationNextPrev
+  title: 'Molecules/Navigation Next Prev',
+  component: NavigationNextPrev
   // // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   // argTypes: {
   //   // styles: { backgroundColor: { control: 'color' } }
   // }
-} as ComponentMeta<typeof ItemNavigationNextPrev>;
+} as ComponentMeta<typeof NavigationNextPrev>;
 
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: Story<ItemNavigationNextPrevProps> = (args) => {
+const Template: Story<NavigationNextPrevProps> = (args) => {
   return (
-    <Formik initialValues={{}} onSubmit={() => {}}>
-      <ItemNavigationNextPrev {...args} />;
-    </Formik>
+    <Box sx={{ width: '100%', height: 1500 }}>
+      <NavigationNextPrev {...args} />
+    </Box>
   );
 };
 

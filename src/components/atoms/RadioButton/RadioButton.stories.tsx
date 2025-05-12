@@ -3,8 +3,7 @@ import type { ComponentMeta, Story } from '@storybook/react';
 import type { RadioButtonProps } from './RadioButton';
 import RadioButton from './RadioButton';
 import { Box } from '@mui/material';
-import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
-import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
+import { PlusIcon } from 'src/components/particles/theme/icons/General/plus';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -54,7 +53,7 @@ const TemplateCustomRadio: Story<{
 export const CustomRadio = TemplateCustomRadio.bind({});
 CustomRadio.args = {
   checkedIcon: (
-    <RadioButtonCheckedIcon
+    <PlusIcon
       sx={{
         color: 'primary.600',
         width: 24,
@@ -66,7 +65,7 @@ CustomRadio.args = {
     />
   ),
   icon: (
-    <RadioButtonUncheckedIcon
+    <PlusIcon
       sx={{
         color: 'grey.300',
         width: 24,
@@ -90,7 +89,7 @@ export const CustomRadioGroup = () => (
     <RadioButton
       checked={true}
       checkedIcon={
-        <RadioButtonCheckedIcon
+        <PlusIcon
           sx={{
             color: 'primary.600',
             width: 24,
@@ -102,7 +101,7 @@ export const CustomRadioGroup = () => (
         />
       }
       icon={
-        <RadioButtonUncheckedIcon
+        <PlusIcon
           sx={{
             color: 'grey.300',
             width: 24,
@@ -123,7 +122,7 @@ export const CustomRadioGroup = () => (
     <RadioButton
       checked={false}
       checkedIcon={
-        <RadioButtonCheckedIcon
+        <PlusIcon
           sx={{
             color: 'primary.600',
             width: 24,
@@ -135,7 +134,7 @@ export const CustomRadioGroup = () => (
         />
       }
       icon={
-        <RadioButtonUncheckedIcon
+        <PlusIcon
           sx={{
             color: 'grey.300',
             width: 24,

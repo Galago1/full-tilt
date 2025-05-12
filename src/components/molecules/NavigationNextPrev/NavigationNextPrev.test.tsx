@@ -1,6 +1,6 @@
-import { composeStories } from '@storybook/react';
+import { composeStories } from '@storybook/testing-react';
 import { render } from '@testing-library/react';
-import NavigationNextPrevStories from './NavigationNextPrev.stories'; //👈  Our stories imported here
+import * as NavigationNextPrevStories from './NavigationNextPrev.stories'; //👈  Our stories imported here
 //👇 composeStories will process all information related to the component (e.g., args)
 const { Basic } = composeStories(NavigationNextPrevStories) as any;
 

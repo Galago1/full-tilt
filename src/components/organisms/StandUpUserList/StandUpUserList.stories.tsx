@@ -129,7 +129,11 @@ Default.args = {
       customHeader: (
         <AvatarAndText
           title={'Members'}
-          titleTypography={{ variant: 'textMdRegular', lineHeight: '27px' }}
+          titleTypography={{
+            variant: 'textMdRegular',
+            lineHeight: '27px',
+            height: '27px'
+          }}
         ></AvatarAndText>
       ),
       sx: {

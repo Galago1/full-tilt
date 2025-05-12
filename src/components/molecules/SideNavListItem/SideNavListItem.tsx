@@ -69,6 +69,11 @@ export interface SideNavListItemProps extends ListItemProps {
    * Props for the list item end icon component.
    */
   listItemEndIconProps?: ListItemIconProps;
+  /**
+   * If false, the item won't be individually draggable, even if the section is draggable
+   * Not used here, but usd in the DraggableSideNavListItem
+   */
+  draggable?: boolean;
 }
 
 const SideNavListItem = ({
@@ -86,7 +91,7 @@ const SideNavListItem = ({
   containingBoxProps,
   boxProps,
   children,
-  ...props
+  ...props // This spreads any remaining props to the ListItem
 }: SideNavListItemProps) => {
   return (
     <>

@@ -16,6 +16,7 @@ import KanbanColumnHeader, {
   KanbanColumnHeaderProps
 } from '../KanbanBoard/KanbanColumnHeader';
 import { IndividualKanbanColumn } from './types';
+import DragDropLine from 'src/components/utilities/DragDropLine';
 
 export interface KanbanColumnProps {
   column?: IndividualKanbanColumn;
@@ -218,24 +219,11 @@ const KanbanColumn = ({
     if (dropLineIndex !== position) return null;
 
     return (
-      <Grow in={true} timeout={200}>
-        <div
-          style={{
-            position: 'absolute',
-            left: 0,
-            right: 0,
-            height: '2px',
-            backgroundColor: theme.palette.primary.main,
-            zIndex: 100,
-            borderRadius: '2px',
-            ...(position === 0
-              ? { top: '-4px' }
-              : position === (column && column.cards ? column.cards.length : 0)
-              ? { bottom: '-4px' }
-              : { top: '-10px' })
-          }}
-        />
-      </Grow>
+      <DragDropLine 
+        show={true} 
+        position={position === 0 ? 'top' : 'bottom'} 
+        timeout={200}
+      />
     );
   };
 

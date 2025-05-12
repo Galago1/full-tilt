@@ -1,91 +1,23 @@
 import {
-  Box,
-  BoxProps,
   Divider,
   Drawer,
   DrawerProps,
   Grid,
   GridProps,
-  Grow,
-  List,
   ListProps,
-  Slide,
   SlideProps,
   SxProps,
   Theme,
   Toolbar,
   ToolbarProps
 } from '@mui/material';
-import { isEmpty } from 'lodash';
-import SideNavListItem, {
-  SideNavListItemProps
-} from 'src/components/molecules/SideNavListItem/SideNavListItem';
-
-interface ContentProps {
-  sideNavListItemIcons: SideNavListItemProps[];
-  sideNavListItemIconsBottom: SideNavListItemProps[];
-  sideNavItemBelowAll: React.ReactNode;
-  contentContainerProps?: GridProps;
-  sideNavListItemIconsListProps?: ListProps;
-  sideNavListItemIconsBottomListProps?: ListProps;
-  sideNavListItemIconsBottomDivider: boolean;
-  belowAllDivider: boolean;
-}
-const Content = ({
-  sideNavListItemIcons,
-  sideNavListItemIconsBottom,
-  sideNavItemBelowAll,
-  contentContainerProps,
-  sideNavListItemIconsListProps = {
-    sx: {
-      display: 'flex',
-      flexDirection: 'column',
-      overflow: 'scroll'
-    }
-  },
-  sideNavListItemIconsBottomListProps = { sx: { flex: '0 0 112px' } },
-  sideNavListItemIconsBottomDivider = false,
-  belowAllDivider = false
-}: ContentProps) => {
-  return (
-    <Grid
-      container
-      flexDirection={'column'}
-      flexWrap={'nowrap'}
-      flexGrow={1}
-      sx={{
-        height: '100%'
-      }}
-      {...contentContainerProps}
-    >
-      <Grid item flexGrow={1}>
-        <List {...sideNavListItemIconsListProps}>
-          {(sideNavListItemIcons || []).map((sideNavListItem, index) => (
-            <SideNavListItem key={index} {...sideNavListItem} />
-          ))}
-        </List>
-      </Grid>
-      {sideNavListItemIconsBottomDivider && (
-        <Grid item>
-          <Divider />
-        </Grid>
-      )}
-      <Grid item flexShrink={0}>
-        <List {...sideNavListItemIconsBottomListProps}>
-          {(sideNavListItemIconsBottom || []).map((sideNavListItem, index) => (
-            <SideNavListItem key={index} {...sideNavListItem} />
-          ))}
-        </List>
-      </Grid>
-      {belowAllDivider && (
-        <Grid item>
-          <Divider />
-        </Grid>
-      )}
-      {sideNavItemBelowAll && <Grid item>{sideNavItemBelowAll}</Grid>}
-    </Grid>
-  );
-};
+import { ReactNode, useCallback } from 'react';
+import { SideNavListItemProps } from 'src/components/molecules/SideNavListItem/SideNavListItem';
+import SideNavContent from './SideNavContent';
+import SideNavSlide from './SideNavSlide';
+import { DndProvider } from 'react-dnd';
+import CustomDragLayer from './CustomDragLayer';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 export interface SideNavProps extends DrawerProps {
   /**
@@ -97,21 +29,37 @@ export interface SideNavProps extends DrawerProps {
    */
   secondaryToolbarProps?: ToolbarProps;
   /**
-   * Props for the list item icons.
+   * Groups of items with their own IDs for the side navigation
    */
-  sideNavListItemIcons: SideNavListItemProps[];
+  groups?: Array<{
+    id: string;
+    title?: string;
+    items: SideNavListItemProps[];
+  }>;
+  /**
+   * Groups of items with their own IDs for the slide content
+   */
+  slideGroups?: Array<{
+    id: string;
+    title?: string;
+    items: SideNavListItemProps[];
+  }>;
   /**
    * Props for the list item icons.
    */
-  sideNavListItemIconsBottom: SideNavListItemProps[];
+  sideNavListItemIcons?: SideNavListItemProps[];
+  /**
+   * Props for the list item icons at bottom.
+   */
+  sideNavListItemIconsBottom?: SideNavListItemProps[];
   /**
    * Props for the list items.
    */
-  sideNavListItems: SideNavListItemProps[];
+  sideNavListItems?: SideNavListItemProps[];
   /**
    * The element to display below all the list items.
    */
-  sideNavItemBelowAll?: React.ReactNode;
+  sideNavItemBelowAll?: ReactNode;
   /**
    * Props for the left grid item.
    */
@@ -123,7 +71,7 @@ export interface SideNavProps extends DrawerProps {
   /**
    * Props for the box component.
    */
-  boxProps?: BoxProps;
+  boxProps?: GridProps;
   /**
    * Props for the slide component.
    */
@@ -137,15 +85,19 @@ export interface SideNavProps extends DrawerProps {
    */
   useTopContentDivider?: boolean;
   /**
-   * Props for the list items list.
+   * Props for the group lists
+   */
+  groupListProps?: ListProps;
+  /**
+   * Legacy: Props for the list items list.
    */
   sideNavListItemsListProps?: ListProps;
   /**
-   * Props for the list items icons list.
+   * Legacy: Props for the list items icons list.
    */
   sideNavListItemIconsListProps?: ListProps;
   /**
-   * Props for the list items icons bottom list.
+   * Legacy: Props for the list items icons bottom list.
    */
   sideNavListItemIconsBottomListProps?: ListProps;
   /**
@@ -175,11 +127,11 @@ export interface SideNavProps extends DrawerProps {
    */
   sidebarContainerSx?: SxProps<Theme>;
   /**
-   * Props for the other list items list props.
+   * Legacy: Props for the other list items list props.
    */
   sideNavListItemsOtherProps?: ListProps;
   /**
-   * Props for the other list items.
+   * Legacy: Props for the other list items.
    */
   sideNavListOtherItems?: SideNavListItemProps[];
   /**
@@ -190,13 +142,46 @@ export interface SideNavProps extends DrawerProps {
    * Props for the other list items grid item.
    */
   sideNavListItemsOtherGridItemProps?: GridProps;
+  /**
+   * Props for the toolbar grid item.
+   */
+  toolbarGridItemProps?: GridProps;
+  /**
+   * Function to move a group or section
+   */
+  moveSection?: (
+    groupId: string,
+    dragIndex: number,
+    hoverIndex: number
+  ) => void;
+  /**
+   * Function to move an item within a group or section
+   */
+  moveItem?: (
+    sectionIndex: number | string,
+    dragIndex: number,
+    hoverIndex: number
+  ) => void;
+  /**
+   * If true, sections and items will be draggable
+   */
+  draggable?: boolean;
+  /**
+   * If provided, overrides the global draggable prop for top section items
+   * When undefined, uses the global draggable prop value
+   */
+  topSectionDraggable?: boolean;
 }
+
 const SideNav = ({
   toolbarProps,
   secondaryToolbarProps,
-  sideNavListItemIcons,
-  sideNavListItemIconsBottom,
-  sideNavListItems,
+  groups = [],
+  slideGroups = [],
+  sideNavListItemIcons = [],
+  sideNavListItemIconsBottom = [],
+  sideNavListItems = [],
+  sideNavListOtherItems = [],
   leftGridItemProps,
   slide = false,
   boxProps,
@@ -204,6 +189,7 @@ const SideNav = ({
   slideProps,
   contentContainerProps,
   useTopContentDivider = true,
+  groupListProps,
   sideNavListItemsListProps,
   sideNavListItemIconsListProps,
   sideNavListItemIconsBottomListProps,
@@ -214,199 +200,153 @@ const SideNav = ({
   showSecondaryToolbarDivider,
   sidebarContainerSx,
   sideNavListItemsOtherProps,
-  sideNavListOtherItems,
   sideNavListItemsGridItemProps,
   sideNavListItemsOtherGridItemProps,
+  toolbarGridItemProps,
+  moveSection,
+  moveItem,
+  draggable = false,
+  topSectionDraggable,
   ...props
 }: SideNavProps) => {
   const { position } = (toolbarProps?.sx as any) || {};
+
+  // Callback to move groups/sections - now just passes through to the provided moveSection
+  const moveGroup = useCallback(
+    (dragIndex: number, hoverIndex: number) => {
+      if (moveSection) {
+        moveSection('', dragIndex, hoverIndex);
+      }
+    },
+    [moveSection]
+  );
+
+  // Callback to move items within a group - now just passes through to the provided moveItem
+  const moveItemInGroup = useCallback(
+    (groupId: string, dragIndex: number, hoverIndex: number) => {
+      if (moveItem) {
+        moveItem(groupId, dragIndex, hoverIndex);
+      }
+    },
+    [moveItem]
+  );
+
   return (
-    <Drawer {...props} open variant="permanent">
-      <Grid
-        container
-        flexDirection={'column'}
-        sx={{
-          height: '100%',
-          flexWrap: 'nowrap',
-          ...sidebarContainerSx
-        }}
-      >
+    <DndProvider backend={HTML5Backend}>
+      {/* Add the CustomDragLayer for better drag preview */}
+      <CustomDragLayer />
+
+      <Drawer {...props} open variant="permanent">
         <Grid
-          item
+          container
+          flexDirection={'column'}
           sx={{
-            position: 'relative',
-            zIndex: 1,
-            height: position === 'fixed' ? 0 : 'auto',
-            minHeight: position === 'fixed' ? 0 : 'auto',
-            '& .MuiToolbar-root': {
-              position: position || 'relative'
-            }
+            height: '100%',
+            flexWrap: 'nowrap',
+            ...sidebarContainerSx
           }}
         >
-          <Toolbar {...toolbarProps} />
-        </Grid>
-        <Grid
-          item
-          flexGrow={1}
-          sx={{
-            height: position === 'fixed' ? '100%' : 'calc(100% - 48px)',
-            position: 'relative',
-            overflow: 'hidden',
-            marginTop: position === 'fixed' ? 0 : 'auto'
-          }}
-        >
-          <Box
+          <Grid
+            item
+            {...toolbarGridItemProps}
             sx={{
-              height: '100%',
-              display: 'flex',
-              flexDirection: 'column'
+              position: 'relative',
+              zIndex: 1,
+              height: position === 'fixed' ? 0 : 'auto',
+              minHeight: position === 'fixed' ? 0 : 'auto',
+              '& .MuiToolbar-root': {
+                position: position || 'relative'
+              },
+              ...toolbarGridItemProps?.sx
             }}
           >
-            {useTopContentDivider && <Divider />}
+            <Toolbar {...toolbarProps} />
+          </Grid>
+          <Grid
+            item
+            flexGrow={1}
+            sx={{
+              height: position === 'fixed' ? '100%' : 'calc(100% - 48px)',
+              position: 'relative',
+              overflow: 'hidden',
+              marginTop: position === 'fixed' ? 0 : 'auto'
+            }}
+          >
             <Grid
-              container
-              flexGrow={1}
-              flexWrap={'nowrap'}
-              sx={{ height: '100%', overflow: 'hidden' }}
-              {...contentContainerGridItemProps}
+              sx={{
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column'
+              }}
             >
+              {useTopContentDivider && <Divider />}
               <Grid
-                item
-                sx={{ height: '100%', overflow: 'auto' }}
-                flexGrow={slide ? 0 : 1}
-                {...leftGridItemProps}
-              >
-                <Content
-                  {...{
-                    sideNavListItemIcons,
-                    sideNavListItemIconsBottom,
-                    sideNavItemBelowAll,
-                    contentContainerProps,
-                    sideNavListItemIconsListProps: {
-                      sx: {
-                        display: 'flex',
-                        flexDirection: 'column',
-                        overflow: 'visible'
-                      },
-                      ...sideNavListItemIconsListProps
-                    },
-                    sideNavListItemIconsBottomListProps,
-                    sideNavListItemIconsBottomDivider:
-                      sideNavListItemIconsBottomDivider!,
-                    belowAllDivider: belowAllDivider!
-                  }}
-                />
-              </Grid>
-
-              <Slide
-                in={slide}
-                direction={'right'}
-                timeout={{ enter: 500, exit: 500 }}
-                mountOnEnter
-                unmountOnExit
-                {...slideProps}
+                container
+                flexGrow={1}
+                flexWrap={'nowrap'}
+                sx={{ height: '100%', overflow: 'hidden' }}
+                {...contentContainerGridItemProps}
               >
                 <Grid
                   item
-                  flexGrow={slide ? 1 : 0}
-                  className={slide ? '' : 'hidden'}
-                  sx={{
-                    height: '100%',
-                    overflow: 'hidden',
-                    ...rightColumnSx
-                  }}
+                  sx={{ height: '100%', overflow: 'auto' }}
+                  flexGrow={slide ? 0 : 1}
+                  {...leftGridItemProps}
                 >
-                  <Box
-                    {...boxProps}
-                    sx={{
-                      height: '100%',
-                      overflow: 'auto'
-                    }}
-                  >
-                    <Grid
-                      container
-                      flexDirection="column"
-                      sx={{
-                        height: '100%',
-                        position: 'relative'
-                      }}
-                      flexWrap="nowrap"
-                    >
-                      {secondaryToolbarProps && (
-                        <Grow
-                          in={Boolean(secondaryToolbarProps)}
-                          timeout={300}
-                          style={{ transformOrigin: '0 0 0' }}
-                        >
-                          <Grid width={'100%'}>
-                            <Toolbar {...secondaryToolbarProps} />
-                            {showSecondaryToolbarDivider && <Divider />}
-                          </Grid>
-                        </Grow>
-                      )}
-                      {!isEmpty(sideNavListItemsListProps) && (
-                        <Grid
-                          item
-                          sx={{
-                            height: '100%',
-                            overflow: 'auto'
-                          }}
-                          {...sideNavListItemsGridItemProps}
-                        >
-                          <List {...sideNavListItemsListProps}>
-                            {(sideNavListItems || []).map(
-                              (sideNavListItem, index) => (
-                                <Grow
-                                  key={index}
-                                  in={true}
-                                  timeout={300 + index * 100}
-                                  style={{ transformOrigin: '0 0 0' }}
-                                >
-                                  <Grid>
-                                    <SideNavListItem {...sideNavListItem} />
-                                  </Grid>
-                                </Grow>
-                              )
-                            )}
-                          </List>
-                        </Grid>
-                      )}
-                      {!isEmpty(sideNavListItemsOtherProps) && (
-                        <Grid
-                          item
-                          sx={{
-                            height: '100%',
-                            overflow: 'auto'
-                          }}
-                          {...sideNavListItemsOtherGridItemProps}
-                        >
-                          <List {...sideNavListItemsOtherProps}>
-                            {(sideNavListOtherItems || []).map(
-                              (sideNavListItem, index) => (
-                                <Grow
-                                  key={index}
-                                  in={true}
-                                  timeout={300 + index * 100}
-                                  style={{ transformOrigin: '0 0 0' }}
-                                >
-                                  <Grid>
-                                    <SideNavListItem {...sideNavListItem} />
-                                  </Grid>
-                                </Grow>
-                              )
-                            )}
-                          </List>
-                        </Grid>
-                      )}
-                    </Grid>
-                  </Box>
+                  <SideNavContent
+                    groups={groups}
+                    sideNavListItemIcons={sideNavListItemIcons}
+                    sideNavListItemIconsBottom={
+                      sideNavListItemIconsBottom || []
+                    }
+                    sideNavItemBelowAll={sideNavItemBelowAll}
+                    contentContainerProps={contentContainerProps}
+                    sideNavListItemIconsBottomDivider={
+                      sideNavListItemIconsBottomDivider
+                    }
+                    belowAllDivider={belowAllDivider}
+                    moveGroup={moveGroup}
+                    moveSection={moveSection}
+                    moveItem={moveItemInGroup}
+                    topSectionDraggable={topSectionDraggable}
+                    draggable={draggable}
+                    groupListProps={groupListProps}
+                    sideNavListItemIconsListProps={
+                      sideNavListItemIconsListProps
+                    }
+                    sideNavListItemIconsBottomListProps={
+                      sideNavListItemIconsBottomListProps
+                    }
+                  />
                 </Grid>
-              </Slide>
+
+                <SideNavSlide
+                  secondaryToolbarProps={secondaryToolbarProps}
+                  groups={slideGroups}
+                  sideNavListItems={sideNavListItems}
+                  slide={slide}
+                  boxProps={boxProps}
+                  slideProps={slideProps}
+                  sideNavListItemsListProps={sideNavListItemsListProps}
+                  rightColumnSx={rightColumnSx}
+                  showSecondaryToolbarDivider={showSecondaryToolbarDivider}
+                  sideNavListItemsOtherProps={sideNavListItemsOtherProps}
+                  sideNavListOtherItems={sideNavListOtherItems}
+                  sideNavListItemsGridItemProps={sideNavListItemsGridItemProps}
+                  sideNavListItemsOtherGridItemProps={
+                    sideNavListItemsOtherGridItemProps
+                  }
+                  moveGroup={moveGroup}
+                  moveItem={moveItemInGroup}
+                  moveItemLegacy={moveItem}
+                  draggable={draggable}
+                />
+              </Grid>
             </Grid>
-          </Box>
+          </Grid>
         </Grid>
-      </Grid>
-    </Drawer>
+      </Drawer>
+    </DndProvider>
   );
 };
 export default SideNav;
