@@ -139,13 +139,6 @@ const SideNavContent = ({
       moveItem(groupId, dragIndex, hoverIndex);
     }
   };
-  console.log(
-    'moveItem.hasCustomGroups',
-    hasCustomGroups,
-    sideNavListItemIcons.length,
-    moveSection
-  );
-
   return (
     <Grid
       container

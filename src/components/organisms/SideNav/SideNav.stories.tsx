@@ -27,9 +27,7 @@ import { SideNavItemWithDropdownProps } from './SideNavGroup';
 const groupActionItems: DropdownListItem[] = [
   {
     menuItemProps: {
-      onClick: () => {
-        console.log('Add new item');
-      },
+      onClick: () => {},
       children: (
         <Grid container gap={1} alignItems="center">
           <Grid item>
@@ -42,9 +40,7 @@ const groupActionItems: DropdownListItem[] = [
   },
   {
     menuItemProps: {
-      onClick: () => {
-        console.log('Edit group');
-      },
+      onClick: () => {},
       children: (
         <Grid container gap={1} alignItems="center">
           <Grid item>
@@ -57,9 +53,7 @@ const groupActionItems: DropdownListItem[] = [
   },
   {
     menuItemProps: {
-      onClick: () => {
-        console.log('Delete group');
-      },
+      onClick: () => {},
       children: (
         <Grid container gap={1} alignItems="center">
           <Grid item>
@@ -501,8 +495,6 @@ const DraggableTemplate: Story<SideNavProps> = (args) => {
   // Universal move section/group handler that manages all group states
   const moveSection = useCallback(
     (groupId: string, sourceIndex: number, destinationIndex: number) => {
-      console.log('moveSection', groupId, sourceIndex, destinationIndex);
-
       // Update sections state (legacy)
       const draggedSection = sections[sourceIndex];
       if (!draggedSection) return;
@@ -541,7 +533,6 @@ const DraggableTemplate: Story<SideNavProps> = (args) => {
       dragIndex: number,
       hoverIndex: number
     ) => {
-      console.log('moveItem', sectionIndexOrId, dragIndex, hoverIndex);
       if (typeof sectionIndexOrId === 'string') {
         // This is a group-based move
         const groupId = sectionIndexOrId;
