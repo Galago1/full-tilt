@@ -6,6 +6,7 @@ import CalendarContent, { CalendarContentProps } from './CalendarContent';
 import CalendarHeader, { CalendarHeaderProps } from './CalendarHeader';
 import { useCalendar } from './hooks';
 import { CalendarView, Meeting } from './types';
+import { DividerProps } from 'src/components/atoms/Divider/Divider';
 
 interface Slots {
   calendarHeaderProps?: CalendarHeaderProps;
@@ -13,6 +14,7 @@ interface Slots {
   headerGridItemProps?: GridProps;
   dividerGridItemProps?: GridProps;
   contentGridItemProps?: GridProps;
+  dividerProps?: DividerProps;
 }
 
 export interface CalendarProps extends GridProps {
@@ -106,6 +108,7 @@ const Calendar = ({
     headerGridItemProps,
     dividerGridItemProps,
     contentGridItemProps,
+    dividerProps,
     setView,
     handleDayViewDateChange,
     onDropMeeting,
@@ -136,10 +139,6 @@ const Calendar = ({
         flexDirection={'column'}
         flexWrap={'nowrap'}
         sx={{
-          borderRadius: theme.borderRadius.md,
-          border: theme.border.outlinedButton,
-          backgroundColor: '#FFF',
-          padding: theme.spacing(3),
           minWidth: 400,
           height: '100%', // Ensure the container takes full height
           overflow: 'hidden',
@@ -166,7 +165,7 @@ const Calendar = ({
           />
         </Grid>
         <Grid item {...dividerGridItemProps}>
-          <Divider sx={{ my: responsiveSpacing }} />
+          <Divider sx={{ my: responsiveSpacing }} {...dividerProps} />
         </Grid>
         <Grid
           item
@@ -175,7 +174,8 @@ const Calendar = ({
             overflowX: 'auto', // Enable horizontal scrolling
             display: 'block', // Ensure it doesn't collapse
             // whiteSpace: 'nowrap', // Prevent inner items from wrapping to new lines
-            height: '100%'
+            height: '100%',
+            ...contentGridItemProps?.sx
           }}
         >
           <CalendarContent

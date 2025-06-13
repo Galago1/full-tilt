@@ -78,7 +78,7 @@ interface SlotProps {
   contentGridProps?: GridProps;
 }
 
-export interface SecondNavProps {
+export interface SecondNavProps extends AppBarProps {
   /**
    * The color of the component. It supports those theme colors that make sense for this component.
    * @default
@@ -97,7 +97,7 @@ export interface SecondNavProps {
 /**
  * Primary UI component for user interaction
  */
-const SecondNav = ({ color = 'inherit', slots }: SecondNavProps) => {
+const SecondNav = ({ color = 'inherit', children, slots }: SecondNavProps) => {
   const {
     appBarProps,
     avatarAndTextProps,
@@ -119,40 +119,47 @@ const SecondNav = ({ color = 'inherit', slots }: SecondNavProps) => {
   return (
     <AppBar color={color} {...appBarProps}>
       <Container maxWidth="xl" {...containerProps}>
-        <Toolbar
-          sx={{
-            minHeight: 48,
-            [theme.breakpoints.up('sm')]: {
-              minHeight: 64
-            }
-          }}
-          {...toolbarProps}
-        >
-          <Grid container flexDirection={'column'} {...outerGridContainerProps}>
-            {breadcrumbsProps && (
-              <Grid item {...breadcrumbsGridProps}>
-                <Breadcrumbs {...breadcrumbsProps} />
-              </Grid>
-            )}
-            <Grid item {...contentGridProps}>
-              <Grid container alignItems="center" {...gridContainerProps}>
-                <Grid item flexGrow={1} {...avatarGridProps}>
-                  <AvatarAndText {...avatarAndTextProps} />
+        <>
+          <Toolbar
+            sx={{
+              minHeight: 48,
+              [theme.breakpoints.up('sm')]: {
+                minHeight: 64
+              }
+            }}
+            {...toolbarProps}
+          >
+            <Grid
+              container
+              flexDirection={'column'}
+              {...outerGridContainerProps}
+            >
+              {breadcrumbsProps && (
+                <Grid item {...breadcrumbsGridProps}>
+                  <Breadcrumbs {...breadcrumbsProps} />
                 </Grid>
-                {!isEmpty(buttonListProps) && (
-                  <Grid item {...buttonsGridProps}>
-                    <ButtonList {...buttonListProps} />
+              )}
+              <Grid item {...contentGridProps}>
+                <Grid container alignItems="center" {...gridContainerProps}>
+                  <Grid item flexGrow={1} {...avatarGridProps}>
+                    <AvatarAndText {...avatarAndTextProps} />
                   </Grid>
-                )}
-                {endComponent && (
-                  <Grid item {...endComponentGridProps}>
-                    {endComponent}
-                  </Grid>
-                )}
+                  {!isEmpty(buttonListProps) && (
+                    <Grid item {...buttonsGridProps}>
+                      <ButtonList {...buttonListProps} />
+                    </Grid>
+                  )}
+                  {endComponent && (
+                    <Grid item {...endComponentGridProps}>
+                      {endComponent}
+                    </Grid>
+                  )}
+                </Grid>
               </Grid>
             </Grid>
-          </Grid>
-        </Toolbar>
+          </Toolbar>
+          {children}
+        </>
       </Container>
     </AppBar>
   );

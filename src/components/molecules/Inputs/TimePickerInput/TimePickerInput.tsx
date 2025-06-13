@@ -56,7 +56,14 @@ const TimePickerInput = ({
     );
   return (
     <FormControlLabel
-      control={<TimePickerInputBase {...props} />}
+      control={
+        <TimePickerInputBase
+          field={outerField}
+          form={outerForm}
+          meta={outerMeta}
+          {...props}
+        />
+      }
       label={label}
       labelPlacement={'top'}
       data-testid={dataTestId}

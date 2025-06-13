@@ -2,6 +2,7 @@ import { Grid, Theme, Typography } from '@mui/material';
 import Avatar from 'src/components/atoms/Avatar/Avatar';
 import Button, { ButtonProps } from 'src/components/atoms/Button/Button';
 import Chip from 'src/components/atoms/Chip/Chip';
+import Tooltip from 'src/components/atoms/Tooltip/Tooltip';
 import NavigationNextPrev from 'src/components/molecules/NavigationNextPrev/NavigationNextPrev';
 import { VerifiedTickIcon } from 'src/components/particles/theme/overrides/CustomIcons';
 import { rowInitials } from 'src/utils/users/initials';
@@ -40,7 +41,7 @@ const StandUpMemberDetailCardContentHeader = ({
           <Grid item>
             <Avatar
               alt={member.name}
-              sx={{ width: 24, height: 24, fontSize: 14 }}
+              sx={{ width: 18, height: 18, fontSize: 14 }}
               src={member.imageUrl}
             >
               {rowInitials({ name: member.name }, true)}
@@ -49,30 +50,34 @@ const StandUpMemberDetailCardContentHeader = ({
 
           <Grid item flex={1}>
             <Grid display={'flex'} gap={1} alignItems={'center'}>
-              <Typography variant="textMdRegular" noWrap>
+              <Typography variant="textSmMedium" noWrap>
                 {member.name}
               </Typography>
               {member.standUpCompletedAt && (
-                <Chip
-                  label={
-                    <Grid display={'flex'} gap={1} alignItems={'center'}>
-                      <VerifiedTickIcon
-                        sx={{ width: 16, height: 16 }}
-                        fill={grey700}
-                      />
-                      {member.standUpCompletedAtTime}
-                    </Grid>
-                  }
-                  variant={'outlined'}
-                  sx={{
-                    backgroundColor: 'transparent',
-                    borderRadius: theme.borderRadius.xs,
-                    '&:hover': {
-                      backgroundColor: 'transparent'
-                    },
-                    lineHeight: 1.25
-                  }}
-                />
+                <Tooltip
+                  title={`Completed at ${member.standUpCompletedAtTime}`}
+                >
+                  <Chip
+                    label={
+                      <Grid display={'flex'} gap={1} alignItems={'center'}>
+                        <VerifiedTickIcon
+                          sx={{ width: 16, height: 16 }}
+                          fill={grey700}
+                        />
+                        {member.standUpCompletedAtTime}
+                      </Grid>
+                    }
+                    variant={'outlined'}
+                    sx={{
+                      backgroundColor: 'transparent',
+                      borderRadius: theme.borderRadius.xs,
+                      '&:hover': {
+                        backgroundColor: 'transparent'
+                      },
+                      lineHeight: 1.25
+                    }}
+                  />
+                </Tooltip>
               )}
             </Grid>
           </Grid>

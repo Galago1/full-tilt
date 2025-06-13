@@ -20,6 +20,7 @@ import { MarkerPin01Icon } from 'src/components/particles/theme/icons/MapsAndTra
 import { Phone01Icon } from 'src/components/particles/theme/icons/MediaAndDevices/phone-01';
 import { Users01Icon } from 'src/components/particles/theme/icons/Users/users-01';
 import { responsiveSpacing } from 'src/components/particles/theme/spacing';
+import { attachmentIconSx } from 'src/constants/spacing';
 import { rowInitials } from 'src/utils/users/initials';
 
 interface Data {
@@ -169,7 +170,7 @@ const UserProfileCard = ({
                 }}
                 onClick={emailIconClick}
               >
-                <Mail01Icon />
+                <Mail01Icon sx={attachmentIconSx} />
               </IconButton>
             )}
             {phoneIconClick && (

@@ -101,7 +101,10 @@ const PlanItemRow = ({
         p: 1,
         borderRadius: theme.borderRadius.sm,
         cursor: 'pointer',
-        my: 'auto'
+        my: 'auto',
+        '&:hover': {
+          backgroundColor: 'grey.50'
+        }
       }}
       onClick={() => handleClick(item.id)}
     >
@@ -185,9 +188,6 @@ const MeetingTimePlanList = ({
             showElapsedTime={showElapsedTime}
           />
         ))}
-      </Grid>
-      <Grid item>
-        <Divider />
       </Grid>
     </Grid>
   );

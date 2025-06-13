@@ -47,7 +47,7 @@ export const ReadOnly = Template.bind({});
 ReadOnly.args = {
   label: 'Custom',
   readOnly: true,
-  value: 'filled'
+  value: new Date().setHours(12, 0, 0, 0)
 };
 
 // export const Error = Template.bind({});

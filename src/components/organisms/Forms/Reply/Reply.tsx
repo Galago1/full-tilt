@@ -15,6 +15,7 @@ interface UseReplyProps {
     buttonProps: ButtonProps;
     buttonGridItemProps?: GridProps;
     avatarAndTextProps?: AvatarAndTextProps;
+    containerProps?: GridProps;
   };
 }
 const useReploy = ({ slots }: UseReplyProps) => {
@@ -31,25 +32,36 @@ export interface ReplyProps extends Omit<CardProps, 'slots'> {
     buttonProps: ButtonProps;
     buttonGridItemProps?: GridProps;
     avatarAndTextProps?: AvatarAndTextProps;
+    containerProps?: GridProps;
   };
   cardSlots?: CardProps['slots'];
+  showHeader?: boolean;
+  showDivider?: boolean;
 }
-const Reply = ({ slots, ...props }: ReplyProps) => {
+const Reply = ({
+  slots,
+  showHeader = false,
+  showDivider = false,
+  ...props
+}: ReplyProps) => {
   const {
     textAreaFieldAttributes,
     switchFieldAttributes,
     switchGridItemProps,
     buttonProps,
     buttonGridItemProps,
-    avatarAndTextProps
+    avatarAndTextProps,
+    containerProps
   } = useReploy({ slots });
 
   return (
     <Card showActions={false} {...props}>
       <>
-        <AvatarAndText title={'Your Reply'} {...avatarAndTextProps} />
-        <Divider sx={{ my: 2.5 }} />
-        <Grid container flexDirection={'column'} gap={3}>
+        {showHeader && (
+          <AvatarAndText title={'Your Reply'} {...avatarAndTextProps} />
+        )}
+        {showDivider && <Divider sx={{ my: 2.5 }} />}
+        <Grid container flexDirection={'column'} gap={3} {...containerProps}>
           <Grid item xs={12}>
             <Field {...textAreaFieldAttributes} />
           </Grid>

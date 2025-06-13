@@ -71,6 +71,7 @@ export const testKanbanInitialData: Partial<KanbanProps> = {
         showDragOrAdd: true,
         initialNoun: 'Task',
         subsequentNoun: 'Point',
+        includeHeaderChip: true,
         kanbanColumnProps: {
           slots: {
             addCardButtonProps: {

@@ -10,57 +10,21 @@ import {
 import { FieldAttributes, FormikConfig } from 'formik';
 import { useEffect, useRef, useState } from 'react';
 import { useDrop } from 'react-dnd';
-import { ButtonGroupProps } from 'src/components/molecules/ButtonGroup/ButtonGroup';
 import { useIsSize } from 'src/hooks';
 import useDeepCompareEffect from 'src/hooks/useDeepCompareEffect';
 import { DateFormat } from 'src/types/dateFns';
+import { CalendarProps } from './Calendar';
 import { MeetingDragObject } from './MeetingChip';
 import { CalendarDay, CalendarView, CalendarWeek, Meeting } from './types';
-import { CalendarProps } from './Calendar';
 
 export const useCalendarHeaderActions = (
-  setView: (view: CalendarView) => void,
-  buttonGroupProps?: ButtonGroupProps,
   fieldAttributes?: FieldAttributes<any>,
-  formikConfig?: FormikConfig<any> | '',
-  initialView?: CalendarView
+  formikConfig?: FormikConfig<any> | ''
 ) => {
-  const defaultButtonGroupsProps: ButtonGroupProps = {
-    customVariant: 'roundedEdges',
-    useSelectedStyles: true,
-    buttons: [
-      {
-        label: 'Day',
-        value: 'day',
-        color: 'secondary',
-        size: 'medium',
-        selected: initialView === CalendarView.DAY,
-        onClick: () => setView(CalendarView.DAY)
-      },
-      {
-        label: 'Week',
-        value: 'week',
-        color: 'secondary',
-        size: 'medium',
-        selected: initialView === CalendarView.WEEK,
-        onClick: () => setView(CalendarView.WEEK)
-      },
-      {
-        label: 'Month',
-        value: 'month',
-        color: 'secondary',
-        size: 'medium',
-        selected: initialView === CalendarView.MONTH,
-        onClick: () => setView(CalendarView.MONTH)
-      }
-    ]
-  };
-  const finalButtonGroupProps = buttonGroupProps ?? defaultButtonGroupsProps;
   const finalFormikConfig = formikConfig;
   const finalFieldAttributes = fieldAttributes;
 
   return {
-    finalButtonGroupProps,
     finalFieldAttributes,
     finalFormikConfig
   };
@@ -103,9 +67,6 @@ const generateCalendarData = (
     days.push({
       date: currentDate.getDate(),
       fullDate: format(currentDate, DateFormat.yyyyMMdd),
-      // fullDate: `${currentDate.getFullYear()}-${
-      //   currentDate.getMonth() + 1
-      // }-${currentDate.getDate()}`,
       isCurrentMonth: currentDate.getMonth() === month,
       meetings: dayMeetings
     });
@@ -402,7 +363,8 @@ export const useCalendar = (
     calendarContentProps,
     headerGridItemProps,
     dividerGridItemProps,
-    contentGridItemProps
+    contentGridItemProps,
+    dividerProps
   } = slots || {};
   const theme = useTheme();
   const [currentYear, setCurrentYear] = useState(initialYear);
@@ -531,6 +493,7 @@ export const useCalendar = (
     dividerGridItemProps,
     contentGridItemProps,
     theme,
+    dividerProps,
     setView,
     handleDayViewDateChange,
     onDropMeeting: onDropMeetingExternal ?? onDropMeeting,

@@ -13,7 +13,7 @@ export interface DropdownMenuProps extends MenuProps {
   /**
    * The DropdownList props
    */
-  dropdownListItems: DropdownListItem[];
+  dropdownListItems?: DropdownListItem[];
   /**
    * The Grid props
    */
@@ -46,7 +46,7 @@ export const DropdownMenu = ({
       {avatarAndTextProps && <AvatarAndText {...avatarAndTextProps} />}
       <Grid container {...gridContainerProps}>
         <DropdownList
-          dropdownListItems={dropdownListItems}
+          dropdownListItems={dropdownListItems!}
           gridItemProps={gridItemProps}
         />
       </Grid>

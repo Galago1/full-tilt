@@ -3,8 +3,10 @@ import { isEmpty } from 'lodash';
 import { Divider, FeaturedIcon } from 'src/components/atoms';
 import Button, { ButtonProps } from 'src/components/atoms/Button/Button';
 import EmptyState from 'src/components/molecules/EmptyState/EmptyState';
+import { AlertCircleIcon } from 'src/components/particles/theme/icons/AlertsAndFeedback/alert-circle';
 import { InfoCircleIcon } from 'src/components/particles/theme/icons/General/info-circle';
 import { XCloseIcon } from 'src/components/particles/theme/icons/General/x-close';
+import { attachmentIconSx } from 'src/constants/spacing';
 import StandUpMemberDetailCardContentHeader from './StandUpMemberDetailCardContentHeader';
 import { TeamMember } from './StandUpUserList';
 
@@ -107,7 +109,7 @@ const StandUpMemberDetailCardContent = ({
             <EmptyState
               featuredIconProps={{
                 size: 'md',
-                children: <InfoCircleIcon sx={{ fontSize: '1.25rem' }} />
+                children: <AlertCircleIcon sx={attachmentIconSx} />
               }}
               featuredIconItemProps={{
                 display: 'flex',

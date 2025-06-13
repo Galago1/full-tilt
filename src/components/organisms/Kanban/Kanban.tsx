@@ -29,7 +29,6 @@ import { IndividualKanbanColumn } from './types';
 
 export interface KanbanProps extends GridProps {
   data: KanbanData;
-  showAdd?: boolean;
   disableMoveColumn?: boolean;
   disableReduceColumns?: boolean;
   moveCard?: (
@@ -92,14 +91,12 @@ const Kanban = forwardRef(
       moveColumn: propMoveColumn,
       onEditCard,
       rowValues = rowValuesDefault,
-      showAdd = true,
       statusDropdownListItems = statusDropdownListItemsDefault,
       tableHeadCells = tableHeadCellsDefault,
       tableRowsFn = tableRowsFnDefault,
       selectedTeamFilter,
       slots,
-      sx,
-      ...props
+      sx
     }: KanbanProps,
     ref: Ref<any>
   ) => {
@@ -186,6 +183,7 @@ const Kanban = forwardRef(
             dataGridBoxProps: dataGridBoxProps!,
             tablePaginationWaveProps: tablePaginationWaveProps!
           }}
+          sx={sx}
         />
       </DndProvider>
     );

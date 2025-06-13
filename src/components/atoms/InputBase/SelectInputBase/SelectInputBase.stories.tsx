@@ -23,7 +23,13 @@ export default {
 } as ComponentMeta<typeof SelectInputBase>;
 
 const basicOptions: SelectOption[] = [
-  { value: 1, label: { value: 'Basic Label' } }
+  {
+    value: 1,
+    label: { value: 'Basic Label' },
+    containerSx: {
+      height: 28
+    }
+  }
 ];
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
@@ -52,6 +58,9 @@ NoneSelected.args = {
 
 export const CheckSelected = Template.bind({});
 CheckSelected.args = {
+  optionContainerSx: {
+    height: 32
+  },
   SelectProps: {
     multiple: true,
     sx: {
@@ -75,8 +84,12 @@ CheckSelected.args = {
       },
       menuItem: {
         sx: {
-          px: 0
+          px: 0,
+          mx: 1
         }
+      },
+      containerSx: {
+        height: 32
       }
     },
     {
@@ -93,8 +106,12 @@ CheckSelected.args = {
       },
       menuItem: {
         sx: {
-          px: 0
+          px: 0,
+          mx: 1
         }
+      },
+      containerSx: {
+        height: 32
       }
     },
     {
@@ -110,8 +127,13 @@ CheckSelected.args = {
       },
       menuItem: {
         sx: {
-          px: 0
+          px: 0,
+          mx: 1
         }
+      },
+      containerSx: {
+        height: 32
+        // '&': { mx: 1 }
       }
     }
   ],

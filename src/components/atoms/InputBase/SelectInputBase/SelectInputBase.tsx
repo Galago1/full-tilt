@@ -46,6 +46,11 @@ export interface SelectInputBaseProps
   slots: {
     boxProps: GridProps;
   };
+  /**
+   * Container sx
+   */
+  optionContainerSx?: SxProps<Theme>;
+  optionMenuItem?: MenuItemProps;
 }
 
 // const styles = (value: any) => {
@@ -63,6 +68,8 @@ export const SelectInputBase = ({
   useNoneIcon = undefined,
   noneDisabled = true,
   slots,
+  optionContainerSx,
+  optionMenuItem,
   ...props
 }: SelectInputBaseProps) => {
   const { boxProps } = slots || {};
@@ -79,7 +86,7 @@ export const SelectInputBase = ({
               value={defaultOptionLabel}
               checked={false}
               hideSubvalue={true}
-              // containerSx={{ px: 0 }}
+              containerSx={optionContainerSx}
             />
           </Grid>
         );
@@ -124,12 +131,13 @@ export const SelectInputBase = ({
     };
 
     return (
-      <MenuItem sx={{ minWidth: '100%' }}>
+      <MenuItem sx={{ minWidth: '100%' }} {...option.menuItem}>
         <CustomSelectOption
           allowOverrideDisplayValue={true}
           {...option.label}
           checked={false}
           hideSubvalue={true}
+          containerSx={option.containerSx}
         />
       </MenuItem>
     );
@@ -179,10 +187,12 @@ export const SelectInputBase = ({
       <MenuItem
         value={props.SelectProps?.multiple ? [DEFAULT_VALUE] : DEFAULT_VALUE}
         disabled={noneDisabled}
+        {...optionMenuItem}
       >
         <CustomSelectOption
           allowOverrideDisplayValue={false}
           value={defaultOptionLabel}
+          containerSx={optionContainerSx}
         />
       </MenuItem>
       {options.map((option: SelectOption) => (
@@ -191,6 +201,7 @@ export const SelectInputBase = ({
             allowOverrideDisplayValue={false}
             {...option.label}
             checked={checkSelected ? props.value === option.value : false}
+            containerSx={option.containerSx}
           />
         </MenuItem>
       ))}

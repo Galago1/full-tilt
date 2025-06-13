@@ -7,6 +7,7 @@ import type { DropdownListItem } from './DropdownList/DropdownList';
 import { DropdownMenuProps } from './DropdownMenu/DropdownMenu';
 import DropdownUncontrolled from './DropdownUncontrolled';
 import { TooltipProps } from 'src/components/atoms/Tooltip/Tooltip';
+import { DropdownUncontrolledProps } from './DropdownUncontrolled/DropdownUncontrolled';
 
 const useDropdown = (
   controlledOpen?: boolean,
@@ -59,7 +60,7 @@ const useDropdown = (
   };
 };
 
-export interface DropdownProps extends BoxProps {
+export interface DropdownProps extends DropdownUncontrolledProps {
   /**
    * The name, icon, or avatar
    */

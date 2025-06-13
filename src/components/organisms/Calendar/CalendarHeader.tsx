@@ -3,7 +3,9 @@ import { CalendarView } from './types';
 import CalendarHeaderActions, {
   CalendarHeaderActionsProps
 } from './CalendarHeaderActions';
-import CalendarHeaderPrevNext from './CalendarHeaderPrevNext';
+import CalendarHeaderPrevNext, {
+  CalendarHeaderPrevNextProps
+} from './CalendarHeaderPrevNext';
 import { responsiveSpacing } from 'src/components/particles/theme/spacing';
 
 export interface CalendarHeaderProps {
@@ -21,7 +23,8 @@ export interface CalendarHeaderProps {
   goToPreviousMonth?: () => void;
   goToNextMonth?: () => void;
   slots?: {
-    calendarHeaderActionsProps: CalendarHeaderActionsProps;
+    calendarHeaderActionsProps?: CalendarHeaderActionsProps;
+    calendarHeaderPrevNextProps?: CalendarHeaderPrevNextProps;
   };
 }
 
@@ -41,7 +44,8 @@ const CalendarHeader = ({
   initialView,
   slots
 }: CalendarHeaderProps) => {
-  const { calendarHeaderActionsProps } = slots || {};
+  const { calendarHeaderActionsProps, calendarHeaderPrevNextProps } =
+    slots || {};
   return (
     <Grid
       container
@@ -50,6 +54,9 @@ const CalendarHeader = ({
     >
       <Grid item flex={1}>
         <CalendarHeaderPrevNext
+          {...calendarHeaderPrevNextProps!}
+          setView={setView!}
+          initialView={initialView}
           view={view!}
           selectedDate={selectedDate!}
           goToPreviousDay={goToPreviousDay!}
@@ -64,11 +71,7 @@ const CalendarHeader = ({
         />
       </Grid>
       <Grid item>
-        <CalendarHeaderActions
-          {...calendarHeaderActionsProps!}
-          initialView={initialView}
-          setView={setView}
-        />
+        <CalendarHeaderActions {...calendarHeaderActionsProps!} />
       </Grid>
     </Grid>
   );

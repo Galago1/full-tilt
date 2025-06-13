@@ -12,24 +12,31 @@ const ControlLabel: any = (theme: Theme) => {
           '& .MuiFormControlLabel-label': {
             paddingBottom: theme.spacing(0.75),
             color: theme.palette.grey[700]
+          },
+          fontWeight: '500 !important',
+          '&': {
+            fontWeight: '500 !important'
           }
         },
         label: {
-          ...theme.typography.body2
+          ...theme.typography.body2,
+          fontWeight: '500 !important'
         }
       }
     },
     MuiFormHelperText: {
       styleOverrides: {
         root: {
-          marginTop: theme.spacing(1)
+          marginTop: theme.spacing(1),
+          fontWeight: '500 !important'
         }
       }
     },
     MuiFormLabel: {
       styleOverrides: {
         root: {
-          color: theme.palette.text.disabled
+          color: theme.palette.text.disabled,
+          fontWeight: '500 !important'
         }
       }
     }

@@ -1,4 +1,12 @@
-import { Box, Grid, GridProps, IconButton, Typography } from '@mui/material';
+import {
+  Box,
+  Grid,
+  GridProps,
+  IconButton,
+  Typography,
+  TypographyProps
+} from '@mui/material';
+import Button, { ButtonProps } from 'src/components/atoms/Button/Button';
 import { PauseSquareIcon } from 'src/components/particles/theme/icons/MediaAndDevices/pause-square';
 import { PlaySquareIcon } from 'src/components/particles/theme/icons/MediaAndDevices/play-square';
 import { SkipBackIcon } from 'src/components/particles/theme/icons/MediaAndDevices/skip-back';
@@ -14,6 +22,10 @@ export interface MeetingTimeHeaderProps extends GridProps {
   planItemsLength?: number;
   disablePlayPause?: boolean;
   showActions?: boolean;
+  slots?: {
+    headerTypographyProps?: TypographyProps;
+  };
+  endComponent?: JSX.Element;
 }
 const MeetingTimeHeader = ({
   handleBack,
@@ -25,18 +37,25 @@ const MeetingTimeHeader = ({
   planItemsLength,
   disablePlayPause,
   showActions = true,
+  slots,
+  endComponent,
   ...props
 }: MeetingTimeHeaderProps) => {
+  const { headerTypographyProps } = slots || {};
   return (
     <Grid
       container
       display={'flex'}
       alignItems={'center'}
-      marginBottom={2}
+      marginBottom={1}
       {...props}
     >
       <Grid item flex={1}>
-        <Typography variant="textLgSemibold" component="div">
+        <Typography
+          variant="textMdRegular"
+          component="div"
+          {...headerTypographyProps}
+        >
           Agenda
         </Typography>
       </Grid>
@@ -68,6 +87,7 @@ const MeetingTimeHeader = ({
           </Box>
         </Grid>
       )}
+      {endComponent && <Grid item>{endComponent}</Grid>}
     </Grid>
   );
 };

@@ -5,7 +5,7 @@ import TimePickerInput from './TimePickerInput';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: 'Molecules/Input/Time Input',
+  title: 'Molecules/Input/Time Picker Input',
   component: TimePickerInput
   // // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   // argTypes: {
@@ -16,7 +16,7 @@ export default {
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 const Template: Story<TimePickerInputProps> = (args) => {
   return (
-    <Formik initialValues={{ name: '' }} onSubmit={(v) => {}}>
+    <Formik initialValues={{ name: args.value || '' }} onSubmit={(v) => {}}>
       <Field component={TimePickerInput} name="name" {...args} />
     </Formik>
   );
@@ -42,14 +42,7 @@ Disabled.args = {
 export const ReadOnly = Template.bind({});
 ReadOnly.args = {
   label: 'Custom',
-  value: '500',
+  value: new Date(new Date().setHours(12, 0, 0, 0)),
   readOnly: true
   // helperText: 'How much does a dog weigh?'
 };
-
-// export const Error = Template.bind({});
-// Error.args = {
-//   label: 'Custom',
-//   error: true,
-//   helperText: 'Error over here'
-// };

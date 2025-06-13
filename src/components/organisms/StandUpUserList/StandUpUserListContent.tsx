@@ -3,14 +3,15 @@ import {
   List,
   ListItem,
   ListItemAvatar,
-  ListItemText
+  ListItemText,
+  useTheme
 } from '@mui/material';
 import { Fragment } from 'react';
 import { Avatar, Badge } from 'src/components/atoms';
 import { AvatarProps } from 'src/components/atoms/Avatar/Avatar';
 import { VerifiedTickIcon } from 'src/components/particles/theme/overrides/CustomIcons';
-import { TeamMember } from './StandUpUserList';
 import { rowInitials } from 'src/utils/users/initials';
+import { TeamMember } from './StandUpUserList';
 
 interface StandUpUserListContentProps {
   selectedIndex?: number | null;
@@ -23,6 +24,8 @@ const StandUpUserListContent = ({
   filteredMembers,
   setSelectedIndex
 }: StandUpUserListContentProps) => {
+  const theme = useTheme();
+  const grey700 = theme.palette.grey[800];
   return (
     <List
       sx={{
@@ -59,11 +62,32 @@ const StandUpUserListContent = ({
               <Grid container alignItems="center" wrap="nowrap">
                 <Grid item sx={{ position: 'relative' }}>
                   <ListItemAvatar>
+                    <Avatar {...avatarProps} />
+                  </ListItemAvatar>
+                </Grid>
+                <Grid item xs zeroMinWidth>
+                  <ListItemText
+                    primary={member.name}
+                    primaryTypographyProps={{
+                      noWrap: true,
+                      variant: 'textSmMedium'
+                    }}
+                    sx={{
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis'
+                    }}
+                  />
+                </Grid>
+                <Grid item sx={{ position: 'relative' }}>
+                  <ListItemAvatar>
                     <Badge
                       anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                       badgeContent={
                         member.standUpCompletedAt ? (
-                          <VerifiedTickIcon sx={{ width: 16, height: 16 }} />
+                          <VerifiedTickIcon
+                            sx={{ width: 16, height: 16 }}
+                            fill={grey700}
+                          />
                         ) : undefined
                       }
                       sx={{
@@ -75,24 +99,8 @@ const StandUpUserListContent = ({
                           transform: 'none'
                         }
                       }}
-                    >
-                      <Avatar {...avatarProps} />
-                    </Badge>
+                    ></Badge>
                   </ListItemAvatar>
-                </Grid>
-                <Grid item xs zeroMinWidth>
-                  <ListItemText
-                    primary={member.name}
-                    primaryTypographyProps={{
-                      noWrap: true,
-                      variant: 'textSmRegular',
-                      sx: { fontWeight: 600 }
-                    }}
-                    sx={{
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis'
-                    }}
-                  />
                 </Grid>
               </Grid>
             </ListItem>

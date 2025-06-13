@@ -1,4 +1,4 @@
-import { Box, IconButton } from '@mui/material';
+import { Box, BoxProps, IconButton } from '@mui/material';
 import type { IconButtonProps } from '@mui/material/IconButton';
 import { forwardRef } from 'react';
 import type { ButtonProps } from 'src/components/atoms/Button/Button';
@@ -29,6 +29,12 @@ export interface DropdownAnchorProps {
    * The component to render
    */
   anchorComponent?: React.ReactNode;
+  /**
+   * The slots to render
+   */
+  slots?: {
+    boxProps?: BoxProps;
+  };
 }
 
 /**
@@ -42,18 +48,22 @@ export const DropdownAnchor = forwardRef(
       onClick,
       buttonProps,
       iconButtonProps,
-      anchorComponent
+      anchorComponent,
+      slots
     }: DropdownAnchorProps,
     ref: any
   ) => {
+    const { boxProps } = slots || {};
     return (
       <Box
         sx={{
           display: 'flex',
           alignItems: 'center',
-          textAlign: 'center'
+          textAlign: 'center',
+          ...boxProps?.sx
         }}
         ref={ref}
+        {...boxProps}
       >
         {anchorComponent ? (
           anchorComponent

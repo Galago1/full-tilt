@@ -26,6 +26,7 @@ const inputPallet = (color: ColorSchema, theme: Theme) => {
 const Input = (theme: Theme) => {
   return {
     // lineHeight: 1.1875
+    // MuiOutlinedInput-input
     MuiInputBase: {
       variants: [
         {
@@ -97,14 +98,19 @@ const Input = (theme: Theme) => {
           },
           '& .MuiSelect-icon': {
             right: theme.spacing(1.75)
-          }
+          },
+          fontWeight: '500 !important'
         },
         input: {
           color: theme.palette.grey[900],
           '&::placeholder': {
             opacity: 1,
             color: theme.palette.grey[500]
+          },
+          '& .MuiInputBase-input': {
+            fontWeight: '500 !important'
           }
+          // fontWeight: 500
         }
       }
     },
@@ -127,10 +133,14 @@ const Input = (theme: Theme) => {
           '& .MuiFormHelperText-root': {
             marginLeft: 0,
             marginTop: theme.spacing(0.75)
+          },
+          '& .MuiInputBase-input': {
+            fontWeight: '500 !important'
           }
         },
         label: {
-          color: theme.palette.grey[700]
+          color: theme.palette.grey[700],
+          fontWeight: '500 !important'
         }
       }
     },
@@ -147,6 +157,7 @@ const Input = (theme: Theme) => {
       ],
       styleOverrides: {
         root: {
+          fontWeight: 500,
           '& .MuiOutlinedInput-notchedOutline': {
             borderColor: theme.palette.grey[300]
           },
@@ -154,7 +165,15 @@ const Input = (theme: Theme) => {
             '& .MuiOutlinedInput-notchedOutline': {
               borderColor: theme.palette.action.disabledBackground
             }
+          },
+          '& .MuiInputBase-input': {
+            fontWeight: '500 !important'
           }
+
+          // fontWeight: 500
+        },
+        input: {
+          fontWeight: '500 !important'
         }
       }
     }

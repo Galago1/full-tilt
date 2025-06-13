@@ -15,6 +15,7 @@ import { Orientation } from 'src/types/other';
 import HorizontalInput, {
   HorizontalInputProps
 } from '../HorizontalInput/HorizontalInput';
+import { attachmentIconSx } from 'src/constants/spacing';
 
 export interface PasswordInputProps extends Omit<TextInputBaseProps, 'type'> {
   labelSx?: SxProps<Theme>;
@@ -61,7 +62,11 @@ const PasswordInput = ({
                   onMouseDown={(e) => handleMouseDownPassword(e)}
                   edge="end"
                 >
-                  {showPassword ? <EyeIcon /> : <EyeOffIcon />}
+                  {showPassword ? (
+                    <EyeIcon sx={attachmentIconSx} />
+                  ) : (
+                    <EyeOffIcon sx={attachmentIconSx} />
+                  )}
                 </IconButton>
               </InputAdornment>
             )
@@ -84,7 +89,11 @@ const PasswordInput = ({
                   onMouseDown={(e) => handleMouseDownPassword(e)}
                   edge="end"
                 >
-                  {showPassword ? <EyeIcon /> : <EyeOffIcon />}
+                  {showPassword ? (
+                    <EyeIcon sx={attachmentIconSx} />
+                  ) : (
+                    <EyeOffIcon sx={attachmentIconSx} />
+                  )}
                 </IconButton>
               </InputAdornment>
             )

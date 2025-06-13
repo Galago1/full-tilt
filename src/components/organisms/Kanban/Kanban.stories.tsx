@@ -52,17 +52,8 @@ Default.args = {
   slots: {
     tablePaginationWaveProps: { offset: 0 },
     dataGridProps: testKanbanDataGridProps
-  }
-};
-
-export const HideAdd = Template.bind({});
-HideAdd.args = {
-  data: initialData.data,
-  showAdd: false,
-  slots: {
-    tablePaginationWaveProps: { offset: 0 },
-    dataGridProps: testKanbanDataGridProps
-  }
+  },
+  sx: { px: 0 }
 };
 
 export const DisableMoveColumn = Template.bind({});

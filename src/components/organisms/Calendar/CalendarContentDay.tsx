@@ -13,7 +13,7 @@ export interface CalendarContentDayProps {
     newDay: string,
     newTime: string
   ) => void;
-  onClickMeeting?: (meeting: Meeting) => void;
+  onClickMeeting?: (event: any, meeting: Meeting) => void;
   slots?: {
     meetingChipProps?: MeetingChipProps;
   };
@@ -154,7 +154,7 @@ const CalendarContentDay = ({
                 textOverflow: 'ellipsis',
                 whiteSpace: 'nowrap'
               }}
-              onClick={() => onClickMeeting?.(meeting)}
+              onClick={(event) => onClickMeeting?.(event, meeting)}
             />
           ))}
         </Grid>

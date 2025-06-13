@@ -59,5 +59,7 @@ export interface IndividualKanbanColumn {
     type: 'count' | 'sum';
     /** Noun for tooltip */
     noun: string;
+    /** Function to calculate the value */
+    calculate?: (cards: KanbanColumnCard[]) => number;
   }>;
 }

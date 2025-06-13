@@ -7,6 +7,7 @@ import { AvatarAndText } from 'src/components/molecules';
 import { Hash01Icon } from 'src/components/particles/theme/icons/General/hash-01';
 import { EstimateIcon } from 'src/components/particles/theme/overrides/CustomIcons';
 import { IndividualKanbanColumn } from '../Kanban/types';
+import { attachmentIconSx } from 'src/constants/spacing';
 
 export interface KanbanColumnHeaderProps {
   column: IndividualKanbanColumn;
@@ -21,16 +22,18 @@ const KanbanColumnHeader = ({ column }: KanbanColumnHeaderProps) => {
           {
             field: 'estimate',
             label: column.subsequentNoun + ' count',
-            icon: <EstimateIcon />,
+            icon: <EstimateIcon sx={attachmentIconSx} />,
             type: 'sum' as const,
-            noun: column.subsequentNoun
+            noun: column.subsequentNoun,
+            calculate: undefined
           },
           {
             field: '',
             label: column.initialNoun + ' count',
-            icon: <Hash01Icon />,
+            icon: <Hash01Icon sx={attachmentIconSx} />,
             type: 'count' as const,
-            noun: column.initialNoun
+            noun: column.initialNoun,
+            calculate: undefined
           }
         ];
 
@@ -40,6 +43,11 @@ const KanbanColumnHeader = ({ column }: KanbanColumnHeaderProps) => {
   // Calculate value for current mode
   const mode = countModes[modeIndex];
   const value = useMemo(() => {
+    // Use custom calculate function if provided
+    if (mode.calculate) {
+      return mode.calculate(column.cards);
+    }
+    // Fall back to default calculations
     if (mode.type === 'sum' && mode.field) {
       const list = column.cards.map((card) => {
         const v = card[mode.field as keyof typeof card];
@@ -115,6 +123,10 @@ const KanbanColumnHeader = ({ column }: KanbanColumnHeaderProps) => {
                   label={String(value)}
                   onClick={toggleMode}
                   data-testid="kanban-column-header-chip"
+                  sx={{
+                    cursor: 'pointer',
+                    height: 28
+                  }}
                 />
               </Tooltip>
             </Grid>

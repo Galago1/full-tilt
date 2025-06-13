@@ -49,10 +49,18 @@ const BasicEmptyState = ({
   alignItems = 'center',
   justifyContent = 'center',
   absCenter = false,
+  avatarAndTextProps,
   ...props
 }: BasicEmptyStateProps) => {
   const { gridSx, gridProps } = slots || {};
   const theme = useTheme();
+  const {
+    featuredIconItemSx,
+    featuredIconProps,
+    subtitleTypography,
+    titleTypography,
+    ...avatarAndTextPropsRest
+  } = avatarAndTextProps || {};
   return (
     <Grid
       sx={{
@@ -90,7 +98,8 @@ const BasicEmptyState = ({
           titleTypography: {
             variant: 'textLgSemibold',
             color: 'text.primary',
-            sx: { textAlign: alignItems === 'center' ? 'center' : 'left' }
+            sx: { textAlign: alignItems === 'center' ? 'center' : 'left' },
+            ...titleTypography
           },
           subtitle: subtitle,
           subtitleTypography: {
@@ -99,7 +108,7 @@ const BasicEmptyState = ({
             sx: {
               textAlign: alignItems === 'center' ? 'center' : 'left'
             },
-            ...props.avatarAndTextProps?.subtitleTypography
+            ...subtitleTypography
           },
           tertiaryTitle: tertiaryTitle,
           tertiaryTitleTypography: tertiaryTitle
@@ -128,7 +137,7 @@ const BasicEmptyState = ({
                       )} !important`
                     }
                   : undefined,
-                ...props.avatarAndTextProps?.featuredIconProps
+                ...featuredIconProps
               }
             : undefined,
           featuredIconItemSx: {
@@ -152,7 +161,7 @@ const BasicEmptyState = ({
               display: 'flex',
               justifyContent: 'center'
             }),
-            ...props.avatarAndTextProps?.featuredIconItemSx
+            ...featuredIconItemSx
           },
           avatarProps: image
             ? {
@@ -165,7 +174,7 @@ const BasicEmptyState = ({
             : undefined,
 
           childrenGridProps: buttonGridProps,
-          ...props.avatarAndTextProps
+          ...avatarAndTextPropsRest
         }}
         {...props}
       >

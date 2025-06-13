@@ -62,9 +62,19 @@ const DayView = ({
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <DateCalendar
             sx={{
-              minWidth: theme.spacing(37.5),
+              // minWidth: theme.spacing(37.5),
               '& .MuiPickersDay-root.Mui-selected': {
                 backgroundColor: 'cyan.600'
+              },
+              '& .MuiPickersCalendarHeader-root': {
+                mt: 0,
+                px: 0
+              },
+              '& .MuiDayCalendar-header': {
+                justifyContent: 'space-between'
+              },
+              '& .MuiDayCalendar-weekContainer': {
+                justifyContent: 'space-between'
               },
               '& .MuiPickersDay-root.Mui-selected:hover': {
                 backgroundColor: 'cyan.600'

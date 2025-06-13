@@ -3,7 +3,10 @@ import type { AvatarAndTextProps } from '../../AvatarAndText/AvatarAndText';
 import { Box, BoxProps, Grid } from '@mui/material';
 import { ButtonProps } from 'src/components/atoms/Button/Button';
 import { DropdownMenu, DropdownMenuProps } from '../DropdownMenu/DropdownMenu';
-import { DropdownAnchor } from '../DropdownAnchor/DropdownAnchor';
+import {
+  DropdownAnchor,
+  DropdownAnchorProps
+} from '../DropdownAnchor/DropdownAnchor';
 import { DropdownListItem } from '../DropdownList/DropdownList';
 import Tooltip, { TooltipProps } from 'src/components/atoms/Tooltip/Tooltip';
 
@@ -56,17 +59,17 @@ export interface DropdownUncontrolledProps extends BoxProps {
   /**
    * The on click action
    */
-  handleClick: (event: React.MouseEvent<HTMLElement>) => void;
+  handleClick?: (event: React.MouseEvent<HTMLElement>) => void;
   /**
    * The anchor element
    */
-  anchorEl: HTMLElement | null;
+  anchorEl?: HTMLElement | null;
   /**
    * The open status
    * @returns
    */
-  handleClose: () => void;
-  open: boolean;
+  handleClose?: () => void;
+  open?: boolean;
   /**
    * The anchor component
    */
@@ -75,7 +78,14 @@ export interface DropdownUncontrolledProps extends BoxProps {
    * The tooltip props
    */
   tooltipProps?: TooltipProps;
+  /**
+   * The slots to render
+   */
+  slots?: {
+    dropdownAnchorProps?: DropdownAnchorProps;
+  };
 }
+
 const DropdownUncontrolled = ({
   label,
   buttonProps,
@@ -92,13 +102,16 @@ const DropdownUncontrolled = ({
   open,
   anchorComponent,
   tooltipProps,
+  slots,
   ...props
 }: DropdownUncontrolledProps) => {
+  const { dropdownAnchorProps } = slots || {};
   return (
     <Box {...boxProps} {...props}>
       <Tooltip {...tooltipProps!}>
         <Grid>
           <DropdownAnchor
+            {...dropdownAnchorProps}
             label={label}
             onClick={handleClick}
             buttonProps={buttonProps}
@@ -129,7 +142,7 @@ const DropdownUncontrolled = ({
         dropdownListItems={dropdownListItems}
         gridItemProps={gridItemProps}
         gridContainerProps={gridContainerProps}
-        open={open}
+        open={open!}
         TransitionProps={{
           mountOnEnter: true,
           unmountOnExit: true,

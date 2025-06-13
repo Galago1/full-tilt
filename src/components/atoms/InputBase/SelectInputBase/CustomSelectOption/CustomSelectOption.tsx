@@ -1,4 +1,4 @@
-import type { GridProps, SxProps, Theme } from '@mui/material';
+import type { GridProps, SxProps, Theme, TypographyProps } from '@mui/material';
 import { Grid, Typography } from '@mui/material';
 import { CheckIcon } from 'src/components/particles/theme/icons/General/check';
 
@@ -24,6 +24,10 @@ export interface CustomSelectOptionProps {
    */
   subvalue?: string;
   /**
+   * Subvalue typography props
+   */
+  subvalueTypographyProps?: TypographyProps;
+  /**
    * Show the checkmark
    */
   checked?: boolean;
@@ -45,6 +49,7 @@ export const CustomSelectOption = ({
   icon,
   value,
   subvalue,
+  subvalueTypographyProps,
   checked,
   gridItemProps,
   overrideDisplayValue,
@@ -95,6 +100,7 @@ export const CustomSelectOption = ({
             sx={{
               color: (theme: Theme) => theme.palette.grey[600]
             }}
+            {...subvalueTypographyProps}
           >
             {subvalue}
           </Typography>

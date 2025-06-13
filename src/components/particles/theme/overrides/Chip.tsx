@@ -20,6 +20,7 @@ const smallChipStyles = (ownerState: ChipProps, theme: Theme) => {
     padding: theme.spacing(0.375, 1),
     ...((!!ownerState.avatar || !!ownerState.icon) && {
       paddingLeft: theme.spacing(0.375),
+      paddingRight: theme.spacing(0.375),
       '& .MuiAvatar-root, .MuiChip-icon': {
         marginRight: theme.spacing(0.75),
         marginLeft: 0,
@@ -28,6 +29,7 @@ const smallChipStyles = (ownerState: ChipProps, theme: Theme) => {
     }),
     ...((!!ownerState.deleteIcon || !!ownerState.onDelete) && {
       paddingRight: theme.spacing(0.75),
+      paddingLeft: theme.spacing(0.75),
       '& .MuiChip-deleteIcon': {
         marginRight: 0,
         marginLeft: theme.spacing(0.75),
@@ -51,6 +53,7 @@ const mediumChipStyles = (ownerState: ChipProps, theme: Theme) => {
     padding: theme.spacing(0.375, 1.25),
     ...((!!ownerState.avatar || !!ownerState.icon) && {
       paddingLeft: theme.spacing(0.5),
+      paddingRight: theme.spacing(0.5),
       '& .MuiAvatar-root, .MuiChip-icon': {
         marginRight: theme.spacing(0.75),
         marginLeft: 0,
@@ -59,6 +62,7 @@ const mediumChipStyles = (ownerState: ChipProps, theme: Theme) => {
     }),
     ...((!!ownerState.deleteIcon || !!ownerState.onDelete) && {
       paddingRight: theme.spacing(1),
+      paddingLeft: theme.spacing(1),
       '& .MuiChip-deleteIcon': {
         marginRight: 0,
         marginLeft: theme.spacing(0.75),
@@ -67,6 +71,7 @@ const mediumChipStyles = (ownerState: ChipProps, theme: Theme) => {
     }),
     ...(!ownerState.label && {
       padding: theme.spacing(0.375),
+
       '& .MuiAvatar-root, .MuiChip-icon': {
         marginLeft: 0,
         marginRight: 0,
@@ -82,6 +87,7 @@ const largeChipStyles = (ownerState: ChipProps, theme: Theme) => {
     padding: theme.spacing(0.375, 1.5),
     ...((!!ownerState.avatar || !!ownerState.icon) && {
       paddingLeft: theme.spacing(0.75),
+      paddingRight: theme.spacing(0.75),
       '& .MuiAvatar-root, .MuiChip-icon': {
         marginRight: theme.spacing(0.75),
         marginLeft: 0,
@@ -90,6 +96,7 @@ const largeChipStyles = (ownerState: ChipProps, theme: Theme) => {
     }),
     ...((!!ownerState.deleteIcon || !!ownerState.onDelete) && {
       paddingRight: theme.spacing(1.25),
+      paddingLeft: theme.spacing(1.25),
       '& .MuiChip-deleteIcon': {
         marginRight: 0,
         marginLeft: theme.spacing(0.75),
@@ -219,7 +226,6 @@ const Chip: any = (theme: Theme) => {
             height: 'unset',
             ...smallChipStyles(ownerState, theme),
             ...mediumChipStyles(ownerState, theme),
-
             ...largeChipStyles(ownerState, theme),
             ...noLabelStyles(ownerState, theme)
           };
