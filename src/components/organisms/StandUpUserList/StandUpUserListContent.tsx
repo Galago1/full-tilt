@@ -4,6 +4,7 @@ import {
   ListItem,
   ListItemAvatar,
   ListItemText,
+  ListProps,
   useTheme
 } from '@mui/material';
 import { Fragment } from 'react';
@@ -13,7 +14,7 @@ import { VerifiedTickIcon } from 'src/components/particles/theme/overrides/Custo
 import { rowInitials } from 'src/utils/users/initials';
 import { TeamMember } from './StandUpUserList';
 
-interface StandUpUserListContentProps {
+export interface StandUpUserListContentProps extends ListProps {
   selectedIndex?: number | null;
   filteredMembers?: TeamMember[];
   setSelectedIndex?: (index: number) => void;
@@ -22,16 +23,19 @@ interface StandUpUserListContentProps {
 const StandUpUserListContent = ({
   selectedIndex,
   filteredMembers,
-  setSelectedIndex
+  setSelectedIndex,
+  ...props
 }: StandUpUserListContentProps) => {
   const theme = useTheme();
   const grey700 = theme.palette.grey[800];
   return (
     <List
+      {...props}
       sx={{
         flex: 1,
         overflowY: 'auto',
-        py: 0
+        py: 0,
+        ...props.sx
       }}
     >
       {(filteredMembers || []).map((member, index) => {

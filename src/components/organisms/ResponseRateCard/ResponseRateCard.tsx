@@ -200,7 +200,7 @@ const ResponseRateCard = ({
                   />
                 </Grid>
                 <Grid item>
-                  <Typography variant="textMdSemibold" mt={1}>
+                  <Typography variant="textSmMedium">
                     Avg Response Rate
                   </Typography>
                   <Grid container alignItems={'center'}>
@@ -229,10 +229,12 @@ const ResponseRateCard = ({
         <Grid item {...dataGridGridItemProps}>
           <AvatarAndText
             title={'Response Rate Per Team'}
-            titleTypography={{ variant: 'textXlRegular' }}
+            titleTypography={{ variant: 'textMdMedium', color: 'text.primary' }}
           />
           <DataGrid {...dataGridProps} />
-          <TablePaginationWave {...tablePaginationWaveProps} />
+          {tablePaginationWaveProps && (
+            <TablePaginationWave {...tablePaginationWaveProps} />
+          )}
         </Grid>
       </Grid>
     </Card>

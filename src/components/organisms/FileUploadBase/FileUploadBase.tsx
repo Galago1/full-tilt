@@ -8,7 +8,8 @@ import {
   TypographyProps,
   useTheme
 } from '@mui/material';
-import { DropzoneOptions, useDropzone } from 'react-dropzone';
+import { DropzoneOptions } from 'react-dropzone';
+import SimpleDropzone from 'src/components/atoms/SimpleDropzone';
 import Badge, { BadgeProps } from 'src/components/atoms/Badge/Badge';
 import { Image, ImageProps } from 'src/components/atoms/Image/Image';
 import AvatarAndText, {
@@ -121,17 +122,13 @@ const FileUploadBase = ({
   tertiaryTitleContainerProps = defaultTertiaryTitleAvatarAndTextProps,
   ...props
 }: FileUploadBaseProps) => {
-  const { getRootProps, getInputProps } = useDropzone({
-    onDrop: onFilesUploaded,
-    noClick: disabled,
-    noDrag: disabled,
-    maxSize: 6 * 1024 * 1024,
-    ...dropzoneProps
-  });
   const theme = useTheme();
 
   return (
-    <Box
+    <SimpleDropzone
+      onFilesUploaded={onFilesUploaded}
+      disabled={disabled}
+      dropzoneProps={dropzoneProps}
       sx={{
         backgroundColor: theme.palette.common.white,
         borderRadius: '12px',
@@ -145,11 +142,8 @@ const FileUploadBase = ({
         ...boxSx
       }}
       {...props}
-      {...getRootProps()}
     >
       <Box>
-        <input {...getInputProps()} type="file" style={{ display: 'none' }} />
-
         {!!imagePreviews?.length && (
           <Badge {...badgeProps}>
             {imagePreviews?.map((imageProps, index) => {
@@ -236,7 +230,7 @@ const FileUploadBase = ({
           />
         )}
       </Box>
-    </Box>
+    </SimpleDropzone>
   );
 };
 

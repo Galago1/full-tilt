@@ -5,12 +5,17 @@ import { Field, Formik } from 'formik';
 import type { SelectOption } from 'src/components/atoms/InputBase/SelectInputBase/SelectInputBase';
 import useIsSize from 'src/hooks/useIsSize';
 import SelectInput from '../Inputs/SelectInput/SelectInput';
+import Tooltip, { TooltipProps } from 'src/components/atoms/Tooltip/Tooltip';
+
+interface ExtendsTabProps extends TabProps {
+  tooltipProps?: TooltipProps;
+}
 
 export interface TabsProps extends MuiTabsProps {
   /**
    * List of tabs
    */
-  tabs: TabProps[];
+  tabs: ExtendsTabProps[];
   /**
    * Hide the selected tab indicator
    */
@@ -104,8 +109,12 @@ const Tabs = ({
       ${showBackground ? 'show-background' : ''}${' '}
       ${showBottomBorder ? 'show-bottom-border' : ''}${' '}`}
     >
-      {tabs.map((tab: TabProps, index: number) => {
-        return <Tab {...tab} key={`tab-index-[${index}]`} />;
+      {tabs.map(({ tooltipProps, ...tab }: ExtendsTabProps, index: number) => {
+        return (
+          <Tooltip {...tooltipProps!}>
+            <Tab {...tab} key={`tab-index-[${index}]`} />
+          </Tooltip>
+        );
       })}
     </MuiTabs>
   );

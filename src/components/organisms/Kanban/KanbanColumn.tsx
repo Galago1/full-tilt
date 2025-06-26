@@ -1,5 +1,12 @@
 import { Theme } from '@emotion/react';
-import { Collapse, Grid, Grow, SxProps, useTheme } from '@mui/material';
+import {
+  Collapse,
+  Grid,
+  GridProps,
+  Grow,
+  SxProps,
+  useTheme
+} from '@mui/material';
 import { TransitionGroup } from 'react-transition-group';
 import { useEffect, useRef, useState } from 'react';
 import {
@@ -18,7 +25,7 @@ import KanbanColumnHeader, {
 import { IndividualKanbanColumn } from './types';
 import DragDropLine from 'src/components/utilities/DragDropLine';
 
-export interface KanbanColumnProps {
+export interface KanbanColumnProps extends GridProps {
   column?: IndividualKanbanColumn;
   visibleCards?: any[];
   moveCard?: (
@@ -35,6 +42,7 @@ export interface KanbanColumnProps {
     kanbanColumnHeaderProps?: Partial<KanbanColumnHeaderProps>;
     columnCardsGridSx?: SxProps<Theme>;
     addCardButtonProps?: ButtonProps;
+    kanbanColumnCardsGridItemProps?: GridProps;
   };
   onClickPlaceholder?: () => void;
 }
@@ -48,10 +56,16 @@ const KanbanColumn = ({
   disableMoveColumn,
   handleEditCard,
   slots,
-  onClickPlaceholder
+  onClickPlaceholder,
+  sx,
+  ...props
 }: KanbanColumnProps) => {
-  const { kanbanColumnHeaderProps, columnCardsGridSx, addCardButtonProps } =
-    slots || {};
+  const {
+    kanbanColumnHeaderProps,
+    columnCardsGridSx,
+    addCardButtonProps,
+    kanbanColumnCardsGridItemProps
+  } = slots || {};
   const theme = useTheme();
   const ref = useRef<HTMLDivElement | null>(null);
   const [dropLineIndex, setDropLineIndex] = useState<number | null>(null);
@@ -219,9 +233,9 @@ const KanbanColumn = ({
     if (dropLineIndex !== position) return null;
 
     return (
-      <DragDropLine 
-        show={true} 
-        position={position === 0 ? 'top' : 'bottom'} 
+      <DragDropLine
+        show={true}
+        position={position === 0 ? 'top' : 'bottom'}
         timeout={200}
       />
     );
@@ -229,6 +243,7 @@ const KanbanColumn = ({
 
   return (
     <Grid
+      {...props}
       ref={ref}
       container
       flexDirection={'column'}
@@ -245,7 +260,8 @@ const KanbanColumn = ({
         pb: 14,
         px: 0,
         pt: 1,
-        mb: 2
+        mb: 2,
+        ...sx
       }}
     >
       <Grid item sx={{ px: 1 }}>
@@ -254,7 +270,7 @@ const KanbanColumn = ({
           {...(kanbanColumnHeaderProps || {})}
         />
       </Grid>
-      <Grid item>
+      <Grid item {...(kanbanColumnCardsGridItemProps || {})}>
         <Grid
           container
           item

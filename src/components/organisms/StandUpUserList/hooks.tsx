@@ -1,5 +1,5 @@
 import { SelectChangeEvent } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { formatDate as _formatDate, parseDate } from 'src/utils/date';
 import { TeamMember } from './StandUpUserList';
 
@@ -50,12 +50,9 @@ export const useStandUpUserList = (
       (member) => selectedTeam === 'all' || member.teamId === selectedTeam
     )
     .sort((a, b) => {
-      if (a.standUpCompletedAt === null) return 1;
-      if (b.standUpCompletedAt === null) return -1;
-      return (
-        new Date(a.standUpCompletedAt!).getTime() -
-        new Date(b.standUpCompletedAt!).getTime()
-      );
+      if (a.name === null) return 1;
+      if (b.name === null) return -1;
+      return a.name.localeCompare(b.name);
     });
 
   const handleNext = () => {
@@ -99,10 +96,13 @@ export const useStandUpUserList = (
     setTipVisible(false);
   };
 
-  const countCompletedStandUps = (teamMembers: TeamMember[]): number => {
-    return teamMembers.filter((member) => member.standUpCompletedAt !== null)
-      .length;
-  };
+  const countCompletedStandUps = useCallback(
+    (teamMembers: TeamMember[]): number => {
+      return teamMembers.filter((member) => member.standUpCompletedAt !== null)
+        .length;
+    },
+    []
+  );
 
   return {
     selectedIndex,

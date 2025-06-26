@@ -1,22 +1,13 @@
-import { Divider, Grid, GridProps, Typography } from '@mui/material';
+import { Divider, Grid, GridProps } from '@mui/material';
 import { Field, FieldAttributes } from 'formik';
 import Button, { ButtonProps } from 'src/components/atoms/Button/Button';
 import AvatarAndText, {
   AvatarAndTextProps
 } from 'src/components/molecules/AvatarAndText/AvatarAndText';
-import Card from 'src/components/organisms/Card/Card';
-import { CardProps } from 'src/components/organisms/Card/Card';
+import Card, { CardProps } from 'src/components/organisms/Card/Card';
 
 interface UseReplyProps {
-  slots?: {
-    textAreaFieldAttributes: FieldAttributes<any>;
-    switchFieldAttributes?: FieldAttributes<any>;
-    switchGridItemProps?: GridProps;
-    buttonProps: ButtonProps;
-    buttonGridItemProps?: GridProps;
-    avatarAndTextProps?: AvatarAndTextProps;
-    containerProps?: GridProps;
-  };
+  slots?: ReplyProps['slots'];
 }
 const useReploy = ({ slots }: UseReplyProps) => {
   return {
@@ -33,7 +24,9 @@ export interface ReplyProps extends Omit<CardProps, 'slots'> {
     buttonGridItemProps?: GridProps;
     avatarAndTextProps?: AvatarAndTextProps;
     containerProps?: GridProps;
+    middleComponentGridItemProps?: GridProps;
   };
+  middleComponent?: JSX.Element;
   cardSlots?: CardProps['slots'];
   showHeader?: boolean;
   showDivider?: boolean;
@@ -42,6 +35,7 @@ const Reply = ({
   slots,
   showHeader = false,
   showDivider = false,
+  middleComponent,
   ...props
 }: ReplyProps) => {
   const {
@@ -51,7 +45,8 @@ const Reply = ({
     buttonProps,
     buttonGridItemProps,
     avatarAndTextProps,
-    containerProps
+    containerProps,
+    middleComponentGridItemProps
   } = useReploy({ slots });
 
   return (
@@ -67,10 +62,15 @@ const Reply = ({
           </Grid>
 
           <Grid item>
-            <Grid container>
+            <Grid container gap={2} flexWrap={'nowrap'}>
               {switchFieldAttributes && (
                 <Grid item flex={1} {...switchGridItemProps}>
                   <Field {...switchFieldAttributes} />
+                </Grid>
+              )}
+              {middleComponent && (
+                <Grid item {...middleComponentGridItemProps}>
+                  {middleComponent}
                 </Grid>
               )}
               <Grid item {...buttonGridItemProps}>

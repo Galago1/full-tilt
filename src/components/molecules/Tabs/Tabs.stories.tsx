@@ -30,7 +30,11 @@ Primary.args = {
 
 export const Secondary = Template.bind({});
 Secondary.args = {
-  tabs: [{ label: 'Uno' }, { label: 'Dos' }, { label: 'Tres' }],
+  tabs: [
+    { label: 'Uno', tooltipProps: { title: 'Uno' } },
+    { label: 'Dos', tooltipProps: { title: 'Dos' } },
+    { label: 'Tres', tooltipProps: { title: 'Tres' } }
+  ],
   textColor: 'secondary',
   hideIndicator: true
 };

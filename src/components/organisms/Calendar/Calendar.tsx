@@ -78,6 +78,10 @@ export interface CalendarProps extends GridProps {
    * The slots for the component
    */
   slots?: Slots;
+  /**
+   * Whether to show the header
+   */
+  showHeader?: boolean;
 }
 
 const Calendar = ({
@@ -92,6 +96,7 @@ const Calendar = ({
   onUpdateWeek,
   onUpdateDate,
   slots,
+  showHeader = true,
   ...props
 }: CalendarProps) => {
   const {
@@ -146,27 +151,31 @@ const Calendar = ({
         }}
         {...props}
       >
-        <Grid item {...headerGridItemProps}>
-          <CalendarHeader
-            {...calendarHeaderProps!}
-            view={view}
-            setView={setView}
-            initialView={initialView}
-            selectedDate={selectedDate}
-            goToPreviousDay={goToPreviousDay}
-            goToNextDay={goToNextDay}
-            currentWeekStart={currentWeekStart}
-            goToPreviousWeek={goToPreviousWeek}
-            goToNextWeek={goToNextWeek}
-            currentYear={currentYear}
-            currentMonth={currentMonth}
-            goToPreviousMonth={goToPreviousMonth}
-            goToNextMonth={goToNextMonth}
-          />
-        </Grid>
-        <Grid item {...dividerGridItemProps}>
-          <Divider sx={{ my: responsiveSpacing }} {...dividerProps} />
-        </Grid>
+        {showHeader && (
+          <>
+            <Grid item {...headerGridItemProps}>
+              <CalendarHeader
+                {...calendarHeaderProps!}
+                view={view}
+                setView={setView}
+                initialView={initialView}
+                selectedDate={selectedDate}
+                goToPreviousDay={goToPreviousDay}
+                goToNextDay={goToNextDay}
+                currentWeekStart={currentWeekStart}
+                goToPreviousWeek={goToPreviousWeek}
+                goToNextWeek={goToNextWeek}
+                currentYear={currentYear}
+                currentMonth={currentMonth}
+                goToPreviousMonth={goToPreviousMonth}
+                goToNextMonth={goToNextMonth}
+              />
+            </Grid>
+            <Grid item {...dividerGridItemProps}>
+              <Divider sx={{ my: responsiveSpacing }} {...dividerProps} />
+            </Grid>
+          </>
+        )}
         <Grid
           item
           {...contentGridItemProps}

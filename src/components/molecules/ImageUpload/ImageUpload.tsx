@@ -322,7 +322,7 @@ const ImageUpload = forwardRef(
               opacity: 0,
               cursor: 'pointer'
             }}
-            onChange={(e) => onChange(e.target.files as FileList)}
+            onChange={(e: any) => onChange(e.target.files as FileList)}
             hidden={false}
           />
 

@@ -30,7 +30,7 @@ const ResponseRateTopCard = ({
       <Grid container direction={'column'}>
         <Typography variant="textSmMedium">{title}</Typography>
         <Grid container alignItems={'center'}>
-          <Typography variant="displaySmSemibold">
+          <Typography variant="textLgSemibold">
             {rate ?? ''}
             {suffix}
           </Typography>

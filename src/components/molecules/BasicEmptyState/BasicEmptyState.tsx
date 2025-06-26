@@ -13,9 +13,9 @@ import EmptyState, { EmptyStateProps } from '../EmptyState/EmptyState';
 
 export interface BasicEmptyStateProps extends EmptyStateProps {
   image?: string;
-  title?: string;
+  title?: any;
   tertiaryTitle?: string;
-  subtitle?: string;
+  subtitle?: string | JSX.Element;
   pt?: number;
   avatarProps?: AvatarProps;
   buttonProps?: ButtonProps;
@@ -50,6 +50,7 @@ const BasicEmptyState = ({
   justifyContent = 'center',
   absCenter = false,
   avatarAndTextProps,
+  gap = 1.5,
   ...props
 }: BasicEmptyStateProps) => {
   const { gridSx, gridProps } = slots || {};
@@ -92,18 +93,18 @@ const BasicEmptyState = ({
             sx: { textAlign: alignItems === 'center' ? 'center' : 'left' }
           },
           flexDirection: 'column',
-          gap: 2,
+          gap,
 
           title,
           titleTypography: {
-            variant: 'textLgSemibold',
+            variant: 'textMdSemibold',
             color: 'text.primary',
             sx: { textAlign: alignItems === 'center' ? 'center' : 'left' },
             ...titleTypography
           },
           subtitle: subtitle,
           subtitleTypography: {
-            variant: 'textMdRegular',
+            variant: 'textSmMedium',
             color: 'text.secondary',
             sx: {
               textAlign: alignItems === 'center' ? 'center' : 'left'
@@ -113,7 +114,7 @@ const BasicEmptyState = ({
           tertiaryTitle: tertiaryTitle,
           tertiaryTitleTypography: tertiaryTitle
             ? {
-                variant: 'textMdRegular',
+                variant: 'textSmMedium',
                 color: 'text.secondary',
                 sx: {
                   textAlign: alignItems === 'center' ? 'center' : 'left'
@@ -168,7 +169,7 @@ const BasicEmptyState = ({
                 src: image,
                 alt: 'None Available',
                 variant: 'square',
-                sx: { width: 150, height: 109 },
+                sx: { width: 75, height: 54.5 },
                 ...avatarProps
               }
             : undefined,

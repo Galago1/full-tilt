@@ -10,7 +10,7 @@ import { attachmentIconSx } from 'src/constants/spacing';
 import StandUpMemberDetailCardContentHeader from './StandUpMemberDetailCardContentHeader';
 import { TeamMember } from './StandUpUserList';
 
-interface StandUpMemberDetailCardContentProps {
+export interface StandUpMemberDetailCardContentProps {
   isMember: boolean;
   member: TeamMember;
   onBack: () => void;
@@ -42,7 +42,8 @@ const StandUpMemberDetailCardContent = ({
   memberButtonProps,
   children,
   currentPosition,
-  totalCount
+  totalCount,
+  ...props
 }: StandUpMemberDetailCardContentProps) => {
   if (!member)
     return (
@@ -54,6 +55,7 @@ const StandUpMemberDetailCardContent = ({
           alignItems: 'center',
           justifyItems: 'center'
         }}
+        {...props}
       >
         <Grid item>
           <EmptyState
@@ -71,7 +73,13 @@ const StandUpMemberDetailCardContent = ({
       </Grid>
     );
   return (
-    <Grid container flexDirection={'column'} flexWrap={'nowrap'} gap={2}>
+    <Grid
+      container
+      flexDirection={'column'}
+      flexWrap={'nowrap'}
+      gap={2}
+      {...props}
+    >
       <Grid item>
         <Grid container flexDirection={'column'} gap={1}>
           <Grid item>
@@ -95,49 +103,53 @@ const StandUpMemberDetailCardContent = ({
         </Grid>
       </Grid>
       {isEmpty(member.standUpCompletedAt) && (
-        <Grid
-          container
-          flex={1}
-          sx={{
-            minHeight: 320,
-            justifyContent: 'center',
-            alignItems: 'center',
-            justifyItems: 'center'
-          }}
-        >
-          <Grid item>
-            <EmptyState
-              featuredIconProps={{
-                size: 'md',
-                children: <AlertCircleIcon sx={attachmentIconSx} />
-              }}
-              featuredIconItemProps={{
-                display: 'flex',
-                justifyContent: 'center'
-              }}
-              avatarAndTextProps={{
-                gap: 1.5,
-                flexDirection: 'column',
-                title: 'Stand Up Not Completed',
-                titleTypography: {
-                  variant: 'textLgSemibold'
-                },
-                subtitle: `${
-                  isMember ? 'You' : member.name
-                } did not complete the Stand Up for this day.`,
-                subtitleTypography: {
-                  variant: 'textMdRegular'
-                },
-                alignItems: 'center',
-                textContainerGridItemProps: {
-                  alignItems: 'center'
-                },
-                children:
-                  isMember && memberButtonProps ? (
-                    <Button {...memberButtonProps} />
-                  ) : null
-              }}
-            />
+        <Grid item>
+          <Grid
+            container
+            flex={1}
+            sx={{
+              minHeight: 320,
+              justifyContent: 'center',
+              alignItems: 'center',
+              justifyItems: 'center'
+            }}
+          >
+            <Grid item>
+              <EmptyState
+                featuredIconProps={{
+                  size: 'md',
+                  children: <AlertCircleIcon sx={attachmentIconSx} />
+                }}
+                featuredIconItemProps={{
+                  display: 'flex',
+                  justifyContent: 'center'
+                }}
+                avatarAndTextProps={{
+                  gap: 1.5,
+                  flexDirection: 'column',
+                  title: 'Stand Up Not Completed',
+                  titleTypography: {
+                    variant: 'textSmMedium',
+                    color: 'text.primary'
+                  },
+                  subtitle: `${
+                    isMember ? 'You' : member.name
+                  } did not complete the Stand Up for this day.`,
+                  subtitleTypography: {
+                    variant: 'textSmRegular',
+                    color: 'text.secondary'
+                  },
+                  alignItems: 'center',
+                  textContainerGridItemProps: {
+                    alignItems: 'center'
+                  },
+                  children:
+                    isMember && memberButtonProps ? (
+                      <Button {...memberButtonProps} />
+                    ) : null
+                }}
+              />
+            </Grid>
           </Grid>
         </Grid>
       )}

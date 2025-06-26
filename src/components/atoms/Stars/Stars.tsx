@@ -24,7 +24,10 @@ const Stars = ({ totalStars, field, form, slots, onChange }: StarsProps) => {
     handleClick,
     hoveredRating,
     handleMouseEnter,
-    handleMouseLeave
+    handleMouseLeave,
+    starGridContainerProps,
+    starGridItemProps,
+    iconProps
   } = useStar({
     field,
     form,
@@ -40,6 +43,7 @@ const Stars = ({ totalStars, field, form, slots, onChange }: StarsProps) => {
       justifyContent="center"
       alignItems="center"
       onMouseLeave={handleMouseLeave}
+      {...starGridContainerProps}
     >
       {[...Array(totalStars)].map((_, index) => (
         <Grid
@@ -56,8 +60,10 @@ const Stars = ({ totalStars, field, form, slots, onChange }: StarsProps) => {
               }
             }
           }}
+          {...starGridItemProps}
         >
           <Star01Icon
+            {...iconProps}
             sx={{
               fontSize: 56,
               '& path:first-of-type': {

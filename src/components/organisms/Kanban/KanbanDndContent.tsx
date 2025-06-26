@@ -88,7 +88,12 @@ const DndContent = ({
         }}
       >
         {filteredColumns.map((column, index) => (
-          <Fade in={true} timeout={400}>
+          <Fade
+            in={true}
+            timeout={400}
+            unmountOnExit
+            key={`${column.title}-${column.id}-${index}`}
+          >
             <Grid
               item
               xs={4}

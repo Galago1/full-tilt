@@ -1,13 +1,7 @@
-import { styled, SxProps, Theme } from '@mui/material';
+import { SxProps, Theme } from '@mui/material';
 import { ChangeEvent, forwardRef } from 'react';
-
-const StyledInput = styled('input')({
-  position: 'absolute',
-  width: '100%',
-  height: '100%',
-  opacity: 0,
-  cursor: 'pointer'
-});
+import { Accept } from 'react-dropzone';
+import SimpleDropzone from '../SimpleDropzone';
 
 export interface FileInputProps {
   sx?: SxProps<Theme>;
@@ -26,10 +20,10 @@ export interface FileInputProps {
   /**
    * type of file accepted by input by default
    * will be set to undefined
-   * undined reomves limitation on file types
+   * undefined removes limitation on file types
    * string to specify file types e.g. ".pdf" or a combination or file types
    */
-  accept?: 'video/*' | 'image/*' | 'audio/*' | string | undefined;
+  accept?: Accept | string | undefined;
   /**
    * Optional click handler
    */
@@ -43,25 +37,54 @@ export interface FileInputProps {
 /**
  * Primary UI component for user interaction
  */
-const Input = forwardRef(
+const Input = forwardRef<any, any>(
   (
     {
       accept,
       multiple = false,
       hidden = true,
       onChange,
+      sx,
       ...props
     }: FileInputProps,
     ref: any
   ) => {
+    // Convert onChange handler to onFilesUploaded format
+    const handleFilesUploaded = (files: File[]) => {
+      if (onChange && files.length > 0) {
+        // Create a synthetic event that mimics the structure expected by the onChange handler
+        const syntheticEvent = {
+          target: {
+            files
+          }
+        } as unknown as ChangeEvent<HTMLInputElement>;
+
+        onChange(syntheticEvent);
+      }
+    };
+
     return (
-      <StyledInput
+      <SimpleDropzone
         ref={ref}
-        multiple={multiple}
-        hidden={hidden}
-        accept={accept}
-        type="file"
-        onChange={onChange}
+        onFilesUploaded={handleFilesUploaded}
+        disabled={hidden}
+        dropzoneProps={{
+          multiple,
+          accept:
+            typeof accept === 'string'
+              ? { 'application/octet-stream': [accept] }
+              : accept,
+          noClick: hidden,
+          noDrag: hidden
+        }}
+        sx={{
+          position: 'absolute',
+          width: '100%',
+          height: '100%',
+          opacity: 0,
+          cursor: 'pointer',
+          ...sx
+        }}
         {...props}
       />
     );

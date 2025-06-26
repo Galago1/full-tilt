@@ -106,9 +106,10 @@ const DropdownUncontrolled = ({
   ...props
 }: DropdownUncontrolledProps) => {
   const { dropdownAnchorProps } = slots || {};
+  const { title, ...restTooltipProps } = tooltipProps || {};
   return (
     <Box {...boxProps} {...props}>
-      <Tooltip {...tooltipProps!}>
+      <Tooltip {...restTooltipProps} title={open ? '' : title}>
         <Grid>
           <DropdownAnchor
             {...dropdownAnchorProps}

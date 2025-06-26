@@ -14,6 +14,7 @@ export interface KanbanColumnCard {
   assignee?: string;
   priority?: string;
   dueDate?: Date;
+  data?: any; // external data
   actionTimeline?: string;
   updated?: string;
   created?: string;
@@ -60,6 +61,6 @@ export interface IndividualKanbanColumn {
     /** Noun for tooltip */
     noun: string;
     /** Function to calculate the value */
-    calculate?: (cards: KanbanColumnCard[]) => number;
+    calculate?: (cards: KanbanColumnCard[]) => string | number;
   }>;
 }

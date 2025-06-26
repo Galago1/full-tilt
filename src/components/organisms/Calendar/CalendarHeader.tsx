@@ -42,7 +42,8 @@ const CalendarHeader = ({
   goToPreviousMonth,
   goToNextMonth,
   initialView,
-  slots
+  slots,
+  ...props
 }: CalendarHeaderProps) => {
   const { calendarHeaderActionsProps, calendarHeaderPrevNextProps } =
     slots || {};
@@ -51,6 +52,8 @@ const CalendarHeader = ({
       container
       gap={responsiveSpacing}
       flexWrap={{ xs: 'wrap', sm: 'wrap', md: 'nowrap' }}
+      alignItems={'center'}
+      {...props}
     >
       <Grid item flex={1}>
         <CalendarHeaderPrevNext

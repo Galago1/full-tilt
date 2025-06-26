@@ -13,7 +13,7 @@ export function phone(this: StringSchema) {
     // Format number to (XXX) XXX-XXXX if it's just digits
 
     if (/^\d{10}$/.test(value)) {
-      const formatted = value.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3');
+      const formatted = value?.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3');
       return phoneRegExp.test(formatted);
     }
     return phoneRegExp.test(value);

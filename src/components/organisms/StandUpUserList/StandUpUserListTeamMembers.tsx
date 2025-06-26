@@ -7,6 +7,7 @@ import { TeamMember } from './StandUpUserList';
 import StandUpUserListContent from './StandUpUserListContent';
 import StandUpUserListTeamMembersHeader from './StandUpUserListTeamMembersHeader';
 import StandUpUserTeamSelect from './StandUpUserTeamSelect';
+import { StandUpUserListContentProps } from './StandUpUserListContent';
 
 const currentTimestamp = new Date();
 currentTimestamp.setMinutes(currentTimestamp.getMinutes() - 6);
@@ -35,6 +36,8 @@ export interface StandUpUserListTeamMembersProps
   cardSlots?: CardProps['slots'];
   slots?: {
     gridContainerProps?: GridProps;
+    gridUserListContentProps?: GridProps;
+    standUpUserListContentProps?: StandUpUserListContentProps;
   };
 }
 
@@ -58,7 +61,11 @@ const StandUpUserListTeamMembers = ({
   slots,
   ...props
 }: StandUpUserListTeamMembersProps) => {
-  const { gridContainerProps } = slots || {};
+  const {
+    gridContainerProps,
+    gridUserListContentProps,
+    standUpUserListContentProps
+  } = slots || {};
   const theme = useTheme();
 
   const formatSelectedDateMemo = useMemo(
@@ -136,11 +143,12 @@ const StandUpUserListTeamMembers = ({
             />
           </Grid>
         )}
-        <Grid item xs={12}>
+        <Grid item xs={12} {...gridUserListContentProps}>
           <StandUpUserListContent
             selectedIndex={selectedIndex}
             filteredMembers={filteredMembers}
             setSelectedIndex={setSelectedIndex}
+            {...standUpUserListContentProps}
           />
         </Grid>
       </Grid>

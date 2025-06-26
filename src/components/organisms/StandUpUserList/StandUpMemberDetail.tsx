@@ -1,14 +1,16 @@
-import { Card, Theme } from '@mui/material';
+import { Theme } from '@mui/material';
 import { ButtonProps } from 'src/components/atoms/Button/Button';
 import { responsiveSpacing } from 'src/components/particles/theme/spacing';
-import StandUpMemberDetailCardContent from './StandUpMemberDetailCardContent';
+import StandUpMemberDetailCardContent, {
+  StandUpMemberDetailCardContentProps
+} from './StandUpMemberDetailCardContent';
 import { TeamMember } from './StandUpUserList';
-import { CardProps } from '../Card/Card';
+import Card, { CardProps } from '../Card/Card';
 
 const currentTimestamp = new Date();
 currentTimestamp.setMinutes(currentTimestamp.getMinutes() - 6);
 
-export interface StandUpMemberDetailProps extends CardProps {
+export interface StandUpMemberDetailProps extends Omit<CardProps, 'slots'> {
   member: TeamMember;
   onBack: () => void;
   onNext: () => void;
@@ -24,6 +26,10 @@ export interface StandUpMemberDetailProps extends CardProps {
   memberButtonProps: ButtonProps;
   currentPosition: number;
   totalCount: number;
+  slots?: {
+    standUpMemberDetailCardContentProps?: Partial<StandUpMemberDetailCardContentProps>;
+  };
+  cardSlots?: CardProps['slots'];
 }
 
 const StandUpMemberDetail = ({
@@ -42,11 +48,15 @@ const StandUpMemberDetail = ({
   currentMember,
   currentPosition,
   totalCount,
+  slots,
+  cardSlots,
   ...props
 }: StandUpMemberDetailProps) => {
+  const { standUpMemberDetailCardContentProps } = slots || {};
   return (
     <Card
       {...props}
+      slots={cardSlots!}
       sx={{
         display: 'flex',
         flexDirection: 'column',
@@ -73,6 +83,7 @@ const StandUpMemberDetail = ({
         memberButtonProps={memberButtonProps}
         currentPosition={currentPosition}
         totalCount={totalCount}
+        {...standUpMemberDetailCardContentProps}
       >
         {member && member.standUpCompletedAt ? (
           standUpMemberDetailContent

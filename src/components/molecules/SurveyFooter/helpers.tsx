@@ -1,5 +1,4 @@
 import { Grid, styled } from '@mui/material';
-import { shouldForwardProp } from '@mui/system';
 
 // TODO: Add types
 export const FooterContainer: any = styled('footer')({

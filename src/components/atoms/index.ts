@@ -23,6 +23,7 @@ export { default as Slider } from './Slider';
 export { default as Stars } from './Stars';
 export { default as Switch } from './Switch';
 export { default as Tooltip } from './Tooltip';
+export { default as SimpleDropzone } from './SimpleDropzone';
 export { default as WaveSlider } from './WaveSlider';
 
 export { default as DateInputBase } from './InputBase/DateInputBase';

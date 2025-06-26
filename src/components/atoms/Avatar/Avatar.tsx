@@ -1,5 +1,8 @@
-import { Grid, Avatar as MuiAvatar } from '@mui/material';
-import { AvatarProps as MuiAvatarProps } from '@mui/material';
+import {
+  Grid,
+  Avatar as MuiAvatar,
+  AvatarProps as MuiAvatarProps
+} from '@mui/material';
 import { forwardRef } from 'react';
 import Tooltip, { TooltipProps } from '../Tooltip/Tooltip';
 

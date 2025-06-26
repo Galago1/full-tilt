@@ -176,7 +176,7 @@ const WaveSlider = ({
           sx={{
             position: 'relative'
           }}
-          variant="textMdMedium"
+          variant="textSmMedium"
           color={theme.palette.grey[900]}
         >
           {minLabel}
@@ -185,7 +185,7 @@ const WaveSlider = ({
           sx={{
             position: 'relative'
           }}
-          variant="textMdMedium"
+          variant="textSmMedium"
           color={theme.palette.grey[900]}
         >
           {maxLabel}

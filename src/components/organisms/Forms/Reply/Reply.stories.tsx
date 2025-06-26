@@ -1,8 +1,9 @@
 import type { ComponentMeta, Story } from '@storybook/react';
-import Reply, { ReplyProps } from './Reply';
 import { Formik } from 'formik';
-import TextAreaInput from 'src/components/molecules/Inputs/TextAreaInput/TextAreaInput';
+import Button from 'src/components/atoms/Button/Button';
 import SwitchInput from 'src/components/molecules/Inputs/SwitchInput';
+import TextAreaInput from 'src/components/molecules/Inputs/TextAreaInput/TextAreaInput';
+import Reply, { ReplyProps } from './Reply';
 
 export default {
   title: 'Organisms/Forms/Reply',
@@ -49,5 +50,6 @@ Default.args = {
       color: 'primary',
       variant: 'contained'
     }
-  }
+  },
+  middleComponent: <Button variant="outlined" label="Skip" />
 };

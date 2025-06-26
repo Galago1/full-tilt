@@ -1,4 +1,12 @@
-import { Box, SxProps, Theme, Typography, InputLabel } from '@mui/material';
+import {
+  Box,
+  SxProps,
+  Theme,
+  Typography,
+  InputLabel,
+  InputLabelProps,
+  TypographyProps
+} from '@mui/material';
 import { forwardRef } from 'react';
 import LinearProgressBar, {
   LinearProgressProps
@@ -38,6 +46,10 @@ export interface LinearProgressIndicatorProps {
    * The linear progress bar props
    */
   linearProgressBarProps?: LinearProgressProps;
+  slots?: {
+    inputLabelProps?: InputLabelProps;
+    displayValueTypographyProps?: TypographyProps;
+  };
 }
 
 const Content = forwardRef(
@@ -50,10 +62,12 @@ const Content = forwardRef(
       displayBottom = false,
       displayPosition = 'right',
       linearProgressBarProps,
+      slots,
       ...props
     }: LinearProgressIndicatorProps,
     ref
   ) => {
+    const { inputLabelProps, displayValueTypographyProps } = slots || {};
     const theme = useTheme();
     return (
       <Box
@@ -91,6 +105,7 @@ const Content = forwardRef(
                   textAlign: 'left',
                   lineHeight: 1.25
                 }}
+                {...inputLabelProps}
               >
                 {displayLabel}
               </InputLabel>
@@ -101,6 +116,7 @@ const Content = forwardRef(
                   lineHeight: 1.25,
                   fontWeight: theme.typography.fontWeightMedium
                 }}
+                {...displayValueTypographyProps}
               >
                 {displayValue}
               </Typography>
@@ -138,6 +154,7 @@ const Content = forwardRef(
                 lineHeight: 1.5,
                 fontWeight: theme.typography.fontWeightMedium
               }}
+              {...displayValueTypographyProps}
             >
               {displayValue ?? value}
             </Typography>
@@ -159,6 +176,7 @@ const Content = forwardRef(
                 textAlign: 'right',
                 fontWeight: theme.typography.fontWeightMedium
               }}
+              {...displayValueTypographyProps}
             >
               {displayValue ?? value}
             </Typography>

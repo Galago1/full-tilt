@@ -1,5 +1,6 @@
 import type { GridProps, SxProps } from '@mui/material';
 import { Grid } from '@mui/material';
+import { forwardRef } from 'react';
 import type { ButtonProps } from 'src/components/atoms/Button/Button';
 import Button from 'src/components/atoms/Button/Button';
 import Tooltip, { TooltipProps } from 'src/components/atoms/Tooltip/Tooltip';
@@ -49,43 +50,50 @@ export interface ButtonListProps extends GridProps {
 /**
  * Primary UI component for user interaction
  */
-const ButtonList = ({
-  buttons,
-  tooltipProps,
-  sx,
-  buttonSpacing = 1.5,
-  itemSx,
-  ...props
-}: ButtonListProps) => {
-  return (
-    <Grid
-      container
-      sx={sx}
-      {...props}
-      spacing={buttonSpacing}
-      alignItems="center"
-    >
-      {buttons.map((button: ButtonListButton, index: number) => {
-        const {
-          itemprops,
-          tooltipProps: buttonTooltipProps,
-          ...buttonProps
-        } = button;
-        return (
-          <Grid
-            item
-            key={`button-list-index[${index}]`}
-            sx={{ ...itemSx, alignSelf: 'center' }}
-            {...itemprops}
-          >
-            <Content
-              buttonProps={buttonProps}
-              tooltipProps={buttonTooltipProps || tooltipProps}
-            />
-          </Grid>
-        );
-      })}
-    </Grid>
-  );
-};
+const ButtonList = forwardRef<HTMLDivElement, ButtonListProps>(
+  (
+    {
+      buttons,
+      tooltipProps,
+      sx,
+      buttonSpacing = 1.5,
+      itemSx,
+      ...props
+    }: ButtonListProps,
+    ref
+  ) => {
+    return (
+      <Grid
+        container
+        sx={sx}
+        {...props}
+        spacing={buttonSpacing}
+        alignItems="center"
+        ref={ref}
+      >
+        {buttons.map((button: ButtonListButton, index: number) => {
+          const {
+            itemprops,
+            tooltipProps: buttonTooltipProps,
+            ...buttonProps
+          } = button;
+          return (
+            <Grid
+              item
+              key={`button-list-index[${index}]`}
+              sx={{ ...itemSx, alignSelf: 'center' }}
+              {...itemprops}
+            >
+              <Content
+                buttonProps={buttonProps}
+                tooltipProps={buttonTooltipProps || tooltipProps}
+              />
+            </Grid>
+          );
+        })}
+      </Grid>
+    );
+  }
+);
+ButtonList.displayName = 'ButtonList';
 export default ButtonList;
